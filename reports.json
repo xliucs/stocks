@@ -54,5 +54,13 @@
     "rating": "Bearish",
     "thesis": "A trillion-dollar optionality bet on Robotaxi and Optimus while the core auto business silently erodes",
     "url": "reports/TSLA-2026-03-08.html"
+  },
+  {
+    "ticker": "TSM",
+    "company": "Taiwan Semiconductor Manufacturing",
+    "date": "2026-03-08",
+    "rating": "Bullish",
+    "thesis": "TSMC is the irreplaceable backbone of the AI revolution \u2014 pricing power + N2 ramp + hyperscaler demand makes it a multi-year compounder",
+    "url": "reports/TSM-2026-03-08.html"
   }
 ]
