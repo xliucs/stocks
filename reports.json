@@ -32,6 +32,14 @@
     "url": "reports/BABA-2026-03-08.html"
   },
   {
+    "ticker": "GM",
+    "company": "General Motors Company",
+    "date": "2026-03-08",
+    "rating": "BUY",
+    "thesis": "America's truck king trades at 5x forward earnings \u2014 tariff fears already priced in",
+    "url": "reports/GM-2026-03-08.html"
+  },
+  {
     "ticker": "GOOG",
     "company": "Alphabet Inc.",
     "date": "2026-03-08",
