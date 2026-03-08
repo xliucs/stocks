@@ -32,6 +32,14 @@
     "url": "reports/BABA-2026-03-08.html"
   },
   {
+    "ticker": "COST",
+    "company": "Costco Wholesale Corporation",
+    "date": "2026-03-08",
+    "rating": "HOLD",
+    "thesis": "Membership moat is real but 50x P/E prices perfection \u2014 strong business, fair valuation",
+    "url": "reports/COST-2026-03-08.html"
+  },
+  {
     "ticker": "GM",
     "company": "General Motors Company",
     "date": "2026-03-08",
