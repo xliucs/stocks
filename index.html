@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stock Valuations — AI-Powered Analysis</title>
+<style>
+:root {
+  --bg: #ffffff;
+  --bg-secondary: #f8fafc;
+  --text: #0f172a;
+  --text-secondary: #64748b;
+  --border: #e2e8f0;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --card-hover-shadow: 0 10px 25px rgba(0,0,0,0.08), 0 4px 10px rgba(0,0,0,0.04);
+  --accent: #2563eb;
+  --green: #16a34a;
+  --green-bg: #f0fdf4;
+  --amber: #d97706;
+  --amber-bg: #fffbeb;
+  --red: #dc2626;
+  --red-bg: #fef2f2;
+  --header-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+}
+
+[data-theme="dark"] {
+  --bg: #0f172a;
+  --bg-secondary: #1e293b;
+  --text: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --border: #334155;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  --card-hover-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  --green-bg: #052e16;
+  --amber-bg: #451a03;
+  --red-bg: #450a0a;
+  --header-gradient: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e293b 100%);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* Header */
+.header {
+  background: var(--header-gradient);
+  color: #ffffff;
+  padding: 48px 24px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(37,99,235,0.15) 0%, transparent 50%),
+              radial-gradient(circle at 80% 50%, rgba(99,102,241,0.1) 0%, transparent 50%);
+}
+
+.header-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+.header h1 { font-size: 2.4em; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 8px; }
+.header .subtitle { color: #94a3b8; font-size: 1.1em; font-weight: 400; }
+.header .stats { margin-top: 20px; display: flex; justify-content: center; gap: 32px; }
+.header .stat { text-align: center; }
+.header .stat-value { font-size: 1.8em; font-weight: 800; }
+.header .stat-label { font-size: 0.8em; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+
+/* Theme Toggle */
+.theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  z-index: 2;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 1.1em;
+  backdrop-filter: blur(8px);
+  transition: background 0.2s;
+}
+.theme-toggle:hover { background: rgba(255,255,255,0.2); }
+
+/* Controls */
+.controls {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 24px 0;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-box {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px 16px 10px 40px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-size: 0.95em;
+  background: var(--bg-secondary);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.search-box:focus { border-color: var(--accent); }
+.search-wrap { position: relative; flex: 1; min-width: 200px; }
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+  font-size: 0.95em;
+  pointer-events: none;
+}
+
+.filter-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip {
+  padding: 7px 16px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  color: var(--text-secondary);
+  font-size: 0.85em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.chip:hover { border-color: var(--accent); color: var(--accent); }
+.chip.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* Grid */
+.grid {
+  max-width: 1200px;
+  margin: 24px auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 580px) { .grid { grid-template-columns: 1fr; } }
+
+/* Cards */
+.card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: var(--card-shadow);
+  position: relative;
+  overflow: hidden;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--card-hover-shadow);
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.card.Bullish::before { background: var(--green); }
+.card.Neutral::before { background: var(--amber); }
+.card.Bearish::before { background: var(--red); }
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.ticker {
+  font-size: 1.7em;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.rating-badge {
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.75em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.rating-badge.Bullish { background: var(--green-bg); color: var(--green); }
+.rating-badge.Neutral { background: var(--amber-bg); color: var(--amber); }
+.rating-badge.Bearish { background: var(--red-bg); color: var(--red); }
+
+.company { font-size: 0.9em; color: var(--text-secondary); font-weight: 500; }
+.thesis { font-size: 0.88em; color: var(--text-secondary); line-height: 1.5; flex: 1; }
+.card-date { font-size: 0.78em; color: var(--text-secondary); opacity: 0.7; }
+.card-arrow {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 1.2em;
+  color: var(--text-secondary);
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.card:hover .card-arrow { opacity: 1; transform: translateX(3px); }
+
+/* Empty state */
+.empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-secondary);
+}
+.empty-icon { font-size: 3em; margin-bottom: 12px; }
+.empty-text { font-size: 1.1em; }
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 40px 24px;
+  color: var(--text-secondary);
+  font-size: 0.85em;
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+}
+.footer a { color: var(--accent); text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+  <header class="header">
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+    <div class="header-content">
+      <h1>📊 Stock Valuations</h1>
+      <p class="subtitle">AI-powered company analysis reports</p>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-value" id="total-count">—</div>
+          <div class="stat-label">Reports</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="bullish-count">—</div>
+          <div class="stat-label">Bullish</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="latest-date">—</div>
+          <div class="stat-label">Latest</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="controls">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" class="search-box" placeholder="Search ticker or company..." id="search" autocomplete="off">
+    </div>
+    <div class="filter-chips">
+      <button class="chip active" data-filter="all">All</button>
+      <button class="chip" data-filter="Bullish">🟢 Bullish</button>
+      <button class="chip" data-filter="Neutral">🟡 Neutral</button>
+      <button class="chip" data-filter="Bearish">🔴 Bearish</button>
+    </div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <footer class="footer">
+    Powered by <a href="https://github.com/xliucs">Jarvis AI</a> · Reports generated using Claude<br>
+    <span style="opacity:0.6">© 2026 Xin Liu</span>
+  </footer>
+
+<script>
+let reports = [];
+let activeFilter = 'all';
+
+async function init() {
+  try {
+    const res = await fetch('reports.json');
+    reports = await res.json();
+    reports.sort((a, b) => b.date.localeCompare(a.date));
+    updateStats();
+    render();
+  } catch (e) {
+    document.getElementById('grid').innerHTML = '<div class="empty"><div class="empty-icon">⚠️</div><div class="empty-text">Failed to load reports</div></div>';
+  }
+}
+
+function updateStats() {
+  document.getElementById('total-count').textContent = reports.length;
+  document.getElementById('bullish-count').textContent = reports.filter(r => r.rating === 'Bullish').length;
+  if (reports.length > 0) {
+    const d = new Date(reports[0].date + 'T00:00:00');
+    document.getElementById('latest-date').textContent = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+}
+
+function render() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const filtered = reports.filter(r => {
+    const matchFilter = activeFilter === 'all' || r.rating === activeFilter;
+    const matchSearch = !q || r.ticker.toLowerCase().includes(q) || r.company.toLowerCase().includes(q);
+    return matchFilter && matchSearch;
+  });
+
+  const grid = document.getElementById('grid');
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="empty"><div class="empty-icon">📭</div><div class="empty-text">No reports match your filters</div></div>';
+    return;
+  }
+
+  grid.innerHTML = filtered.map(r => `
+    <a class="card ${r.rating}" href="${r.url}">
+      <div class="card-top">
+        <span class="ticker">${r.ticker}</span>
+        <span class="rating-badge ${r.rating}">${r.rating}</span>
+      </div>
+      <div class="company">${r.company}</div>
+      <div class="thesis">${r.thesis}</div>
+      <div class="card-date">${formatDate(r.date)}</div>
+      <span class="card-arrow">→</span>
+    </a>
+  `).join('');
+}
+
+function formatDate(dateStr) {
+  const d = new Date(dateStr + 'T00:00:00');
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+// Filters
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    activeFilter = chip.dataset.filter;
+    render();
+  });
+});
+
+// Search
+document.getElementById('search').addEventListener('input', render);
+
+// Theme
+function toggleTheme() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  document.documentElement.setAttribute('data-theme', isDark ? '' : 'dark');
+  document.querySelector('.theme-toggle').textContent = isDark ? '🌙' : '☀️';
+  localStorage.setItem('theme', isDark ? 'light' : 'dark');
+}
+
+// Load saved theme
+if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+  document.documentElement.setAttribute('data-theme', 'dark');
+  document.querySelector('.theme-toggle').textContent = '☀️';
+}
+
+init();
+</script>
+</body>
+</html>
