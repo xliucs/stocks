@@ -1,18 +1,26 @@
 [
   {
-    "ticker": "TIGR",
-    "company": "UP Fintech Holding Limited",
-    "date": "2026-03-08",
-    "rating": "Bullish",
-    "thesis": "Premium fintech platform with 80% YoY revenue growth, 41.6% operating margins, and expanding global footprint.",
-    "url": "reports/TIGR-2026-03-08.html"
-  },
-  {
     "ticker": "AAPL",
     "company": "Apple Inc.",
     "date": "2026-03-08",
     "rating": "Neutral",
     "thesis": "Quality compounder at fair value with AI optionality and strong capital return program.",
     "url": "reports/AAPL-2026-03-08.html"
+  },
+  {
+    "ticker": "META",
+    "company": "Meta Platforms Inc.",
+    "date": "2026-03-08",
+    "rating": "Bullish",
+    "thesis": "The world's most powerful ad machine at 18x forward earnings \u2014 AI-driven ad ROI expansion and Llama monetization make this a compelling buy",
+    "url": "reports/META-2026-03-08.html"
+  },
+  {
+    "ticker": "TIGR",
+    "company": "UP Fintech Holding Limited",
+    "date": "2026-03-08",
+    "rating": "Bullish",
+    "thesis": "Premium fintech platform with 80% YoY revenue growth, 41.6% operating margins, and expanding global footprint.",
+    "url": "reports/TIGR-2026-03-08.html"
   }
 ]
