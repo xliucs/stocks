@@ -8,6 +8,14 @@
     "url": "reports/AAPL-2026-03-08.html"
   },
   {
+    "ticker": "AMD",
+    "company": "Advanced Micro Devices Inc.",
+    "date": "2026-03-08",
+    "rating": "Bullish",
+    "thesis": "AI GPU underdog with a loaded roadmap \u2014 MI400 and Venice EPYC set to close the gap on NVIDIA while trading at a 35% discount to analyst consensus",
+    "url": "reports/AMD-2026-03-08.html"
+  },
+  {
     "ticker": "META",
     "company": "Meta Platforms Inc.",
     "date": "2026-03-08",
