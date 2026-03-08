@@ -220,6 +220,23 @@
     "url": "reports/QUBT-2026-03-08.html"
   },
   {
+    "ticker": "BILI",
+    "company": "Bilibili Inc.",
+    "date": "2026-03-08",
+    "rating": "Bullish",
+    "score": 71,
+    "category": [
+      "Emerging",
+      "AI"
+    ],
+    "nextEarnings": null,
+    "price": 24.67,
+    "analystPT": 30.9,
+    "forwardPE": 17.8,
+    "thesis": "China's Gen-Z YouTube turns GAAP profitable \u2014 trading below net cash with AI-fueled ad growth and massive margin expansion ahead",
+    "url": "reports/BILI-2026-03-08.html"
+  },
+  {
     "ticker": "GOOG",
     "company": "Alphabet Inc.",
     "date": "2026-03-08",
