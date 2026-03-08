@@ -16,6 +16,14 @@
     "url": "reports/AMD-2026-03-08.html"
   },
   {
+    "ticker": "GOOG",
+    "company": "Alphabet Inc.",
+    "date": "2026-03-08",
+    "rating": "Bullish",
+    "thesis": "AI flywheel accelerating \u2014 Cloud at B run rate, Gemini 3 dominance, and Search resilience make GOOG the most undervalued mega-cap in tech",
+    "url": "reports/GOOG-2026-03-08.html"
+  },
+  {
     "ticker": "META",
     "company": "Meta Platforms Inc.",
     "date": "2026-03-08",
