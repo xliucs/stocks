@@ -94,5 +94,13 @@
     "rating": "Bullish",
     "thesis": "TSMC is the irreplaceable backbone of the AI revolution \u2014 pricing power + N2 ramp + hyperscaler demand makes it a multi-year compounder",
     "url": "reports/TSM-2026-03-08.html"
+  },
+  {
+    "ticker": "XPEV",
+    "company": "XPeng Inc.",
+    "date": "2026-03-08",
+    "rating": "BUY",
+    "thesis": "China's Physical AI EV leader targeting breakeven in 2026 with 60% revenue growth and Robotaxi upside",
+    "url": "reports/XPEV-2026-03-08.html"
   }
 ]
