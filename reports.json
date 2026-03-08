@@ -38,5 +38,13 @@
     "rating": "Bullish",
     "thesis": "Premium fintech platform with 80% YoY revenue growth, 41.6% operating margins, and expanding global footprint.",
     "url": "reports/TIGR-2026-03-08.html"
+  },
+  {
+    "ticker": "TSLA",
+    "company": "Tesla Inc.",
+    "date": "2026-03-08",
+    "rating": "Bearish",
+    "thesis": "A trillion-dollar optionality bet on Robotaxi and Optimus while the core auto business silently erodes",
+    "url": "reports/TSLA-2026-03-08.html"
   }
 ]
