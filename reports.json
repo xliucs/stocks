@@ -5,12 +5,15 @@
     "date": "2026-03-08",
     "rating": "Bullish",
     "score": 82,
-    "category": ["Mag7", "AI"],
+    "category": [
+      "Mag7",
+      "AI"
+    ],
     "nextEarnings": "2026-04-29",
-    "price": 298.30,
-    "analystPT": 351.82,
+    "price": 298.3,
+    "analystPT": 359.53,
     "forwardPE": 22.2,
-    "thesis": "AI flywheel accelerating — Cloud at $70B run rate, Gemini 3 dominance, and Search resilience make GOOG the most undervalued mega-cap in tech",
+    "thesis": "AI flywheel accelerating \u2014 Cloud at $70B run rate, Gemini 3 dominance, and Search resilience make GOOG the most undervalued mega-cap in tech",
     "url": "reports/GOOG-2026-03-08.html"
   },
   {
@@ -19,12 +22,15 @@
     "date": "2026-03-08",
     "rating": "Bullish",
     "score": 85,
-    "category": ["Mag7", "AI"],
+    "category": [
+      "Mag7",
+      "AI"
+    ],
     "nextEarnings": "2026-04-30",
     "price": 644.86,
-    "analystPT": 835.77,
+    "analystPT": 862.25,
     "forwardPE": 18.0,
-    "thesis": "The world's most powerful ad machine at 18x forward earnings — AI-driven ad ROI expansion and Llama monetization make this a compelling buy",
+    "thesis": "The world's most powerful ad machine at 18x forward earnings \u2014 AI-driven ad ROI expansion and Llama monetization make this a compelling buy",
     "url": "reports/META-2026-03-08.html"
   },
   {
@@ -33,10 +39,13 @@
     "date": "2026-03-08",
     "rating": "Bullish",
     "score": 80,
-    "category": ["Mag7", "AI"],
+    "category": [
+      "Mag7",
+      "AI"
+    ],
     "nextEarnings": "2026-04-29",
-    "price": 409.0,
-    "analystPT": 603.27,
+    "price": 408.96,
+    "analystPT": 596.0,
     "forwardPE": 21.7,
     "thesis": "Azure at 39% growth + AI Copilot monetization make this rare 30x forward P/E entry a generational buying opportunity",
     "url": "reports/MSFT-2026-03-08.html"
@@ -47,11 +56,13 @@
     "date": "2026-03-08",
     "rating": "Neutral",
     "score": 52,
-    "category": ["Mag7"],
+    "category": [
+      "Mag7"
+    ],
     "nextEarnings": "2026-04-30",
     "price": 257.46,
-    "analystPT": 297.10,
-    "forwardPE": 32.6,
+    "analystPT": 292.15,
+    "forwardPE": 27.7,
     "thesis": "AI supercycle potential is real, but stretched 32x valuation and regulatory headwinds demand patience before loading up",
     "url": "reports/AAPL-2026-03-08.html"
   },
@@ -61,11 +72,14 @@
     "date": "2026-03-08",
     "rating": "Bearish",
     "score": 28,
-    "category": ["Mag7", "EV"],
+    "category": [
+      "Mag7",
+      "EV"
+    ],
     "nextEarnings": "2026-04-22",
-    "price": 397.0,
-    "analystPT": 396.0,
-    "forwardPE": 141.0,
+    "price": 396.73,
+    "analystPT": 421.61,
+    "forwardPE": 141.2,
     "thesis": "A trillion-dollar optionality bet on Robotaxi and Optimus while the core auto business silently erodes",
     "url": "reports/TSLA-2026-03-08.html"
   },
@@ -75,12 +89,15 @@
     "date": "2026-03-08",
     "rating": "Bullish",
     "score": 78,
-    "category": ["Semis", "AI"],
+    "category": [
+      "Semis",
+      "AI"
+    ],
     "nextEarnings": "2026-04-29",
     "price": 192.44,
-    "analystPT": 261.0,
+    "analystPT": 289.72,
     "forwardPE": 17.7,
-    "thesis": "AI GPU underdog with a loaded roadmap — MI400 and Venice EPYC set to close the gap on NVIDIA while trading at a 35% discount to analyst consensus",
+    "thesis": "AI GPU underdog with a loaded roadmap \u2014 MI400 and Venice EPYC set to close the gap on NVIDIA while trading at a 35% discount to analyst consensus",
     "url": "reports/AMD-2026-03-08.html"
   },
   {
@@ -89,12 +106,15 @@
     "date": "2026-03-08",
     "rating": "Bullish",
     "score": 77,
-    "category": ["Semis", "AI"],
+    "category": [
+      "Semis",
+      "AI"
+    ],
     "nextEarnings": "2026-06-12",
     "price": 330.45,
-    "analystPT": 431.0,
+    "analystPT": 467.62,
     "forwardPE": 19.1,
-    "thesis": "AI silicon supercycle + VMware FCF machine — 30%+ upside as custom XPU backlog exceeds $73B",
+    "thesis": "AI silicon supercycle + VMware FCF machine \u2014 30%+ upside as custom XPU backlog exceeds $73B",
     "url": "reports/AVGO-2026-03-08.html"
   },
   {
@@ -103,12 +123,16 @@
     "date": "2026-03-08",
     "rating": "Bullish",
     "score": 79,
-    "category": ["Semis", "AI", "Emerging"],
+    "category": [
+      "Semis",
+      "AI",
+      "Emerging"
+    ],
     "nextEarnings": "2026-04-17",
     "price": 338.89,
-    "analystPT": 410.0,
+    "analystPT": 421.49,
     "forwardPE": 18.9,
-    "thesis": "TSMC is the irreplaceable backbone of the AI revolution — pricing power + N2 ramp + hyperscaler demand makes it a multi-year compounder",
+    "thesis": "TSMC is the irreplaceable backbone of the AI revolution \u2014 pricing power + N2 ramp + hyperscaler demand makes it a multi-year compounder",
     "url": "reports/TSM-2026-03-08.html"
   },
   {
@@ -117,11 +141,14 @@
     "date": "2026-03-08",
     "rating": "Bullish",
     "score": 72,
-    "category": ["Semis", "AI"],
+    "category": [
+      "Semis",
+      "AI"
+    ],
     "nextEarnings": "2026-03-18",
-    "price": 370.30,
-    "analystPT": 413.0,
-    "forwardPE": 20.0,
+    "price": 370.3,
+    "analystPT": 409.45,
+    "forwardPE": 8.0,
     "thesis": "HBM supercycle + AI demand to drive record Q2 earnings; MU at reasonable ~20x P/E with 132% revenue growth ahead",
     "url": "reports/MU-2026-03-08.html"
   },
@@ -131,11 +158,14 @@
     "date": "2026-03-08",
     "rating": "Bullish",
     "score": 76,
-    "category": ["Fintech", "Emerging"],
+    "category": [
+      "Fintech",
+      "Emerging"
+    ],
     "nextEarnings": "2026-03-19",
-    "price": 8.50,
-    "analystPT": 13.0,
-    "forwardPE": 15.0,
+    "price": 7.2,
+    "analystPT": 14.57,
+    "forwardPE": 7.2,
     "thesis": "Premium fintech platform with 80% YoY revenue growth, 41.6% operating margins, and expanding global footprint",
     "url": "reports/TIGR-2026-03-08.html"
   },
@@ -145,10 +175,13 @@
     "date": "2026-03-08",
     "rating": "Bullish",
     "score": 74,
-    "category": ["Emerging", "AI"],
+    "category": [
+      "Emerging",
+      "AI"
+    ],
     "nextEarnings": "2026-05-15",
     "price": 130.79,
-    "analystPT": 195.17,
+    "analystPT": 199.04,
     "forwardPE": 14.9,
     "thesis": "Cloud AI at 34% growth + extreme oversold at 15x forward P/E offers compelling risk/reward",
     "url": "reports/BABA-2026-03-08.html"
@@ -159,10 +192,13 @@
     "date": "2026-03-08",
     "rating": "Neutral",
     "score": 45,
-    "category": ["EV", "Emerging"],
+    "category": [
+      "EV",
+      "Emerging"
+    ],
     "nextEarnings": "2026-03-24",
     "price": 4.78,
-    "analystPT": 6.73,
+    "analystPT": 6.49,
     "forwardPE": null,
     "thesis": "Deep-discount EV play with breakeven on horizon but significant execution and geopolitical risks",
     "url": "reports/NIO-2026-03-08.html"
@@ -173,10 +209,14 @@
     "date": "2026-03-08",
     "rating": "Bullish",
     "score": 65,
-    "category": ["EV", "Emerging", "AI"],
+    "category": [
+      "EV",
+      "Emerging",
+      "AI"
+    ],
     "nextEarnings": "2026-03-18",
     "price": 17.32,
-    "analystPT": 25.37,
+    "analystPT": 26.76,
     "forwardPE": 87.0,
     "thesis": "China's Physical AI EV leader targeting breakeven in 2026 with 60% revenue growth and Robotaxi upside",
     "url": "reports/XPEV-2026-03-08.html"
@@ -187,10 +227,13 @@
     "date": "2026-03-08",
     "rating": "Neutral",
     "score": 48,
-    "category": ["EV", "Emerging"],
+    "category": [
+      "EV",
+      "Emerging"
+    ],
     "nextEarnings": "2026-03-12",
     "price": 17.16,
-    "analystPT": 20.46,
+    "analystPT": 23.51,
     "forwardPE": 22.7,
     "thesis": "EREV leader navigating a painful transition; recovery hinges on i6 ramp and new L9 launch in Q2 2026",
     "url": "reports/LI-2026-03-08.html"
@@ -201,10 +244,13 @@
     "date": "2026-03-08",
     "rating": "Bullish",
     "score": 70,
-    "category": ["Autonomous", "Emerging"],
+    "category": [
+      "Autonomous",
+      "Emerging"
+    ],
     "nextEarnings": "2026-03-27",
     "price": 6.37,
-    "analystPT": 13.17,
+    "analystPT": 15.76,
     "forwardPE": null,
     "thesis": "Global robotaxi leader trading at deep discount as unit economics improve and 8-country regulatory moat expands",
     "url": "reports/WRD-2026-03-08.html"
@@ -215,10 +261,13 @@
     "date": "2026-03-08",
     "rating": "Bullish",
     "score": 68,
-    "category": ["Autonomous", "Emerging"],
+    "category": [
+      "Autonomous",
+      "Emerging"
+    ],
     "nextEarnings": "2026-03-20",
     "price": 12.48,
-    "analystPT": 22.0,
+    "analystPT": 23.31,
     "forwardPE": null,
     "thesis": "Leading Chinese robotaxi operator hitting unit-economics breakeven across cities while tripling its fleet to 3,000+ vehicles in 2026",
     "url": "reports/PONY-2026-03-08.html"
@@ -229,12 +278,15 @@
     "date": "2026-03-08",
     "rating": "Bullish",
     "score": 75,
-    "category": ["Auto", "Value"],
+    "category": [
+      "Auto",
+      "Value"
+    ],
     "nextEarnings": "2026-04-28",
     "price": 75.21,
-    "analystPT": 91.74,
+    "analystPT": 95.04,
     "forwardPE": 5.4,
-    "thesis": "America's truck king trades at 5x forward earnings — tariff fears already priced in",
+    "thesis": "America's truck king trades at 5x forward earnings \u2014 tariff fears already priced in",
     "url": "reports/GM-2026-03-08.html"
   },
   {
@@ -243,10 +295,13 @@
     "date": "2026-03-08",
     "rating": "Bullish",
     "score": 73,
-    "category": ["Healthcare", "AI"],
+    "category": [
+      "Healthcare",
+      "AI"
+    ],
     "nextEarnings": "2026-05-08",
     "price": 52.26,
-    "analystPT": 78.91,
+    "analystPT": 77.5,
     "forwardPE": null,
     "thesis": "Irreplaceable genomic data moat + accelerating pharma data licensing = undervalued healthcare AI infrastructure play",
     "url": "reports/TEM-2026-03-08.html"
@@ -257,11 +312,14 @@
     "date": "2026-03-08",
     "rating": "Bullish",
     "score": 71,
-    "category": ["Healthcare", "Value"],
+    "category": [
+      "Healthcare",
+      "Value"
+    ],
     "nextEarnings": "2026-04-15",
-    "price": 301.0,
-    "analystPT": 400.0,
-    "forwardPE": 14.0,
+    "price": 286.48,
+    "analystPT": 364.62,
+    "forwardPE": 14.3,
     "thesis": "2026 transition year with DOJ overhang; repricing cycle and Optum recovery make this a compelling asymmetric opportunity",
     "url": "reports/UNH-2026-03-08.html"
   },
@@ -271,9 +329,11 @@
     "date": "2026-03-08",
     "rating": "Neutral",
     "score": 40,
-    "category": ["Speculative"],
+    "category": [
+      "Speculative"
+    ],
     "nextEarnings": "2026-05-12",
-    "price": 7.60,
+    "price": 7.6,
     "analystPT": 17.0,
     "forwardPE": null,
     "thesis": "Cash-rich TFLN photonics integrator with $1.52B war chest; Lumina acquisition is transformative but revenue at $682K vs $1.7B mkt cap demands flawless execution",
@@ -285,12 +345,15 @@
     "date": "2026-03-08",
     "rating": "Neutral",
     "score": 50,
-    "category": ["Fintech", "AI"],
+    "category": [
+      "Fintech",
+      "AI"
+    ],
     "nextEarnings": "2026-05-05",
     "price": 55.13,
-    "analystPT": 77.40,
+    "analystPT": 65.22,
     "forwardPE": null,
-    "thesis": "AI-native insurtech with explosive growth but profitability still 2 years out — buy the dip at $55 with eyes open",
+    "thesis": "AI-native insurtech with explosive growth but profitability still 2 years out \u2014 buy the dip at $55 with eyes open",
     "url": "reports/LMND-2026-03-08.html"
   },
   {
@@ -299,10 +362,12 @@
     "date": "2026-03-08",
     "rating": "Neutral",
     "score": 46,
-    "category": ["Consumer"],
+    "category": [
+      "Consumer"
+    ],
     "nextEarnings": "2026-06-05",
     "price": 170.13,
-    "analystPT": 212.97,
+    "analystPT": 208.35,
     "forwardPE": 13.5,
     "thesis": "China +46% growth and Elliott activism create long-term upside, but CEO vacuum, US contraction, and tariff headwind keep near-term risk/reward balanced",
     "url": "reports/LULU-2026-03-08.html"
@@ -313,12 +378,15 @@
     "date": "2026-03-08",
     "rating": "Neutral",
     "score": 55,
-    "category": ["Consumer", "Value"],
+    "category": [
+      "Consumer",
+      "Value"
+    ],
     "nextEarnings": "2026-05-29",
-    "price": 998.0,
-    "analystPT": 1069.0,
-    "forwardPE": 50.0,
-    "thesis": "Membership moat is real but 50x P/E prices perfection — strong business, fair valuation",
+    "price": 998.1,
+    "analystPT": 1065.28,
+    "forwardPE": 44.6,
+    "thesis": "Membership moat is real but 50x P/E prices perfection \u2014 strong business, fair valuation",
     "url": "reports/COST-2026-03-08.html"
   }
 ]
