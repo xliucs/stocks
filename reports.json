@@ -24,6 +24,14 @@
     "url": "reports/AVGO-2026-03-08.html"
   },
   {
+    "ticker": "BABA",
+    "company": "Alibaba Group Holding",
+    "date": "2026-03-08",
+    "rating": "Bullish",
+    "thesis": "Cloud AI at 34% growth + extreme oversold at 15x forward P/E offers compelling risk/reward",
+    "url": "reports/BABA-2026-03-08.html"
+  },
+  {
     "ticker": "GOOG",
     "company": "Alphabet Inc.",
     "date": "2026-03-08",
