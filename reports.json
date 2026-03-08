@@ -40,6 +40,14 @@
     "url": "reports/GOOG-2026-03-08.html"
   },
   {
+    "ticker": "LI",
+    "company": "Li Auto Inc.",
+    "date": "2026-03-08",
+    "rating": "HOLD",
+    "thesis": "EREV leader navigating a painful transition; recovery hinges on i6 ramp and new L9 launch in Q2 2026",
+    "url": "reports/LI-2026-03-08.html"
+  },
+  {
     "ticker": "META",
     "company": "Meta Platforms Inc.",
     "date": "2026-03-08",
