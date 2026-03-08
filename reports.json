@@ -289,6 +289,24 @@
     "url": "reports/XPEV-2026-03-08.html"
   },
   {
+    "ticker": "STX",
+    "company": "Seagate Technology Holdings",
+    "date": "2026-03-08",
+    "rating": "Bullish",
+    "score": 69,
+    "category": [
+      "Value",
+      "AI",
+      "Storage"
+    ],
+    "nextEarnings": null,
+    "price": 352.8,
+    "analystPT": 475.35,
+    "forwardPE": 17.8,
+    "thesis": "HAMR-powered AI storage demand with fully booked capacity through 2026 makes Seagate a rare hardware compounder trading at 18x forward earnings",
+    "url": "reports/STX-2026-03-08.html"
+  },
+  {
     "ticker": "AAPL",
     "company": "Apple Inc.",
     "date": "2026-03-08",
