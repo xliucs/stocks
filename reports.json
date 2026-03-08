@@ -16,6 +16,14 @@
     "url": "reports/AMD-2026-03-08.html"
   },
   {
+    "ticker": "AVGO",
+    "company": "Broadcom Inc.",
+    "date": "2026-03-08",
+    "rating": "Bullish",
+    "thesis": "AI silicon supercycle + VMware FCF machine \u2014 30%+ upside as custom XPU backlog exceeds $73B",
+    "url": "reports/AVGO-2026-03-08.html"
+  },
+  {
     "ticker": "GOOG",
     "company": "Alphabet Inc.",
     "date": "2026-03-08",
