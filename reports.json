@@ -56,6 +56,14 @@
     "url": "reports/MSFT-2026-03-08.html"
   },
   {
+    "ticker": "MU",
+    "company": "Micron Technology Inc.",
+    "date": "2026-03-08",
+    "rating": "Bullish",
+    "thesis": "HBM supercycle + AI demand to drive record Q2 earnings; MU at reasonable ~20x P/E with 132% revenue growth ahead",
+    "url": "reports/MU-2026-03-08.html"
+  },
+  {
     "ticker": "NIO",
     "company": "NIO Inc.",
     "date": "2026-03-08",
