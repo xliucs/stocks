@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semiconductor Industry Analysis | Xin's Portfolio</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root {
+  --bg: #f5f6fa; --surface: rgba(0,0,0,0.03); --surface2: rgba(0,0,0,0.06);
+  --text: #2d3436; --text2: #636e72; --accent: #6c5ce7; --green: #00b894; --red: #e17055;
+  --blue: #0984e3; --orange: #f39c12; --border: rgba(0,0,0,0.1);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height:1.6; }
+.nav { position:sticky; top:0; z-index:100; backdrop-filter:blur(20px); background:rgba(245,246,250,0.9); border-bottom:1px solid var(--border); padding:1rem 2rem; display:flex; align-items:center; gap:2rem; }
+.nav-brand { font-size:1.2rem; font-weight:700; color:var(--accent); text-decoration:none; }
+.nav a { color:var(--text2); text-decoration:none; font-size:0.9rem; } .nav a:hover,.nav a.active { color:var(--text); }
+.container { max-width:1400px; margin:0 auto; padding:2rem; }
+h1 { font-size:2.2rem; margin-bottom:0.5rem; background:linear-gradient(135deg,var(--accent),var(--blue)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+h2 { font-size:1.5rem; margin:2.5rem 0 1rem; color:var(--accent); border-bottom:1px solid var(--border); padding-bottom:0.5rem; }
+h3 { font-size:1.1rem; margin:1.5rem 0 0.8rem; color:var(--blue); }
+.subtitle { color:var(--text2); margin-bottom:2rem; }
+.card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:1.5rem; margin-bottom:1.5rem; backdrop-filter:blur(10px); }
+table { width:100%; border-collapse:collapse; font-size:0.85rem; margin:1rem 0; }
+th { background:var(--surface2); color:var(--accent); padding:0.7rem 0.5rem; text-align:left; font-weight:600; }
+td { padding:0.6rem 0.5rem; border-bottom:1px solid var(--border); }
+tr:hover { background:var(--surface2); }
+.green { color:var(--green); } .red { color:var(--red); } .blue { color:var(--blue); } .orange { color:var(--orange); }
+.badge { display:inline-block; padding:2px 8px; border-radius:12px; font-size:0.75rem; font-weight:600; }
+.badge-green { background:rgba(0,184,148,0.15); color:var(--green); }
+.badge-red { background:rgba(225,112,85,0.15); color:var(--red); }
+.badge-blue { background:rgba(9,132,227,0.15); color:var(--blue); }
+.badge-orange { background:rgba(243,156,18,0.15); color:var(--orange); }
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+.grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.5rem; }
+.chart-container { position:relative; height:350px; margin:1rem 0; }
+.source { font-size:0.75rem; color:var(--text2); margin-top:0.5rem; font-style:italic; }
+.thesis-card { border-left:3px solid var(--accent); padding-left:1rem; margin:1rem 0; }
+.bull { border-left-color:var(--green); } .bear { border-left-color:var(--red); }
+.moat { display:inline-block; width:100%; height:6px; border-radius:3px; background:var(--surface2); margin-top:4px; }
+.moat-fill { height:100%; border-radius:3px; }
+@media(max-width:768px) { .grid2,.grid3 { grid-template-columns:1fr; } .container { padding:1rem; } }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="/stocks/" class="nav-brand">📊 Xin's Portfolio</a>
+  <a href="/stocks/">Dashboard</a>
+  <a href="/stocks/analysis/" class="active">Analysis</a>
+  <a href="#">Daily Digest</a>
+</nav>
+<div class="container">
+<h1>🔬 Semiconductor Industry Competitive Analysis</h1>
+<p class="subtitle">AI Accelerators, Process Nodes, Memory, and Investment Framework | Updated March 2026</p>
+
+<!-- Section 1: AI Accelerators -->
+<h2>1. AI Accelerator Performance Showdown</h2>
+<div class="card" style="overflow-x:auto;">
+<table>
+<thead>
+<tr><th>Chip</th><th>Company</th><th>FP16 TFLOPS</th><th>FP8 TFLOPS</th><th>HBM (GB)</th><th>Mem BW (TB/s)</th><th>TDP (W)</th><th>Perf/Watt</th><th>Interconnect</th><th>Process</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>H100 SXM</strong></td><td>NVIDIA</td><td>990</td><td>1,979</td><td>80 (HBM3)</td><td>3.35</td><td>700</td><td>1.41</td><td>NVLink 4 (900 GB/s)</td><td>TSMC 4N</td></tr>
+<tr><td><strong>H200 SXM</strong></td><td>NVIDIA</td><td>990</td><td>1,979</td><td>141 (HBM3e)</td><td>4.80</td><td>700</td><td>1.41</td><td>NVLink 4 (900 GB/s)</td><td>TSMC 4N</td></tr>
+<tr><td><strong>B200</strong></td><td>NVIDIA</td><td>2,250</td><td>4,500</td><td>192 (HBM3e)</td><td>8.0</td><td>1,000</td><td class="green">2.25</td><td>NVLink 5 (1.8 TB/s)</td><td>TSMC 4NP</td></tr>
+<tr><td><strong>GB200 (Grace+2xB200)</strong></td><td>NVIDIA</td><td>4,500</td><td>9,000</td><td>384</td><td>16.0</td><td>2,700</td><td>1.67</td><td>NVSwitch + NVLink 5</td><td>TSMC 4NP</td></tr>
+<tr><td><strong>MI300X</strong></td><td>AMD</td><td>1,308</td><td>2,615</td><td>192 (HBM3)</td><td>5.30</td><td>750</td><td>1.74</td><td>Infinity Fabric (896 GB/s)</td><td>TSMC 5/6nm</td></tr>
+<tr><td><strong>MI325X</strong></td><td>AMD</td><td>1,308</td><td>2,615</td><td>256 (HBM3e)</td><td>6.0</td><td>750</td><td>1.74</td><td>Infinity Fabric (896 GB/s)</td><td>TSMC 5/6nm</td></tr>
+<tr><td><strong>MI400 (est.)</strong></td><td>AMD</td><td>~3,000+</td><td>~6,000+</td><td>288+ (HBM3e)</td><td>~8.0</td><td>~750</td><td class="green">~4.0</td><td>Infinity Fabric 4</td><td>TSMC 3nm</td></tr>
+<tr><td><strong>TPU v5p</strong></td><td>Google</td><td>~459</td><td>~918</td><td>95 (HBM2e)</td><td>2.76</td><td>~400</td><td>1.15</td><td>ICI (4.8 Tb/s pod)</td><td>—</td></tr>
+<tr><td><strong>TPU v6 (Trillium)</strong></td><td>Google</td><td>~918</td><td>~1,836</td><td>128 (HBM3)</td><td>~4.6</td><td>~450</td><td class="green">2.04</td><td>ICI (next gen)</td><td>—</td></tr>
+<tr><td><strong>Gaudi 3</strong></td><td>Intel</td><td>~1,835</td><td>~3,670</td><td>128 (HBM2e)</td><td>3.7</td><td>900</td><td>2.04</td><td>Ethernet-based (RoCE)</td><td>TSMC 5nm</td></tr>
+<tr><td><strong>Trainium2</strong></td><td>AWS</td><td>~756</td><td>~1,512</td><td>96 (HBM3)</td><td>~3.0</td><td>~500</td><td>1.51</td><td>NeuronLink (custom)</td><td>—</td></tr>
+</tbody>
+</table>
+<p class="source">Sources: NVIDIA/AMD product specs, Google Cloud blog, Intel ARK, AWS re:Invent presentations. Some TPU/Trainium specs estimated from published benchmarks.</p>
+</div>
+
+<div class="grid2">
+<div class="card">
+<h3>Peak FP8 Performance Comparison</h3>
+<div class="chart-container"><canvas id="perfChart"></canvas></div>
+</div>
+<div class="card">
+<h3>Software Ecosystem Maturity</h3>
+<div class="chart-container"><canvas id="swChart"></canvas></div>
+<p style="font-size:0.8rem; color:var(--text2); margin-top:0.5rem;">
+<strong>CUDA</strong>: 20+ year ecosystem, 4M+ developers, dominant in research & enterprise. The moat.<br>
+<strong>ROCm</strong>: Rapidly improving (6.0+), PyTorch parity ~90%, but still gaps in profiling tools & libraries.<br>
+<strong>JAX/XLA</strong>: Native for TPUs. Google-internal dominance. Limited outside Google/DeepMind.<br>
+<strong>oneAPI</strong>: Intel's cross-architecture play. Gaudi adoption minimal outside select cloud partners.
+</p>
+</div>
+</div>
+
+<!-- Section 2: Process Nodes -->
+<h2>2. Process Node Technology</h2>
+<div class="card" style="overflow-x:auto;">
+<table>
+<thead>
+<tr><th>Foundry</th><th>Current Node</th><th>Transistor Type</th><th>Density (MTr/mm²)</th><th>Est. Yield</th><th>Wafer Cost</th><th>Key Customers</th><th>Next Node</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>TSMC</strong></td><td>N3E / N3P</td><td>FinFET</td><td class="green">~292</td><td class="green">>80%</td><td>~$20,000</td><td>Apple, NVIDIA, AMD, Qualcomm, MediaTek, Broadcom</td><td>N2 (GAA, 2H 2025), A14 (2027)</td></tr>
+<tr><td><strong>Samsung</strong></td><td>3GAE</td><td class="blue">GAA (first!)</td><td>~230</td><td class="red">~60%</td><td>~$18,000</td><td>Qualcomm (partial), Samsung LSI</td><td>2GAP (2026), SF1.4 (2027)</td></tr>
+<tr><td><strong>Intel Foundry</strong></td><td>Intel 18A</td><td class="blue">GAA (RibbonFET) + PowerVia</td><td>~250</td><td class="orange">~50-60% (ramping)</td><td>~$18,000+</td><td>Microsoft, internal (Panther Lake)</td><td>Intel 14A (2028)</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="card">
+<h3>Process Roadmap Comparison</h3>
+<div class="chart-container"><canvas id="nodeChart"></canvas></div>
+<p class="source">TSMC leads in yield and customer diversity. Samsung first to GAA but yield issues. Intel's 18A is make-or-break for foundry ambitions — PowerVia (backside power) is genuinely innovative but unproven at volume.</p>
+</div>
+
+<!-- Section 3: Memory -->
+<h2>3. Memory & HBM Deep Dive</h2>
+<div class="card" style="overflow-x:auto;">
+<table>
+<thead>
+<tr><th>Metric</th><th>SK Hynix</th><th>Samsung</th><th>Micron (MU)</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>HBM Market Share (2025)</strong></td><td class="green">~53%</td><td>~38%</td><td>~9% (growing fast)</td></tr>
+<tr><td><strong>HBM3e Status</strong></td><td>Volume shipping (H200/B200)</td><td>Volume shipping</td><td>Volume shipping (qualified for B200)</td></tr>
+<tr><td><strong>HBM4 Timeline</strong></td><td>2H 2025 samples</td><td>2H 2025 samples</td><td>2026</td></tr>
+<tr><td><strong>HBM Revenue %</strong></td><td>~30%+ of DRAM rev</td><td>~20% of DRAM rev</td><td class="green">~25% of total rev (fastest growth)</td></tr>
+<tr><td><strong>HBM3e Bandwidth</strong></td><td>1.18 GB/s/pin</td><td>1.18 GB/s/pin</td><td>1.18 GB/s/pin</td></tr>
+<tr><td><strong>DRAM Market Share</strong></td><td>~28%</td><td class="green">~40%</td><td>~25%</td></tr>
+<tr><td><strong>NAND Market Share</strong></td><td>~20%</td><td class="green">~32%</td><td>~12%</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="card">
+<h3>Micron (MU) Deep Dive — The HBM Underdog</h3>
+<div class="grid2">
+<div>
+<ul style="font-size:0.85rem; padding-left:1.2rem;">
+<li><strong>Revenue (FY2025 est):</strong> ~$29B (+50% YoY)</li>
+<li><strong>Gross Margin:</strong> ~37% (up from 22% in FY2024)</li>
+<li><strong>HBM Revenue:</strong> ~$7B+ (from near zero in FY2023)</li>
+<li><strong>HBM3e 12-hi:</strong> Industry-leading power efficiency; qualified for NVIDIA B200</li>
+<li><strong>DRAM pricing:</strong> Favorable — AI demand absorbing supply; ASP up 15%+ QoQ</li>
+<li><strong>Boise fab:</strong> CHIPS Act grant $6.1B (largest single award)</li>
+</ul>
+</div>
+<div>
+<div class="chart-container" style="height:250px;"><canvas id="muRevChart"></canvas></div>
+</div>
+</div>
+</div>
+
+<!-- Section 4: Market Share by Segment -->
+<h2>4. Market Share by Segment</h2>
+<div class="grid2">
+<div class="card">
+<h3>Data Center GPU/Accelerator (2025)</h3>
+<div class="chart-container"><canvas id="dcGpuChart"></canvas></div>
+</div>
+<div class="card">
+<h3>Mobile SoC (2025)</h3>
+<div class="chart-container"><canvas id="mobileSocChart"></canvas></div>
+</div>
+</div>
+
+<div class="card" style="overflow-x:auto;">
+<h3>Market Share Summary by Segment</h3>
+<table>
+<thead>
+<tr><th>Segment</th><th>#1</th><th>#2</th><th>#3</th><th>TAM (2025)</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Data Center AI Accelerator</strong></td><td class="green">NVIDIA ~80%</td><td>AMD ~10%</td><td>Google/Custom ~5%</td><td>~$150B</td></tr>
+<tr><td><strong>Networking (DC switches)</strong></td><td class="green">Broadcom ~65%</td><td>Marvell ~15%</td><td>Intel ~5%</td><td>~$35B</td></tr>
+<tr><td><strong>Mobile SoC</strong></td><td class="green">Qualcomm ~30%</td><td>MediaTek ~35%</td><td>Apple ~18%</td><td>~$45B</td></tr>
+<tr><td><strong>Automotive</strong></td><td class="green">NXP ~15%</td><td>Infineon ~14%</td><td>TI ~12%</td><td>~$65B</td></tr>
+<tr><td><strong>FPGA</strong></td><td class="green">AMD (Xilinx) ~52%</td><td>Intel (Altera) ~32%</td><td>Lattice ~8%</td><td>~$8B</td></tr>
+<tr><td><strong>Foundry</strong></td><td class="green">TSMC ~62%</td><td>Samsung ~12%</td><td>GlobalFoundries ~6%</td><td>~$130B</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Section 5: Company Deep Dives -->
+<h2>5. Company Deep Dives</h2>
+
+<div class="card">
+<h3>Broadcom (AVGO) — The AI Networking King</h3>
+<div class="grid2">
+<div>
+<table style="font-size:0.8rem;">
+<tr><td>Revenue (FY2025 est)</td><td class="green">$58B</td></tr>
+<tr><td>AI Revenue</td><td class="green">$15B+ (custom XPUs + networking)</td></tr>
+<tr><td>Gross Margin</td><td class="green">76%</td></tr>
+<tr><td>Operating Margin</td><td class="green">45%</td></tr>
+<tr><td>R&D % Revenue</td><td>~22%</td></tr>
+<tr><td>Key Products</td><td>Tomahawk switches, Jericho routers, custom Google/Meta TPU/MTIA</td></tr>
+<tr><td>Moat</td><td><span class="badge badge-green">Very Wide</span> — dominant in Ethernet switching for AI clusters + custom ASIC design for hyperscalers</td></tr>
+</table>
+</div>
+<div>
+<div class="thesis-card bull">
+<strong class="green">Bull:</strong> Every AI cluster needs networking. Custom ASIC deals with Google/Meta/ByteDance = sticky, high-margin. VMware acquisition adds software recurring revenue.
+</div>
+<div class="thesis-card bear">
+<strong class="red">Bear:</strong> Custom ASIC = customer concentration risk (top 3 = 35%+ of AI rev). NVLink/InfiniBand could eat Ethernet share in ultra-large clusters.
+</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h3>AMD — The Challenger</h3>
+<div class="grid2">
+<div>
+<table style="font-size:0.8rem;">
+<tr><td>Revenue (2025 est)</td><td class="green">$30B</td></tr>
+<tr><td>Data Center Revenue</td><td class="green">$14B+ (MI300X ramp)</td></tr>
+<tr><td>Gross Margin</td><td class="green">53%</td></tr>
+<tr><td>Operating Margin</td><td>25%</td></tr>
+<tr><td>R&D % Revenue</td><td>~27%</td></tr>
+<tr><td>Key Products</td><td>MI300X/MI325X GPUs, EPYC CPUs (Turin), Ryzen, Xilinx FPGAs</td></tr>
+<tr><td>Moat</td><td><span class="badge badge-orange">Moderate</span> — strong CPU; GPU growing but CUDA gap is real</td></tr>
+</table>
+</div>
+<div>
+<div class="thesis-card bull">
+<strong class="green">Bull:</strong> EPYC server CPU share 25%→35%+. MI300X winning at Microsoft/Meta/Oracle. ROCm 6.0 closing CUDA gap. MI400 on 3nm could be competitive with B200.
+</div>
+<div class="thesis-card bear">
+<strong class="red">Bear:</strong> GPU still <10% share vs NVIDIA. CUDA ecosystem moat is deep. Xilinx synergies slower than expected. Client PC is mature/cyclical.
+</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h3>TSMC (TSM) — The Foundry Monopoly</h3>
+<div class="grid2">
+<div>
+<table style="font-size:0.8rem;">
+<tr><td>Revenue (2025 est)</td><td class="green">$100B+</td></tr>
+<tr><td>AI/HPC Revenue %</td><td class="green">~50%+ of revenue</td></tr>
+<tr><td>Gross Margin</td><td class="green">57%</td></tr>
+<tr><td>Operating Margin</td><td class="green">47%</td></tr>
+<tr><td>R&D % Revenue</td><td>~8%</td></tr>
+<tr><td>Key Nodes</td><td>N3E (Apple/NVIDIA), N5 (volume), N2 (2025 sampling)</td></tr>
+<tr><td>Moat</td><td><span class="badge badge-green">Widest in Semis</span> — only foundry with leading-edge yield at scale</td></tr>
+</table>
+</div>
+<div>
+<div class="thesis-card bull">
+<strong class="green">Bull:</strong> AI capex supercycle = every chip maker needs TSMC. N2 GAA transition widens Samsung gap. Arizona fab reduces geopolitical discount. Pricing power (15-20% ASP increases).
+</div>
+<div class="thesis-card bear">
+<strong class="red">Bear:</strong> Taiwan geopolitical risk is real (China). Capex intensity increasing ($30B+ annual). Customer concentration (Apple ~25%, NVIDIA ~15%). US fab cost 2-3x Taiwan.
+</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h3>Micron (MU) — The HBM Story</h3>
+<div class="grid2">
+<div>
+<table style="font-size:0.8rem;">
+<tr><td>Revenue (FY2025 est)</td><td class="green">$29B</td></tr>
+<tr><td>HBM Revenue</td><td class="green">$7B+ (from ~$1B in FY2024)</td></tr>
+<tr><td>Gross Margin</td><td>37% (improving rapidly)</td></tr>
+<tr><td>Operating Margin</td><td>22%</td></tr>
+<tr><td>R&D % Revenue</td><td>~12%</td></tr>
+<tr><td>Key Products</td><td>HBM3e 12-hi, DDR5, NAND (232-layer)</td></tr>
+<tr><td>Moat</td><td><span class="badge badge-orange">Moderate</span> — HBM tech leadership but commodity DRAM/NAND cyclical</td></tr>
+</table>
+</div>
+<div>
+<div class="thesis-card bull">
+<strong class="green">Bull:</strong> HBM is structural (not cyclical) — every AI GPU needs 6-8 stacks. MU's HBM3e power efficiency is best-in-class. CHIPS Act $6.1B for Boise+NY. DRAM pricing upturn.
+</div>
+<div class="thesis-card bear">
+<strong class="red">Bear:</strong> Memory is notoriously cyclical — one downturn away from margin collapse. SK Hynix dominates HBM share. Samsung catching up. NAND still oversupplied.
+</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h3>Intel (INTC) — The Turnaround Bet</h3>
+<div class="grid2">
+<div>
+<table style="font-size:0.8rem;">
+<tr><td>Revenue (2025 est)</td><td class="red">$52B (declining)</td></tr>
+<tr><td>Data Center Revenue</td><td class="red">~$12B (-15% YoY)</td></tr>
+<tr><td>Gross Margin</td><td class="red">40% (compressed)</td></tr>
+<tr><td>Operating Margin</td><td class="red">~2%</td></tr>
+<tr><td>R&D % Revenue</td><td>~30%</td></tr>
+<tr><td>Key Products</td><td>Xeon (Granite Rapids), Gaudi 3, Panther Lake, Intel 18A foundry</td></tr>
+<tr><td>Moat</td><td><span class="badge badge-red">Narrowing</span> — x86 legacy eroding to ARM + AMD</td></tr>
+</table>
+</div>
+<div>
+<div class="thesis-card bull">
+<strong class="green">Bull:</strong> 18A process could be competitive with TSMC N2. CHIPS Act $8.5B. Foundry wins (Microsoft). If turnaround works, 10x upside from $20.
+</div>
+<div class="thesis-card bear">
+<strong class="red">Bear:</strong> Execution risk enormous — 4 process nodes in 5 years plan unprecedented. Losing data center share to AMD EPYC. Gaudi 3 late, uncompetitive vs B200. Cash burn scary. CEO change.
+</div>
+</div>
+</div>
+</div>
+
+<!-- Section 6: Geopolitical Risk -->
+<h2>6. Supply Chain & Geopolitical Risk</h2>
+<div class="card">
+<div class="grid2">
+<div>
+<h3>🇹🇼 TSMC Taiwan Concentration</h3>
+<ul style="font-size:0.85rem; padding-left:1.2rem;">
+<li>~90% of advanced chips (<7nm) made in Taiwan</li>
+<li>Arizona Fab 1: 4nm production started (2025), yields improving</li>
+<li>Arizona Fab 2: 3nm/2nm, operational ~2028</li>
+<li>Japan Kumamoto: 12/16nm + 6nm (JASM JV with Sony/Denso)</li>
+<li>Germany Dresden: 28nm (European Chips Act)</li>
+<li>Cost premium: US fabs cost 2-3x more than Taiwan equivalent</li>
+</ul>
+</div>
+<div>
+<h3>🇺🇸 US-China Tech War</h3>
+<ul style="font-size:0.85rem; padding-left:1.2rem;">
+<li><strong>AI chip export ban:</strong> H100/H200/B200 blocked to China. NVIDIA ships cut-down H20</li>
+<li><strong>NVIDIA China revenue:</strong> Dropped from ~25% to ~12% of total</li>
+<li><strong>ASML restrictions:</strong> No EUV to China (since 2019). DUV now restricted too (2024+)</li>
+<li><strong>China response:</strong> Huawei Ascend 910B (7nm via SMIC), CXMT DRAM, domestic EDA push</li>
+<li><strong>CHIPS Act:</strong> $52.7B total. TSMC $6.6B, Intel $8.5B, Samsung $6.4B, Micron $6.1B</li>
+</ul>
+</div>
+</div>
+</div>
+
+<!-- Section 7: Investment Framework -->
+<h2>7. Investment Framework</h2>
+<div class="card" style="overflow-x:auto;">
+<table>
+<thead>
+<tr><th>Ticker</th><th>Market Cap</th><th>P/E (FWD)</th><th>P/S</th><th>EV/EBITDA</th><th>Rev Growth</th><th>Gross Margin</th><th>Rating</th><th>Analyst PT (avg)</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>AVGO</strong></td><td>$850B</td><td>28x</td><td>15x</td><td>24x</td><td class="green">+25%</td><td class="green">76%</td><td><span class="badge badge-green">Bullish</span></td><td>$240</td></tr>
+<tr><td><strong>AMD</strong></td><td>$170B</td><td>24x</td><td>5.5x</td><td>22x</td><td class="green">+18%</td><td>53%</td><td><span class="badge badge-green">Bullish</span></td><td>$175</td></tr>
+<tr><td><strong>TSM</strong></td><td>$750B</td><td>20x</td><td>7.5x</td><td>14x</td><td class="green">+30%</td><td class="green">57%</td><td><span class="badge badge-green">Bullish</span></td><td>$220</td></tr>
+<tr><td><strong>MU</strong></td><td>$95B</td><td>12x</td><td>3.3x</td><td>8x</td><td class="green">+50%</td><td>37%</td><td><span class="badge badge-green">Bullish</span></td><td>$130</td></tr>
+<tr><td><strong>INTC</strong></td><td>$90B</td><td>—</td><td>1.7x</td><td>15x</td><td class="red">-5%</td><td class="red">40%</td><td><span class="badge badge-red">Bearish</span></td><td>$24</td></tr>
+<tr><td><strong>STX</strong></td><td>$18B</td><td>10x</td><td>2.3x</td><td>8x</td><td class="green">+15%</td><td>32%</td><td><span class="badge badge-orange">Neutral</span></td><td>$105</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="card">
+<h3>Key Catalysts (Next 12 Months)</h3>
+<div class="grid3">
+<div>
+<strong class="green">AVGO</strong>
+<ul style="font-size:0.8rem; padding-left:1rem;">
+<li>Custom ASIC wins expanding (Apple?)</li>
+<li>VMware recurring revenue ramp</li>
+<li>AI networking TAM growing 40%+ YoY</li>
+</ul>
+</div>
+<div>
+<strong class="green">AMD</strong>
+<ul style="font-size:0.8rem; padding-left:1rem;">
+<li>MI400 launch (3nm, competitive with B200)</li>
+<li>EPYC Turin gaining cloud wins</li>
+<li>ROCm 7.0 closing CUDA gap further</li>
+</ul>
+</div>
+<div>
+<strong class="green">TSM</strong>
+<ul style="font-size:0.8rem; padding-left:1rem;">
+<li>N2 GAA production ramp (2H 2025)</li>
+<li>Arizona yield improvement</li>
+<li>CoWoS capacity doubling for AI chips</li>
+</ul>
+</div>
+<div>
+<strong class="green">MU</strong>
+<ul style="font-size:0.8rem; padding-left:1rem;">
+<li>HBM4 samples + NVIDIA B300 qualification</li>
+<li>DRAM pricing cycle upturn</li>
+<li>Boise fab expansion (CHIPS Act funded)</li>
+</ul>
+</div>
+<div>
+<strong class="orange">STX</strong>
+<ul style="font-size:0.8rem; padding-left:1rem;">
+<li>Nearline HDD demand from cloud AI storage</li>
+<li>HAMR technology ramp (30TB+)</li>
+<li>Margin expansion from mix shift</li>
+</ul>
+</div>
+<div>
+<strong class="red">INTC</strong>
+<ul style="font-size:0.8rem; padding-left:1rem;">
+<li>18A volume production (prove or die)</li>
+<li>Panther Lake client launch</li>
+<li>Foundry external customer wins</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="card" style="text-align:center; padding:2rem; margin-top:2rem;">
+<p style="color:var(--text2);">Analysis by Jarvis AI • Updated March 2026 • Data from company filings, TechInsights, TrendForce</p>
+<p style="color:var(--text2); font-size:0.8rem; margin-top:0.5rem;">⚠️ AI-generated research for informational purposes only. Not financial advice.</p>
+</div>
+</div>
+
+<script>
+// Perf Chart
+new Chart(document.getElementById('perfChart'), {
+  type: 'bar',
+  data: {
+    labels: ['GB200\n(2xB200)','B200','MI325X','MI300X','Gaudi 3','H200','Trillium\n(TPU v6)','H100','Trainium2','TPU v5p'],
+    datasets: [{
+      label: 'FP8 TFLOPS',
+      data: [9000,4500,2615,2615,3670,1979,1836,1979,1512,918],
+      backgroundColor: ['#00b894','#00b894','#e17055','#e17055','#0984e3','#00b894','#f39c12','#00b894','#6c5ce7','#f39c12'],
+      borderRadius: 6,
+    }]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false, indexAxis:'y',
+    plugins:{ legend:{display:false} },
+    scales:{ x:{grid:{color:'rgba(0,0,0,0.06)'},ticks:{color:'#636e72'}}, y:{grid:{display:false},ticks:{color:'#2d3436',font:{size:10}}} }
+  }
+});
+
+// Software Ecosystem (Radar)
+new Chart(document.getElementById('swChart'), {
+  type: 'radar',
+  data: {
+    labels: ['Library Support','Dev Community','Profiling Tools','Framework Compat','Documentation','Enterprise Support'],
+    datasets: [
+      {label:'CUDA (NVIDIA)',data:[10,10,10,10,9,10],borderColor:'#00b894',backgroundColor:'rgba(0,184,148,0.1)',pointRadius:3},
+      {label:'ROCm (AMD)',data:[7,5,5,8,6,6],borderColor:'#e17055',backgroundColor:'rgba(225,112,85,0.1)',pointRadius:3},
+      {label:'JAX/XLA (Google)',data:[7,4,6,6,7,8],borderColor:'#f39c12',backgroundColor:'rgba(243,156,18,0.1)',pointRadius:3},
+      {label:'oneAPI (Intel)',data:[4,3,4,5,5,5],borderColor:'#0984e3',backgroundColor:'rgba(9,132,227,0.1)',pointRadius:3},
+    ]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{labels:{color:'#636e72',font:{size:10}}} },
+    scales:{ r:{grid:{color:'rgba(255,255,255,0.1)'},pointLabels:{color:'#636e72',font:{size:10}},ticks:{display:false},suggestedMin:0,suggestedMax:10} }
+  }
+});
+
+// Node Roadmap
+new Chart(document.getElementById('nodeChart'), {
+  type: 'bar',
+  data: {
+    labels: ['TSMC','Samsung','Intel'],
+    datasets: [
+      {label:'Current (2025)',data:[292,230,250],backgroundColor:'#6c5ce7'},
+      {label:'Next Gen (2026-27)',data:[350,300,300],backgroundColor:'#0984e3'},
+    ]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{labels:{color:'#636e72'}}, title:{display:true,text:'Transistor Density (MTr/mm²)',color:'#636e72'} },
+    scales:{ x:{grid:{display:false},ticks:{color:'#636e72'}}, y:{grid:{color:'rgba(0,0,0,0.06)'},ticks:{color:'#636e72'}} }
+  }
+});
+
+// MU Revenue
+new Chart(document.getElementById('muRevChart'), {
+  type: 'bar',
+  data: {
+    labels: ['FY23','FY24','FY25E','FY26E'],
+    datasets: [
+      {label:'HBM',data:[0.2,1.0,7.0,12.0],backgroundColor:'#00b894'},
+      {label:'Other DRAM',data:[10,13,15,16],backgroundColor:'#0984e3'},
+      {label:'NAND',data:[5,6,7,7.5],backgroundColor:'#f39c12'},
+    ]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false, scales: { x:{stacked:true,grid:{display:false},ticks:{color:'#636e72'}}, y:{stacked:true,grid:{color:'rgba(0,0,0,0.06)'},ticks:{color:'#636e72',callback:v=>'$'+v+'B'}} },
+    plugins:{ legend:{labels:{color:'#636e72'}}, title:{display:true,text:'Micron Revenue Breakdown',color:'#636e72'} }
+  }
+});
+
+// DC GPU Share
+new Chart(document.getElementById('dcGpuChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['NVIDIA','AMD','Intel/Gaudi','Google TPU','AWS Trainium','Others'],
+    datasets: [{ data:[80,10,2,4,2,2], backgroundColor:['#00b894','#e17055','#0984e3','#f39c12','#6c5ce7','#636e72'] }]
+  },
+  options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{labels:{color:'#636e72',font:{size:11}}} } }
+});
+
+// Mobile SoC
+new Chart(document.getElementById('mobileSocChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['MediaTek','Qualcomm','Apple','Samsung LSI','Unisoc','Others'],
+    datasets: [{ data:[35,30,18,7,5,5], backgroundColor:['#f39c12','#0984e3','#636e72','#6c5ce7','#00b894','#e17055'] }]
+  },
+  options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{labels:{color:'#636e72',font:{size:11}}} } }
+});
+</script>
+</body>
+</html>

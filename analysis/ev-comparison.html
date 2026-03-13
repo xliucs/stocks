@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EV Industry Deep Analysis | Xin's Portfolio</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root {
+  --bg: #f5f6fa; --surface: rgba(0,0,0,0.03); --surface2: rgba(0,0,0,0.06);
+  --text: #2d3436; --text2: #636e72; --accent: #6c5ce7; --green: #00b894; --red: #e17055;
+  --blue: #0984e3; --orange: #f39c12; --border: rgba(0,0,0,0.1);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height:1.6; }
+.nav { position:sticky; top:0; z-index:100; backdrop-filter:blur(20px); background:rgba(245,246,250,0.9); border-bottom:1px solid var(--border); padding:1rem 2rem; display:flex; align-items:center; gap:2rem; }
+.nav-brand { font-size:1.2rem; font-weight:700; color:var(--accent); text-decoration:none; }
+.nav a { color:var(--text2); text-decoration:none; font-size:0.9rem; } .nav a:hover,.nav a.active { color:var(--text); }
+.container { max-width:1400px; margin:0 auto; padding:2rem; }
+h1 { font-size:2.2rem; margin-bottom:0.5rem; background:linear-gradient(135deg,var(--accent),var(--blue)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+h2 { font-size:1.5rem; margin:2.5rem 0 1rem; color:var(--accent); border-bottom:1px solid var(--border); padding-bottom:0.5rem; }
+h3 { font-size:1.1rem; margin:1.5rem 0 0.8rem; color:var(--blue); }
+.subtitle { color:var(--text2); margin-bottom:2rem; }
+.card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:1.5rem; margin-bottom:1.5rem; backdrop-filter:blur(10px); }
+table { width:100%; border-collapse:collapse; font-size:0.85rem; margin:1rem 0; }
+th { background:var(--surface2); color:var(--accent); padding:0.7rem 0.5rem; text-align:left; font-weight:600; position:sticky; top:0; }
+td { padding:0.6rem 0.5rem; border-bottom:1px solid var(--border); }
+tr:hover { background:var(--surface2); }
+.green { color:var(--green); } .red { color:var(--red); } .blue { color:var(--blue); } .orange { color:var(--orange); }
+.badge { display:inline-block; padding:2px 8px; border-radius:12px; font-size:0.75rem; font-weight:600; }
+.badge-green { background:rgba(0,184,148,0.15); color:var(--green); }
+.badge-red { background:rgba(225,112,85,0.15); color:var(--red); }
+.badge-blue { background:rgba(9,132,227,0.15); color:var(--blue); }
+.badge-orange { background:rgba(243,156,18,0.15); color:var(--orange); }
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+.grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.5rem; }
+.chart-container { position:relative; height:350px; margin:1rem 0; }
+.source { font-size:0.75rem; color:var(--text2); margin-top:0.5rem; font-style:italic; }
+.thesis-card { border-left:3px solid var(--accent); padding-left:1rem; margin:1rem 0; }
+.bull { border-left-color:var(--green); } .bear { border-left-color:var(--red); }
+@media(max-width:768px) { .grid2,.grid3 { grid-template-columns:1fr; } .container { padding:1rem; } }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="/stocks/" class="nav-brand">📊 Xin's Portfolio</a>
+  <a href="/stocks/">Dashboard</a>
+  <a href="/stocks/analysis/" class="active">Analysis</a>
+  <a href="#">Daily Digest</a>
+</nav>
+<div class="container">
+<h1>🚗 EV Industry Competitive Analysis</h1>
+<p class="subtitle">Deep product-level comparison across Tesla, Rivian, Lucid, BYD, NIO, XPeng, Li Auto | Updated March 2026</p>
+
+<!-- Section 1: Vehicle Performance -->
+<h2>1. Vehicle Performance Head-to-Head</h2>
+<div class="card" style="overflow-x:auto;">
+<table>
+<thead>
+<tr><th>Vehicle</th><th>Range (EPA mi)</th><th>0-60 mph</th><th>MSRP (from)</th><th>Battery kWh</th><th>Peak Charge kW</th><th>Cargo cu ft</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Tesla Model 3 LR</strong></td><td class="green">341</td><td>4.8s</td><td>$42,490</td><td>75</td><td>250</td><td>23</td></tr>
+<tr><td><strong>Tesla Model Y LR</strong></td><td class="green">337</td><td>4.8s</td><td>$44,990</td><td>75</td><td>250</td><td>68</td></tr>
+<tr><td><strong>Tesla Model S Plaid</strong></td><td>359</td><td class="green">1.99s</td><td>$89,990</td><td>100</td><td>250</td><td>28</td></tr>
+<tr><td><strong>Tesla Cybertruck AWD</strong></td><td>318</td><td>4.1s</td><td>$79,990</td><td>123</td><td>250</td><td>68 (bed)</td></tr>
+<tr><td><strong>Rivian R1T Dual</strong></td><td>270</td><td>3.5s</td><td>$69,900</td><td>105</td><td>220</td><td>62 (bed+gear)</td></tr>
+<tr><td><strong>Rivian R1S Dual</strong></td><td>260</td><td>3.5s</td><td>$75,900</td><td>105</td><td>220</td><td>104</td></tr>
+<tr><td><strong>Rivian R2</strong></td><td>~300 (est)</td><td>~5s (est)</td><td>$45,000</td><td>~75 (est)</td><td>200+</td><td>TBD</td></tr>
+<tr><td><strong>Lucid Air Grand Touring</strong></td><td class="green">516</td><td>3.0s</td><td>$109,900</td><td>112</td><td>300</td><td>32</td></tr>
+<tr><td><strong>BYD Seal</strong></td><td>390 (CLTC)</td><td>3.8s</td><td>¥189,800 (~$26k)</td><td>82.5</td><td>150</td><td>14</td></tr>
+<tr><td><strong>BYD Han EV</strong></td><td>376 (CLTC)</td><td>3.9s</td><td>¥219,800 (~$30k)</td><td>85.4</td><td>120</td><td>14</td></tr>
+<tr><td><strong>NIO ET7</strong></td><td>360 (CLTC)</td><td>3.8s</td><td>¥378,000 (~$52k)</td><td>100</td><td>180 / Swap</td><td>14</td></tr>
+<tr><td><strong>NIO ET5</strong></td><td>340 (CLTC)</td><td>4.3s</td><td>¥298,000 (~$41k)</td><td>75</td><td>180 / Swap</td><td>12</td></tr>
+<tr><td><strong>XPeng G6</strong></td><td>360 (CLTC)</td><td>3.9s</td><td>¥209,900 (~$29k)</td><td>87.5</td><td>215 (800V)</td><td>18</td></tr>
+<tr><td><strong>XPeng P7+</strong></td><td>385 (CLTC)</td><td>6.4s</td><td>¥189,800 (~$26k)</td><td>76.3</td><td>215 (800V)</td><td>19</td></tr>
+<tr><td><strong>Li Auto L7</strong></td><td>~125 EV + EREV</td><td>5.3s</td><td>¥319,800 (~$44k)</td><td>42.8</td><td>~150</td><td>32</td></tr>
+<tr><td><strong>Li Auto L9</strong></td><td>~125 EV + EREV</td><td>5.3s</td><td>¥429,800 (~$59k)</td><td>44.5</td><td>~150</td><td>44</td></tr>
+</tbody>
+</table>
+<p class="source">Sources: EPA fueleconomy.gov, manufacturer specs, CLTC ratings for China-market vehicles. Li Auto L7/L9 are EREV (extended range).</p>
+</div>
+
+<div class="grid2">
+<div class="card">
+<h3>Range Leaders (EPA / CLTC equiv.)</h3>
+<div class="chart-container"><canvas id="rangeChart"></canvas></div>
+</div>
+<div class="card">
+<h3>Price vs Performance</h3>
+<div class="chart-container"><canvas id="priceChart"></canvas></div>
+</div>
+</div>
+
+<!-- Section 2: Autonomous Driving -->
+<h2>2. Autonomous Driving Technology Comparison</h2>
+<div class="card" style="overflow-x:auto;">
+<table>
+<thead>
+<tr><th>System</th><th>Level</th><th>Sensor Suite</th><th>Compute</th><th>Geofence</th><th>Miles Driven</th><th>Key Capability</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Tesla FSD v13</strong></td><td><span class="badge badge-orange">L2+</span></td><td>Vision-only (8 cameras)</td><td>HW4 (AI5 coming)</td><td>All US roads</td><td>3B+ miles</td><td>End-to-end neural net; highway+city; unsupervised coming 2026</td></tr>
+<tr><td><strong>Waymo Driver</strong></td><td><span class="badge badge-green">L4</span></td><td>LiDAR + cameras + radar</td><td>Custom (5th gen)</td><td>SF, LA, Phoenix, Austin</td><td>40M+ rider miles</td><td>Fully driverless robotaxi; 100k+ weekly paid rides</td></tr>
+<tr><td><strong>Pony.ai</strong></td><td><span class="badge badge-green">L4</span></td><td>LiDAR + cameras + radar</td><td>Custom</td><td>Beijing, Guangzhou, Shenzhen</td><td>35M+ km</td><td>Robotaxi + robotruck; first L4 IPO on NASDAQ</td></tr>
+<tr><td><strong>XPeng XNGP</strong></td><td><span class="badge badge-orange">L2+</span></td><td>Vision + LiDAR (dual Orin-X)</td><td>2x NVIDIA Orin-X (508 TOPS)</td><td>All China cities (243+)</td><td>—</td><td>City + highway ADAS; no HD map needed since v4.5</td></tr>
+<tr><td><strong>NIO NOP+</strong></td><td><span class="badge badge-orange">L2+</span></td><td>LiDAR + cameras (4x Orin-X)</td><td>4x NVIDIA Orin-X (1016 TOPS)</td><td>~300 China cities</td><td>—</td><td>Highway+city; swap-station-aware routing</td></tr>
+<tr><td><strong>Huawei ADS 3.0</strong></td><td><span class="badge badge-orange">L2+</span></td><td>LiDAR + cameras + radar</td><td>Ascend 910B (custom)</td><td>All China roads</td><td>—</td><td>Powers Aito/Changan/Chery; GOD network (general obstacle detection)</td></tr>
+</tbody>
+</table>
+<p class="source">Sources: Company filings, NHTSA, MIIT China, press releases as of Q1 2026.</p>
+</div>
+
+<div class="card">
+<h3>Key Differentiators</h3>
+<div class="grid3">
+<div>
+<h3>🔴 Tesla FSD</h3>
+<ul style="font-size:0.85rem; padding-left:1.2rem;">
+<li>Only vision-only at scale (removed radar/ultrasonics)</li>
+<li>End-to-end neural net replaces modular pipeline</li>
+<li>3B+ miles of real-world data moat</li>
+<li>Revenue: $2B+ deferred FSD revenue recognized</li>
+<li>Risk: Regulatory approval for unsupervised; liability model unclear</li>
+</ul>
+</div>
+<div>
+<h3>🟢 Waymo</h3>
+<ul style="font-size:0.85rem; padding-left:1.2rem;">
+<li>Only scaled L4 commercial service in US</li>
+<li>100k+ paid weekly rides (2x YoY growth)</li>
+<li>Hardware cost declining (6th gen sensor suite cheaper)</li>
+<li>Alphabet backing ($5.6B 2024 round)</li>
+<li>Risk: Geofence expansion pace; unit economics at scale</li>
+</ul>
+</div>
+<div>
+<h3>🔵 China Players</h3>
+<ul style="font-size:0.85rem; padding-left:1.2rem;">
+<li>XPeng: Most aggressive city ADAS rollout (243 cities)</li>
+<li>Huawei ADS: Platform play (supplies multiple OEMs)</li>
+<li>NIO: Most compute (1016 TOPS) but highest cost</li>
+<li>Pony.ai: L4 robotaxi + truck; revenue generating</li>
+<li>Advantage: China regulatory environment more permissive</li>
+</ul>
+</div>
+</div>
+</div>
+
+<!-- Section 3: Manufacturing -->
+<h2>3. Manufacturing & Cost Structure</h2>
+<div class="card" style="overflow-x:auto;">
+<table>
+<thead>
+<tr><th>Company</th><th>Factories</th><th>Annual Capacity</th><th>2025 Deliveries</th><th>Gross Margin</th><th>COGS/Vehicle (est)</th><th>Vertical Integration</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Tesla</strong></td><td>Fremont, Shanghai, Austin, Berlin, (Mexico TBD)</td><td>~2.5M</td><td>1.79M</td><td class="green">17.9%</td><td>~$33,000</td><td><span class="badge badge-green">Very High</span> — cells, packs, motors, SW</td></tr>
+<tr><td><strong>BYD</strong></td><td>10+ China, Thailand, Brazil, Hungary (building)</td><td>~4M+</td><td>4.25M (incl PHEV)</td><td class="green">21.9%</td><td>~$14,000</td><td><span class="badge badge-green">Very High</span> — Blade battery, chips, IGBT</td></tr>
+<tr><td><strong>Rivian</strong></td><td>Normal, IL; Georgia (building)</td><td>~215k</td><td>~50k</td><td class="red">-44%</td><td>~$95,000</td><td><span class="badge badge-red">Low</span> — most outsourced</td></tr>
+<tr><td><strong>Lucid</strong></td><td>Casa Grande, AZ; Saudi (building)</td><td>~90k</td><td>~10k</td><td class="red">-125%</td><td>~$170,000</td><td><span class="badge badge-orange">Medium</span> — in-house drivetrain</td></tr>
+<tr><td><strong>NIO</strong></td><td>Hefei NeoPark (JAC partnership)</td><td>~300k</td><td>~221k</td><td class="orange">9.5%</td><td>~$30,000</td><td><span class="badge badge-orange">Medium</span> — swap stations, SW</td></tr>
+<tr><td><strong>XPeng</strong></td><td>Zhaoqing, Guangzhou, Wuhan</td><td>~300k</td><td>~190k</td><td class="orange">14.3%</td><td>~$22,000</td><td><span class="badge badge-orange">Medium</span> — in-house ADAS</td></tr>
+<tr><td><strong>Li Auto</strong></td><td>Changzhou, Beijing</td><td>~400k</td><td>~500k</td><td class="green">20.5%</td><td>~$30,000</td><td><span class="badge badge-orange">Medium</span> — EREV advantage</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="card">
+<h3>Gross Margin Trends (Quarterly)</h3>
+<div class="chart-container"><canvas id="marginChart"></canvas></div>
+</div>
+
+<!-- Section 4: Charging Infrastructure -->
+<h2>4. Charging Infrastructure</h2>
+<div class="card" style="overflow-x:auto;">
+<table>
+<thead>
+<tr><th>Network</th><th>Stations</th><th>Stalls/Connectors</th><th>Countries</th><th>Peak Speed</th><th>Cost/kWh</th><th>Open to Others</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Tesla Supercharger (NACS)</strong></td><td>7,500+</td><td>55,000+</td><td>30+</td><td>250 kW (V3), 350 kW (V4)</td><td>$0.25-0.50</td><td>✅ Open (NACS standard adopted by Ford, GM, Rivian, etc.)</td></tr>
+<tr><td><strong>NIO Power Swap</strong></td><td>2,800+ swap stations</td><td>22,000+ chargers</td><td>6</td><td>3 min battery swap</td><td>Subscription model</td><td>Partially (ONVO brand)</td></tr>
+<tr><td><strong>XPeng S4 Supercharger</strong></td><td>1,400+</td><td>—</td><td>China</td><td>480 kW (800V)</td><td>¥1.0-1.5/kWh</td><td>Yes (XCHARGE network)</td></tr>
+<tr><td><strong>Electrify America (CCS)</strong></td><td>950+</td><td>4,300+</td><td>US/Canada</td><td>350 kW</td><td>$0.31-0.48</td><td>✅ Open</td></tr>
+</tbody>
+</table>
+<p class="source">NACS (Tesla's connector) became the North American standard in 2024. All major US OEMs adopted by 2025. NIO's battery swap takes ~3 min vs 20-30 min fast charging.</p>
+</div>
+
+<!-- Section 5: Market Share -->
+<h2>5. Global EV Market Share</h2>
+<div class="grid2">
+<div class="card">
+<h3>Global BEV Market Share 2025</h3>
+<div class="chart-container"><canvas id="globalShareChart"></canvas></div>
+</div>
+<div class="card">
+<h3>China NEV Market 2025</h3>
+<div class="chart-container"><canvas id="chinaShareChart"></canvas></div>
+</div>
+</div>
+
+<div class="card" style="overflow-x:auto;">
+<table>
+<thead>
+<tr><th>Company</th><th>2023 Deliveries</th><th>2024 Deliveries</th><th>2025 Deliveries</th><th>YoY Growth</th><th>Global Share (BEV)</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>BYD</strong></td><td>1.57M (BEV)</td><td>1.76M (BEV)</td><td>2.5M (BEV est)</td><td class="green">+42%</td><td class="green">~18%</td></tr>
+<tr><td><strong>Tesla</strong></td><td>1.81M</td><td>1.79M</td><td>1.79M</td><td class="red">0%</td><td>~13%</td></tr>
+<tr><td><strong>Li Auto</strong></td><td>376k</td><td>501k</td><td>~500k</td><td>0%</td><td>~3.6%</td></tr>
+<tr><td><strong>NIO</strong></td><td>160k</td><td>221k</td><td>~250k (est)</td><td class="green">+13%</td><td>~1.8%</td></tr>
+<tr><td><strong>XPeng</strong></td><td>141k</td><td>190k</td><td>~250k (est)</td><td class="green">+32%</td><td>~1.8%</td></tr>
+<tr><td><strong>Rivian</strong></td><td>50k</td><td>51k</td><td>~55k (est)</td><td class="green">+8%</td><td>~0.4%</td></tr>
+<tr><td><strong>Lucid</strong></td><td>6.0k</td><td>9.0k</td><td>~12k (est)</td><td class="green">+33%</td><td>~0.1%</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Section 6: Financial Health -->
+<h2>6. Financial Health Snapshot (Latest Quarter)</h2>
+<div class="card" style="overflow-x:auto;">
+<table>
+<thead>
+<tr><th>Company</th><th>Ticker</th><th>Revenue (TTM)</th><th>Gross Margin</th><th>Net Income (TTM)</th><th>Cash & Equiv</th><th>Total Debt</th><th>FCF (TTM)</th><th>Market Cap</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Tesla</strong></td><td>TSLA</td><td>$97.7B</td><td class="green">17.9%</td><td>$7.1B</td><td>$36.6B</td><td>$12.5B</td><td class="green">$3.6B</td><td>~$850B</td></tr>
+<tr><td><strong>BYD</strong></td><td>BYDDY</td><td>$107B</td><td class="green">21.9%</td><td>$5.2B</td><td>$18B</td><td>$28B</td><td class="green">$8B</td><td>~$115B</td></tr>
+<tr><td><strong>Rivian</strong></td><td>RIVN</td><td>$4.4B</td><td class="red">-44%</td><td class="red">-$5.7B</td><td>$7.7B</td><td>$5.5B</td><td class="red">-$3.8B</td><td>~$14B</td></tr>
+<tr><td><strong>Lucid</strong></td><td>LCID</td><td>$0.8B</td><td class="red">-125%</td><td class="red">-$2.7B</td><td>$4.3B (PIF backing)</td><td>$2.0B</td><td class="red">-$2.4B</td><td>~$7B</td></tr>
+<tr><td><strong>NIO</strong></td><td>NIO</td><td>$9.4B</td><td class="orange">9.5%</td><td class="red">-$2.8B</td><td>$5.8B</td><td>$4.2B</td><td class="red">-$1.9B</td><td>~$10B</td></tr>
+<tr><td><strong>XPeng</strong></td><td>XPEV</td><td>$5.6B</td><td class="orange">14.3%</td><td class="red">-$1.2B</td><td>$5.5B</td><td>$2.8B</td><td class="red">-$0.8B</td><td>~$15B</td></tr>
+<tr><td><strong>Li Auto</strong></td><td>LI</td><td>$20.5B</td><td class="green">20.5%</td><td class="green">$1.5B</td><td>$14.5B</td><td>$1.2B</td><td class="green">$3.2B</td><td>~$32B</td></tr>
+<tr><td><strong>Pony.ai</strong></td><td>PONY</td><td>$0.07B</td><td class="red">-200%+</td><td class="red">-$0.3B</td><td>$0.5B</td><td>Minimal</td><td class="red">-$0.2B</td><td>~$4B</td></tr>
+<tr><td><strong>GM</strong></td><td>GM</td><td>$187B</td><td class="green">17.5%</td><td class="green">$10.4B</td><td>$25B</td><td>$110B (incl GM Financial)</td><td class="green">$14B</td><td>~$48B</td></tr>
+</tbody>
+</table>
+<p class="source">Sources: Company 10-K/20-F filings, Q4 2025 earnings. BYD figures converted at ~CNY 7.2/USD.</p>
+</div>
+
+<!-- Section 7: Investment Thesis -->
+<h2>7. Investment Thesis by Company</h2>
+
+<div class="card">
+<h3>🔴 Tesla (TSLA) — <span class="badge badge-green">Bullish</span></h3>
+<div class="grid2">
+<div class="thesis-card bull">
+<strong class="green">Bull Case ($400+)</strong>
+<ul style="font-size:0.85rem; padding-left:1.2rem; margin-top:0.5rem;">
+<li>FSD licensing revenue ($100B+ TAM if L4 achieved)</li>
+<li>Robotaxi launch could create $500B+ revenue stream</li>
+<li>Energy storage (Megapack) growing 100%+ YoY</li>
+<li>Optimus robot optionality (long-term moonshot)</li>
+<li>Brand & data moat: 7M+ vehicles collecting data</li>
+</ul>
+</div>
+<div class="thesis-card bear">
+<strong class="red">Bear Case ($150)</strong>
+<ul style="font-size:0.85rem; padding-left:1.2rem; margin-top:0.5rem;">
+<li>Auto margins compressed (price war with BYD)</li>
+<li>FSD timeline repeatedly missed (2016→2026+)</li>
+<li>CEO distraction (DOGE, politics polarizing brand)</li>
+<li>China competition brutal; losing share to BYD</li>
+<li>Valuation assumes robotaxi/robot success already</li>
+</ul>
+</div>
+</div>
+<p style="font-size:0.85rem; margin-top:0.5rem;"><strong>Key Catalysts:</strong> FSD unsupervised approval, robotaxi launch (Austin 2026), Model 2/Q affordable EV, Optimus pilot deployments</p>
+</div>
+
+<div class="card">
+<h3>🟢 BYD (BABA/BYDDY) — <span class="badge badge-green">Bullish</span></h3>
+<div class="grid2">
+<div class="thesis-card bull">
+<strong class="green">Bull Case</strong>
+<ul style="font-size:0.85rem; padding-left:1.2rem; margin-top:0.5rem;">
+<li>World's largest NEV maker by volume; unmatched vertical integration</li>
+<li>Blade Battery cost leadership; in-house semiconductors</li>
+<li>Global expansion: Brazil, Hungary, Thailand, Indonesia factories</li>
+<li>Premium push: Denza, Fang Cheng Bao, YangWang brands</li>
+</ul>
+</div>
+<div class="thesis-card bear">
+<strong class="red">Bear Case</strong>
+<ul style="font-size:0.85rem; padding-left:1.2rem; margin-top:0.5rem;">
+<li>EU/US tariffs could block international expansion</li>
+<li>Margin pressure from intense China price war</li>
+<li>ADAS lags Tesla/XPeng in capability</li>
+<li>Brand perception still weak outside China</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h3>🔵 NIO (NIO) — <span class="badge badge-orange">Neutral</span></h3>
+<div class="grid2">
+<div class="thesis-card bull">
+<strong class="green">Bull Case ($8+)</strong>
+<ul style="font-size:0.85rem; padding-left:1.2rem; margin-top:0.5rem;">
+<li>Swap station network is genuine moat (2,800+ stations)</li>
+<li>Premium positioning with strong brand loyalty in China</li>
+<li>ONVO sub-brand targeting mass market (L60 at ¥200k)</li>
+<li>Firefly brand for compact EVs (¥70-150k)</li>
+</ul>
+</div>
+<div class="thesis-card bear">
+<strong class="red">Bear Case ($2)</strong>
+<ul style="font-size:0.85rem; padding-left:1.2rem; margin-top:0.5rem;">
+<li>Still burning cash heavily; dilution risk</li>
+<li>Swap stations = massive capex with uncertain ROI</li>
+<li>Three sub-brands stretch resources thin</li>
+<li>Competition from Huawei-backed vehicles in premium segment</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h3>⚡ XPeng (XPEV) — <span class="badge badge-green">Bullish</span></h3>
+<div class="grid2">
+<div class="thesis-card bull">
+<strong class="green">Bull Case ($25+)</strong>
+<ul style="font-size:0.85rem; padding-left:1.2rem; margin-top:0.5rem;">
+<li>Best-in-class ADAS among Chinese OEMs (XNGP city driving)</li>
+<li>800V architecture leadership (fastest charging)</li>
+<li>VW partnership: platform licensing revenue stream</li>
+<li>Mona brand targeting mass market, strong initial sales</li>
+</ul>
+</div>
+<div class="thesis-card bear">
+<strong class="red">Bear Case ($6)</strong>
+<ul style="font-size:0.85rem; padding-left:1.2rem; margin-top:0.5rem;">
+<li>Still unprofitable; path to breakeven unclear</li>
+<li>ADAS investment heavy, monetization lagging</li>
+<li>Competitive market makes differentiation temporary</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h3>💰 Li Auto (LI) — <span class="badge badge-green">Bullish</span></h3>
+<div class="grid2">
+<div class="thesis-card bull">
+<strong class="green">Bull Case ($35+)</strong>
+<ul style="font-size:0.85rem; padding-left:1.2rem; margin-top:0.5rem;">
+<li>Only profitable Chinese EV startup; 20%+ gross margins</li>
+<li>EREV strategy eliminates range anxiety → family SUV dominance</li>
+<li>$14.5B cash war chest; no fundraising needed</li>
+<li>Strong ASP ($42k+) in family SUV segment</li>
+</ul>
+</div>
+<div class="thesis-card bear">
+<strong class="red">Bear Case ($15)</strong>
+<ul style="font-size:0.85rem; padding-left:1.2rem; margin-top:0.5rem;">
+<li>EREV may become obsolete as charging infra improves</li>
+<li>Pure EV MEGA flopped; BEV strategy uncertain</li>
+<li>One-trick pony (family SUVs only)</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h3>🤖 Pony.ai (PONY) — <span class="badge badge-orange">Speculative</span></h3>
+<div class="grid2">
+<div class="thesis-card bull">
+<strong class="green">Bull Case</strong>
+<ul style="font-size:0.85rem; padding-left:1.2rem; margin-top:0.5rem;">
+<li>Leading L4 player in China; regulatory support for robotaxi</li>
+<li>Robotruck revenue stream (logistics)</li>
+<li>Toyota partnership for global expansion</li>
+</ul>
+</div>
+<div class="thesis-card bear">
+<strong class="red">Bear Case</strong>
+<ul style="font-size:0.85rem; padding-left:1.2rem; margin-top:0.5rem;">
+<li>Pre-revenue essentially; burning cash</li>
+<li>Waymo/Tesla far ahead in autonomous miles</li>
+<li>Geopolitical risk limits US expansion</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="card" style="text-align:center; padding:2rem; margin-top:2rem;">
+<p style="color:var(--text2);">Analysis by Jarvis AI • Updated March 2026 • Data from company filings, EPA, MIIT</p>
+<p style="color:var(--text2); font-size:0.8rem; margin-top:0.5rem;">⚠️ This is AI-generated research for informational purposes only. Not financial advice.</p>
+</div>
+</div>
+
+<script>
+// Range Chart
+new Chart(document.getElementById('rangeChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Lucid Air GT','Tesla S Plaid','Tesla 3 LR','Tesla Y LR','Cybertruck','XPeng P7+','BYD Seal','NIO ET7','XPeng G6','NIO ET5','Rivian R1T','Rivian R1S'],
+    datasets: [{
+      label: 'Range (miles, EPA or CLTC equiv)',
+      data: [516,359,341,337,318,305,295,285,280,265,270,260],
+      backgroundColor: ['#6c5ce7','#e17055','#e17055','#e17055','#e17055','#0984e3','#f39c12','#00b894','#0984e3','#00b894','#fdcb6e','#fdcb6e'],
+      borderRadius: 6,
+    }]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false, indexAxis:'y',
+    plugins:{ legend:{display:false} },
+    scales:{ x:{grid:{color:'rgba(0,0,0,0.06)'},ticks:{color:'#636e72'}}, y:{grid:{display:false},ticks:{color:'#2d3436',font:{size:11}}} }
+  }
+});
+
+// Price Chart
+new Chart(document.getElementById('priceChart'), {
+  type: 'scatter',
+  data: {
+    datasets: [
+      {label:'Tesla', data:[{x:42490,y:341},{x:44990,y:337},{x:89990,y:359},{x:79990,y:318}], backgroundColor:'#e17055', pointRadius:8},
+      {label:'Rivian', data:[{x:69900,y:270},{x:75900,y:260}], backgroundColor:'#fdcb6e', pointRadius:8},
+      {label:'Lucid', data:[{x:109900,y:516}], backgroundColor:'#6c5ce7', pointRadius:8},
+      {label:'Chinese EVs', data:[{x:26000,y:295},{x:30000,y:285},{x:52000,y:285},{x:29000,y:280},{x:26000,y:305}], backgroundColor:'#00b894', pointRadius:8},
+    ]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{labels:{color:'#636e72'}} },
+    scales:{
+      x:{title:{display:true,text:'Starting MSRP ($)',color:'#636e72'},grid:{color:'rgba(0,0,0,0.06)'},ticks:{color:'#636e72',callback:v=>'$'+v.toLocaleString()}},
+      y:{title:{display:true,text:'Range (miles)',color:'#636e72'},grid:{color:'rgba(0,0,0,0.06)'},ticks:{color:'#636e72'}}
+    }
+  }
+});
+
+// Margin Chart
+new Chart(document.getElementById('marginChart'), {
+  type: 'line',
+  data: {
+    labels: ['Q1 24','Q2 24','Q3 24','Q4 24','Q1 25','Q2 25','Q3 25','Q4 25'],
+    datasets: [
+      {label:'Tesla',data:[17.4,18.0,19.8,16.3,16.3,18.2,19.8,17.9],borderColor:'#e17055',tension:0.3,pointRadius:3},
+      {label:'BYD',data:[21.9,20.0,21.9,23.1,20.2,21.8,21.2,21.9],borderColor:'#f39c12',tension:0.3,pointRadius:3},
+      {label:'Li Auto',data:[20.6,19.5,21.5,23.5,20.4,19.8,21.5,20.5],borderColor:'#00b894',tension:0.3,pointRadius:3},
+      {label:'XPeng',data:[12.9,14.0,15.3,14.4,13.5,14.0,15.3,14.3],borderColor:'#0984e3',tension:0.3,pointRadius:3},
+      {label:'NIO',data:[4.9,9.7,10.7,9.4,9.2,9.7,10.7,9.5],borderColor:'#a29bfe',tension:0.3,pointRadius:3},
+      {label:'Rivian',data:[-44,-39,-36,-28,-38,-36,-33,-44],borderColor:'#fdcb6e',tension:0.3,pointRadius:3},
+    ]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{labels:{color:'#636e72',font:{size:11}}} },
+    scales:{
+      x:{grid:{color:'rgba(0,0,0,0.06)'},ticks:{color:'#636e72'}},
+      y:{grid:{color:'rgba(0,0,0,0.06)'},ticks:{color:'#636e72',callback:v=>v+'%'},title:{display:true,text:'Gross Margin %',color:'#636e72'}}
+    }
+  }
+});
+
+// Global Share
+new Chart(document.getElementById('globalShareChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['BYD','Tesla','VW Group','Hyundai/Kia','BMW','Mercedes','Stellantis','Others'],
+    datasets: [{
+      data: [18,13,7,6,4,3,3,46],
+      backgroundColor: ['#f39c12','#e17055','#0984e3','#00b894','#6c5ce7','#fd79a8','#fdcb6e','#636e72']
+    }]
+  },
+  options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{labels:{color:'#636e72',font:{size:11}}} } }
+});
+
+// China Share
+new Chart(document.getElementById('chinaShareChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['BYD','Tesla China','Geely/Zeekr','Li Auto','Changan','NIO','XPeng','Great Wall','Others'],
+    datasets: [{
+      data: [33,7,8,6,5,3,3,4,31],
+      backgroundColor: ['#f39c12','#e17055','#0984e3','#00b894','#6c5ce7','#a29bfe','#74b9ff','#fdcb6e','#636e72']
+    }]
+  },
+  options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{labels:{color:'#636e72',font:{size:11}}} } }
+});
+</script>
+</body>
+</html>
