@@ -3,481 +3,215 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stock Valuations — AI-Powered Analysis</title>
+<title>Cooper Valuation — AI-Powered Stock Research</title>
 <style>
 :root {
-  --bg: #ffffff;
-  --bg-secondary: #f8fafc;
-  --text: #0f172a;
-  --text-secondary: #64748b;
-  --text-tertiary: #94a3b8;
-  --border: #e2e8f0;
+  --bg: #ffffff; --bg2: #f8fafc; --text: #0f172a; --text2: #64748b; --text3: #94a3b8;
+  --border: #e2e8f0; --accent: #2563eb; --green: #16a34a; --orange: #d97706; --red: #dc2626;
   --card-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --card-hover-shadow: 0 10px 25px rgba(0,0,0,0.08), 0 4px 10px rgba(0,0,0,0.04);
-  --accent: #2563eb;
-  --green: #16a34a;
-  --green-bg: #f0fdf4;
-  --green-light: #bbf7d0;
-  --amber: #d97706;
-  --amber-bg: #fffbeb;
-  --amber-light: #fde68a;
-  --red: #dc2626;
-  --red-bg: #fef2f2;
-  --red-light: #fecaca;
+  --card-hover: 0 20px 40px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.04);
   --header-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
-  --score-green: #16a34a;
-  --score-amber: #d97706;
-  --score-red: #dc2626;
 }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
 
-[data-theme="dark"] {
-  --bg: #0f172a;
-  --bg-secondary: #1e293b;
-  --text: #f1f5f9;
-  --text-secondary: #94a3b8;
-  --text-tertiary: #64748b;
-  --border: #334155;
-  --card-shadow: 0 1px 3px rgba(0,0,0,0.3);
-  --card-hover-shadow: 0 10px 25px rgba(0,0,0,0.4);
-  --green-bg: #052e16;
-  --amber-bg: #451a03;
-  --red-bg: #450a0a;
-  --header-gradient: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e293b 100%);
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
-  transition: background 0.3s, color 0.3s;
-}
-
-/* Header */
-.header {
+/* Hero */
+.hero {
   background: var(--header-gradient);
-  color: #ffffff;
-  padding: 48px 24px 40px;
+  color: #fff;
+  padding: 60px 24px 50px;
   text-align: center;
   position: relative;
   overflow: hidden;
 }
-.header::before {
+.hero::before {
+  content:''; position:absolute; top:0; left:0; right:0; bottom:0;
+  background: radial-gradient(circle at 30% 40%, rgba(37,99,235,0.15) 0%, transparent 50%),
+              radial-gradient(circle at 70% 60%, rgba(99,102,241,0.1) 0%, transparent 50%);
+}
+.hero-content { position:relative; z-index:1; max-width:800px; margin:0 auto; }
+.hero-avatar {
+  width: 100px; height: 100px; border-radius: 50%; border: 3px solid rgba(255,255,255,0.3);
+  object-fit: cover; margin-bottom: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+.hero h1 { font-size: 2.8em; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 4px; }
+.hero h1 span { background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.hero .tagline { color: #94a3b8; font-size: 1.15em; margin-bottom: 8px; }
+.hero .sub { color: #64748b; font-size: 0.85em; }
+
+/* Panels */
+.panels-section { max-width: 1100px; margin: -30px auto 0; padding: 0 24px; position: relative; z-index: 2; }
+.panels-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+.panel {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.panel::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: radial-gradient(circle at 20% 50%, rgba(37,99,235,0.15) 0%, transparent 50%),
-              radial-gradient(circle at 80% 50%, rgba(99,102,241,0.1) 0%, transparent 50%);
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  border-radius: 16px 16px 0 0;
+  opacity: 0;
+  transition: opacity 0.3s;
 }
-.header-content { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
-.header h1 { font-size: 2.4em; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 8px; }
-.header .subtitle { color: #94a3b8; font-size: 1.1em; font-weight: 400; margin-bottom: 20px; }
-.header .stats { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
-.header .stat { text-align: center; }
-.header .stat-value { font-size: 1.8em; font-weight: 800; }
-.header .stat-label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
-
-.theme-toggle {
-  position: absolute; top: 20px; right: 24px; z-index: 2;
-  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
-  color: #fff; border-radius: 8px; padding: 8px 12px; cursor: pointer;
-  font-size: 1.1em; backdrop-filter: blur(8px); transition: background 0.2s;
+.panel:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--card-hover);
 }
-.theme-toggle:hover { background: rgba(255,255,255,0.2); }
+.panel:hover::before { opacity: 1; }
 
-/* Controls */
-.controls {
-  max-width: 1280px; margin: 0 auto; padding: 24px 24px 0;
-  display: flex; flex-direction: column; gap: 14px;
+.panel-valuation::before { background: linear-gradient(90deg, #2563eb, #6366f1); }
+.panel-research::before { background: linear-gradient(90deg, #16a34a, #059669); }
+.panel-digest::before { background: linear-gradient(90deg, #d97706, #ea580c); }
+
+.panel .icon { font-size: 3rem; margin-bottom: 4px; }
+.panel h2 { font-size: 1.3em; font-weight: 700; }
+.panel p { color: var(--text2); font-size: 0.9em; line-height: 1.5; }
+.panel .stat-row { display:flex; gap:16px; margin-top:8px; }
+.panel .mini-stat { text-align:center; }
+.panel .mini-stat-val { font-size:1.4em; font-weight:800; color:var(--accent); }
+.panel .mini-stat-label { font-size:0.7em; color:var(--text3); text-transform:uppercase; letter-spacing:0.5px; }
+
+.panel-badge {
+  display:inline-block; padding:4px 12px; border-radius:20px;
+  font-size:0.75em; font-weight:700; margin-top:8px;
 }
-.controls-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-.search-wrap { position: relative; flex: 1; min-width: 200px; }
-.search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); font-size: 0.95em; pointer-events: none; }
-.search-box {
-  width: 100%; padding: 10px 16px 10px 40px;
-  border: 1.5px solid var(--border); border-radius: 10px; font-size: 0.95em;
-  background: var(--bg-secondary); color: var(--text); outline: none; transition: border-color 0.2s;
+.badge-live { background:#f0fdf4; color:#16a34a; border:1px solid #bbf7d0; }
+.badge-soon { background:#fffbeb; color:#d97706; border:1px solid #fde68a; }
+
+/* Reports available section */
+.available { max-width:1100px; margin:40px auto; padding:0 24px; }
+.available h3 { font-size:1.1em; color:var(--text2); margin-bottom:16px; font-weight:600; }
+.report-tags { display:flex; flex-wrap:wrap; gap:8px; }
+.report-tag {
+  display:inline-flex; align-items:center; gap:4px;
+  padding:6px 14px; border-radius:8px; font-size:0.82em; font-weight:600;
+  background:var(--bg2); border:1px solid var(--border); color:var(--text);
+  text-decoration:none; transition:all 0.2s;
 }
-.search-box:focus { border-color: var(--accent); }
-
-.sort-select {
-  padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 10px;
-  font-size: 0.85em; background: var(--bg-secondary); color: var(--text);
-  cursor: pointer; outline: none; font-weight: 600;
-}
-
-.filter-chips { display: flex; gap: 8px; flex-wrap: wrap; }
-.chip {
-  padding: 6px 14px; border-radius: 20px; border: 1.5px solid var(--border);
-  background: var(--bg); color: var(--text-secondary); font-size: 0.82em;
-  font-weight: 600; cursor: pointer; transition: all 0.2s; white-space: nowrap;
-}
-.chip:hover { border-color: var(--accent); color: var(--accent); }
-.chip.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-
-.chip-group { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
-.chip-group-label { font-size: 0.72em; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700; margin-right: 2px; }
-
-/* Earnings banner */
-.earnings-banner {
-  max-width: 1280px; margin: 16px auto 0; padding: 0 24px;
-}
-.earnings-strip {
-  background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px;
-  padding: 14px 20px; display: flex; align-items: center; gap: 12px; overflow-x: auto;
-}
-.earnings-strip-title {
-  font-size: 0.8em; font-weight: 700; color: var(--text-secondary);
-  text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; margin-right: 4px;
-}
-.earnings-tag {
-  display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px;
-  border-radius: 8px; font-size: 0.8em; font-weight: 700; white-space: nowrap;
-  border: 1px solid var(--border); background: var(--bg); transition: all 0.2s;
-  cursor: pointer; text-decoration: none; color: var(--text);
-}
-.earnings-tag:hover { border-color: var(--accent); }
-.earnings-tag.imminent { background: #fef2f2; border-color: #fecaca; color: #dc2626; }
-.earnings-tag.soon { background: #fffbeb; border-color: #fde68a; color: #d97706; }
-.earnings-tag .eticker { font-weight: 800; }
-.earnings-tag .edate { font-weight: 500; opacity: 0.8; }
-
-/* Grid */
-.grid {
-  max-width: 1280px; margin: 20px auto; padding: 0 24px;
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
-}
-@media (max-width: 960px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
-
-/* Cards */
-.card {
-  background: var(--bg); border: 1px solid var(--border); border-radius: 14px;
-  padding: 22px; text-decoration: none; color: inherit;
-  display: flex; flex-direction: column; gap: 10px;
-  transition: transform 0.2s, box-shadow 0.2s; box-shadow: var(--card-shadow);
-  position: relative; overflow: hidden;
-}
-.card:hover { transform: translateY(-3px); box-shadow: var(--card-hover-shadow); }
-
-.card-header { display: flex; justify-content: space-between; align-items: flex-start; }
-.card-left { display: flex; align-items: center; gap: 12px; }
-.ticker { font-size: 1.5em; font-weight: 800; letter-spacing: -0.02em; line-height: 1; }
-
-/* Score ring */
-.score-ring {
-  width: 44px; height: 44px; border-radius: 50%; position: relative;
-  display: flex; align-items: center; justify-content: center;
-}
-.score-ring svg { position: absolute; top: 0; left: 0; transform: rotate(-90deg); }
-.score-ring .score-num { font-size: 0.8em; font-weight: 800; z-index: 1; }
-
-.rating-badge {
-  padding: 4px 10px; border-radius: 6px; font-size: 0.72em;
-  font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
-}
-.rating-badge.Bullish, .rating-badge.BUY, .rating-badge.Buy { background: var(--green-bg); color: var(--green); }
-.rating-badge.Neutral, .rating-badge.HOLD, .rating-badge.Hold { background: var(--amber-bg); color: var(--amber); }
-.rating-badge.Bearish, .rating-badge.Sell { background: var(--red-bg); color: var(--red); }
-
-.company { font-size: 0.85em; color: var(--text-secondary); font-weight: 500; }
-.thesis { font-size: 0.83em; color: var(--text-secondary); line-height: 1.5; flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-
-.card-meta { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
-.card-prices { display: flex; gap: 12px; font-size: 0.8em; }
-.card-price-item { display: flex; flex-direction: column; }
-.card-price-label { font-size: 0.7em; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
-.card-price-value { font-weight: 700; }
-.upside { color: var(--green); font-weight: 700; font-size: 0.8em; }
-.downside { color: var(--red); font-weight: 700; font-size: 0.8em; }
-
-.card-earnings {
-  display: inline-flex; align-items: center; gap: 4px;
-  font-size: 0.75em; padding: 3px 8px; border-radius: 6px;
-  background: var(--bg-secondary); color: var(--text-secondary); font-weight: 600;
-}
-.card-earnings.imminent { background: #fef2f2; color: #dc2626; font-weight: 700; }
-.card-earnings.soon { background: #fffbeb; color: #d97706; }
-
-.card-categories { display: flex; gap: 4px; flex-wrap: wrap; }
-.cat-tag {
-  font-size: 0.65em; padding: 2px 7px; border-radius: 4px;
-  background: var(--bg-secondary); color: var(--text-tertiary);
-  font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;
-}
-
-.card-arrow {
-  position: absolute; bottom: 18px; right: 18px;
-  font-size: 1.1em; color: var(--text-tertiary); opacity: 0;
-  transition: opacity 0.2s, transform 0.2s;
-}
-.card:hover .card-arrow { opacity: 1; transform: translateX(3px); }
-
-.empty { grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-secondary); }
-.empty-icon { font-size: 3em; margin-bottom: 12px; }
+.report-tag:hover { border-color:var(--accent); color:var(--accent); transform:translateY(-1px); }
 
 .footer {
-  text-align: center; padding: 40px 24px; color: var(--text-secondary);
-  font-size: 0.85em; border-top: 1px solid var(--border); margin-top: 40px;
+  text-align:center; padding:40px 24px; color:var(--text3); font-size:0.85em;
+  border-top:1px solid var(--border); margin-top:40px;
 }
-.footer a { color: var(--accent); text-decoration: none; }
-.footer a:hover { text-decoration: underline; }
+
+@keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+.fade-up { animation: fadeUp 0.5s ease forwards; opacity:0; }
+.fade-up:nth-child(1) { animation-delay:0.1s; }
+.fade-up:nth-child(2) { animation-delay:0.2s; }
+.fade-up:nth-child(3) { animation-delay:0.3s; }
+
+@media(max-width:768px) {
+  .panels-grid { grid-template-columns:1fr; }
+  .hero h1 { font-size:2em; }
+  .hero { padding:40px 16px 35px; }
+  .panels-section { margin-top:-20px; padding:0 16px; }
+}
 </style>
 </head>
 <body>
-  <header class="header">
-    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
-    <div class="header-content">
-      <h1>📊 Stock Valuations</h1>
-      <p class="subtitle">AI-powered company analysis reports</p>
-      <div style="margin:12px 0 4px; display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
-        <a href="/stocks/analysis/ev-comparison.html" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:10px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;text-decoration:none;font-size:0.85em;font-weight:600;backdrop-filter:blur(8px);transition:all 0.2s;">🚗 EV Industry Analysis</a>
-        <a href="/stocks/analysis/semiconductor-landscape.html" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:10px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;text-decoration:none;font-size:0.85em;font-weight:600;backdrop-filter:blur(8px);transition:all 0.2s;">🔬 Semiconductor Analysis</a>
-      </div>
-      <div class="stats">
-        <div class="stat"><div class="stat-value" id="total-count">—</div><div class="stat-label">Reports</div></div>
-        <div class="stat"><div class="stat-value" id="avg-score">—</div><div class="stat-label">Avg Score</div></div>
-        <div class="stat"><div class="stat-value" id="bullish-count">—</div><div class="stat-label">Bullish</div></div>
-        <div class="stat"><div class="stat-value" id="neutral-count">—</div><div class="stat-label">Neutral</div></div>
-        <div class="stat"><div class="stat-value" id="bearish-count">—</div><div class="stat-label">Bearish</div></div>
-      </div>
-    </div>
-  </header>
 
-  <div class="earnings-banner"><div class="earnings-strip" id="earnings-strip"></div></div>
-
-  <div class="controls">
-    <div class="controls-row">
-      <div class="search-wrap">
-        <span class="search-icon">🔍</span>
-        <input type="text" class="search-box" placeholder="Search ticker or company..." id="search" autocomplete="off">
-      </div>
-      <select class="sort-select" id="sort">
-        <option value="score">Sort: Score ↓</option>
-        <option value="earnings">Sort: Earnings Date ↑</option>
-        <option value="upside">Sort: Upside ↓</option>
-        <option value="ticker">Sort: Ticker A→Z</option>
-        <option value="pe">Sort: Forward P/E ↑</option>
-      </select>
-    </div>
-    <div class="controls-row">
-      <div class="chip-group">
-        <span class="chip-group-label">Rating</span>
-        <button class="chip active" data-filter="all">All</button>
-        <button class="chip" data-filter="Bullish">🟢 Bullish</button>
-        <button class="chip" data-filter="Neutral">🟡 Neutral</button>
-        <button class="chip" data-filter="Bearish">🔴 Bearish</button>
-      </div>
-      <div class="chip-group">
-        <span class="chip-group-label">Category</span>
-        <button class="chip cat-chip active" data-cat="all">All</button>
-        <button class="chip cat-chip" data-cat="Mag7">Mag 7</button>
-        <button class="chip cat-chip" data-cat="Semis">Semis</button>
-        <button class="chip cat-chip" data-cat="AI">AI</button>
-        <button class="chip cat-chip" data-cat="Emerging">Emerging</button>
-        <button class="chip cat-chip" data-cat="EV">EV</button>
-        <button class="chip cat-chip" data-cat="Healthcare">Healthcare</button>
-        <button class="chip cat-chip" data-cat="Value">Value</button>
-      </div>
-    </div>
+<section class="hero">
+  <div class="hero-content">
+    <img src="cooper.jpg" alt="Cooper" class="hero-avatar">
+    <h1>🐱 Cooper <span>Valuation</span></h1>
+    <p class="tagline">AI-Powered Stock Research & Analysis</p>
+    <p class="sub">Deep industry analysis, quantitative scoring, and market intelligence — curated by Cooper (and his AI assistant)</p>
   </div>
+</section>
 
-  <div class="grid" id="grid"></div>
+<div class="panels-section">
+  <div class="panels-grid">
 
-  <footer class="footer">
-    Powered by <a href="https://github.com/xliucs">Jarvis AI</a> · Reports generated using Claude<br>
-    <span style="opacity:0.6">Last updated <span id="last-updated"></span></span>
-  </footer>
+    <a href="reports.html" class="panel panel-valuation fade-up">
+      <div class="icon">📈</div>
+      <h2>Stock Valuation</h2>
+      <p>Individual company analysis with quantitative scoring, financial metrics, analyst consensus, and investment thesis.</p>
+      <div class="stat-row">
+        <div class="mini-stat"><div class="mini-stat-val">25</div><div class="mini-stat-label">Reports</div></div>
+        <div class="mini-stat"><div class="mini-stat-val">7</div><div class="mini-stat-label">Sectors</div></div>
+      </div>
+      <span class="panel-badge badge-live">✅ Live</span>
+    </a>
+
+    <a href="analysis/ev-comparison.html" class="panel panel-research fade-up">
+      <div class="icon">🔬</div>
+      <h2>Industry Research</h2>
+      <p>Expert-level competitive analysis — product head-to-heads, technology comparisons, market share, and supply chain deep dives.</p>
+      <div class="stat-row">
+        <div class="mini-stat"><div class="mini-stat-val">2</div><div class="mini-stat-label">Reports</div></div>
+        <div class="mini-stat"><div class="mini-stat-val">EV · Semi</div><div class="mini-stat-label">Industries</div></div>
+      </div>
+      <span class="panel-badge badge-live">✅ Live</span>
+    </a>
+
+    <div class="panel panel-digest fade-up" style="cursor:default;">
+      <div class="icon">📰</div>
+      <h2>Daily Digest</h2>
+      <p>AI-generated daily market summaries — key movers, earnings, breaking news, and sentiment from X/Twitter.</p>
+      <div class="stat-row">
+        <div class="mini-stat"><div class="mini-stat-val">—</div><div class="mini-stat-label">Latest</div></div>
+      </div>
+      <span class="panel-badge badge-soon">🚧 Coming Soon</span>
+    </div>
+
+  </div>
+</div>
+
+<div class="available">
+  <h3>📋 Available Valuation Reports</h3>
+  <div class="report-tags" id="report-tags"></div>
+</div>
+
+<div class="available">
+  <h3>🔬 Industry Deep Dives</h3>
+  <div class="report-tags">
+    <a href="analysis/ev-comparison.html" class="report-tag">🚗 EV Industry</a>
+    <a href="analysis/semiconductor-landscape.html" class="report-tag">🔬 Semiconductors</a>
+  </div>
+</div>
+
+<div class="footer">
+  <p>Built with AI-powered research • Not financial advice</p>
+  <p style="margin-top:4px;">Cooper Valuation © 2026 • Powered by curiosity 🐱</p>
+</div>
 
 <script>
-let reports = [];
-let activeFilter = 'all';
-let activeCat = 'all';
-let currentSort = 'score';
-
-function normalizeRating(r) {
-  const u = (r || '').toUpperCase();
-  if (['BULLISH','BUY','STRONG BUY'].includes(u)) return 'Bullish';
-  if (['BEARISH','SELL','STRONG SELL'].includes(u)) return 'Bearish';
-  return 'Neutral';
-}
-
-function daysUntil(dateStr) {
-  if (!dateStr) return 999;
-  const now = new Date(); now.setHours(0,0,0,0);
-  const d = new Date(dateStr + 'T00:00:00'); d.setHours(0,0,0,0);
-  return Math.round((d - now) / 86400000);
-}
-
-function scoreColor(s) {
-  if (s >= 70) return 'var(--score-green)';
-  if (s >= 50) return 'var(--score-amber)';
-  return 'var(--score-red)';
-}
-
-function scoreRingSVG(score) {
-  const r = 18, c = 2 * Math.PI * r;
-  const pct = score / 100;
-  const color = scoreColor(score);
-  return `<svg width="44" height="44"><circle cx="22" cy="22" r="${r}" fill="none" stroke="var(--border)" stroke-width="3"/><circle cx="22" cy="22" r="${r}" fill="none" stroke="${color}" stroke-width="3" stroke-dasharray="${c * pct} ${c * (1 - pct)}" stroke-linecap="round"/></svg>`;
-}
-
-function upsidePct(r) {
-  if (!r.analystPT || !r.price) return null;
-  return ((r.analystPT - r.price) / r.price * 100);
-}
-
-async function init() {
-  try {
-    const res = await fetch('reports.json');
-    reports = await res.json();
-    reports.forEach(r => r._rating = normalizeRating(r.rating));
-    updateStats();
-    renderEarnings();
-    render();
-    if (reports.length) {
-      document.getElementById('last-updated').textContent = new Date(reports[0].date + 'T00:00:00').toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'});
-    }
-  } catch (e) {
-    document.getElementById('grid').innerHTML = '<div class="empty"><div class="empty-icon">⚠️</div><div>Failed to load reports</div></div>';
-  }
-}
-
-function updateStats() {
-  document.getElementById('total-count').textContent = reports.length;
-  const scores = reports.map(r => r.score).filter(Boolean);
-  document.getElementById('avg-score').textContent = scores.length ? Math.round(scores.reduce((a,b)=>a+b,0)/scores.length) : '—';
-  document.getElementById('bullish-count').textContent = reports.filter(r => r._rating === 'Bullish').length;
-  document.getElementById('neutral-count').textContent = reports.filter(r => r._rating === 'Neutral').length;
-  document.getElementById('bearish-count').textContent = reports.filter(r => r._rating === 'Bearish').length;
-}
-
-function renderEarnings() {
-  const strip = document.getElementById('earnings-strip');
-  const sorted = [...reports].filter(r => r.nextEarnings).sort((a,b) => a.nextEarnings.localeCompare(b.nextEarnings));
-  let html = '<span class="earnings-strip-title">📅 Upcoming Earnings</span>';
-  sorted.forEach(r => {
-    const days = daysUntil(r.nextEarnings);
-    if (days < 0) return;
-    const cls = days <= 7 ? 'imminent' : days <= 21 ? 'soon' : '';
-    const d = new Date(r.nextEarnings + 'T00:00:00');
-    const dateStr = d.toLocaleDateString('en-US', {month:'short',day:'numeric'});
-    const dayLabel = days === 0 ? 'TODAY' : days === 1 ? 'Tomorrow' : `${days}d`;
-    html += `<a href="${r.url}" class="earnings-tag ${cls}"><span class="eticker">${r.ticker}</span><span class="edate">${dateStr}</span><span>(${dayLabel})</span></a>`;
+// Load reports.json and populate report tags
+fetch('reports.json')
+  .then(r => r.json())
+  .then(reports => {
+    const container = document.getElementById('report-tags');
+    const sorted = reports.sort((a,b) => a.ticker.localeCompare(b.ticker));
+    sorted.forEach(r => {
+      const a = document.createElement('a');
+      a.href = 'reports/' + r.file;
+      a.className = 'report-tag';
+      const scoreColor = r.score >= 68 ? '#16a34a' : r.score >= 45 ? '#d97706' : '#dc2626';
+      a.innerHTML = '<span style="font-weight:800;">' + r.ticker + '</span> <span style="color:' + scoreColor + ';font-size:0.85em;">' + r.score + '</span>';
+      container.appendChild(a);
+    });
+  })
+  .catch(() => {
+    document.getElementById('report-tags').innerHTML = '<span style="color:#94a3b8;">Loading reports...</span>';
   });
-  strip.innerHTML = html;
-}
-
-function getFiltered() {
-  const q = document.getElementById('search').value.toLowerCase();
-  return reports.filter(r => {
-    const matchRating = activeFilter === 'all' || r._rating === activeFilter;
-    const matchCat = activeCat === 'all' || (r.category && r.category.includes(activeCat));
-    const matchSearch = !q || r.ticker.toLowerCase().includes(q) || r.company.toLowerCase().includes(q);
-    return matchRating && matchCat && matchSearch;
-  });
-}
-
-function sortReports(list) {
-  const s = document.getElementById('sort').value;
-  return [...list].sort((a,b) => {
-    switch(s) {
-      case 'score': return (b.score||0) - (a.score||0);
-      case 'earnings': return (a.nextEarnings||'z').localeCompare(b.nextEarnings||'z');
-      case 'upside': return (upsidePct(b)||0) - (upsidePct(a)||0);
-      case 'ticker': return a.ticker.localeCompare(b.ticker);
-      case 'pe': {
-        const ape = a.forwardPE || 9999, bpe = b.forwardPE || 9999;
-        return ape - bpe;
-      }
-      default: return 0;
-    }
-  });
-}
-
-function render() {
-  const filtered = sortReports(getFiltered());
-  const grid = document.getElementById('grid');
-  if (!filtered.length) {
-    grid.innerHTML = '<div class="empty"><div class="empty-icon">📭</div><div>No reports match your filters</div></div>';
-    return;
-  }
-  grid.innerHTML = filtered.map(r => {
-    const up = upsidePct(r);
-    const upStr = up !== null ? (up >= 0 ? `<span class="upside">+${up.toFixed(0)}%</span>` : `<span class="downside">${up.toFixed(0)}%</span>`) : '';
-    const days = daysUntil(r.nextEarnings);
-    const earningsCls = days >= 0 && days <= 7 ? 'imminent' : days >= 0 && days <= 21 ? 'soon' : '';
-    const earningsLabel = days === 0 ? 'TODAY' : days === 1 ? 'Tomorrow' : days > 0 ? `in ${days}d` : '';
-    const earningsDate = r.nextEarnings ? new Date(r.nextEarnings+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'}) : '';
-    const cats = (r.category||[]).map(c => `<span class="cat-tag">${c}</span>`).join('');
-    const peStr = r.forwardPE ? `${r.forwardPE}x` : '—';
-    return `
-    <a class="card" href="${r.url}">
-      <div class="card-header">
-        <div class="card-left">
-          <div class="score-ring">
-            ${scoreRingSVG(r.score||50)}
-            <span class="score-num" style="color:${scoreColor(r.score||50)}">${r.score||'—'}</span>
-          </div>
-          <div>
-            <div class="ticker">${r.ticker}</div>
-            <div class="company">${r.company}</div>
-          </div>
-        </div>
-        <span class="rating-badge ${r._rating}">${r._rating}</span>
-      </div>
-      <div class="thesis">${r.thesis}</div>
-      <div class="card-meta">
-        <div class="card-prices">
-          <div class="card-price-item"><span class="card-price-label">Price</span><span class="card-price-value">$${r.price||'—'}</span></div>
-          <div class="card-price-item"><span class="card-price-label">Target</span><span class="card-price-value">$${r.analystPT||'—'}</span></div>
-          <div class="card-price-item"><span class="card-price-label">Upside</span>${upStr}</div>
-          <div class="card-price-item"><span class="card-price-label">Fwd P/E</span><span class="card-price-value">${peStr}</span></div>
-        </div>
-      </div>
-      <div class="card-meta">
-        <div class="card-categories">${cats}</div>
-        ${earningsDate ? `<div class="card-earnings ${earningsCls}">📅 ${earningsDate} ${earningsLabel ? '· '+earningsLabel : ''}</div>` : ''}
-      </div>
-      <span class="card-arrow">→</span>
-    </a>`;
-  }).join('');
-}
-
-// Filters
-document.querySelectorAll('.chip:not(.cat-chip)').forEach(chip => {
-  chip.addEventListener('click', () => {
-    document.querySelectorAll('.chip:not(.cat-chip)').forEach(c => c.classList.remove('active'));
-    chip.classList.add('active');
-    activeFilter = chip.dataset.filter;
-    render();
-  });
-});
-document.querySelectorAll('.cat-chip').forEach(chip => {
-  chip.addEventListener('click', () => {
-    document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
-    chip.classList.add('active');
-    activeCat = chip.dataset.cat;
-    render();
-  });
-});
-document.getElementById('search').addEventListener('input', render);
-document.getElementById('sort').addEventListener('change', render);
-
-function toggleTheme() {
-  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-  document.documentElement.setAttribute('data-theme', isDark ? '' : 'dark');
-  document.querySelector('.theme-toggle').textContent = isDark ? '🌙' : '☀️';
-  localStorage.setItem('theme', isDark ? 'light' : 'dark');
-}
-if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-  document.documentElement.setAttribute('data-theme', 'dark');
-  document.querySelector('.theme-toggle').textContent = '☀️';
-}
-
-init();
 </script>
 </body>
 </html>
