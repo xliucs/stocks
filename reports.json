@@ -627,6 +627,23 @@
     "url": "reports/LI-2026-03-08.html"
   },
   {
+    "ticker": "LI",
+    "company": "Li Auto Inc.",
+    "date": "2026-03-16",
+    "rating": "Neutral",
+    "score": 56,
+    "category": [
+      "EV",
+      "Emerging"
+    ],
+    "nextEarnings": null,
+    "price": 18.19,
+    "analystPT": 22.42,
+    "forwardPE": 18.6,
+    "thesis": "China premium EV with EREV differentiation and AI intelligent driving roadmap",
+    "url": "reports/LI-2026-03-16.html"
+  },
+  {
     "ticker": "LMND",
     "company": "Lemonade Inc.",
     "date": "2026-03-08",
