@@ -478,6 +478,23 @@
     "url": "reports/NIO-2026-03-08.html"
   },
   {
+    "ticker": "NIO",
+    "company": "NIO Inc.",
+    "date": "2026-03-16",
+    "rating": "Neutral",
+    "score": 61,
+    "category": [
+      "EV",
+      "Emerging"
+    ],
+    "nextEarnings": null,
+    "price": 5.86,
+    "analystPT": 6.49,
+    "forwardPE": null,
+    "thesis": "Chinese EV challenger with battery swap tech and premium brand positioning",
+    "url": "reports/NIO-2026-03-16.html"
+  },
+  {
     "ticker": "LI",
     "company": "Li Auto Inc.",
     "date": "2026-03-08",
