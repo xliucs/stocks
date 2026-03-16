@@ -274,6 +274,22 @@
     "url": "reports/MU-2026-03-16.html"
   },
   {
+    "ticker": "BABA",
+    "company": "Alibaba Group",
+    "date": "2026-03-16",
+    "rating": "Bullish",
+    "score": 74,
+    "category": [
+      "Emerging"
+    ],
+    "nextEarnings": null,
+    "price": 135.21,
+    "analystPT": 198.95,
+    "forwardPE": 15.5,
+    "thesis": "Deep value China tech with AI cloud rerating catalyst",
+    "url": "reports/BABA-2026-03-16.html"
+  },
+  {
     "ticker": "LULU",
     "company": "Lululemon Athletica Inc.",
     "date": "2026-03-08",
