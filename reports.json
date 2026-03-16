@@ -258,6 +258,22 @@
     "url": "reports/GM-2026-03-08.html"
   },
   {
+    "ticker": "MU",
+    "company": "Micron Technology",
+    "date": "2026-03-16",
+    "rating": "Bullish",
+    "score": 75,
+    "category": [
+      "Semis"
+    ],
+    "nextEarnings": null,
+    "price": 426.13,
+    "analystPT": 426.59,
+    "forwardPE": 7.6,
+    "thesis": "Memory leader positioned for AI-driven HBM demand cycle",
+    "url": "reports/MU-2026-03-16.html"
+  },
+  {
     "ticker": "LULU",
     "company": "Lululemon Athletica Inc.",
     "date": "2026-03-08",
