@@ -275,10 +275,8 @@ body {
       </div>
       <select class="sort-select" id="sort">
         <option value="score">Sort: Score ↓</option>
-        <option value="earnings">Sort: Earnings Date ↑</option>
-        <option value="upside">Sort: Upside ↓</option>
         <option value="ticker">Sort: Ticker A→Z</option>
-        <option value="pe">Sort: Forward P/E ↑</option>
+        <option value="upside">Sort: Upside % ↓</option>
       </select>
     </div>
     <div class="controls-row">
@@ -289,16 +287,9 @@ body {
         <button class="chip" data-filter="Neutral">🟡 Neutral</button>
         <button class="chip" data-filter="Bearish">🔴 Bearish</button>
       </div>
-      <div class="chip-group">
+      <div class="chip-group" id="cat-chips">
         <span class="chip-group-label">Category</span>
         <button class="chip cat-chip active" data-cat="all">All</button>
-        <button class="chip cat-chip" data-cat="Mag7">Mag 7</button>
-        <button class="chip cat-chip" data-cat="Semis">Semis</button>
-        <button class="chip cat-chip" data-cat="AI">AI</button>
-        <button class="chip cat-chip" data-cat="Emerging">Emerging</button>
-        <button class="chip cat-chip" data-cat="EV">EV</button>
-        <button class="chip cat-chip" data-cat="Healthcare">Healthcare</button>
-        <button class="chip cat-chip" data-cat="Value">Value</button>
       </div>
     </div>
   </div>
@@ -353,6 +344,7 @@ async function init() {
     const res = await fetch('reports.json');
     reports = await res.json();
     reports.forEach(r => r._rating = normalizeRating(r.rating));
+    buildCategoryChips();
     updateStats();
     renderEarnings();
     render();
@@ -362,6 +354,27 @@ async function init() {
   } catch (e) {
     document.getElementById('grid').innerHTML = '<div class="empty"><div class="empty-icon">⚠️</div><div>Failed to load reports</div></div>';
   }
+}
+
+function buildCategoryChips() {
+  const cats = new Set();
+  reports.forEach(r => (r.category || []).forEach(c => cats.add(c)));
+  const container = document.getElementById('cat-chips');
+  [...cats].sort().forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'chip cat-chip';
+    btn.dataset.cat = c;
+    btn.textContent = c;
+    container.appendChild(btn);
+  });
+  container.querySelectorAll('.cat-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      container.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      activeCat = chip.dataset.cat;
+      render();
+    });
+  });
 }
 
 function updateStats() {
@@ -404,13 +417,8 @@ function sortReports(list) {
   return [...list].sort((a,b) => {
     switch(s) {
       case 'score': return (b.score||0) - (a.score||0);
-      case 'earnings': return (a.nextEarnings||'z').localeCompare(b.nextEarnings||'z');
       case 'upside': return (upsidePct(b)||0) - (upsidePct(a)||0);
       case 'ticker': return a.ticker.localeCompare(b.ticker);
-      case 'pe': {
-        const ape = a.forwardPE || 9999, bpe = b.forwardPE || 9999;
-        return ape - bpe;
-      }
       default: return 0;
     }
   });
@@ -471,14 +479,6 @@ document.querySelectorAll('.chip:not(.cat-chip)').forEach(chip => {
     document.querySelectorAll('.chip:not(.cat-chip)').forEach(c => c.classList.remove('active'));
     chip.classList.add('active');
     activeFilter = chip.dataset.filter;
-    render();
-  });
-});
-document.querySelectorAll('.cat-chip').forEach(chip => {
-  chip.addEventListener('click', () => {
-    document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
-    chip.classList.add('active');
-    activeCat = chip.dataset.cat;
     render();
   });
 });
