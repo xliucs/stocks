@@ -129,6 +129,62 @@ tbody td { padding:10px 12px; white-space:nowrap; }
   border:1px solid var(--border); margin:1px 2px; color:var(--text2);
 }
 
+/* View toggle */
+.view-toggle {
+  display:flex; gap:4px; background:var(--bg2); border-radius:10px; padding:3px;
+  border:1px solid var(--border); width:fit-content;
+}
+.view-toggle button {
+  padding:6px 16px; border:none; border-radius:8px; font-size:0.82em;
+  font-weight:600; cursor:pointer; background:transparent; color:var(--text2); transition:all 0.2s;
+}
+.view-toggle button.active { background:var(--accent); color:#fff; box-shadow:0 1px 3px rgba(37,99,235,0.3); }
+.view-toggle button:hover:not(.active) { color:var(--text); }
+
+/* Treemap */
+.treemap-section { max-width:1100px; margin:24px auto; padding:0 24px; }
+.section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.section-header h3 { font-size:0.95em; color:var(--text2); font-weight:600; margin:0; }
+.treemap-wrap {
+  position:relative; width:100%; height:520px;
+  border:1px solid var(--border); border-radius:12px;
+  box-shadow:var(--card-shadow); overflow:hidden; background:var(--bg2);
+}
+.tm-block {
+  position:absolute; border:1px solid rgba(255,255,255,0.2);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  cursor:pointer; transition:filter 0.15s; overflow:hidden;
+}
+.tm-block:hover { filter:brightness(1.18); z-index:10; }
+.tm-block .tm-ticker { font-weight:800; color:#fff; text-shadow:0 1px 3px rgba(0,0,0,0.5); line-height:1.2; }
+.tm-block .tm-score { font-size:0.8em; color:rgba(255,255,255,0.8); font-weight:600; }
+.tm-block .tm-cat {
+  position:absolute; top:3px; left:5px;
+  font-size:0.55em; color:rgba(255,255,255,0.55); font-weight:700;
+  text-transform:uppercase; letter-spacing:0.5px; pointer-events:none;
+}
+.tm-block[data-rating="bullish"] { background:#16a34a; }
+.tm-block[data-rating="neutral"] { background:#d97706; }
+.tm-block[data-rating="bearish"] { background:#dc2626; }
+[data-theme="dark"] .tm-block[data-rating="bullish"] { background:#15803d; }
+[data-theme="dark"] .tm-block[data-rating="neutral"] { background:#b45309; }
+[data-theme="dark"] .tm-block[data-rating="bearish"] { background:#b91c1c; }
+
+.tm-tooltip {
+  position:fixed; pointer-events:none; z-index:1000;
+  background:var(--bg); border:1px solid var(--border); border-radius:10px;
+  padding:10px 14px; box-shadow:0 8px 24px rgba(0,0,0,0.15);
+  font-size:0.82em; line-height:1.6; display:none; max-width:260px;
+}
+.tm-tooltip .tt-ticker { font-weight:800; font-size:1.1em; color:var(--text); }
+.tm-tooltip .tt-company { color:var(--text2); margin-bottom:4px; }
+.tm-tooltip .tt-row { display:flex; justify-content:space-between; gap:16px; }
+.tm-tooltip .tt-label { color:var(--text3); }
+.tm-tooltip .tt-val { font-weight:700; color:var(--text); }
+.tm-legend { display:flex; gap:16px; align-items:center; margin-top:10px; flex-wrap:wrap; }
+.tm-legend-item { display:flex; align-items:center; gap:5px; font-size:0.78em; color:var(--text2); font-weight:600; }
+.tm-legend-swatch { width:14px; height:14px; border-radius:4px; }
+
 .footer {
   text-align:center; padding:40px 24px; color:var(--text3); font-size:0.85em;
   border-top:1px solid var(--border); margin-top:40px;
@@ -139,7 +195,9 @@ tbody td { padding:10px 12px; white-space:nowrap; }
   .hero h1 { font-size:1.6em; }
   .hero { padding:30px 16px 25px; }
   .summary { margin-top:-16px; padding:0 16px; }
-  .sectors, .table-section { padding:0 16px; }
+  .sectors, .table-section, .treemap-section { padding:0 16px; }
+  .treemap-wrap { height:380px; }
+  .section-header { flex-wrap:wrap; gap:8px; }
   .sector-name { width:70px; font-size:0.7em; }
   table { font-size:0.78em; }
   thead th, tbody td { padding:8px 8px; }
@@ -190,27 +248,45 @@ tbody td { padding:10px 12px; white-space:nowrap; }
   <div class="sector-bars" id="sector-bars"></div>
 </div>
 
-<div class="table-section">
-  <h3>All Holdings</h3>
-  <div class="table-wrap">
-    <table id="portfolio-table">
-      <thead>
-        <tr>
-          <th data-sort="ticker">Ticker <span class="sort-arrow"></span></th>
-          <th data-sort="company">Company <span class="sort-arrow"></span></th>
-          <th data-sort="price">Price <span class="sort-arrow"></span></th>
-          <th data-sort="score">Score <span class="sort-arrow"></span></th>
-          <th data-sort="rating">Rating <span class="sort-arrow"></span></th>
-          <th data-sort="forwardPE">Fwd P/E <span class="sort-arrow"></span></th>
-          <th data-sort="analystPT">Analyst PT <span class="sort-arrow"></span></th>
-          <th data-sort="upside">Upside % <span class="sort-arrow"></span></th>
-          <th>Categories</th>
-        </tr>
-      </thead>
-      <tbody id="table-body"></tbody>
-    </table>
+<div class="treemap-section">
+  <div class="section-header">
+    <h3>All Holdings</h3>
+    <div class="view-toggle">
+      <button class="active" onclick="switchView('heatmap')">Heatmap</button>
+      <button onclick="switchView('table')">Table</button>
+    </div>
+  </div>
+  <div id="heatmap-view">
+    <div class="treemap-wrap" id="treemap"></div>
+    <div class="tm-legend">
+      <div class="tm-legend-item"><div class="tm-legend-swatch" style="background:#16a34a"></div>Bullish</div>
+      <div class="tm-legend-item"><div class="tm-legend-swatch" style="background:#d97706"></div>Neutral</div>
+      <div class="tm-legend-item"><div class="tm-legend-swatch" style="background:#dc2626"></div>Bearish</div>
+      <span style="margin-left:auto;font-size:0.72em;color:var(--text3)">Block size = score</span>
+    </div>
+  </div>
+  <div id="table-view" style="display:none">
+    <div class="table-wrap">
+      <table id="portfolio-table">
+        <thead>
+          <tr>
+            <th data-sort="ticker">Ticker <span class="sort-arrow"></span></th>
+            <th data-sort="company">Company <span class="sort-arrow"></span></th>
+            <th data-sort="price">Price <span class="sort-arrow"></span></th>
+            <th data-sort="score">Score <span class="sort-arrow"></span></th>
+            <th data-sort="rating">Rating <span class="sort-arrow"></span></th>
+            <th data-sort="forwardPE">Fwd P/E <span class="sort-arrow"></span></th>
+            <th data-sort="analystPT">Analyst PT <span class="sort-arrow"></span></th>
+            <th data-sort="upside">Upside % <span class="sort-arrow"></span></th>
+            <th>Categories</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+    </div>
   </div>
 </div>
+<div class="tm-tooltip" id="tm-tooltip"></div>
 
 <div class="footer">
   <p>Built with AI-powered research &bull; Not financial advice</p>
@@ -243,6 +319,7 @@ fetch('reports.json')
     }));
     renderSummary();
     renderSectors();
+    renderTreemap();
     renderTable();
   });
 
@@ -346,6 +423,166 @@ document.querySelectorAll('#portfolio-table thead th[data-sort]').forEach(th => 
     }
     renderTable();
   });
+});
+
+// --- Treemap ---
+
+function binarySplit(items, rect) {
+  if (!items.length) return [];
+  if (items.length === 1) return [{ x: rect.x, y: rect.y, w: rect.w, h: rect.h }];
+  const total = items.reduce((s, d) => s + d.value, 0);
+  if (total === 0) return items.map(() => ({ x: rect.x, y: rect.y, w: 0, h: 0 }));
+
+  let sum = 0, splitIdx = 1, bestDiff = Infinity;
+  for (let i = 0; i < items.length - 1; i++) {
+    sum += items[i].value;
+    const diff = Math.abs(sum / total - 0.5);
+    if (diff < bestDiff) { bestDiff = diff; splitIdx = i + 1; }
+  }
+
+  const leftItems = items.slice(0, splitIdx);
+  const rightItems = items.slice(splitIdx);
+  const leftTotal = leftItems.reduce((s, d) => s + d.value, 0);
+  const ratio = leftTotal / total;
+
+  let lr, rr;
+  if (rect.w >= rect.h) {
+    lr = { x: rect.x, y: rect.y, w: rect.w * ratio, h: rect.h };
+    rr = { x: rect.x + rect.w * ratio, y: rect.y, w: rect.w * (1 - ratio), h: rect.h };
+  } else {
+    lr = { x: rect.x, y: rect.y, w: rect.w, h: rect.h * ratio };
+    rr = { x: rect.x, y: rect.y + rect.h * ratio, w: rect.w, h: rect.h * (1 - ratio) };
+  }
+  return [...binarySplit(leftItems, lr), ...binarySplit(rightItems, rr)];
+}
+
+function renderTreemap() {
+  const container = document.getElementById('treemap');
+  container.innerHTML = '';
+  const W = container.clientWidth;
+  const H = container.clientHeight;
+  if (!W || !H || !reports.length) return;
+
+  // Group by primary category
+  const groups = {};
+  reports.forEach(r => {
+    const cat = (r.category && r.category[0]) || 'Other';
+    if (!groups[cat]) groups[cat] = [];
+    groups[cat].push(r);
+  });
+
+  const categories = Object.entries(groups)
+    .map(([name, stocks]) => ({
+      name,
+      stocks: stocks.sort((a, b) => b.score - a.score),
+      value: stocks.reduce((s, r) => s + r.score, 0)
+    }))
+    .sort((a, b) => b.value - a.value);
+
+  // Layout category regions
+  const catRects = binarySplit(
+    categories.map(c => ({ value: c.value })),
+    { x: 0, y: 0, w: W, h: H }
+  );
+
+  // Layout stocks within each category
+  categories.forEach((cat, ci) => {
+    const rect = catRects[ci];
+    const stockItems = cat.stocks.map(r => ({ value: r.score, stock: r }));
+    const stockRects = binarySplit(stockItems, rect);
+
+    stockRects.forEach((sr, si) => {
+      const r = stockItems[si].stock;
+      const block = document.createElement('div');
+      block.className = 'tm-block';
+      block.setAttribute('data-rating', r.rating.toLowerCase());
+      block.style.left = sr.x + 'px';
+      block.style.top = sr.y + 'px';
+      block.style.width = sr.w + 'px';
+      block.style.height = sr.h + 'px';
+
+      const fontSize = Math.min(sr.w / 5, sr.h / 3, 16);
+      block.style.fontSize = Math.max(fontSize, 8) + 'px';
+
+      if (sr.w > 36 && sr.h > 24) {
+        block.innerHTML = '<span class="tm-ticker">' + r.ticker + '</span>';
+        if (sr.w > 48 && sr.h > 40) {
+          block.innerHTML += '<span class="tm-score">' + r.score + '</span>';
+        }
+      }
+      // Category label on largest block of each group
+      if (si === 0 && sr.w > 70 && sr.h > 55) {
+        block.innerHTML += '<span class="tm-cat">' + cat.name + '</span>';
+      }
+
+      block.dataset.ticker = r.ticker;
+      block.dataset.company = r.company;
+      block.dataset.score = r.score;
+      block.dataset.price = r.price;
+      block.dataset.upside = r.upside != null ? r.upside.toFixed(1) : 'N/A';
+      block.dataset.rating = r.rating;
+      block.dataset.url = r.url || '';
+
+      container.appendChild(block);
+    });
+  });
+}
+
+// View toggle
+function switchView(view) {
+  const heatmap = document.getElementById('heatmap-view');
+  const table = document.getElementById('table-view');
+  const btns = document.querySelectorAll('.view-toggle button');
+  if (view === 'heatmap') {
+    heatmap.style.display = '';
+    table.style.display = 'none';
+    btns[0].classList.add('active');
+    btns[1].classList.remove('active');
+    renderTreemap();
+  } else {
+    heatmap.style.display = 'none';
+    table.style.display = '';
+    btns[0].classList.remove('active');
+    btns[1].classList.add('active');
+  }
+}
+
+// Treemap tooltip
+const tmTooltip = document.getElementById('tm-tooltip');
+document.getElementById('treemap').addEventListener('mousemove', function(e) {
+  const block = e.target.closest('.tm-block');
+  if (!block) { tmTooltip.style.display = 'none'; return; }
+  const d = block.dataset;
+  const uVal = d.upside !== 'N/A' ? (parseFloat(d.upside) >= 0 ? '+' : '') + d.upside + '%' : 'N/A';
+  const uClr = d.upside !== 'N/A' ? (parseFloat(d.upside) >= 0 ? 'var(--green)' : 'var(--red)') : 'var(--text2)';
+  tmTooltip.innerHTML =
+    '<div class="tt-ticker">' + d.ticker + '</div>' +
+    '<div class="tt-company">' + d.company + '</div>' +
+    '<div class="tt-row"><span class="tt-label">Score</span><span class="tt-val">' + d.score + '</span></div>' +
+    '<div class="tt-row"><span class="tt-label">Rating</span><span class="tt-val">' + d.rating + '</span></div>' +
+    '<div class="tt-row"><span class="tt-label">Price</span><span class="tt-val">$' + parseFloat(d.price).toFixed(2) + '</span></div>' +
+    '<div class="tt-row"><span class="tt-label">Upside</span><span class="tt-val" style="color:' + uClr + '">' + uVal + '</span></div>';
+  tmTooltip.style.display = 'block';
+  let tx = e.clientX + 12, ty = e.clientY + 12;
+  const tw = tmTooltip.offsetWidth, th = tmTooltip.offsetHeight;
+  if (tx + tw > window.innerWidth - 8) tx = e.clientX - tw - 12;
+  if (ty + th > window.innerHeight - 8) ty = e.clientY - th - 12;
+  tmTooltip.style.left = tx + 'px';
+  tmTooltip.style.top = ty + 'px';
+});
+document.getElementById('treemap').addEventListener('mouseleave', function() {
+  tmTooltip.style.display = 'none';
+});
+
+// Click treemap block to open report
+document.getElementById('treemap').addEventListener('click', function(e) {
+  const block = e.target.closest('.tm-block');
+  if (block && block.dataset.url) window.location.href = block.dataset.url;
+});
+
+// Re-render treemap on resize
+window.addEventListener('resize', function() {
+  if (document.getElementById('heatmap-view').style.display !== 'none') renderTreemap();
 });
 </script>
 </body>
