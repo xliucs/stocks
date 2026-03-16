@@ -444,6 +444,23 @@
     "url": "reports/STX-2026-03-08.html"
   },
   {
+    "ticker": "PONY",
+    "company": "Pony AI",
+    "date": "2026-03-16",
+    "rating": "Neutral",
+    "score": 66,
+    "category": [
+      "Autonomous",
+      "Emerging"
+    ],
+    "nextEarnings": null,
+    "price": 11.44,
+    "analystPT": 23.31,
+    "forwardPE": null,
+    "thesis": "Autonomous vehicle platform commercializing in China and globally",
+    "url": "reports/PONY-2026-03-16.html"
+  },
+  {
     "ticker": "AAPL",
     "company": "Apple Inc.",
     "date": "2026-03-16",
