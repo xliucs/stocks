@@ -510,6 +510,22 @@
     "url": "reports/AAPL-2026-03-16.html"
   },
   {
+    "ticker": "STX",
+    "company": "Seagate Technology",
+    "date": "2026-03-16",
+    "rating": "Neutral",
+    "score": 63,
+    "category": [
+      "Storage"
+    ],
+    "nextEarnings": null,
+    "price": 383.71,
+    "analystPT": 475.35,
+    "forwardPE": 19.3,
+    "thesis": "HDD incumbent benefiting from nearline storage growth in AI data centers",
+    "url": "reports/STX-2026-03-16.html"
+  },
+  {
     "ticker": "AAPL",
     "company": "Apple Inc.",
     "date": "2026-03-08",
