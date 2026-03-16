@@ -426,6 +426,22 @@
     "url": "reports/XPEV-2026-03-08.html"
   },
   {
+    "ticker": "BILI",
+    "company": "Bilibili Inc.",
+    "date": "2026-03-16",
+    "rating": "Bullish",
+    "score": 69,
+    "category": [
+      "Emerging"
+    ],
+    "nextEarnings": null,
+    "price": 25.2,
+    "analystPT": 30.61,
+    "forwardPE": 18.4,
+    "thesis": "China's YouTube for Gen-Z monetization inflection with gaming upside",
+    "url": "reports/BILI-2026-03-16.html"
+  },
+  {
     "ticker": "STX",
     "company": "Seagate Technology Holdings",
     "date": "2026-03-08",
