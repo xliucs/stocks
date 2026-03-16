@@ -156,6 +156,23 @@
     "url": "reports/AMD-2026-03-08.html"
   },
   {
+    "ticker": "AMD",
+    "company": "Advanced Micro Devices Inc.",
+    "date": "2026-03-15",
+    "rating": "Bullish",
+    "score": 79,
+    "category": [
+      "Semis",
+      "AI"
+    ],
+    "nextEarnings": null,
+    "price": 193.39,
+    "analystPT": 289.72,
+    "forwardPE": 18.0,
+    "thesis": "AI chip challenger gaining hyperscaler share; 34% revenue growth at 18x P/E \u2014 materially discounted to NVDA",
+    "url": "reports/AMD-2026-03-15.html"
+  },
+  {
     "ticker": "AVGO",
     "company": "Broadcom Inc.",
     "date": "2026-03-08",
