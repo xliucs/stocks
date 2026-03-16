@@ -42,7 +42,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 
 /* Panels */
 .panels-section { max-width: 1100px; margin: -30px auto 0; padding: 0 24px; position: relative; z-index: 2; }
-.panels-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.panels-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 
 .panel {
   background: var(--bg);
@@ -79,6 +79,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .panel-valuation::before { background: linear-gradient(90deg, #2563eb, #6366f1); }
 .panel-research::before { background: linear-gradient(90deg, #16a34a, #059669); }
 .panel-digest::before { background: linear-gradient(90deg, #d97706, #ea580c); }
+.panel-portfolio::before { background: linear-gradient(90deg, #8b5cf6, #6366f1); }
 
 .panel .icon { font-size: 3rem; margin-bottom: 4px; }
 .panel h2 { font-size: 1.3em; font-weight: 700; }
@@ -126,7 +127,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .fade-up:nth-child(1) { animation-delay:0.1s; }
 .fade-up:nth-child(2) { animation-delay:0.2s; }
 .fade-up:nth-child(3) { animation-delay:0.3s; }
+.fade-up:nth-child(4) { animation-delay:0.4s; }
 
+@media(max-width:960px) {
+  .panels-grid { grid-template-columns:repeat(2, 1fr); }
+}
 @media(max-width:768px) {
   .panels-grid { grid-template-columns:1fr; }
   .hero h1 { font-size:2em; }
@@ -144,6 +149,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
       <a href="index.html" class="active">Home</a>
       <a href="reports.html">Reports</a>
       <a href="digest.html">Digest</a>
+      <a href="portfolio.html">Portfolio</a>
     </div>
   </div>
 </nav>
@@ -192,6 +198,17 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
       <span class="panel-badge badge-live">✅ Live</span>
     </a>
 
+    <a href="portfolio.html" class="panel panel-portfolio fade-up">
+      <div class="icon">💼</div>
+      <h2>Portfolio</h2>
+      <p>Full dashboard view — sortable table with scores, valuations, upside targets, and sector breakdown at a glance.</p>
+      <div class="stat-row">
+        <div class="mini-stat"><div class="mini-stat-val" id="portfolio-count">25</div><div class="mini-stat-label">Holdings</div></div>
+        <div class="mini-stat"><div class="mini-stat-val" id="portfolio-avg">—</div><div class="mini-stat-label">Avg Score</div></div>
+      </div>
+      <span class="panel-badge badge-live">✅ Live</span>
+    </a>
+
   </div>
 </div>
 
@@ -219,6 +236,9 @@ fetch('reports.json')
   .then(r => r.json())
   .then(reports => {
     const container = document.getElementById('report-tags');
+    document.getElementById('portfolio-count').textContent = reports.length;
+    const avgScore = (reports.reduce((s, r) => s + r.score, 0) / reports.length).toFixed(0);
+    document.getElementById('portfolio-avg').textContent = avgScore;
     const sorted = reports.sort((a,b) => a.ticker.localeCompare(b.ticker));
     sorted.forEach(r => {
       const a = document.createElement('a');

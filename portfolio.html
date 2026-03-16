@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio Dashboard — Cooper Valuation</title>
+<style>
+:root {
+  --bg: #ffffff; --bg2: #f8fafc; --text: #0f172a; --text2: #64748b; --text3: #94a3b8;
+  --border: #e2e8f0; --accent: #2563eb; --green: #16a34a; --orange: #d97706; --red: #dc2626;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --card-hover: 0 20px 40px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.04);
+  --header-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+
+/* Nav */
+.nav { background:var(--bg); border-bottom:1px solid var(--border); padding:0 24px; position:sticky; top:0; z-index:100; }
+.nav-inner { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; height:48px; }
+.nav-brand { font-weight:800; font-size:1em; color:var(--text); text-decoration:none; display:flex; align-items:center; gap:6px; }
+.nav-links { display:flex; gap:4px; }
+.nav-links a { padding:6px 14px; border-radius:8px; font-size:0.85em; font-weight:600; color:var(--text2); text-decoration:none; transition:all 0.2s; }
+.nav-links a:hover { background:var(--bg2); color:var(--text); }
+.nav-links a.active { background:var(--accent); color:#fff; }
+
+/* Hero */
+.hero {
+  background: var(--header-gradient);
+  color: #fff;
+  padding: 40px 24px 35px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content:''; position:absolute; top:0; left:0; right:0; bottom:0;
+  background: radial-gradient(circle at 30% 40%, rgba(37,99,235,0.15) 0%, transparent 50%),
+              radial-gradient(circle at 70% 60%, rgba(99,102,241,0.1) 0%, transparent 50%);
+}
+.hero-content { position:relative; z-index:1; max-width:900px; margin:0 auto; }
+.hero h1 { font-size: 2.2em; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 6px; }
+.hero .tagline { color: #94a3b8; font-size: 1em; }
+
+/* Summary stats */
+.summary { max-width:1100px; margin:-24px auto 0; padding:0 24px; position:relative; z-index:2; }
+.summary-grid {
+  display:grid; grid-template-columns: repeat(5, 1fr); gap:12px;
+  background:var(--bg); border:1px solid var(--border); border-radius:16px;
+  padding:20px 24px; box-shadow:var(--card-shadow);
+}
+.stat-box { text-align:center; }
+.stat-val { font-size:1.6em; font-weight:800; color:var(--accent); }
+.stat-val.green { color:var(--green); }
+.stat-val.orange { color:var(--orange); }
+.stat-val.red { color:var(--red); }
+.stat-label { font-size:0.72em; color:var(--text3); text-transform:uppercase; letter-spacing:0.5px; font-weight:600; }
+
+/* Sector chart */
+.sectors { max-width:1100px; margin:20px auto; padding:0 24px; }
+.sectors h3 { font-size:0.95em; color:var(--text2); margin-bottom:12px; font-weight:600; }
+.sector-bars { display:flex; flex-direction:column; gap:6px; }
+.sector-row { display:flex; align-items:center; gap:10px; }
+.sector-name { width:100px; font-size:0.78em; font-weight:600; color:var(--text2); text-align:right; flex-shrink:0; }
+.sector-bar-wrap { flex:1; background:var(--bg2); border-radius:6px; height:22px; overflow:hidden; position:relative; }
+.sector-bar { height:100%; border-radius:6px; transition:width 0.5s ease; display:flex; align-items:center; padding-left:8px; }
+.sector-bar span { font-size:0.7em; font-weight:700; color:#fff; }
+
+/* Table */
+.table-section { max-width:1100px; margin:24px auto; padding:0 24px; }
+.table-section h3 { font-size:0.95em; color:var(--text2); margin-bottom:12px; font-weight:600; }
+.table-wrap { overflow-x:auto; border:1px solid var(--border); border-radius:12px; box-shadow:var(--card-shadow); }
+table { width:100%; border-collapse:collapse; font-size:0.85em; }
+thead th {
+  background:var(--bg2); padding:10px 12px; text-align:left; font-weight:700;
+  color:var(--text2); font-size:0.8em; text-transform:uppercase; letter-spacing:0.3px;
+  border-bottom:2px solid var(--border); cursor:pointer; user-select:none;
+  white-space:nowrap; position:relative;
+}
+thead th:hover { color:var(--text); }
+thead th .sort-arrow { margin-left:4px; font-size:0.75em; color:var(--text3); }
+thead th.sorted .sort-arrow { color:var(--accent); }
+tbody tr { border-bottom:1px solid var(--border); transition:background 0.15s; }
+tbody tr:last-child { border-bottom:none; }
+tbody tr:hover { filter:brightness(0.97); }
+tbody td { padding:10px 12px; white-space:nowrap; }
+.row-bullish { background:#f0fdf4; }
+.row-neutral { background:#fefce8; }
+.row-bearish { background:#fef2f2; }
+
+.ticker-cell { font-weight:800; color:var(--accent); }
+.ticker-cell a { color:inherit; text-decoration:none; }
+.ticker-cell a:hover { text-decoration:underline; }
+.company-cell { color:var(--text2); max-width:180px; overflow:hidden; text-overflow:ellipsis; }
+.score-cell { font-weight:700; }
+.score-green { color:var(--green); }
+.score-orange { color:var(--orange); }
+.score-red { color:var(--red); }
+
+.rating-badge {
+  display:inline-block; padding:2px 10px; border-radius:12px;
+  font-size:0.78em; font-weight:700;
+}
+.badge-bullish { background:#dcfce7; color:#15803d; }
+.badge-neutral { background:#fef9c3; color:#a16207; }
+.badge-bearish { background:#fee2e2; color:#dc2626; }
+
+.upside-pos { color:var(--green); font-weight:600; }
+.upside-neg { color:var(--red); font-weight:600; }
+
+.cat-tag {
+  display:inline-block; padding:1px 8px; border-radius:6px;
+  font-size:0.72em; font-weight:600; background:var(--bg2);
+  border:1px solid var(--border); margin:1px 2px; color:var(--text2);
+}
+
+.footer {
+  text-align:center; padding:40px 24px; color:var(--text3); font-size:0.85em;
+  border-top:1px solid var(--border); margin-top:40px;
+}
+
+@media(max-width:768px) {
+  .summary-grid { grid-template-columns: repeat(3, 1fr); gap:8px; }
+  .hero h1 { font-size:1.6em; }
+  .hero { padding:30px 16px 25px; }
+  .summary { margin-top:-16px; padding:0 16px; }
+  .sectors, .table-section { padding:0 16px; }
+  .sector-name { width:70px; font-size:0.7em; }
+  table { font-size:0.78em; }
+  thead th, tbody td { padding:8px 8px; }
+}
+@media(max-width:480px) {
+  .summary-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">Cooper Valuation</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="reports.html">Reports</a>
+      <a href="digest.html">Digest</a>
+      <a href="portfolio.html" class="active">Portfolio</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Portfolio Dashboard</h1>
+    <p class="tagline">Full coverage overview with scoring, valuation, and sector breakdown</p>
+  </div>
+</section>
+
+<div class="summary">
+  <div class="summary-grid">
+    <div class="stat-box"><div class="stat-val" id="total-count">—</div><div class="stat-label">Stocks Covered</div></div>
+    <div class="stat-box"><div class="stat-val" id="avg-score">—</div><div class="stat-label">Avg Score</div></div>
+    <div class="stat-box"><div class="stat-val green" id="bullish-count">—</div><div class="stat-label">Bullish</div></div>
+    <div class="stat-box"><div class="stat-val orange" id="neutral-count">—</div><div class="stat-label">Neutral</div></div>
+    <div class="stat-box"><div class="stat-val red" id="bearish-count">—</div><div class="stat-label">Bearish</div></div>
+  </div>
+</div>
+
+<div class="sectors">
+  <h3>Sector Breakdown</h3>
+  <div class="sector-bars" id="sector-bars"></div>
+</div>
+
+<div class="table-section">
+  <h3>All Holdings</h3>
+  <div class="table-wrap">
+    <table id="portfolio-table">
+      <thead>
+        <tr>
+          <th data-sort="ticker">Ticker <span class="sort-arrow"></span></th>
+          <th data-sort="company">Company <span class="sort-arrow"></span></th>
+          <th data-sort="price">Price <span class="sort-arrow"></span></th>
+          <th data-sort="score">Score <span class="sort-arrow"></span></th>
+          <th data-sort="rating">Rating <span class="sort-arrow"></span></th>
+          <th data-sort="forwardPE">Fwd P/E <span class="sort-arrow"></span></th>
+          <th data-sort="analystPT">Analyst PT <span class="sort-arrow"></span></th>
+          <th data-sort="upside">Upside % <span class="sort-arrow"></span></th>
+          <th>Categories</th>
+        </tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="footer">
+  <p>Built with AI-powered research &bull; Not financial advice</p>
+</div>
+
+<script>
+const COLORS = ['#2563eb','#16a34a','#d97706','#dc2626','#8b5cf6','#0891b2','#ec4899','#f59e0b','#6366f1','#14b8a6','#e11d48','#84cc16'];
+
+let reports = [];
+let sortCol = 'score';
+let sortAsc = false;
+
+fetch('reports.json')
+  .then(r => r.json())
+  .then(data => {
+    reports = data.map(r => ({
+      ...r,
+      upside: r.analystPT && r.price ? ((r.analystPT - r.price) / r.price * 100) : null
+    }));
+    renderSummary();
+    renderSectors();
+    renderTable();
+  });
+
+function renderSummary() {
+  const total = reports.length;
+  const avg = (reports.reduce((s, r) => s + r.score, 0) / total).toFixed(1);
+  const bullish = reports.filter(r => r.rating === 'Bullish').length;
+  const neutral = reports.filter(r => r.rating === 'Neutral').length;
+  const bearish = reports.filter(r => r.rating === 'Bearish').length;
+
+  document.getElementById('total-count').textContent = total;
+  document.getElementById('avg-score').textContent = avg;
+  document.getElementById('bullish-count').textContent = bullish;
+  document.getElementById('neutral-count').textContent = neutral;
+  document.getElementById('bearish-count').textContent = bearish;
+}
+
+function renderSectors() {
+  const counts = {};
+  reports.forEach(r => {
+    (r.category || []).forEach(c => { counts[c] = (counts[c] || 0) + 1; });
+  });
+  const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+  const max = sorted[0] ? sorted[0][1] : 1;
+  const container = document.getElementById('sector-bars');
+
+  sorted.forEach(([name, count], i) => {
+    const pct = (count / max * 100).toFixed(0);
+    const color = COLORS[i % COLORS.length];
+    const row = document.createElement('div');
+    row.className = 'sector-row';
+    row.innerHTML =
+      '<div class="sector-name">' + name + '</div>' +
+      '<div class="sector-bar-wrap"><div class="sector-bar" style="width:' + pct + '%;background:' + color + '"><span>' + count + '</span></div></div>';
+    container.appendChild(row);
+  });
+}
+
+function renderTable() {
+  const sorted = [...reports].sort((a, b) => {
+    let va = a[sortCol], vb = b[sortCol];
+    if (sortCol === 'upside') { va = a.upside; vb = b.upside; }
+    if (va == null) return 1;
+    if (vb == null) return -1;
+    if (typeof va === 'string') {
+      const cmp = va.localeCompare(vb);
+      return sortAsc ? cmp : -cmp;
+    }
+    return sortAsc ? va - vb : vb - va;
+  });
+
+  const tbody = document.getElementById('table-body');
+  tbody.innerHTML = '';
+
+  sorted.forEach(r => {
+    const tr = document.createElement('tr');
+    const rowClass = r.rating === 'Bullish' ? 'row-bullish' : r.rating === 'Neutral' ? 'row-neutral' : 'row-bearish';
+    tr.className = rowClass;
+
+    const scoreClass = r.score >= 68 ? 'score-green' : r.score >= 45 ? 'score-orange' : 'score-red';
+    const ratingBadge = r.rating === 'Bullish' ? 'badge-bullish' : r.rating === 'Neutral' ? 'badge-neutral' : 'badge-bearish';
+    const upside = r.upside != null ? r.upside.toFixed(1) : '—';
+    const upsideClass = r.upside != null ? (r.upside >= 0 ? 'upside-pos' : 'upside-neg') : '';
+    const upsidePrefix = r.upside != null && r.upside >= 0 ? '+' : '';
+    const fpe = r.forwardPE != null ? r.forwardPE.toFixed(1) + 'x' : '—';
+    const cats = (r.category || []).map(c => '<span class="cat-tag">' + c + '</span>').join('');
+
+    tr.innerHTML =
+      '<td class="ticker-cell"><a href="' + (r.url || '#') + '">' + r.ticker + '</a></td>' +
+      '<td class="company-cell" title="' + r.company + '">' + r.company + '</td>' +
+      '<td>$' + r.price.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}) + '</td>' +
+      '<td class="score-cell ' + scoreClass + '">' + r.score + '</td>' +
+      '<td><span class="rating-badge ' + ratingBadge + '">' + r.rating + '</span></td>' +
+      '<td>' + fpe + '</td>' +
+      '<td>$' + r.analystPT.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}) + '</td>' +
+      '<td class="' + upsideClass + '">' + upsidePrefix + upside + (r.upside != null ? '%' : '') + '</td>' +
+      '<td>' + cats + '</td>';
+
+    tbody.appendChild(tr);
+  });
+
+  // Update sort arrows
+  document.querySelectorAll('#portfolio-table thead th').forEach(th => {
+    const key = th.dataset.sort;
+    const arrow = th.querySelector('.sort-arrow');
+    if (!arrow) return;
+    th.classList.toggle('sorted', key === sortCol);
+    arrow.textContent = key === sortCol ? (sortAsc ? ' \u25B2' : ' \u25BC') : '';
+  });
+}
+
+// Column header click to sort
+document.querySelectorAll('#portfolio-table thead th[data-sort]').forEach(th => {
+  th.addEventListener('click', () => {
+    const key = th.dataset.sort;
+    if (sortCol === key) {
+      sortAsc = !sortAsc;
+    } else {
+      sortCol = key;
+      sortAsc = key === 'ticker' || key === 'company';
+    }
+    renderTable();
+  });
+});
+</script>
+</body>
+</html>
