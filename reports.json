@@ -441,5 +441,24 @@
     "forwardPE": 141.2,
     "thesis": "A trillion-dollar optionality bet on Robotaxi and Optimus while the core auto business silently erodes",
     "url": "reports/TSLA-2026-03-08.html"
+  },
+  {
+    "ticker": "TSLA",
+    "company": "Tesla Inc.",
+    "date": "2026-03-15",
+    "rating": "Bearish",
+    "score": 42,
+    "category": [
+      "Mag7",
+      "EV",
+      "AI",
+      "Autonomous"
+    ],
+    "nextEarnings": null,
+    "price": 391.2,
+    "analystPT": 421.61,
+    "forwardPE": 139.2,
+    "thesis": "AI/robotaxi optionality vs. core EV margin pressure; high conviction bull/bear debate",
+    "url": "reports/TSLA-2026-03-15.html"
   }
 ]
