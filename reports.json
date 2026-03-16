@@ -397,6 +397,23 @@
   {
     "ticker": "AAPL",
     "company": "Apple Inc.",
+    "date": "2026-03-16",
+    "rating": "Neutral",
+    "score": 63,
+    "category": [
+      "Mag7",
+      "Consumer"
+    ],
+    "nextEarnings": null,
+    "price": 250.12,
+    "analystPT": 295.44,
+    "forwardPE": 26.9,
+    "thesis": "iPhone/Services flywheel with AI supercycle potential",
+    "url": "reports/AAPL-2026-03-16.html"
+  },
+  {
+    "ticker": "AAPL",
+    "company": "Apple Inc.",
     "date": "2026-03-08",
     "rating": "Neutral",
     "score": 62,
