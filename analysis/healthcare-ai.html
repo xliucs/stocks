@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Healthcare AI Revolution | Industry Deep Dive</title>
+<style>
+:root {
+  --bg: #ffffff; --bg2: #f8fafc; --text: #0f172a; --text2: #64748b; --text3: #94a3b8;
+  --border: #e2e8f0; --accent: #0891b2; --green: #16a34a; --orange: #d97706; --red: #dc2626;
+  --blue: #2563eb; --purple: #7c3aed;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --header-gradient: linear-gradient(135deg, #0f172a 0%, #0c1e2e 50%, #0e2233 100%);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:var(--bg); color:var(--text); line-height:1.7; }
+
+.hero {
+  background: var(--header-gradient);
+  color: #fff;
+  padding: 60px 24px 50px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content:''; position:absolute; top:0; left:0; right:0; bottom:0;
+  background: radial-gradient(circle at 25% 50%, rgba(8,145,178,0.25) 0%, transparent 60%),
+              radial-gradient(circle at 75% 30%, rgba(16,185,129,0.15) 0%, transparent 50%);
+}
+.hero-content { position:relative; z-index:1; max-width:1000px; margin:0 auto; }
+.hero-badge { display:inline-block; background:rgba(8,145,178,0.3); border:1px solid rgba(8,145,178,0.5); color:#67e8f9; padding:4px 12px; border-radius:20px; font-size:0.78rem; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:16px; }
+.hero h1 { font-size:2.6em; font-weight:800; letter-spacing:-0.03em; margin-bottom:12px; }
+.hero h1 span { background: linear-gradient(135deg, #67e8f9, #6ee7b7); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.hero .subtitle { color: #94a3b8; font-size:1.05em; max-width:700px; margin-bottom:24px; }
+.hero-meta { display:flex; gap:24px; flex-wrap:wrap; }
+.hero-meta-item { display:flex; align-items:center; gap:6px; color:#64748b; font-size:0.85em; }
+.hero-meta-item strong { color:#94a3b8; }
+
+nav.breadcrumb { background:var(--bg2); border-bottom:1px solid var(--border); padding:12px 24px; }
+nav.breadcrumb a { color:var(--accent); text-decoration:none; font-size:0.85em; }
+nav.breadcrumb span { color:var(--text3); font-size:0.85em; margin:0 8px; }
+
+.container { max-width:1100px; margin:0 auto; padding:48px 24px; }
+.section { margin-bottom:56px; }
+.section-title { font-size:1.45em; font-weight:700; color:var(--text); margin-bottom:6px; padding-bottom:12px; border-bottom:2px solid var(--border); display:flex; align-items:center; gap:10px; }
+.section-subtitle { color:var(--text2); font-size:0.9em; margin-bottom:24px; }
+
+.card { background:var(--bg); border:1px solid var(--border); border-radius:12px; padding:24px; box-shadow:var(--card-shadow); }
+.card-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px; margin-bottom:32px; }
+.metric-card { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:20px 24px; text-align:center; }
+.metric-value { font-size:2em; font-weight:800; color:var(--accent); line-height:1; margin-bottom:4px; }
+.metric-card.green .metric-value { color:var(--green); }
+.metric-card.purple .metric-value { color:var(--purple); }
+.metric-card.orange .metric-value { color:var(--orange); }
+.metric-label { font-size:0.8em; color:var(--text2); font-weight:500; text-transform:uppercase; letter-spacing:0.04em; }
+.metric-change { font-size:0.85em; font-weight:600; margin-top:6px; }
+.up { color:var(--green); } .down { color:var(--red); } .neutral { color:var(--orange); }
+
+.table-wrap { overflow-x:auto; border-radius:10px; border:1px solid var(--border); margin:24px 0; }
+table { width:100%; border-collapse:collapse; font-size:0.87em; }
+thead tr { background:linear-gradient(135deg,#0f172a,#1e293b); }
+th { color:#94a3b8; padding:12px 14px; text-align:left; font-weight:600; font-size:0.8em; text-transform:uppercase; letter-spacing:0.04em; white-space:nowrap; }
+td { padding:11px 14px; border-bottom:1px solid var(--border); vertical-align:middle; }
+tr:last-child td { border-bottom:none; }
+tbody tr:hover { background:var(--bg2); }
+.tag { display:inline-block; padding:2px 8px; border-radius:6px; font-size:0.75em; font-weight:600; }
+.tag-blue { background:#eff6ff; color:#1d4ed8; }
+.tag-green { background:#f0fdf4; color:#15803d; }
+.tag-red { background:#fef2f2; color:#b91c1c; }
+.tag-orange { background:#fff7ed; color:#c2410c; }
+.tag-teal { background:#ecfeff; color:#0e7490; }
+.tag-purple { background:#faf5ff; color:#6d28d9; }
+
+.thesis-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.thesis-block { border-radius:10px; padding:20px; border:1px solid; }
+.thesis-bull { background:#f0fdf4; border-color:#bbf7d0; }
+.thesis-bear { background:#fef2f2; border-color:#fecaca; }
+.thesis-block h4 { font-size:0.9em; font-weight:700; margin-bottom:10px; }
+.thesis-bull h4 { color:#15803d; }
+.thesis-bear h4 { color:#b91c1c; }
+.thesis-block ul { padding-left:16px; color:var(--text2); font-size:0.87em; }
+.thesis-block ul li { margin-bottom:6px; }
+
+.callout { background:linear-gradient(135deg,#ecfeff,#f0fdfa); border-left:4px solid var(--accent); border-radius:0 10px 10px 0; padding:16px 20px; margin:20px 0; }
+.callout strong { color:var(--accent); }
+.callout p { color:var(--text2); font-size:0.9em; margin-top:4px; }
+
+/* TAM visualization */
+.tam-stack { margin:20px 0; }
+.tam-row { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+.tam-label { width:200px; font-size:0.82em; color:var(--text2); text-align:right; flex-shrink:0; }
+.tam-track { flex:1; background:var(--bg2); border-radius:6px; height:28px; overflow:hidden; }
+.tam-fill { height:100%; border-radius:6px; display:flex; align-items:center; padding-left:10px; font-size:0.78em; font-weight:700; color:#fff; }
+.tam-val { font-size:0.82em; color:var(--text2); width:80px; text-align:left; }
+.tam-a { background:linear-gradient(90deg,#0891b2,#0e7490); }
+.tam-b { background:linear-gradient(90deg,#7c3aed,#6d28d9); }
+.tam-c { background:linear-gradient(90deg,#16a34a,#15803d); }
+.tam-d { background:linear-gradient(90deg,#d97706,#b45309); }
+.tam-e { background:linear-gradient(90deg,#2563eb,#1d4ed8); }
+
+p { color:var(--text2); margin-bottom:16px; line-height:1.75; }
+h3 { font-size:1.1em; font-weight:700; color:var(--text); margin:24px 0 12px; }
+.source { font-size:0.75em; color:var(--text3); margin-top:10px; font-style:italic; }
+
+.company-profile { border:1px solid var(--border); border-radius:12px; padding:24px; margin-bottom:20px; background:var(--bg2); }
+.company-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px; flex-wrap:wrap; gap:12px; }
+.company-name { font-size:1.2em; font-weight:700; }
+.company-ticker { background:linear-gradient(135deg,#0f172a,#1e293b); color:#67e8f9; padding:4px 12px; border-radius:8px; font-size:0.85em; font-weight:700; }
+.company-metrics { display:flex; gap:20px; flex-wrap:wrap; margin-bottom:12px; }
+.company-metric { text-align:center; }
+.company-metric-val { font-size:1.3em; font-weight:800; color:var(--accent); }
+.company-metric-label { font-size:0.72em; color:var(--text3); text-transform:uppercase; }
+.company-desc { font-size:0.88em; color:var(--text2); line-height:1.6; }
+
+.verdict { background:linear-gradient(135deg,#0f172a,#0c1e2e); color:#fff; border-radius:14px; padding:32px; margin-top:40px; }
+.verdict h3 { color:#67e8f9; font-size:1.2em; margin-bottom:16px; }
+.verdict p { color:#94a3b8; }
+
+@media(max-width:768px) {
+  .card-grid,.thesis-grid { grid-template-columns:1fr; }
+  .hero h1 { font-size:1.8em; }
+  .container { padding:24px 16px; }
+  .tam-label { width:120px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="breadcrumb">
+  <a href="/stocks/">🐱 Cooper Valuation</a>
+  <span>›</span>
+  <a href="/stocks/analysis/">Industry Analysis</a>
+  <span>›</span>
+  <span>Healthcare AI Revolution</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">🏥 Industry Deep Dive</div>
+    <h1>The <span>Healthcare AI Revolution</span></h1>
+    <p class="subtitle">From drug discovery to claims automation — how AI is reshaping the $5 trillion healthcare industry, and who profits. Tempus AI and UnitedHealth's Optum lead the charge.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>Coverage:</strong> TEM (Tempus AI) · UNH (Optum) · Competitive Landscape</div>
+      <div class="hero-meta-item"><strong>Updated:</strong> March 2026</div>
+      <div class="hero-meta-item"><strong>Category:</strong> Healthcare AI / Digital Health / Life Sciences</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Key Metrics -->
+  <div class="card-grid">
+    <div class="metric-card">
+      <div class="metric-value">$120B+</div>
+      <div class="metric-label">AI Precision Medicine TAM by 2040</div>
+      <div class="metric-change up">28% CAGR (2026–2040)</div>
+    </div>
+    <div class="metric-card green">
+      <div class="metric-value">$45B</div>
+      <div class="metric-label">AI in Drug Discovery TAM 2030E</div>
+      <div class="metric-change up">↑ from $4B in 2023</div>
+    </div>
+    <div class="metric-card purple">
+      <div class="metric-value">$36B</div>
+      <div class="metric-label">AI Health Records/Admin TAM 2028E</div>
+      <div class="metric-change up">42% CAGR</div>
+    </div>
+    <div class="metric-card orange">
+      <div class="metric-value">70%</div>
+      <div class="metric-label">Hospital EHRs With AI Modules 2025</div>
+      <div class="metric-change up">Up from 12% in 2021</div>
+    </div>
+  </div>
+
+  <!-- Section 1: TAM Analysis -->
+  <div class="section">
+    <div class="section-title">📐 Total Addressable Market Analysis</div>
+    <p class="section-subtitle">AI is touching every layer of the $5T+ global healthcare stack — from molecule to invoice</p>
+
+    <div class="tam-stack card">
+      <div style="margin-bottom:16px;">
+        <strong style="font-size:0.9em;">Healthcare AI Sub-Market TAM (2030 Estimates, USD)</strong>
+      </div>
+      <div class="tam-row">
+        <div class="tam-label">Drug Discovery AI</div>
+        <div class="tam-track"><div class="tam-fill tam-a" style="width:90%">$45B</div></div>
+        <div class="tam-val">$45B</div>
+      </div>
+      <div class="tam-row">
+        <div class="tam-label">Medical Imaging AI</div>
+        <div class="tam-track"><div class="tam-fill tam-b" style="width:60%">$30B</div></div>
+        <div class="tam-val">$30B</div>
+      </div>
+      <div class="tam-row">
+        <div class="tam-label">Administrative AI</div>
+        <div class="tam-track"><div class="tam-fill tam-c" style="width:55%">$28B</div></div>
+        <div class="tam-val">$28B</div>
+      </div>
+      <div class="tam-row">
+        <div class="tam-label">Genomics/Precision Med</div>
+        <div class="tam-track"><div class="tam-fill tam-d" style="width:50%">$25B</div></div>
+        <div class="tam-val">$25B</div>
+      </div>
+      <div class="tam-row">
+        <div class="tam-label">Clinical Trials AI</div>
+        <div class="tam-track"><div class="tam-fill tam-e" style="width:35%">$18B</div></div>
+        <div class="tam-val">$18B</div>
+      </div>
+      <div class="tam-row">
+        <div class="tam-label">Remote Monitoring/RPM</div>
+        <div class="tam-track"><div class="tam-fill tam-a" style="width:28%">$14B</div></div>
+        <div class="tam-val">$14B</div>
+      </div>
+      <p class="source">Sources: Grand View Research, Global Market Insights, GlobeNewswire (March 2026 AI Precision Medicine Report 2026–2040), MarketsandMarkets 2025.</p>
+    </div>
+
+    <p>The healthcare AI opportunity is enormous but diffuse — it spans molecular biology, clinical workflows, administrative automation, and insurance underwriting. The $120B+ precision medicine AI TAM growing at 28% CAGR (per the March 2026 GlobeNewswire industry report) is the marquee opportunity, but it requires deep proprietary data assets that very few companies possess at scale. <strong>Tempus AI is the clearest pure-play on this wave</strong>, having built what is arguably the world's largest proprietary multimodal clinical dataset.</p>
+
+    <p>UnitedHealth's Optum represents a different vector: applying AI to the administrative and care management layers of a $260B+ revenue healthcare behemoth. The stakes are different — not moonshot drug discovery, but billions in claims efficiency, fraud detection, and care pathway optimization. Optum's AI investments are hidden inside UNH's financials but represent one of the most capital-efficient healthcare AI deployments anywhere.</p>
+  </div>
+
+  <!-- Section 2: Company Profiles -->
+  <div class="section">
+    <div class="section-title">🏢 Company Deep Dives</div>
+
+    <!-- Tempus AI -->
+    <div class="company-profile">
+      <div class="company-header">
+        <div>
+          <div class="company-name">Tempus AI — The Healthcare Data Operating System</div>
+          <div style="color:var(--text2); font-size:0.85em; margin-top:4px;">NASDAQ: TEM | Founded 2015 by Eric Lefkofsky</div>
+        </div>
+        <div class="company-ticker">TEM</div>
+      </div>
+      <div class="company-metrics">
+        <div class="company-metric">
+          <div class="company-metric-val">~$800M</div>
+          <div class="company-metric-label">FY2025E Revenue</div>
+        </div>
+        <div class="company-metric">
+          <div class="company-metric-val">+30%+</div>
+          <div class="company-metric-label">Revenue Growth</div>
+        </div>
+        <div class="company-metric">
+          <div class="company-metric-val">~9B+</div>
+          <div class="company-metric-label">Clinical Records</div>
+        </div>
+        <div class="company-metric">
+          <div class="company-metric-val">900+</div>
+          <div class="company-metric-label">Hospital Partners</div>
+        </div>
+        <div class="company-metric">
+          <div class="company-metric-val">~$5B</div>
+          <div class="company-metric-label">Market Cap</div>
+        </div>
+      </div>
+      <div class="company-desc">
+        <p>Tempus has built the world's largest library of multimodal clinical and molecular data — genomics, imaging, pathology, EHR records, and lab results — covering over 9 billion data points across hundreds of thousands of cancer patients and other disease areas. This proprietary dataset, paired with Tempus's AI and ML platform, enables three core revenue streams:</p>
+        <p><strong>1. Genomics (>60% of revenue):</strong> Next-generation sequencing tests for oncology biomarker identification, tumor profiling, and treatment selection. Tempus processes tumor biopsies and matches patients to targeted therapies or clinical trials. Revenue from per-test fees ($3,000–5,000 per sequencing run).</p>
+        <p><strong>2. Data Licensing (Data/AI segment):</strong> Pharmaceutical and biotech companies pay Tempus for access to its anonymized, curated patient dataset to power their own drug discovery and clinical trial optimization. This is Tempus's highest-margin revenue stream and fastest-growing segment.</p>
+        <p><strong>3. Applications (Algorithms/Software):</strong> AI-powered clinical decision support tools licensed to health systems — including ECG analysis (detecting atrial fibrillation), cardiology risk models, and radiology AI co-pilot tools. Tempus's acquisition of Ambra Health expanded its imaging informatics capabilities.</p>
+      </div>
+    </div>
+
+    <!-- UnitedHealth / Optum -->
+    <div class="company-profile">
+      <div class="company-header">
+        <div>
+          <div class="company-name">UnitedHealth Group — Optum AI at Scale</div>
+          <div style="color:var(--text2); font-size:0.85em; margin-top:4px;">NYSE: UNH | Optum Revenue ~$230B FY2025E</div>
+        </div>
+        <div class="company-ticker">UNH</div>
+      </div>
+      <div class="company-metrics">
+        <div class="company-metric">
+          <div class="company-metric-val">~$420B</div>
+          <div class="company-metric-label">Total Revenue FY2025E</div>
+        </div>
+        <div class="company-metric">
+          <div class="company-metric-val">$33B+</div>
+          <div class="company-metric-label">Operating Income</div>
+        </div>
+        <div class="company-metric">
+          <div class="company-metric-val">170M+</div>
+          <div class="company-metric-label">Lives Touched</div>
+        </div>
+        <div class="company-metric">
+          <div class="company-metric-val">$4.5B</div>
+          <div class="company-metric-label">Annual AI Investment</div>
+        </div>
+        <div class="company-metric">
+          <div class="company-metric-val">~$430B</div>
+          <div class="company-metric-label">Market Cap</div>
+        </div>
+      </div>
+      <div class="company-desc">
+        <p>UnitedHealth Group's Optum division is the most comprehensive healthcare AI deployment in the world — but it's embedded within a $420B+ conglomerate, making it difficult to value in isolation. Optum Health (care delivery), Optum Rx (pharmacy benefits), and Optum Insight (data/analytics) collectively touch 170 million patients and process billions of healthcare transactions annually.</p>
+        <p><strong>Optum Insight's AI Capabilities:</strong> The analytics arm processes claims, clinical notes, and member data to power prior authorization AI, claims adjudication automation, risk stratification, and population health management. The Change Healthcare platform (acquired, subsequently subject of a major 2024 ransomware attack) processes 15 billion+ healthcare transactions annually — an unparalleled data asset.</p>
+        <p><strong>MSFT Nuance Partnership:</strong> Optum has partnered with Microsoft's Nuance subsidiary (DAX Copilot) to deploy ambient AI clinical documentation across its physician networks — eliminating 2+ hours of daily documentation burden per physician. This is one of the highest-ROI AI deployments in healthcare, with documented physician retention and burnout reduction outcomes.</p>
+        <p><strong>AI in Claims Processing:</strong> UNH's prior authorization AI has attracted regulatory scrutiny for automated denial rates — a key risk. Congress and CMS are actively investigating AI-driven claim denials. This regulatory risk is UNH's primary AI-specific overhang in 2025–2026.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: Drug Discovery AI -->
+  <div class="section">
+    <div class="section-title">🧬 AI in Drug Discovery</div>
+    <p class="section-subtitle">AI is compressing the 10–15 year, $2.6B average drug development timeline — with Tempus at the intersection of clinical data and pharma partnerships</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>AI Application</th><th>Traditional Timeline</th><th>AI-Accelerated</th><th>Cost Impact</th><th>Key Players</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Target Identification</td>
+            <td>2–4 years</td>
+            <td><span class="up">6–12 months</span></td>
+            <td>-60% to -80%</td>
+            <td>Tempus, Insilico Medicine, Recursion</td>
+          </tr>
+          <tr>
+            <td>Lead Compound Optimization</td>
+            <td>2–3 years</td>
+            <td><span class="up">6–9 months</span></td>
+            <td>-50%</td>
+            <td>Schrödinger, Exscientia, Absci</td>
+          </tr>
+          <tr>
+            <td>Clinical Trial Patient Matching</td>
+            <td>18–36 months recruitment</td>
+            <td><span class="up">4–8 months</span></td>
+            <td>-40% per patient</td>
+            <td>Tempus (MatchMiner), Flatiron, IBM Watson</td>
+          </tr>
+          <tr>
+            <td>Biomarker Discovery</td>
+            <td>3–5 years</td>
+            <td><span class="up">12–18 months</span></td>
+            <td>-70%</td>
+            <td>Tempus, Foundation Medicine (RHHBY), Guardant</td>
+          </tr>
+          <tr>
+            <td>FDA Submission (AI-assisted)</td>
+            <td>2–3 years review prep</td>
+            <td><span class="up">12–18 months</span></td>
+            <td>-30%</td>
+            <td>Veeva Systems, OpenAI (FDA partnership)</td>
+          </tr>
+          <tr>
+            <td>Protein Structure Prediction</td>
+            <td>Years (crystallography)</td>
+            <td><span class="up">Hours (AlphaFold3)</span></td>
+            <td>-95%+</td>
+            <td>DeepMind, Isomorphic Labs, Meta ESM</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="source">Sources: MIT Technology Review, Nature Reviews Drug Discovery 2025, Tempus investor presentations, FDA AI/ML action plan updates.</p>
+    </div>
+
+    <div class="callout">
+      <strong>Tempus's Pharma Partnership Model</strong>
+      <p>Tempus has structured deals with over 20 top-20 pharmaceutical companies — including AstraZeneca, Bristol Myers Squibb, and Pfizer — to provide real-world clinical + genomic data for drug development. These deals typically involve multi-year data licensing agreements ($10–50M+ per relationship) plus potential milestone payments tied to drug approval. The unique value proposition: Tempus data is <em>prospectively collected</em> at the point of care (not retrospective EMR scraping), paired with deep molecular profiling, making it the highest-fidelity dataset available for precision oncology drug development outside of clinical trial infrastructure.</p>
+    </div>
+  </div>
+
+  <!-- Section 4: Precision Medicine -->
+  <div class="section">
+    <div class="section-title">🎯 Precision Medicine Market</div>
+
+    <p>The precision medicine market — tailoring treatments to individual genetic, biomarker, and clinical profiles — is transitioning from oncology-focused to multi-disease expansion. AI is the critical enabling technology for analyzing the complex multimodal datasets (genomics + imaging + EHR + wearables) required for true precision care.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Segment</th><th>2025 Market Size</th><th>2030E Market Size</th><th>CAGR</th><th>AI Penetration</th><th>Key Companies</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Oncology Genomics</strong></td>
+            <td>$8B</td>
+            <td>$28B</td>
+            <td><span class="up">+28%</span></td>
+            <td>65%</td>
+            <td>Tempus, Foundation Medicine, Guardant Health</td>
+          </tr>
+          <tr>
+            <td><strong>Pharmacogenomics</strong></td>
+            <td>$4B</td>
+            <td>$12B</td>
+            <td><span class="up">+24%</span></td>
+            <td>40%</td>
+            <td>Illumina, GenMark, Myriad Genetics</td>
+          </tr>
+          <tr>
+            <td><strong>Rare Disease Dx</strong></td>
+            <td>$3B</td>
+            <td>$9B</td>
+            <td><span class="up">+24%</span></td>
+            <td>35%</td>
+            <td>GeneDx, Blueprint Genetics, Tempus (expanding)</td>
+          </tr>
+          <tr>
+            <td><strong>Multiomics Platforms</strong></td>
+            <td>$2B</td>
+            <td>$10B</td>
+            <td><span class="up">+38%</span></td>
+            <td>50%</td>
+            <td>10x Genomics, Pacific Biosciences, Tempus</td>
+          </tr>
+          <tr>
+            <td><strong>AI Clinical Decision Support</strong></td>
+            <td>$6B</td>
+            <td>$22B</td>
+            <td><span class="up">+29%</span></td>
+            <td>N/A (is AI)</td>
+            <td>Tempus, Veracyte, Epic AI, Google Health</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="source">Sources: GlobeNewswire AI Precision Medicine Report 2026–2040, Grand View Research, MarketsandMarkets 2025, company investor materials.</p>
+    </div>
+  </div>
+
+  <!-- Section 5: FDA Regulatory Pathway -->
+  <div class="section">
+    <div class="section-title">⚖️ FDA Regulatory Pathway for AI/ML Medical Devices</div>
+
+    <p>The FDA's approach to AI/ML-based Software as a Medical Device (SaMD) is evolving rapidly. The agency has approved over 1,000 AI/ML-enabled medical devices as of 2025, primarily in radiology and pathology. The regulatory pathway is both a risk and a moat — companies that navigate FDA clearance build defensible competitive advantages that take years to replicate.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>FDA Pathway</th><th>Risk Class</th><th>Timeline</th><th>Key Requirement</th><th>AI Applications</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>510(k) Clearance</strong></td>
+            <td>Class II</td>
+            <td>3–12 months</td>
+            <td>Substantial equivalence to predicate device</td>
+            <td>AI imaging analysis, ECG interpretation, risk calculators</td>
+          </tr>
+          <tr>
+            <td><strong>De Novo Classification</strong></td>
+            <td>Class I/II (novel)</td>
+            <td>12–24 months</td>
+            <td>Novel device, no predicate; general controls + special controls</td>
+            <td>First-in-class AI diagnostics, biomarker algorithms</td>
+          </tr>
+          <tr>
+            <td><strong>PMA Approval</strong></td>
+            <td>Class III (high risk)</td>
+            <td>24–48 months</td>
+            <td>Clinical trial data proving safety and efficacy</td>
+            <td>AI-guided surgery, autonomous diagnostic AI in critical care</td>
+          </tr>
+          <tr>
+            <td><strong>Predetermined Change Control Plan</strong></td>
+            <td>All classes</td>
+            <td>Ongoing</td>
+            <td>Pre-approved protocol for AI model updates</td>
+            <td>Continuously learning AI — key for adaptive algorithms</td>
+          </tr>
+          <tr>
+            <td><strong>Breakthrough Device Program</strong></td>
+            <td>Class III (life-threatening)</td>
+            <td>~24 months (expedited)</td>
+            <td>Serious condition, more effective than existing treatment</td>
+            <td>AI cancer diagnosis, sepsis prediction, rare disease Dx</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="source">Sources: FDA Center for Devices and Radiological Health (CDRH), FDA AI/ML Action Plan 2025 updates.</p>
+    </div>
+
+    <div class="callout">
+      <strong>Tempus's FDA Cleared AI Products</strong>
+      <p>Tempus holds FDA clearance for its ECG-AI analysis tools (detecting atrial fibrillation, low ejection fraction, and other cardiac abnormalities from routine 12-lead ECGs). These are deployed across 500+ health systems. The company is pursuing additional clearances in radiology pathology and genomic biomarker panels. Each FDA-cleared product creates a defensible moat: competitors must independently demonstrate equivalence or safety, typically requiring 2–4 years of additional development and clinical validation.</p>
+    </div>
+  </div>
+
+  <!-- Section 6: Claims Processing & Administrative AI -->
+  <div class="section">
+    <div class="section-title">💻 Claims Processing & Administrative Automation</div>
+
+    <p>Healthcare administration consumes ~34% of total US healthcare spending — approximately $1.7 trillion annually. AI is attacking this waste layer aggressively, and UnitedHealth's Optum is the dominant incumbent. But the regulatory scrutiny of AI-driven claim denials represents a material risk to the business model.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>AI Application</th><th>Current Adoption</th><th>Annual Savings Est.</th><th>UNH/Optum Role</th><th>Risk Level</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Prior Authorization Automation</td>
+            <td>High (70%+ major payers)</td>
+            <td>$3–5B industry</td>
+            <td>Market leader — >1B PA decisions/year</td>
+            <td><span class="tag tag-red">High (regulatory)</span></td>
+          </tr>
+          <tr>
+            <td>Claims Adjudication AI</td>
+            <td>High</td>
+            <td>$8–12B industry</td>
+            <td>Change Healthcare processes 15B+ claims/yr</td>
+            <td><span class="tag tag-orange">Medium</span></td>
+          </tr>
+          <tr>
+            <td>Fraud/Waste/Abuse Detection</td>
+            <td>Medium-High</td>
+            <td>$40B+ industry</td>
+            <td>Optum Analytics — NLP + anomaly detection</td>
+            <td><span class="tag tag-green">Low (positive)</span></td>
+          </tr>
+          <tr>
+            <td>Clinical Documentation (Ambient AI)</td>
+            <td>Medium (growing fast)</td>
+            <td>$15B+ (physician time)</td>
+            <td>DAX Copilot (MSFT Nuance) partnership</td>
+            <td><span class="tag tag-green">Low</span></td>
+          </tr>
+          <tr>
+            <td>Revenue Cycle Management AI</td>
+            <td>Medium</td>
+            <td>$3–5B industry</td>
+            <td>Optum360 — major health system clients</td>
+            <td><span class="tag tag-green">Low</span></td>
+          </tr>
+          <tr>
+            <td>Population Health Mgmt</td>
+            <td>Medium</td>
+            <td>$20B+ (reduced readmissions)</td>
+            <td>Optum Health ACO networks</td>
+            <td><span class="tag tag-orange">Medium</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="source">Sources: AHIP, Commonwealth Fund, CMS data, Optum investor presentations, MGMA Stat 2025.</p>
+    </div>
+  </div>
+
+  <!-- Section 7: Competitive Landscape -->
+  <div class="section">
+    <div class="section-title">🏆 Competitive Landscape</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Player</th><th>Approach</th><th>Strengths</th><th>Weaknesses</th><th>Threat to TEM/UNH</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Google Health / DeepMind</strong></td>
+            <td>Foundation models (Med-PaLM 2, AlphaFold3), imaging AI</td>
+            <td>Compute scale, TPU advantage, research pedigree</td>
+            <td>Provider trust issues, no payer/EMR integration, regulatory naivety</td>
+            <td><span class="tag tag-orange">Medium-term threat</span></td>
+          </tr>
+          <tr>
+            <td><strong>Microsoft / Nuance</strong></td>
+            <td>DAX Copilot ambient documentation, Azure AI for Health</td>
+            <td>Largest health system EHR relationships (via Epic partnership), Azure scale</td>
+            <td>Not a data owner — technology layer only</td>
+            <td><span class="tag tag-blue">Partner + Competitor</span></td>
+          </tr>
+          <tr>
+            <td><strong>Epic Systems (EHR)</strong></td>
+            <td>AI within EHR (sepsis prediction, deterioration alerts, scheduling)</td>
+            <td>Installed at 350+ health systems, ~250M patient records</td>
+            <td>Closed ecosystem; limited pharma/research monetization</td>
+            <td><span class="tag tag-orange">Clinical workflow rival</span></td>
+          </tr>
+          <tr>
+            <td><strong>Foundation Medicine (Roche)</strong></td>
+            <td>Comprehensive genomic profiling (CGP) for oncology</td>
+            <td>FDA-approved CDx panels, ~1M patient database</td>
+            <td>Parent company (Roche) strategic priorities may constrain growth</td>
+            <td><span class="tag tag-red">Direct TEM competitor</span></td>
+          </tr>
+          <tr>
+            <td><strong>Flatiron Health (Roche)</strong></td>
+            <td>Real-world oncology data and analytics</td>
+            <td>Strong academic/pharma relationships, 280+ cancer clinics</td>
+            <td>Oncology-only, Roche-owned (less independent)</td>
+            <td><span class="tag tag-red">Direct TEM competitor</span></td>
+          </tr>
+          <tr>
+            <td><strong>Amazon HealthLake / AWS Health</strong></td>
+            <td>FHIR data lake + Bedrock AI for health systems</td>
+            <td>AWS infrastructure ubiquity, Comprehend Medical NLP</td>
+            <td>No proprietary clinical data; pure infrastructure play</td>
+            <td><span class="tag tag-green">Low near-term</span></td>
+          </tr>
+          <tr>
+            <td><strong>Insilico Medicine / Recursion</strong></td>
+            <td>AI-first drug discovery platforms</td>
+            <td>End-to-end AI pipelines, novel target identification</td>
+            <td>No real-world clinical data moat; early revenue</td>
+            <td><span class="tag tag-orange">Pharma partnership rival</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Wearable Data Integration</h3>
+    <p>The integration of continuous wearable data (Apple Watch ECG, continuous glucose monitors, Oura ring HRV) with clinical AI systems represents the next frontier. Tempus has begun integrating multi-modal real-world data beyond traditional EHR, positioning it for the convergence of consumer health data and clinical decision support. Apple's health data partnerships with health systems, Google's Fitbit data, and Amazon's Halo Wind all represent potential future data assets for healthcare AI — though none yet match the depth of clinical + molecular data that Tempus has curated specifically for oncology.</p>
+  </div>
+
+  <!-- Section 8: Investment Thesis -->
+  <div class="section">
+    <div class="section-title">⚖️ Investment Thesis</div>
+
+    <div class="thesis-grid">
+      <div class="thesis-block thesis-bull">
+        <h4>🐂 Bull Case — TEM: The Healthcare Data Monopoly</h4>
+        <ul>
+          <li>World's largest multimodal clinical + molecular dataset = durable competitive moat</li>
+          <li>Pharma partnership model creates high-margin, recurring data licensing revenue</li>
+          <li>FDA-cleared AI products (ECG, genomics) provide regulatory defensibility</li>
+          <li>AI Precision Medicine TAM growing to $120B+ at 28% CAGR through 2040</li>
+          <li>Clinical trial AI matching could become standard of care — recurring, high-value</li>
+          <li>Eric Lefkofsky (founder of Groupon) — serial entrepreneur with proven monetization instincts</li>
+          <li>Expansion beyond oncology (cardiology, neurology, rare disease) is greenfield</li>
+        </ul>
+      </div>
+      <div class="thesis-block thesis-bear">
+        <h4>🐻 Bear Case — Structural Concerns</h4>
+        <ul>
+          <li>TEM still not profitable; significant cash burn; path to profitability unclear near-term</li>
+          <li>Google Health, Epic, and Foundation Medicine all have competing data assets</li>
+          <li>UNH's prior authorization AI faces regulatory/congressional scrutiny and potential mandates</li>
+          <li>Healthcare data privacy (HIPAA) creates legal complexity for data licensing models</li>
+          <li>Drug discovery timelines mean pharma partnerships take 5–10 years to show clinical ROI</li>
+          <li>UNH stock has faced headwinds post-Change Healthcare breach and CEO shooting (Dec 2024)</li>
+          <li>AI-native healthcare startups may disintermediate incumbent data platforms</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="table-wrap" style="margin-top:24px;">
+      <table>
+        <thead>
+          <tr><th>Ticker</th><th>Market Cap</th><th>Rev FY2025E</th><th>Rev Growth</th><th>P/S</th><th>Gross Margin</th><th>Path to Profit</th><th>Thesis</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>TEM</strong></td>
+            <td>~$5B</td>
+            <td>~$800M</td>
+            <td><span class="up">+30%+</span></td>
+            <td>6.3x</td>
+            <td>~50–55%</td>
+            <td>2027E</td>
+            <td><span class="tag tag-teal">Data Platform Compounder</span></td>
+          </tr>
+          <tr>
+            <td><strong>UNH</strong></td>
+            <td>~$430B</td>
+            <td>~$420B</td>
+            <td><span class="up">+10%</span></td>
+            <td>1.0x</td>
+            <td>~23%</td>
+            <td>Highly profitable now</td>
+            <td><span class="tag tag-blue">AI-Enhanced Compounder</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="source">Sources: Bloomberg consensus, company guidance, FactSet March 2026.</p>
+    </div>
+  </div>
+
+  <!-- Verdict -->
+  <div class="verdict">
+    <h3>🎯 Research Verdict: Healthcare AI Revolution</h3>
+    <p><strong>Tempus AI (TEM)</strong> is a high-conviction, high-risk long for the next 5 years. It has built an irreplaceable proprietary data asset that could prove to be the foundational layer of precision oncology globally. The risk is cash burn and execution — it needs to close the gap to profitability while fending off Google, Epic, and Foundation Medicine. The TAM is unambiguous: AI precision medicine growing at 28% CAGR to $120B+ by 2040. Tempus, if it survives to capture 3–5% of that market, would generate $4–6B in revenue on a platform business model — worth many multiples of current market cap.</p>
+    <p style="margin-top:12px;"><strong>UnitedHealth (UNH)</strong> is a different animal — it's a healthcare AI transformation story embedded inside one of the world's largest companies. At 1x revenue and 15x earnings, it's not obviously cheap, but the AI-efficiency flywheel in claims and care management is powerful. The key risk is regulatory: if Congress mandates human review of AI-generated prior authorization denials, it significantly raises UNH's cost structure. Despite the overhang from Change Healthcare and leadership turbulence, UNH's business moat remains intact. It is one of the best AI deployment stories in traditional enterprise — just hard to see from the outside.</p>
+  </div>
+
+</div>
+</body>
+</html>

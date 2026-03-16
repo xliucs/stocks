@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Earnings Calendar — Cooper Valuation</title>
+<style>
+:root {
+  --bg: #ffffff; --bg2: #f8fafc; --text: #0f172a; --text2: #64748b; --text3: #94a3b8;
+  --border: #e2e8f0; --accent: #2563eb; --green: #16a34a; --orange: #d97706; --red: #dc2626;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --card-hover: 0 20px 40px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.04);
+  --header-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+}
+[data-theme="dark"] {
+  --bg: #0f172a; --bg2: #1e293b; --text: #f1f5f9; --text2: #94a3b8; --text3: #64748b;
+  --border: #334155; --accent: #3b82f6;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  --card-hover: 0 20px 40px rgba(0,0,0,0.3), 0 8px 16px rgba(0,0,0,0.2);
+  --header-gradient: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e293b 100%);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:var(--bg); color:var(--text); line-height:1.6; transition: background 0.3s, color 0.3s; }
+.theme-toggle { background:none; border:1px solid var(--border); color:var(--text2); border-radius:8px; padding:4px 8px; cursor:pointer; font-size:1em; line-height:1; transition:all 0.2s; }
+.theme-toggle:hover { background:var(--bg2); }
+
+/* Nav */
+.nav { background:var(--bg); border-bottom:1px solid var(--border); padding:0 24px; position:sticky; top:0; z-index:100; }
+.nav-inner { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; height:48px; }
+.nav-brand { font-weight:800; font-size:1em; color:var(--text); text-decoration:none; display:flex; align-items:center; gap:6px; }
+.nav-links { display:flex; gap:4px; }
+.nav-links a { padding:6px 14px; border-radius:8px; font-size:0.85em; font-weight:600; color:var(--text2); text-decoration:none; transition:all 0.2s; }
+.nav-links a:hover { background:var(--bg2); color:var(--text); }
+.nav-links a.active { background:var(--accent); color:#fff; }
+
+/* Hero */
+.hero {
+  background: var(--header-gradient);
+  color: #fff;
+  padding: 48px 24px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content:''; position:absolute; top:0; left:0; right:0; bottom:0;
+  background: radial-gradient(circle at 30% 40%, rgba(217,119,6,0.15) 0%, transparent 50%),
+              radial-gradient(circle at 70% 60%, rgba(234,88,12,0.1) 0%, transparent 50%);
+}
+.hero-content { position:relative; z-index:1; max-width:800px; margin:0 auto; }
+.hero h1 { font-size:2.4em; font-weight:800; letter-spacing:-0.03em; margin-bottom:4px; }
+.hero .tagline { color:#94a3b8; font-size:1.1em; }
+
+/* Container */
+.container { max-width:1100px; margin:0 auto; padding:20px 24px; }
+
+/* View toggle */
+.view-toggle { display:flex; gap:8px; margin-bottom:20px; }
+.view-btn {
+  padding:8px 20px; border-radius:10px; border:1.5px solid var(--border);
+  background:var(--bg); color:var(--text); font-size:0.85em; font-weight:600;
+  cursor:pointer; transition:all 0.2s;
+}
+.view-btn:hover { border-color:var(--accent); color:var(--accent); }
+.view-btn.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+
+/* KPI row */
+.kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:20px; }
+.kpi-card {
+  background:var(--bg); border:1px solid var(--border); border-radius:14px;
+  padding:20px; text-align:center; box-shadow:var(--card-shadow);
+}
+.kpi-label { font-size:0.78em; color:var(--text3); text-transform:uppercase; letter-spacing:0.5px; font-weight:700; }
+.kpi-value { font-size:1.5em; font-weight:800; margin:4px 0; }
+.kpi-sub { font-size:0.82em; color:var(--text2); }
+
+/* Calendar */
+.cal-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+.cal-title { font-size:1.2em; font-weight:800; }
+.cal-nav { display:flex; gap:8px; }
+.cal-nav button {
+  padding:6px 14px; border-radius:8px; border:1.5px solid var(--border);
+  background:var(--bg); color:var(--text); font-size:0.85em; font-weight:600;
+  cursor:pointer; transition:all 0.2s;
+}
+.cal-nav button:hover { border-color:var(--accent); color:var(--accent); }
+.cal-grid {
+  display:grid; grid-template-columns:repeat(7,1fr); gap:1px;
+  background:var(--border); border:1px solid var(--border); border-radius:14px; overflow:hidden;
+}
+.cal-dow {
+  background:var(--bg2); padding:10px 4px; text-align:center;
+  font-size:0.75em; font-weight:700; color:var(--text3); text-transform:uppercase; letter-spacing:0.5px;
+}
+.cal-day {
+  background:var(--bg); padding:8px 6px; min-height:90px; position:relative;
+}
+.cal-day.empty { background:var(--bg2); opacity:0.5; }
+.cal-day.today { background:rgba(37,99,235,0.06); }
+.cal-day-num { font-size:0.78em; font-weight:700; color:var(--text2); margin-bottom:4px; }
+.cal-day.today .cal-day-num { color:var(--accent); font-weight:800; }
+.cal-day.past { opacity:0.5; }
+.cal-event {
+  display:block; padding:2px 6px; border-radius:5px; margin-bottom:2px;
+  font-size:0.72em; font-weight:700; color:#fff; text-decoration:none;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap; transition:opacity 0.2s;
+}
+.cal-event:hover { opacity:0.85; }
+.cal-event.green { background:var(--green); }
+.cal-event.yellow { background:var(--orange); }
+.cal-event.red { background:var(--red); }
+
+/* List view */
+.list-card {
+  background:var(--bg); border:1px solid var(--border); border-radius:14px;
+  box-shadow:var(--card-shadow); overflow:hidden;
+}
+.list-table { width:100%; border-collapse:collapse; }
+.list-table th {
+  padding:12px 16px; text-align:left; font-size:0.72em; font-weight:700;
+  color:var(--text3); text-transform:uppercase; letter-spacing:0.5px;
+  background:var(--bg2); border-bottom:1px solid var(--border);
+}
+.list-table td {
+  padding:12px 16px; border-bottom:1px solid var(--border);
+  font-size:0.9em;
+}
+.list-table tr:last-child td { border-bottom:none; }
+.list-table tr:hover td { background:var(--bg2); }
+.list-ticker { font-weight:800; }
+.list-company { color:var(--text2); font-size:0.82em; }
+.list-date { font-weight:600; }
+.list-countdown { font-weight:700; font-size:0.82em; }
+.list-countdown.soon { color:var(--red); }
+.list-countdown.near { color:var(--orange); }
+.list-countdown.later { color:var(--accent); }
+.list-countdown.past { color:var(--text3); }
+.score-badge {
+  display:inline-block; padding:3px 10px; border-radius:6px;
+  font-size:0.82em; font-weight:700; color:#fff;
+}
+.score-badge.green { background:var(--green); }
+.score-badge.yellow { background:var(--orange); }
+.score-badge.red { background:var(--red); }
+.rating-label { font-size:0.82em; font-weight:600; }
+.rating-label.Bullish { color:var(--green); }
+.rating-label.Neutral { color:var(--orange); }
+.rating-label.Bearish { color:var(--red); }
+
+.footer {
+  text-align:center; padding:40px 24px; color:var(--text3); font-size:0.85em;
+  border-top:1px solid var(--border); margin-top:40px;
+}
+
+@media(max-width:768px) {
+  .kpi-row { grid-template-columns:repeat(2,1fr); }
+  .hero h1 { font-size:1.8em; }
+  .hero { padding:36px 16px 30px; }
+  .cal-day { min-height:70px; padding:4px 3px; }
+  .cal-event { font-size:0.65em; padding:1px 4px; }
+  .list-table th, .list-table td { padding:10px 10px; font-size:0.82em; }
+  .col-hide-mobile { display:none; }
+}
+@media(max-width:480px) {
+  .kpi-row { grid-template-columns:1fr 1fr; }
+  .cal-day { min-height:60px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">Cooper Valuation</a>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="reports.html">Reports</a>
+        <a href="digest.html">Digest</a>
+        <a href="screener.html">Screener</a>
+        <a href="dcf.html">DCF</a>
+        <a href="earnings.html" class="active">Earnings</a>
+      </div>
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">&#127769;</button>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Earnings Calendar</h1>
+    <p class="tagline">Upcoming earnings dates for covered stocks</p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="kpi-row" id="kpi-row"></div>
+
+  <div class="view-toggle">
+    <button class="view-btn active" onclick="setView('calendar')" id="btn-calendar">Calendar</button>
+    <button class="view-btn" onclick="setView('list')" id="btn-list">List</button>
+  </div>
+
+  <div id="calendar-view"></div>
+  <div id="list-view" style="display:none;"></div>
+</div>
+
+<div class="footer">
+  <p>Built with AI-powered research &bull; Not financial advice</p>
+  <p style="margin-top:4px;">Cooper Valuation &copy; 2026 &bull; Powered by curiosity</p>
+</div>
+
+<script>
+function toggleTheme() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  document.documentElement.setAttribute('data-theme', isDark ? '' : 'dark');
+  document.querySelector('.theme-toggle').textContent = isDark ? '\u{1F319}' : '\u2600\uFE0F';
+  localStorage.setItem('theme', isDark ? 'light' : 'dark');
+}
+if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+  document.documentElement.setAttribute('data-theme', 'dark');
+  document.querySelector('.theme-toggle').textContent = '\u2600\uFE0F';
+}
+
+const TODAY = new Date();
+TODAY.setHours(0,0,0,0);
+let currentView = 'calendar';
+let calYear = TODAY.getFullYear();
+let calMonth = TODAY.getMonth();
+let stocks = [];
+
+function scoreColor(score) {
+  if (score > 70) return 'green';
+  if (score >= 50) return 'yellow';
+  return 'red';
+}
+
+function daysUntil(dateStr) {
+  const d = new Date(dateStr + 'T00:00:00');
+  const diff = Math.ceil((d - TODAY) / 86400000);
+  return diff;
+}
+
+function countdownLabel(days) {
+  if (days < 0) return { text: `${Math.abs(days)}d ago`, cls: 'past' };
+  if (days === 0) return { text: 'Today', cls: 'soon' };
+  if (days === 1) return { text: 'Tomorrow', cls: 'soon' };
+  if (days <= 7) return { text: `${days} days`, cls: 'soon' };
+  if (days <= 30) return { text: `${days} days`, cls: 'near' };
+  return { text: `${days} days`, cls: 'later' };
+}
+
+function setView(v) {
+  currentView = v;
+  document.getElementById('btn-calendar').classList.toggle('active', v === 'calendar');
+  document.getElementById('btn-list').classList.toggle('active', v === 'list');
+  document.getElementById('calendar-view').style.display = v === 'calendar' ? '' : 'none';
+  document.getElementById('list-view').style.display = v === 'list' ? '' : 'none';
+}
+
+function dedupeStocks(data) {
+  const map = {};
+  data.forEach(s => {
+    if (!s.nextEarnings) return;
+    if (!map[s.ticker] || s.date > map[s.ticker].date) {
+      map[s.ticker] = s;
+    }
+  });
+  return Object.values(map);
+}
+
+function renderKPIs(items) {
+  const upcoming = items.filter(s => daysUntil(s.nextEarnings) >= 0);
+  const thisWeek = upcoming.filter(s => daysUntil(s.nextEarnings) <= 7);
+  const thisMonth = upcoming.filter(s => {
+    const d = new Date(s.nextEarnings + 'T00:00:00');
+    return d.getMonth() === TODAY.getMonth() && d.getFullYear() === TODAY.getFullYear();
+  });
+  const nextUp = upcoming.sort((a,b) => a.nextEarnings.localeCompare(b.nextEarnings))[0];
+
+  document.getElementById('kpi-row').innerHTML = `
+    <div class="kpi-card">
+      <div class="kpi-label">Upcoming</div>
+      <div class="kpi-value">${upcoming.length}</div>
+      <div class="kpi-sub">stocks reporting</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">This Week</div>
+      <div class="kpi-value">${thisWeek.length}</div>
+      <div class="kpi-sub">earnings this week</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">This Month</div>
+      <div class="kpi-value">${thisMonth.length}</div>
+      <div class="kpi-sub">reporting this month</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Next Up</div>
+      <div class="kpi-value">${nextUp ? nextUp.ticker : '—'}</div>
+      <div class="kpi-sub">${nextUp ? countdownLabel(daysUntil(nextUp.nextEarnings)).text : '—'}</div>
+    </div>
+  `;
+}
+
+function renderCalendar(items) {
+  const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const dows = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+  const firstDay = new Date(calYear, calMonth, 1).getDay();
+  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+
+  // Group events by day
+  const eventsByDay = {};
+  items.forEach(s => {
+    const d = new Date(s.nextEarnings + 'T00:00:00');
+    if (d.getMonth() === calMonth && d.getFullYear() === calYear) {
+      const day = d.getDate();
+      if (!eventsByDay[day]) eventsByDay[day] = [];
+      eventsByDay[day].push(s);
+    }
+  });
+
+  let html = `<div class="cal-header">
+    <div class="cal-title">${monthNames[calMonth]} ${calYear}</div>
+    <div class="cal-nav">
+      <button onclick="changeMonth(-1)">&larr; Prev</button>
+      <button onclick="changeMonth(0)">Today</button>
+      <button onclick="changeMonth(1)">Next &rarr;</button>
+    </div>
+  </div>`;
+
+  html += '<div class="cal-grid">';
+  dows.forEach(d => { html += `<div class="cal-dow">${d}</div>`; });
+
+  // Empty cells before first day
+  for (let i = 0; i < firstDay; i++) {
+    html += '<div class="cal-day empty"></div>';
+  }
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    const dt = new Date(calYear, calMonth, day);
+    const isToday = dt.getTime() === TODAY.getTime();
+    const isPast = dt < TODAY;
+    let cls = 'cal-day';
+    if (isToday) cls += ' today';
+    if (isPast) cls += ' past';
+
+    html += `<div class="${cls}"><div class="cal-day-num">${day}</div>`;
+    if (eventsByDay[day]) {
+      eventsByDay[day].forEach(s => {
+        html += `<a href="${s.url}" class="cal-event ${scoreColor(s.score)}" title="${s.company} — Score: ${s.score}">${s.ticker}</a>`;
+      });
+    }
+    html += '</div>';
+  }
+
+  // Trailing empty cells
+  const totalCells = firstDay + daysInMonth;
+  const remainder = totalCells % 7;
+  if (remainder > 0) {
+    for (let i = 0; i < 7 - remainder; i++) {
+      html += '<div class="cal-day empty"></div>';
+    }
+  }
+
+  html += '</div>';
+  document.getElementById('calendar-view').innerHTML = html;
+}
+
+function changeMonth(dir) {
+  if (dir === 0) {
+    calYear = TODAY.getFullYear();
+    calMonth = TODAY.getMonth();
+  } else {
+    calMonth += dir;
+    if (calMonth > 11) { calMonth = 0; calYear++; }
+    if (calMonth < 0) { calMonth = 11; calYear--; }
+  }
+  renderCalendar(stocks);
+}
+
+function renderList(items) {
+  const sorted = [...items].sort((a,b) => {
+    const da = daysUntil(a.nextEarnings);
+    const db = daysUntil(b.nextEarnings);
+    // Upcoming first (>=0), sorted ascending; then past, sorted descending
+    if (da >= 0 && db >= 0) return da - db;
+    if (da >= 0) return -1;
+    if (db >= 0) return 1;
+    return db - da;
+  });
+
+  let html = '<div class="list-card"><table class="list-table"><thead><tr>';
+  html += '<th>Ticker</th><th>Company</th><th>Earnings Date</th><th>Countdown</th><th class="col-hide-mobile">Score</th><th class="col-hide-mobile">Rating</th>';
+  html += '</tr></thead><tbody>';
+
+  sorted.forEach(s => {
+    const d = new Date(s.nextEarnings + 'T00:00:00');
+    const dateStr = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+    const days = daysUntil(s.nextEarnings);
+    const cd = countdownLabel(days);
+
+    html += `<tr>
+      <td><a href="${s.url}" style="text-decoration:none;color:inherit;" class="list-ticker">${s.ticker}</a></td>
+      <td class="list-company">${s.company}</td>
+      <td class="list-date">${dateStr}</td>
+      <td><span class="list-countdown ${cd.cls}">${cd.text}</span></td>
+      <td class="col-hide-mobile"><span class="score-badge ${scoreColor(s.score)}">${s.score}</span></td>
+      <td class="col-hide-mobile"><span class="rating-label ${s.rating}">${s.rating}</span></td>
+    </tr>`;
+  });
+
+  html += '</tbody></table></div>';
+  document.getElementById('list-view').innerHTML = html;
+}
+
+fetch('reports.json')
+  .then(r => r.json())
+  .then(data => {
+    stocks = dedupeStocks(data);
+    renderKPIs(stocks);
+    renderCalendar(stocks);
+    renderList(stocks);
+  })
+  .catch(() => {
+    document.getElementById('calendar-view').innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--text3);">Failed to load earnings data.</div>';
+  });
+</script>
+</body>
+</html>

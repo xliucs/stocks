@@ -36,6 +36,24 @@
   {
     "ticker": "META",
     "company": "Meta Platforms Inc.",
+    "date": "2026-03-15",
+    "rating": "Bullish",
+    "score": 84,
+    "category": [
+      "Mag7",
+      "AI",
+      "Social"
+    ],
+    "nextEarnings": null,
+    "price": 613.71,
+    "analystPT": 862.25,
+    "forwardPE": 17.1,
+    "thesis": "Best-in-class margins + 24% revenue growth at 17x P/E; most mispriced Mag7 stock",
+    "url": "reports/META-2026-03-15.html"
+  },
+  {
+    "ticker": "META",
+    "company": "Meta Platforms Inc.",
     "date": "2026-03-08",
     "rating": "Bullish",
     "score": 82,
