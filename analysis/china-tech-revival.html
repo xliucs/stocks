@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>China Tech Revival | Industry Deep Dive</title>
+<style>
+:root {
+  --bg: #ffffff; --bg2: #f8fafc; --text: #0f172a; --text2: #64748b; --text3: #94a3b8;
+  --border: #e2e8f0; --accent: #dc2626; --green: #16a34a; --orange: #d97706; --blue: #2563eb;
+  --purple: #7c3aed; --teal: #0891b2;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --header-gradient: linear-gradient(135deg, #0f172a 0%, #1e1f2e 40%, #2d1515 100%);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:var(--bg); color:var(--text); line-height:1.7; }
+
+.hero {
+  background: var(--header-gradient);
+  color: #fff;
+  padding: 60px 24px 50px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content:''; position:absolute; top:0; left:0; right:0; bottom:0;
+  background: radial-gradient(circle at 20% 50%, rgba(220,38,38,0.2) 0%, transparent 60%),
+              radial-gradient(circle at 75% 40%, rgba(251,191,36,0.1) 0%, transparent 50%);
+}
+.hero-content { position:relative; z-index:1; max-width:1000px; margin:0 auto; }
+.hero-badge { display:inline-block; background:rgba(220,38,38,0.3); border:1px solid rgba(220,38,38,0.5); color:#fca5a5; padding:4px 12px; border-radius:20px; font-size:0.78rem; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:16px; }
+.hero h1 { font-size:2.6em; font-weight:800; letter-spacing:-0.03em; margin-bottom:12px; }
+.hero h1 span { background: linear-gradient(135deg, #f87171, #fbbf24); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.hero .subtitle { color: #94a3b8; font-size:1.05em; max-width:700px; margin-bottom:24px; }
+.hero-meta { display:flex; gap:24px; flex-wrap:wrap; }
+.hero-meta-item { display:flex; align-items:center; gap:6px; color:#64748b; font-size:0.85em; }
+.hero-meta-item strong { color:#94a3b8; }
+
+nav.breadcrumb { background:var(--bg2); border-bottom:1px solid var(--border); padding:12px 24px; }
+nav.breadcrumb a { color:var(--blue); text-decoration:none; font-size:0.85em; }
+nav.breadcrumb span { color:var(--text3); font-size:0.85em; margin:0 8px; }
+
+.container { max-width:1100px; margin:0 auto; padding:48px 24px; }
+.section { margin-bottom:56px; }
+.section-title { font-size:1.45em; font-weight:700; color:var(--text); margin-bottom:6px; padding-bottom:12px; border-bottom:2px solid var(--border); display:flex; align-items:center; gap:10px; }
+.section-subtitle { color:var(--text2); font-size:0.9em; margin-bottom:24px; }
+
+.card { background:var(--bg); border:1px solid var(--border); border-radius:12px; padding:24px; box-shadow:var(--card-shadow); }
+.card-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px; margin-bottom:32px; }
+.metric-card { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:20px 24px; text-align:center; }
+.metric-value { font-size:2em; font-weight:800; color:var(--accent); line-height:1; margin-bottom:4px; }
+.metric-card.blue .metric-value { color:var(--blue); }
+.metric-card.green .metric-value { color:var(--green); }
+.metric-card.orange .metric-value { color:var(--orange); }
+.metric-label { font-size:0.8em; color:var(--text2); font-weight:500; text-transform:uppercase; letter-spacing:0.04em; }
+.metric-change { font-size:0.85em; font-weight:600; margin-top:6px; }
+.up { color:var(--green); } .down { color:var(--accent); } .neutral { color:var(--orange); }
+
+.table-wrap { overflow-x:auto; border-radius:10px; border:1px solid var(--border); margin:24px 0; }
+table { width:100%; border-collapse:collapse; font-size:0.87em; }
+thead tr { background:linear-gradient(135deg,#0f172a,#1e293b); }
+th { color:#94a3b8; padding:12px 14px; text-align:left; font-weight:600; font-size:0.8em; text-transform:uppercase; letter-spacing:0.04em; white-space:nowrap; }
+td { padding:11px 14px; border-bottom:1px solid var(--border); vertical-align:middle; }
+tr:last-child td { border-bottom:none; }
+tbody tr:hover { background:var(--bg2); }
+.tag { display:inline-block; padding:2px 8px; border-radius:6px; font-size:0.75em; font-weight:600; }
+.tag-blue { background:#eff6ff; color:#1d4ed8; }
+.tag-green { background:#f0fdf4; color:#15803d; }
+.tag-red { background:#fef2f2; color:#b91c1c; }
+.tag-orange { background:#fff7ed; color:#c2410c; }
+.tag-yellow { background:#fefce8; color:#a16207; }
+.tag-purple { background:#faf5ff; color:#6d28d9; }
+
+.thesis-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.thesis-block { border-radius:10px; padding:20px; border:1px solid; }
+.thesis-bull { background:#f0fdf4; border-color:#bbf7d0; }
+.thesis-bear { background:#fef2f2; border-color:#fecaca; }
+.thesis-block h4 { font-size:0.9em; font-weight:700; margin-bottom:10px; }
+.thesis-bull h4 { color:#15803d; }
+.thesis-bear h4 { color:#b91c1c; }
+.thesis-block ul { padding-left:16px; color:var(--text2); font-size:0.87em; }
+.thesis-block ul li { margin-bottom:6px; }
+
+.timeline { margin:20px 0; }
+.timeline-item { display:flex; gap:16px; margin-bottom:20px; align-items:flex-start; }
+.timeline-dot { width:10px; height:10px; border-radius:50%; background:var(--accent); flex-shrink:0; margin-top:6px; }
+.timeline-dot.blue { background:var(--blue); }
+.timeline-dot.green { background:var(--green); }
+.timeline-dot.orange { background:var(--orange); }
+.timeline-content h4 { font-size:0.9em; font-weight:700; color:var(--text); margin-bottom:4px; }
+.timeline-content p { font-size:0.87em; color:var(--text2); margin:0; line-height:1.5; }
+
+.callout { background:linear-gradient(135deg,#fef2f2,#fef9f9); border-left:4px solid var(--accent); border-radius:0 10px 10px 0; padding:16px 20px; margin:20px 0; }
+.callout-blue { background:linear-gradient(135deg,#eff6ff,#f0f9ff); border-left-color:var(--blue); }
+.callout strong { color:var(--accent); }
+.callout-blue strong { color:var(--blue); }
+.callout p { color:var(--text2); font-size:0.9em; margin-top:4px; }
+
+p { color:var(--text2); margin-bottom:16px; line-height:1.75; }
+h3 { font-size:1.1em; font-weight:700; color:var(--text); margin:24px 0 12px; }
+.source { font-size:0.75em; color:var(--text3); margin-top:10px; font-style:italic; }
+
+.risk-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin:20px 0; }
+.risk-card { border-radius:10px; padding:16px; border:1px solid var(--border); background:var(--bg2); }
+.risk-card h4 { font-size:0.85em; font-weight:700; margin-bottom:8px; }
+.risk-card p { font-size:0.8em; color:var(--text2); margin:0; line-height:1.5; }
+.risk-high { border-top:3px solid var(--accent); }
+.risk-medium { border-top:3px solid var(--orange); }
+.risk-low { border-top:3px solid var(--green); }
+
+.verdict { background:linear-gradient(135deg,#0f172a,#1e293b); color:#fff; border-radius:14px; padding:32px; margin-top:40px; }
+.verdict h3 { color:#f87171; font-size:1.2em; margin-bottom:16px; }
+.verdict p { color:#94a3b8; }
+
+@media(max-width:768px) {
+  .card-grid,.thesis-grid,.risk-grid { grid-template-columns:1fr; }
+  .hero h1 { font-size:1.8em; }
+  .container { padding:24px 16px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="breadcrumb">
+  <a href="/stocks/">🐱 Cooper Valuation</a>
+  <span>›</span>
+  <a href="/stocks/analysis/">Industry Analysis</a>
+  <span>›</span>
+  <span>China Tech Revival</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">🇨🇳 Industry Deep Dive</div>
+    <h1>The <span>China Tech Revival</span></h1>
+    <p class="subtitle">Regulatory thaw, DeepSeek shock, EV export boom, and the great revaluation — is China tech the most contrarian trade of 2026?</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>Coverage:</strong> BABA · BILI · NIO · XPEV · LI · TIGR · PONY</div>
+      <div class="hero-meta-item"><strong>Updated:</strong> March 2026</div>
+      <div class="hero-meta-item"><strong>Category:</strong> China Technology / EV / AI</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Key Metrics -->
+  <div class="card-grid">
+    <div class="metric-card blue">
+      <div class="metric-value">+20%</div>
+      <div class="metric-label">Hang Seng YTD 2025</div>
+      <div class="metric-change up">vs. S&P 500 -3%</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">+74%</div>
+      <div class="metric-label">BABA Stock in 2025</div>
+      <div class="metric-change up">Best year since IPO era</div>
+    </div>
+    <div class="metric-card green">
+      <div class="metric-value">$500B+</div>
+      <div class="metric-label">China EV Exports 2025E</div>
+      <div class="metric-change up">↑ 40% YoY</div>
+    </div>
+    <div class="metric-card orange">
+      <div class="metric-value">DeepSeek</div>
+      <div class="metric-label">R1/V3 — Model Shock</div>
+      <div class="metric-change neutral">Proved China AI parity</div>
+    </div>
+  </div>
+
+  <!-- Section 1: Regulatory Thaw -->
+  <div class="section">
+    <div class="section-title">📜 Regulatory Thaw Timeline</div>
+    <p class="section-subtitle">Beijing's crackdown cycle appears complete — policymakers have pivoted from regulatory tightening to active growth support</p>
+
+    <div class="timeline card">
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:#dc2626;"></div>
+        <div class="timeline-content">
+          <h4>Late 2020–2022: The Crackdown Era</h4>
+          <p>BABA's $18B fine, Didi forced delisting, EdTech sector effectively destroyed, gaming restrictions, ride-share suspensions. Hang Seng shed 40%+. Jack Ma disappears from public view.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot orange"></div>
+        <div class="timeline-content">
+          <h4>2023: Bottoming & Initial Signals</h4>
+          <p>PBOC begins rate cuts. Antitrust investigations closed against BABA and Tencent. Jack Ma returns to China. Gaming licenses resume. Property stimulus packages begin.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot orange"></div>
+        <div class="timeline-content">
+          <h4>Q3–Q4 2024: Policy Pivot</h4>
+          <p>PBOC announces largest stimulus package since 2015 — reserve requirement ratio cuts, mortgage rate reductions, equity market support fund (≥$280B). Xi meets Jack Ma. Government signals "tech is strategic asset" narrative shift.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot green"></div>
+        <div class="timeline-content">
+          <h4>January 2025: DeepSeek Shock</h4>
+          <p>DeepSeek R1 released — achieves OpenAI o1-level performance at reportedly 1/30th the training cost. Nasdaq drops 3% in a day. Wall Street dramatically upgrades China AI thesis. BABA, Tencent, Baidu all rally on Alibaba's Qwen models gaining credibility.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot green"></div>
+        <div class="timeline-content">
+          <h4>2025: The Rally — Hang Seng +20% YTD</h4>
+          <p>BABA +74%, Xiaomi +90%+, BYD +40%. Wall Street upgrades China targets. Goldman Sachs: "China is back as an investable market." JPMorgan initiates coverage on multiple China tech names with Overweight.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot blue"></div>
+        <div class="timeline-content">
+          <h4>2026: New Normal — "Constructive Regulatory Environment"</h4>
+          <p>DeepSeek next model expected imminently (per CNBC, Feb 2026). Beijing actively supporting AI champions. EV subsidies extended through 2027. Consumer stimulus ongoing. Trade tensions with US flaring, creating tariff uncertainty.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>The Regulatory Cycle Assessment</strong>
+      <p>The consensus view is that China's regulatory crackdown cycle is complete. Beijing's strategic priorities have shifted: (1) economic growth needs tech sector confidence, (2) geopolitical competition with the US requires AI champions, (3) youth unemployment and consumer weakness demand platform ecosystem health. The probability of another BABA-style regulatory shock in 2026–2027 is assessed as low but non-zero — regulators still maintain "golden share" influence over data and content.</p>
+    </div>
+  </div>
+
+  <!-- Section 2: Company Comparison -->
+  <div class="section">
+    <div class="section-title">📊 Company Revenue & Valuation Comparison</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Ticker</th><th>Company</th><th>Sector</th><th>Market Cap</th><th>Rev (FY2025E)</th><th>Rev Growth</th><th>P/E</th><th>P/S</th><th>US Peer P/S</th><th>Discount</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>BABA</strong></td>
+            <td>Alibaba</td>
+            <td>E-comm/Cloud</td>
+            <td>~$350B</td>
+            <td>~$145B</td>
+            <td><span class="up">+8%</span></td>
+            <td>14x</td>
+            <td>2.4x</td>
+            <td>3.5x (JD) / 12x (AMZN)</td>
+            <td><span class="down">-50%+</span></td>
+          </tr>
+          <tr>
+            <td><strong>BILI</strong></td>
+            <td>Bilibili</td>
+            <td>Video/Gaming</td>
+            <td>~$8B</td>
+            <td>~$4.2B</td>
+            <td><span class="up">+18%</span></td>
+            <td>N/A</td>
+            <td>1.9x</td>
+            <td>5x (YouTube/Alphabet)</td>
+            <td><span class="down">-60%+</span></td>
+          </tr>
+          <tr>
+            <td><strong>NIO</strong></td>
+            <td>NIO Inc.</td>
+            <td>Premium EV</td>
+            <td>~$10B</td>
+            <td>~$10B</td>
+            <td><span class="up">+35%</span></td>
+            <td>N/A</td>
+            <td>1.0x</td>
+            <td>8x (TSLA)</td>
+            <td><span class="down">-87%</span></td>
+          </tr>
+          <tr>
+            <td><strong>XPEV</strong></td>
+            <td>XPeng</td>
+            <td>Smart EV</td>
+            <td>~$14B</td>
+            <td>~$7B</td>
+            <td><span class="up">+55%</span></td>
+            <td>N/A</td>
+            <td>2.0x</td>
+            <td>8x (TSLA)</td>
+            <td><span class="down">-75%</span></td>
+          </tr>
+          <tr>
+            <td><strong>LI</strong></td>
+            <td>Li Auto</td>
+            <td>EREV/PHEV</td>
+            <td>~$18B</td>
+            <td>~$22B</td>
+            <td><span class="up">+25%</span></td>
+            <td>11x</td>
+            <td>0.8x</td>
+            <td>8x (TSLA)</td>
+            <td><span class="down">-90%</span></td>
+          </tr>
+          <tr>
+            <td><strong>TIGR</strong></td>
+            <td>Tiger Brokers</td>
+            <td>Fintech/Brokerage</td>
+            <td>~$1.5B</td>
+            <td>~$350M</td>
+            <td><span class="up">+30%</span></td>
+            <td>18x</td>
+            <td>4.3x</td>
+            <td>6x (IBKR)</td>
+            <td><span class="down">-28%</span></td>
+          </tr>
+          <tr>
+            <td><strong>PONY</strong></td>
+            <td>Pony.ai</td>
+            <td>Autonomous Driving</td>
+            <td>~$4B</td>
+            <td>~$60M</td>
+            <td><span class="up">+120%</span></td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>~Waymo private</td>
+            <td>Early stage</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="source">Sources: Bloomberg consensus, company filings, FactSet estimates, March 2026. P/S based on trailing 12 months.</p>
+    </div>
+
+    <p>The valuation gap between Chinese tech and US peers is extraordinary by historical standards. <strong>Li Auto trades at 0.8x revenue</strong> while delivering 25%+ growth and generating positive free cash flow — a metric that would command 8–12x P/S if listed in the US. Even accounting for VIE structure risk, the discount appears excessive. The key debate is whether this discount should converge (bull case) or remain permanent due to structural geopolitical risk (bear case).</p>
+  </div>
+
+  <!-- Section 3: DeepSeek & AI -->
+  <div class="section">
+    <div class="section-title">🤖 DeepSeek & China AI Competition</div>
+
+    <div class="callout">
+      <strong>DeepSeek R1 — The January 2025 Shockwave</strong>
+      <p>In January 2025, Chinese AI lab DeepSeek released R1, an open-source reasoning model matching OpenAI o1 performance at a reported training cost of ~$6M (vs. estimated $100M+ for comparable US models). The release crashed Nasdaq -3% in a day, wiped $600B from NVIDIA's market cap briefly, and fundamentally changed the global AI narrative. A new model is expected imminently as of February 2026 (CNBC).</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Chinese AI Model</th><th>Company</th><th>Benchmark</th><th>US Equivalent</th><th>Cost Efficiency</th><th>Open Source</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>DeepSeek R1</strong></td>
+            <td>DeepSeek (Liang Wenfeng)</td>
+            <td>MATH: 97.3%, AIME: 79.8%</td>
+            <td>OpenAI o1</td>
+            <td>~30x cheaper to train</td>
+            <td><span class="tag tag-green">Yes (MIT)</span></td>
+          </tr>
+          <tr>
+            <td><strong>DeepSeek V3</strong></td>
+            <td>DeepSeek</td>
+            <td>MMLU: 88.5%</td>
+            <td>GPT-4o</td>
+            <td>~20x cheaper</td>
+            <td><span class="tag tag-green">Yes</span></td>
+          </tr>
+          <tr>
+            <td><strong>Qwen 2.5-Max</strong></td>
+            <td>Alibaba (BABA)</td>
+            <td>Beats GPT-4o on MMLU</td>
+            <td>GPT-4o</td>
+            <td>Competitive</td>
+            <td><span class="tag tag-green">Partial</span></td>
+          </tr>
+          <tr>
+            <td><strong>Kimi k1.5</strong></td>
+            <td>Moonshot AI</td>
+            <td>Long-context SOTA</td>
+            <td>Claude 3.5</td>
+            <td>Efficient</td>
+            <td><span class="tag tag-red">No</span></td>
+          </tr>
+          <tr>
+            <td><strong>Ernie 4.0</strong></td>
+            <td>Baidu</td>
+            <td>Chinese language SOTA</td>
+            <td>GPT-4</td>
+            <td>Optimized for China market</td>
+            <td><span class="tag tag-red">No</span></td>
+          </tr>
+          <tr>
+            <td><strong>Pony.ai ADKit</strong></td>
+            <td>Pony.ai (PONY)</td>
+            <td>L4 autonomous driving</td>
+            <td>Waymo</td>
+            <td>Commercial robotaxi ops</td>
+            <td><span class="tag tag-red">No</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="source">Sources: DeepSeek technical report, Alibaba press releases, MIT Technology Review, CNBC Feb 2026.</p>
+    </div>
+
+    <p>The DeepSeek moment fundamentally changed the geopolitical AI narrative: China's AI ecosystem is NOT simply copying US frontier models — it is innovating on efficiency in ways that could reshape the entire compute economics of the industry. The US export control regime (restricting A100/H100 exports to China) may have inadvertently accelerated Chinese researchers' focus on compute-efficient architectures. Paradoxically, the chip ban may have made China's AI more efficient, not less capable.</p>
+
+    <h3>Alibaba's AI Positioning</h3>
+    <p>BABA's Qwen model series has emerged as China's most commercially deployed LLM, integrated across Alibaba's e-commerce (Taobao/Tmall personalization), cloud (Alibaba Cloud), and enterprise suite. The company's $52B in annual cloud revenue gives it the distribution network to monetize AI at scale — a structural parallel to Microsoft's Azure + Office 365 flywheel. BABA's stock +74% in 2025 reflects the market repricing this AI optionality, though it still trades at a massive discount to comparable US cloud peers.</p>
+  </div>
+
+  <!-- Section 4: EV Sector -->
+  <div class="section">
+    <div class="section-title">🚗 EV Sector: Export Boom & Domestic Competition</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Company</th><th>2025E Deliveries</th><th>YoY Growth</th><th>Key Market</th><th>Technology Edge</th><th>Profitability</th><th>Export Focus</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Li Auto (LI)</strong></td>
+            <td>~600K+</td>
+            <td><span class="up">+25%</span></td>
+            <td>China domestic</td>
+            <td>EREV/PHEV — best of both worlds</td>
+            <td><span class="tag tag-green">Profitable</span></td>
+            <td>Minimal (domestic focus)</td>
+          </tr>
+          <tr>
+            <td><strong>NIO (NIO)</strong></td>
+            <td>~250K</td>
+            <td><span class="up">+35%</span></td>
+            <td>China + Europe</td>
+            <td>Battery swap network (1,800+ stations)</td>
+            <td><span class="tag tag-red">Still losing</span></td>
+            <td>Growing (ONVO sub-brand)</td>
+          </tr>
+          <tr>
+            <td><strong>XPeng (XPEV)</strong></td>
+            <td>~200K</td>
+            <td><span class="up">+55%</span></td>
+            <td>China + SEA</td>
+            <td>XNGP autonomous driving (best-in-class L2++)</td>
+            <td><span class="tag tag-orange">Near breakeven</span></td>
+            <td>High (XTEND LiDAR-free)</td>
+          </tr>
+          <tr>
+            <td><strong>BYD</strong></td>
+            <td>~4.8M</td>
+            <td><span class="up">+22%</span></td>
+            <td>Global</td>
+            <td>Vertical integration (blade battery, Xuanji AI)</td>
+            <td><span class="tag tag-green">Highly Profitable</span></td>
+            <td>Rapidly expanding</td>
+          </tr>
+          <tr>
+            <td><strong>Tesla (for comparison)</strong></td>
+            <td>~1.8M</td>
+            <td><span class="down">-1%</span></td>
+            <td>Global</td>
+            <td>FSD, Supercharger network</td>
+            <td><span class="tag tag-green">Profitable</span></td>
+            <td>Global incumbent</td>
+          </tr>
+          <tr>
+            <td><strong>Pony.ai (PONY)</strong></td>
+            <td>~100 robotaxis</td>
+            <td>N/A (early stage)</td>
+            <td>China + KSA</td>
+            <td>L4 robotaxi, LiDAR + cameras</td>
+            <td><span class="tag tag-red">Pre-revenue scale</span></td>
+            <td>Saudi Arabia partnership</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="source">Sources: Company delivery reports, Bloomberg, CnEVPost, Reuters 2025 data.</p>
+    </div>
+
+    <h3>Li Auto — The Value Standout</h3>
+    <p>Li Auto (LI) remains the most compelling risk/reward in Chinese EVs. It is the only Chinese EV pure-play generating consistent positive free cash flow while growing deliveries ~25% annually. Its EREV (Extended Range Electric Vehicle) technology elegantly solves charging anxiety — the #1 consumer barrier to BEV adoption in China's less-developed western regions. At 0.8x trailing revenue with a net cash balance sheet, LI is essentially a free option on China EV growth. The key risk: competitive intensity from BYD's DM-i hybrids encroaching on EREV's niche.</p>
+
+    <h3>XPeng — The AI Driving Play</h3>
+    <p>XPeng's XNGP system (no LiDAR, camera-only) is widely considered the closest Chinese challenger to Tesla FSD in terms of autonomous driving capability. CEO He Xiaopeng has positioned XPeng as an "AI automotive company," not just an EV maker. The Volkswagen strategic partnership (VW investing $700M for 4.99% stake and two model collaborations) provides critical capital runway, technology validation, and European distribution. The VW partnership is a potential re-rating catalyst: it de-risks the balance sheet and opens a $400B+ European automotive market.</p>
+  </div>
+
+  <!-- Section 5: VIE & Delisting Risks -->
+  <div class="section">
+    <div class="section-title">⚠️ Structural Risks: VIE, Delisting & Geopolitics</div>
+
+    <div class="risk-grid">
+      <div class="risk-card risk-high">
+        <h4>🔴 VIE Structure Risk</h4>
+        <p>US-listed Chinese ADRs (BABA, BILI, NIO, XPEV, LI) are structured as Variable Interest Entities — investors hold claims on a Cayman Islands entity, not direct equity in the Chinese operating company. In a worst-case scenario, VIE contracts could be challenged. Beijing has signaled VIEs are tolerated but not legally codified.</p>
+      </div>
+      <div class="risk-card risk-high">
+        <h4>🔴 US Delisting Risk</h4>
+        <p>The PCAOB audit access dispute was resolved in 2022 with China granting PCAOB access. Delisting risk has materially declined but not disappeared — a deterioration in US-China relations (e.g., Taiwan flashpoint, new sanctions) could re-trigger Congressional action. Most major names (BABA, NIO) now dual-list in Hong Kong as insurance.</p>
+      </div>
+      <div class="risk-card risk-medium">
+        <h4>🟡 Trade War Escalation</h4>
+        <p>Trump 2.0 tariffs (145%+ on Chinese goods) create uncertainty for EV exporters. XPEV and NIO's European expansion faces EU tariffs of 17–35%. However, Chinese EVs' cost advantages remain compelling even with tariffs, and Southeast Asia + Middle East (PONY's Saudi deal) provide alternative markets.</p>
+      </div>
+      <div class="risk-card risk-medium">
+        <h4>🟡 Taiwan Risk Premium</h4>
+        <p>A Taiwan conflict scenario would be catastrophic for Chinese ADRs regardless of corporate fundamentals. This tail risk commands a permanent discount. Markets appear to be pricing roughly a 15–20% risk-adjusted discount for geopolitical tail risk based on option pricing.</p>
+      </div>
+      <div class="risk-card risk-low">
+        <h4>🟢 Regulatory Re-crackdown</h4>
+        <p>The probability of a 2020-style regulatory shock is low in the current environment. Beijing needs tech sector confidence to support economic growth and geopolitical competition. Xi's meetings with Jack Ma, Ren Zhengfei, and other tech leaders signal alignment.</p>
+      </div>
+      <div class="risk-card risk-low">
+        <h4>🟢 Consumer Spending Recovery</h4>
+        <p>China consumer confidence remains below pre-COVID levels, but government stimulus (housing support, consumption vouchers, EV subsidies) is showing green shoots. BABA's domestic e-commerce GMV growth reacceleration and NIO's delivery ramp suggest consumer spending is recovering gradually.</p>
+      </div>
+    </div>
+
+    <div class="callout callout-blue">
+      <strong>PCAOB Update — Risk Reduced But Monitored</strong>
+      <p>The SEC's 2022 framework requiring PCAOB access to Chinese audit records has been honored. The PCAOB conducted on-site inspections in 2023 and 2024, though concerns remain about information completeness. Dual-listing in Hong Kong (BABA HK: 9988, NIO HK: 9866, XPEV HK: 9868, LI HK: 2015) provides an effective insurance policy — if US-listed ADRs are forced to delist, shareholders can convert to HK shares without capital loss in most scenarios.</p>
+    </div>
+  </div>
+
+  <!-- Section 6: Government Stimulus Impact -->
+  <div class="section">
+    <div class="section-title">🏛️ Government Stimulus Impact</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Policy</th><th>Announced</th><th>Size</th><th>Primary Beneficiaries</th><th>Expected Impact</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>RRR + Rate Cuts</td>
+            <td>Q3 2024</td>
+            <td>~¥1T liquidity</td>
+            <td>Banks, property, consumer</td>
+            <td>Lower funding costs; mortgage refinancing relief</td>
+          </tr>
+          <tr>
+            <td>Equity Market Support Fund</td>
+            <td>Q4 2024</td>
+            <td>≥$280B</td>
+            <td>All A-share, CSI 300</td>
+            <td>Floor on equity markets; investor confidence boost</td>
+          </tr>
+          <tr>
+            <td>EV Purchase Subsidies (Extended)</td>
+            <td>2025</td>
+            <td>¥40B annually</td>
+            <td>BYD, NIO, XPEV, LI</td>
+            <td>¥10,000–15,000 per vehicle consumer discount</td>
+          </tr>
+          <tr>
+            <td>AI National Champions Fund</td>
+            <td>2025</td>
+            <td>~¥200B+</td>
+            <td>BABA, Baidu, Huawei, DeepSeek</td>
+            <td>R&D subsidies, GPU allocation, regulatory fast-track</td>
+          </tr>
+          <tr>
+            <td>Consumer Voucher Programs</td>
+            <td>Ongoing</td>
+            <td>¥150B+</td>
+            <td>E-commerce (BABA, JD, PDD)</td>
+            <td>Drives GMV on major platforms during stimulus campaigns</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="source">Sources: PBOC announcements, China State Council, Bloomberg Economics, Reuters 2024–2025.</p>
+    </div>
+  </div>
+
+  <!-- Thesis -->
+  <div class="section">
+    <div class="section-title">⚖️ Investment Thesis</div>
+
+    <div class="thesis-grid">
+      <div class="thesis-block thesis-bull">
+        <h4>🐂 Bull Case — The Great Revaluation</h4>
+        <ul>
+          <li>Regulatory cycle complete; government actively supporting tech</li>
+          <li>DeepSeek proved China AI parity — BABA Qwen, Pony.ai robotaxi legitimate</li>
+          <li>LI Auto: profitable EV grower at 0.8x revenue — asymmetric value</li>
+          <li>XPEV-VW partnership de-risks balance sheet + opens Europe</li>
+          <li>Massive valuation gap vs. US peers offers 50–80% re-rating potential</li>
+          <li>Hong Kong dual-listings neutralize delisting risk</li>
+          <li>Government stimulus extending EV subsidies through 2027</li>
+        </ul>
+      </div>
+      <div class="thesis-block thesis-bear">
+        <h4>🐻 Bear Case — Permanent Discount</h4>
+        <ul>
+          <li>VIE structure represents real legal risk not fully priced</li>
+          <li>Taiwan risk premium is structurally permanent, not temporary</li>
+          <li>Property sector deflation suppresses consumer confidence long-term</li>
+          <li>NIO still cash-burning; profitability path unclear in price-war environment</li>
+          <li>BILI growth accelerating but profitability path unclear</li>
+          <li>US tariffs damaging EV export economics</li>
+          <li>PCAOB access could be revoked if US-China relations deteriorate</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Verdict -->
+  <div class="verdict">
+    <h3>🎯 Research Verdict: China Tech Revival</h3>
+    <p>China tech offers some of the most compelling valuation opportunities globally, but they are not for the faint-hearted. The most actionable ideas: (1) <strong>Li Auto (LI)</strong> — the only profitable Chinese EV grower, trading at an absurd 0.8x revenue with a clean balance sheet. Buy on weakness. (2) <strong>Alibaba (BABA)</strong> — the risk/reward is asymmetric at 2.4x revenue for a business growing its cloud AI at double-digit rates; the Qwen AI thesis is real. (3) <strong>XPeng (XPEV)</strong> — the VW partnership is a structural re-rating catalyst; XNGP driving capability is best-in-class and could power an autonomous future. Avoid <strong>NIO</strong> until a clear path to profitability emerges in a brutal China EV price war. <strong>PONY.ai</strong> is high-risk/high-reward early-stage — buy only if you believe robotaxi will be the dominant transport paradigm by 2030 and are prepared for a 3–5 year horizon. <strong>BILI</strong> and <strong>TIGR</strong> are niche plays requiring conviction in Gen-Z China consumption and international fintech respectively.</p>
+  </div>
+
+</div>
+</body>
+</html>

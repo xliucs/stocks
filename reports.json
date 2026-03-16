@@ -254,6 +254,24 @@
     "url": "reports/GOOG-2026-03-08.html"
   },
   {
+    "ticker": "GOOG",
+    "company": "Alphabet Inc.",
+    "date": "2026-03-15",
+    "rating": "Bullish",
+    "score": 71,
+    "category": [
+      "Mag7",
+      "AI",
+      "Cloud"
+    ],
+    "nextEarnings": null,
+    "price": 301.46,
+    "analystPT": 359.53,
+    "forwardPE": 22.5,
+    "thesis": "AI-powered search monopoly with Cloud inflection; cheapest Mag7 at 22x forward P/E",
+    "url": "reports/GOOG-2026-03-15.html"
+  },
+  {
     "ticker": "PONY",
     "company": "Pony.ai Inc.",
     "date": "2026-03-08",

@@ -1,0 +1,79 @@
+{
+  "project": "Cooper Valuation 2.0",
+  "deadline": "2026-03-16T06:00:00-07:00",
+  "tasks": [
+    {
+      "id": 1,
+      "phase": "content-depth",
+      "title": "Generate deep DCF valuation models for top 5 holdings",
+      "tickers": ["GOOG", "TSLA", "META", "TIGR", "AMD"],
+      "detail": "Each report needs: 5-year DCF with revenue projections, WACC calculation, sensitivity analysis table, bull/base/bear scenarios with price targets, comparable company multiples (EV/EBITDA, P/S, P/E vs peers)",
+      "status": "pending",
+      "agent": "finance"
+    },
+    {
+      "id": 2,
+      "phase": "content-depth", 
+      "title": "Generate institutional-grade research for remaining 20 tickers",
+      "detail": "Refresh all 20 remaining reports with deeper analysis: competitive moats, risk factors, catalyst timeline, earnings estimate revisions, insider/institutional activity",
+      "status": "pending",
+      "agent": "finance"
+    },
+    {
+      "id": 3,
+      "phase": "content-depth",
+      "title": "Create 3 new industry deep dives",
+      "industries": ["AI Infrastructure (MSFT/GOOG/META/AVGO/AMD)", "China Tech Revival (BABA/BILI/NIO/XPEV/LI)", "Healthcare AI (TEM/UNH)"],
+      "status": "pending",
+      "agent": "research"
+    },
+    {
+      "id": 4,
+      "phase": "platform",
+      "title": "Build interactive DCF calculator page",
+      "detail": "Let users adjust growth rate, margins, WACC, terminal multiple and see real-time valuation changes. Chart.js or similar for visualization.",
+      "status": "pending",
+      "agent": "code"
+    },
+    {
+      "id": 5,
+      "phase": "platform",
+      "title": "Build earnings calendar page",
+      "detail": "Show upcoming earnings for all covered stocks. Countdown timers. Historical earnings surprise data. Estimated vs actual.",
+      "status": "pending",
+      "agent": "code"
+    },
+    {
+      "id": 6,
+      "phase": "platform",
+      "title": "Build sector heatmap visualization",
+      "detail": "Treemap/heatmap showing all stocks by sector, sized by market cap, colored by score/rating. Interactive hover with details.",
+      "status": "pending",
+      "agent": "code"
+    },
+    {
+      "id": 7,
+      "phase": "platform",
+      "title": "Redesign individual report template",
+      "detail": "Make reports look like Seeking Alpha / Morningstar quality: executive summary box, key metrics sidebar, embedded charts, risk meter, catalyst timeline, peer comparison table",
+      "status": "pending",
+      "agent": "code"
+    },
+    {
+      "id": 8,
+      "phase": "platform",
+      "title": "Build real daily digest generation pipeline",
+      "detail": "generate_digest.py pulls live market data + X sentiment. Auto-generates daily digest with market movers, sector performance, news. Run it now to populate real data.",
+      "status": "pending",
+      "agent": "code"
+    },
+    {
+      "id": 9,
+      "phase": "polish",
+      "title": "Overall site polish - homepage redesign, responsive, performance",
+      "detail": "Make homepage look premium. Add testimonials-style section with stock call accuracy. Smooth animations. Fast load. SEO meta tags. Favicon using Cooper logo.",
+      "status": "pending",
+      "agent": "code"
+    }
+  ]
+}
