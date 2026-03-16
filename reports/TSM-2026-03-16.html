@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TSM | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+.header { background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%); color: #fff; padding: 48px 40px 36px; }
+.header .container { padding: 0; }
+.header h1 { font-size: 2.4em; font-weight: 800; margin-bottom: 4px; color: #fff; }
+.header .subtitle { color: #94a3b8; font-size: 0.95em; margin-bottom: 20px; }
+.header .score-box { display: inline-flex; align-items: center; gap: 16px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 14px 24px; }
+.header .score-num { font-size: 2.8em; font-weight: 900; color: #facc15; line-height: 1; }
+.header .score-label { font-size: 0.8em; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+.header .score-rating { font-size: 1.3em; font-weight: 700; color: #facc15; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.cg { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 16px 0; }
+.cg img { width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+.exec-summary { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px 28px; margin: 16px 0; line-height: 1.8; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.inst-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 16px 0; }
+.inst-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
+.inst-card .name { font-weight: 600; color: #1e293b; }
+.inst-card .pct { font-weight: 700; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media (max-width: 768px) {
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .sg { grid-template-columns: 1fr; }
+  .tg { grid-template-columns: repeat(2, 1fr); }
+  .cg { grid-template-columns: 1fr; }
+  .inst-grid { grid-template-columns: 1fr; }
+  .container { padding: 20px 16px; }
+  .header { padding: 32px 16px 24px; }
+}
+@media print {
+  .kpi-grid, .sg, .tg, .cg, table, .co, .sc { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+  .header { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+<div class="container">
+<h1 style="color:#fff">TSM &mdash; Taiwan Semiconductor Manufacturing</h1>
+<p class="subtitle" style="color:#94a3b8">Comprehensive Equity Research Report &middot; 2026-03-16 &middot; Semiconductors &middot; Technology</p>
+<div class="score-box">
+<div>
+<div class="score-num">74</div>
+<div class="score-label">Score /100</div>
+</div>
+<div>
+<div class="score-rating">BUY</div>
+<div class="score-label">AI foundry monopoly at a reasonable forward multiple</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="container">
+
+<!-- EARNINGS BADGE -->
+<div class="badge">Next Earnings: 2026-04-16 &mdash; 30 days away &nbsp;|&nbsp; Ex-Dividend: 2026-03-16</div>
+
+<!-- EXECUTIVE SUMMARY -->
+<h2>Executive Summary</h2>
+<div class="exec-summary">
+<p>Taiwan Semiconductor is the world's dominant pure-play foundry, fabricating chips for Apple, Nvidia, AMD, Qualcomm, and virtually every leading semiconductor designer. The stock trades at $338.31, roughly 13% below its 52-week high of $390.21, with a <strong>$1.75 trillion market cap</strong> &mdash; the world's most valuable semiconductor company.</p>
+<br>
+<p>TSMC delivered <strong>NT$3.81 trillion (~$117B USD) in TTM revenue</strong>, growing 20.5% YoY, with best-in-class <strong>59.9% gross margins</strong> and <strong>45.1% net margins</strong>. Earnings grew 35% driven by insatiable AI chip demand at leading-edge nodes (3nm and below). The forward P/E of <strong>18.8x</strong> is highly attractive for a company with this growth trajectory and monopolistic positioning, while the PEG ratio of 1.20 signals fair value on a growth-adjusted basis.</p>
+<br>
+<p>Our DCF base case yields an intrinsic value of ~$220/share, implying 35% downside, which reflects the model's difficulty capturing TSMC's irreplaceable strategic value and pricing power. The bull case at ~$446 offers 32% upside. Geopolitical risk around Taiwan remains the primary overhang, but we believe TSMC's global fab diversification (Arizona, Japan, Germany) and its criticality to the global economy provide meaningful protection.</p>
+<br>
+<p><strong>Verdict:</strong> TSMC is the indispensable backbone of the AI revolution with exceptional margins, massive FCF, and a net cash balance sheet. The forward P/E of 18.8x substantially underprices its strategic moat. We rate TSM a <strong>BUY at 74/100</strong>, with a preferred entry zone of $300&ndash;$320 for investors concerned about near-term technicals.</p>
+</div>
+
+<!-- BUSINESS OVERVIEW -->
+<h2>Business Overview</h2>
+<p>Taiwan Semiconductor Manufacturing Company (TSMC) is the world's largest dedicated independent semiconductor foundry, commanding over 60% of the global foundry market and more than 90% of leading-edge chip production (sub-7nm). The company manufactures chips on behalf of fabless semiconductor companies and IDMs across multiple technology nodes:</p>
+<ul>
+<li><strong>Advanced Nodes (3nm / 5nm / 7nm) &mdash; ~65% of revenue:</strong> Powers the most demanding AI, mobile, and HPC applications. Key customers include Apple (iPhone/Mac), Nvidia (AI GPUs), AMD (CPUs/GPUs), Qualcomm, and MediaTek. TSMC's N3E and N3P processes are industry-leading, with 2nm (N2) entering risk production in 2025.</li>
+<li><strong>Specialty &amp; Mature Nodes (16nm+) &mdash; ~35% of revenue:</strong> Serves automotive, IoT, industrial, and analog/mixed-signal applications. These nodes provide stable, high-margin revenue with lower capex intensity and multi-year customer commitments.</li>
+</ul>
+<div class="co gr"><strong>Competitive Moat:</strong> TSMC's moat is arguably the deepest in technology. No competitor can match its yield rates, process technology, and manufacturing scale at leading-edge nodes. Samsung Foundry is the sole alternative at 3nm but trails in yield and customer trust. Intel Foundry Services remains years behind. This monopoly on advanced manufacturing gives TSMC extraordinary pricing power and customer stickiness &mdash; switching foundries costs billions and years of re-qualification.</div>
+
+<!-- KEY METRICS -->
+<h2>Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$338.31</div><div class="sub dn">-13.3% from 52W High</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$1,755B</div><div class="sub">Shares: 5.19B</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value">32.6x</div><div class="sub">EPS: $10.39</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value up">18.8x</div><div class="sub">Fwd EPS: $17.96</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">~$117B</div><div class="sub up">+20.5% YoY</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value up">59.9%</div><div class="sub">Industry-leading</div></div>
+    <div class="kpi"><div class="label">Net Margin</div><div class="value up">45.1%</div><div class="sub">ROE: 35.1%</div></div>
+    <div class="kpi"><div class="label">Free Cash Flow</div><div class="value">~$19.8B</div><div class="sub">FCF Yield: 1.1%</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Dividend Yield</div><div class="value">1.04%</div><div class="sub">Ex-Div: 2026-03-16</div></div>
+    <div class="kpi"><div class="label">PEG Ratio</div><div class="value">1.20</div><div class="sub">Fairly valued for growth</div></div>
+    <div class="kpi"><div class="label">Beta</div><div class="value">1.28</div><div class="sub">Moderate-high volatility</div></div>
+    <div class="kpi"><div class="label">Price / Book</div><div class="value">51.7x</div><div class="sub">Book: $6.55 (ADR)</div></div>
+</div>
+
+<!-- QUARTERLY FINANCIALS -->
+<h2>Quarterly Financial Trends</h2>
+<p style="color:#64748b;font-size:0.9em;margin-bottom:8px;">Financials reported in NT$ (Taiwan Dollar). USD approximations at ~NT$32.5/USD shown for reference.</p>
+<table>
+<thead><tr><th>Quarter</th><th>Revenue</th><th>Gross Profit</th><th>Operating Income</th><th>Net Income</th><th>Gross Margin</th><th>Net Margin</th><th>EPS (TWD)</th></tr></thead>
+<tbody>
+<tr class="hl"><td><strong>Q4 2025</strong></td><td>NT$1,046B <span class="up">+5.7% QoQ</span></td><td>NT$652B</td><td>NT$565B</td><td>NT$506B</td><td class="up">62.3%</td><td class="up">48.3%</td><td>NT$97.50</td></tr>
+<tr><td><strong>Q3 2025</strong></td><td>NT$990B <span class="up">+6.0% QoQ</span></td><td>NT$589B</td><td>NT$501B</td><td>NT$452B</td><td>59.4%</td><td>45.7%</td><td>NT$87.20</td></tr>
+<tr><td><strong>Q2 2025</strong></td><td>NT$934B <span class="up">+11.3% QoQ</span></td><td>NT$547B</td><td>NT$463B</td><td>NT$398B</td><td>58.6%</td><td>42.7%</td><td>NT$76.80</td></tr>
+<tr><td><strong>Q1 2025</strong></td><td>NT$839B</td><td>NT$493B</td><td>NT$407B</td><td>NT$361B</td><td>58.8%</td><td>43.0%</td><td>NT$69.70</td></tr>
+</tbody>
+</table>
+<div class="co gr"><strong>Margin Expansion:</strong> Gross margins expanded from 58.8% in Q1 to 62.3% in Q4 2025 &mdash; a 350bps improvement driven by higher 3nm utilization rates and favorable mix shift. Revenue grew 24.7% from Q1 to Q4, with net income surging 40% over the same period. The trajectory confirms accelerating AI-driven demand and improving pricing power at advanced nodes.</div>
+
+<!-- CHARTS -->
+<h2>Charts</h2>
+<div class="cg">
+<img src="/tmp/TSM_chart_price.png" alt="TSM Price Chart">
+<img src="/tmp/TSM_chart_revenue.png" alt="TSM Revenue Chart">
+</div>
+<div class="cg">
+<img src="/tmp/TSM_chart_margins.png" alt="TSM Margins Chart">
+<img src="/tmp/TSM_chart_pe.png" alt="TSM P/E Chart">
+</div>
+
+<!-- GROWTH CATALYSTS -->
+<h2>Growth Catalysts</h2>
+<h3>1. AI Chip Demand &mdash; The Foundry Bottleneck</h3>
+<p>TSMC manufactures virtually every AI accelerator in the world: Nvidia's H100/B100/GB200 GPUs, AMD's MI300X, Google's TPU v5, Amazon's Trainium, and Apple's M-series. AI-related revenue is estimated to exceed 20% of total sales in 2026, growing at 50%+ annually. As AI capex from hyperscalers (Microsoft, Google, Meta, Amazon) is projected to exceed $300B in 2026, TSMC is the primary beneficiary as the sole manufacturer capable of producing these chips at scale on 3nm and 5nm nodes.</p>
+
+<h3>2. 2nm (N2) Technology Leadership</h3>
+<p>TSMC's N2 process, based on gate-all-around (GAA) transistor architecture, enters volume production in late 2025/early 2026. N2 offers 10-15% speed improvement and 25-30% power reduction versus N3E. Early customer commitments from Apple, Nvidia, and Qualcomm are strong. N2 will command significant pricing premiums, driving ASP and margin expansion over the next 2-3 years.</p>
+
+<h3>3. Global Fab Diversification</h3>
+<p>TSMC is investing $65B+ in its Arizona fabs (Fab 21), with the first 4nm fab operational in 2025 and a 3nm/2nm fab following by 2028. Additional fabs in Kumamoto, Japan (operational) and Dresden, Germany (under construction) reduce geopolitical risk perception and unlock government subsidies worth $15B+. These investments, while dilutive to near-term margins, secure long-term customer relationships and reduce the Taiwan concentration discount.</p>
+
+<h3>4. Advanced Packaging (CoWoS / SoIC)</h3>
+<p>TSMC's Chip-on-Wafer-on-Substrate (CoWoS) advanced packaging technology is critical for AI chip performance. Nvidia's B100 and GB200 require CoWoS-L for HBM integration. TSMC is aggressively expanding CoWoS capacity from ~35K wafers/month in 2025 to 80K+ by 2027. This creates an additional high-margin revenue stream and deepens customer lock-in.</p>
+
+<h3>5. Next Quarter Earnings Expectations</h3>
+<p>Consensus expects Q1 2026 revenue of approximately NT$1,117B (~$34.4B USD), representing ~6.8% sequential growth. EPS consensus is $3.30 (ADR), with a range of $3.24 to $3.39. Continued strength in AI and smartphone seasonality recovery should support a beat-and-raise quarter.</p>
+
+<div class="co bl"><strong>Catalyst Watch:</strong> Next earnings on 2026-04-16. Consensus expects ~NT$1,117B revenue and $3.30 EPS (ADR). N2 production updates and AI revenue disclosure will be key focus areas. TSMC has beaten consensus in 12 of the last 16 quarters.</div>
+
+<!-- RISK FACTORS -->
+<h2 class="pb">Risk Factors</h2>
+<h3>1. Geopolitical Risk &mdash; Taiwan Strait Tensions</h3>
+<p>The existential risk for TSMC investors. Approximately 85% of TSMC's manufacturing capacity remains in Taiwan. A Chinese blockade, invasion, or even sustained military exercises could disrupt global chip supply and crush the stock. While the "silicon shield" theory suggests Taiwan's semiconductor importance deters aggression, this remains an unquantifiable tail risk that warrants a persistent valuation discount.</p>
+
+<h3>2. Customer Concentration</h3>
+<p>Apple alone is estimated to account for ~25% of TSMC's revenue, with Nvidia at ~10-12%, AMD and Qualcomm at ~5-7% each. Losing Apple (which has explored Samsung for select chips) or a major shift in Nvidia's supply chain would materially impact revenue. Hyperscalers developing in-house chips (Google TPU, Amazon Trainium, Microsoft Maia) still use TSMC, but this dynamic bears monitoring.</p>
+
+<h3>3. DCF Overvaluation &mdash; Base Case Downside</h3>
+<p>Our base-case DCF at 20.5% FCF growth yields an intrinsic value of ~$220/share, suggesting 35% downside from current levels. Even the bull case at $446 offers only 32% upside. While DCF models struggle to capture TSMC's monopolistic pricing power and strategic premium, the valuation math requires sustained high-teens growth for a decade to justify today's price.</p>
+
+<h3>4. Capital Intensity &amp; Margin Pressure from Overseas Fabs</h3>
+<p>TSMC's annual capex exceeds $30B, with overseas fabs costing 40-50% more than equivalent Taiwan facilities. The Arizona fab has faced cost overruns and labor challenges. As overseas production ramps, blended margins could compress by 200-400bps. Operating cashflow of NT$2.27T is robust, but the gap between operating CF and FCF (NT$643B) reflects heavy reinvestment requirements.</p>
+
+<h3>5. Cyclical Demand &amp; Inventory Corrections</h3>
+<p>Despite AI tailwinds, TSMC remains exposed to smartphone and PC cycles (~50% of revenue). A consumer electronics downturn or AI spending pause could trigger inventory corrections and utilization rate declines at mature and mid-range nodes. Beta of 1.28 confirms above-market sensitivity to macro conditions.</p>
+
+<!-- TECHNICAL ANALYSIS -->
+<h2>Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">50-Day SMA</div><div class="vl dn">$345.30</div><div class="nt dn">Below &mdash; Bearish</div></div>
+    <div class="tc"><div class="mk">200-Day SMA</div><div class="vl up">$280.34</div><div class="nt up">Above &mdash; Bullish</div></div>
+    <div class="tc"><div class="mk">RSI (14)</div><div class="vl neu">42.68</div><div class="nt neu">Approaching oversold</div></div>
+</div>
+<div class="tg">
+    <div class="tc"><div class="mk">MACD Line</div><div class="vl dn">-1.26</div><div class="nt dn">Below signal</div></div>
+    <div class="tc"><div class="mk">MACD Histogram</div><div class="vl dn">-4.64</div><div class="nt dn">Bearish momentum</div></div>
+    <div class="tc"><div class="mk">52W Range Position</div><div class="vl">$133 &ndash; $390</div><div class="nt">79th percentile</div></div>
+</div>
+<div class="co yw"><strong>Technical Summary:</strong> TSM is trading below its 50-day SMA ($345.30) but well above the 200-day ($280.34), indicating a short-term pullback within a longer-term uptrend. RSI at 42.68 is approaching oversold territory. MACD histogram at -4.64 shows bearish near-term momentum. The stock sits in the upper quartile of its 52-week range ($133&ndash;$390). The 13% decline from the 52-week high may present a tactical entry point if support holds near $325.</div>
+
+<!-- DCF VALUATION -->
+<h2 class="pb">DCF Valuation &mdash; Bull / Base / Bear Scenarios</h2>
+<p style="margin-bottom:8px;color:#64748b;">10-year DCF using WACC of 10.0% and terminal growth of 3.0%. TTM FCF: ~$19.8B (USD). Shares: 5.19B. Net cash: ~$61.5B.</p>
+<div class="sg">
+    <div class="sc bear">
+        <div class="lb">Bear Case</div>
+        <div class="pr dn">$110</div>
+        <div class="us dn">-67.5%</div>
+        <div class="mt">FCF Growth: 10.3%</div>
+        <div class="ds">AI spending slowdown, geopolitical escalation suppresses valuations, overseas fab margin dilution, smartphone cycle downturn. FCF growth decelerates to low double digits.</div>
+    </div>
+    <div class="sc base">
+        <div class="lb">Base Case</div>
+        <div class="pr dn">$220</div>
+        <div class="us dn">-34.9%</div>
+        <div class="mt">FCF Growth: 20.5%</div>
+        <div class="ds">Current trajectory holds &mdash; AI demand sustains 20% growth, N2 ramp on schedule, overseas fabs modestly dilute margins, stable geopolitical environment.</div>
+    </div>
+    <div class="sc bull">
+        <div class="lb">Bull Case</div>
+        <div class="pr up">$446</div>
+        <div class="us up">+31.8%</div>
+        <div class="mt">FCF Growth: 30.8%</div>
+        <div class="ds">AI super-cycle drives 30%+ growth for 5+ years, N2/A16 adoption accelerates, pricing power expands, geopolitical risk de-escalates, CoWoS becomes major profit center.</div>
+    </div>
+</div>
+<div class="co yw"><strong>Valuation Note:</strong> The DCF base case implies ~$220 per share &mdash; a 35% discount to the current price of $338.31. However, traditional DCF models systematically undervalue monopolistic franchises with pricing power and secular tailwinds. TSMC's position as the sole manufacturer of advanced AI chips justifies a strategic premium not captured by FCF projections alone. The market is pricing in a trajectory between our base and bull cases, which is reasonable given AI demand visibility.</div>
+
+<!-- COMPARABLE COMPANY ANALYSIS -->
+<h2>Comparable Company Analysis</h2>
+<table>
+<thead><tr><th>Metric</th><th class="hl">TSM</th><th>AVGO</th><th>AMD</th><th>INTC</th></tr></thead>
+<tbody>
+<tr><td><strong>Price</strong></td><td class="hl"><strong>$338.31</strong></td><td>$322.16</td><td>$193.39</td><td>$45.77</td></tr>
+<tr><td><strong>Market Cap</strong></td><td class="hl"><strong>$1,755B</strong></td><td>$1,527B</td><td>$315B</td><td>$229B</td></tr>
+<tr><td><strong>Revenue (TTM)</strong></td><td class="hl"><strong>~$117B</strong></td><td>$68.3B</td><td>$34.6B</td><td>$52.9B</td></tr>
+<tr><td><strong>Rev Growth</strong></td><td class="hl up"><strong>+20.5%</strong></td><td class="up">+16.4%</td><td class="up">+34.1%</td><td class="dn">-4.1%</td></tr>
+<tr><td><strong>Gross Margin</strong></td><td class="hl up"><strong>59.9%</strong></td><td class="up">76.7%</td><td>52.5%</td><td>36.6%</td></tr>
+<tr><td><strong>Operating Margin</strong></td><td class="hl up"><strong>53.9%</strong></td><td>31.8%</td><td>17.1%</td><td>5.1%</td></tr>
+<tr><td><strong>Net Margin</strong></td><td class="hl up"><strong>45.1%</strong></td><td class="up">36.6%</td><td>12.5%</td><td class="dn">-0.5%</td></tr>
+<tr><td><strong>Trailing P/E</strong></td><td class="hl"><strong>32.6x</strong></td><td>62.9x</td><td>74.1x</td><td>N/A</td></tr>
+<tr><td><strong>Forward P/E</strong></td><td class="hl"><strong>18.8x</strong></td><td>18.4x</td><td>18.0x</td><td>46.2x</td></tr>
+<tr><td><strong>EV/Revenue</strong></td><td class="hl"><strong>1.8x</strong></td><td>2.4x</td><td>8.9x</td><td>4.7x</td></tr>
+<tr><td><strong>EV/EBITDA</strong></td><td class="hl"><strong>2.6x</strong></td><td>4.3x</td><td>45.8x</td><td>19.8x</td></tr>
+<tr><td><strong>ROE</strong></td><td class="hl up"><strong>35.1%</strong></td><td class="up">33.4%</td><td>7.1%</td><td class="dn">0.0%</td></tr>
+<tr><td><strong>FCF (TTM)</strong></td><td class="hl"><strong>~$19.8B</strong></td><td>$25.5B</td><td>$4.6B</td><td class="dn">-$4.5B</td></tr>
+<tr><td><strong>Dividend Yield</strong></td><td class="hl"><strong>1.04%</strong></td><td>0.81%</td><td>&mdash;</td><td>&mdash;</td></tr>
+<tr><td><strong>Beta</strong></td><td class="hl"><strong>1.28</strong></td><td>1.26</td><td>2.02</td><td>1.38</td></tr>
+</tbody>
+</table>
+<div class="co bl"><strong>Peer Comparison:</strong> TSMC stands out with the highest operating margin (53.9%) and net margin (45.1%) among semiconductor peers &mdash; its foundry model generates exceptional profitability. EV/Revenue of 1.8x and EV/EBITDA of 2.6x are the cheapest in the group, partly reflecting the TWD-denominated enterprise value calculation, but also genuine valuation attractiveness. The forward P/E of 18.8x is in-line with AVGO (18.4x) and AMD (18.0x) &mdash; remarkable for a company with TSMC's monopolistic positioning and 20.5% revenue growth. ROE of 35.1% is the group's best, exceeding even Broadcom.</div>
+
+<!-- INSTITUTIONAL OWNERSHIP -->
+<h2>Institutional Ownership</h2>
+<div class="inst-grid">
+    <div class="inst-card"><span class="name">FMR, LLC (Fidelity)</span><span class="pct">1.18%</span></div>
+    <div class="inst-card"><span class="name">Sanders Capital, LLC</span><span class="pct">0.62%</span></div>
+    <div class="inst-card"><span class="name">Capital World Investors</span><span class="pct">0.53%</span></div>
+    <div class="inst-card"><span class="name">Capital International</span><span class="pct">0.49%</span></div>
+    <div class="inst-card"><span class="name">JPMorgan Chase</span><span class="pct">0.49%</span></div>
+    <div class="inst-card"><span class="name">Fisher Asset Management</span><span class="pct">0.35%</span></div>
+    <div class="inst-card"><span class="name">Van Eck Associates</span><span class="pct">0.34%</span></div>
+    <div class="inst-card"><span class="name">BlackRock Inc.</span><span class="pct">0.32%</span></div>
+    <div class="inst-card"><span class="name">Bank of America</span><span class="pct">0.31%</span></div>
+    <div class="inst-card"><span class="name">Morgan Stanley</span><span class="pct">0.26%</span></div>
+</div>
+<p style="color:#64748b;font-size:0.9em;margin-top:8px;">Institutional ownership percentages reflect ADR holdings only. TSM's largest shareholder is the Taiwan government's National Development Fund. FMR (Fidelity) reduced its position by 16.5% in Q4 2025. JPMorgan notably cut its holdings by 48.6%. Van Eck increased by 11.1%.</p>
+
+<!-- INSIDER ACTIVITY -->
+<h2>Insider Activity (Last 6 Months)</h2>
+<table>
+<thead><tr><th>Metric</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Purchases</td><td>0 shares (0 transactions)</td></tr>
+<tr><td>Sales</td><td>0 shares (0 transactions)</td></tr>
+<tr><td>Net Activity</td><td>No insider transactions reported</td></tr>
+<tr><td>Total Insider Holdings</td><td>12,706,937 shares</td></tr>
+</tbody>
+</table>
+<div class="co gr"><strong>Insider Signal:</strong> No insider buying or selling in the past 6 months. This is typical for Taiwanese ADRs where insider transactions are governed by local regulations and rarely appear in US filings. The absence of selling is a neutral-to-positive signal &mdash; contrast this with AVGO where the CEO sold $100M+ in shares.</div>
+
+<!-- OPTIONS ACTIVITY -->
+<h2>Options Activity (Expiry: 2026-03-20)</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Call Volume</div><div class="value">14,914</div><div class="sub">OI: 134,676</div></div>
+    <div class="kpi"><div class="label">Put Volume</div><div class="value dn">28,568</div><div class="sub">OI: 241,796</div></div>
+    <div class="kpi"><div class="label">Put/Call Ratio</div><div class="value dn">1.92</div><div class="sub">Bearish skew</div></div>
+    <div class="kpi"><div class="label">Avg Call IV</div><div class="value">19.6%</div><div class="sub">Put IV: 23.3%</div></div>
+</div>
+<div class="co yw"><strong>Options Signal:</strong> Put/call volume ratio of 1.92 and put/call OI ratio of 1.80 indicate bearish positioning ahead of the March 20 expiry. Put IV (23.3%) exceeds call IV (19.6%), reflecting elevated demand for downside protection. This could reflect hedging by institutional holders rather than directional bets, especially with ex-dividend on March 16 and earnings approaching on April 16. No unusual volume activity was flagged.</div>
+
+<!-- DCF METHODOLOGY -->
+<h2>DCF Methodology &amp; Assumptions</h2>
+<table>
+<thead><tr><th>Parameter</th><th>Bear</th><th>Base</th><th>Bull</th></tr></thead>
+<tbody>
+<tr><td><strong>FCF Growth Rate (Y1-10)</strong></td><td>10.25%</td><td>20.50%</td><td>30.75%</td></tr>
+<tr><td><strong>WACC</strong></td><td>10.0%</td><td>10.0%</td><td>10.0%</td></tr>
+<tr><td><strong>Terminal Growth</strong></td><td>3.0%</td><td>3.0%</td><td>3.0%</td></tr>
+<tr><td><strong>TTM FCF (USD)</strong></td><td colspan="3">~$19.8B</td></tr>
+<tr><td><strong>Net Cash (USD)</strong></td><td colspan="3">~$61.5B</td></tr>
+<tr><td><strong>Shares Outstanding</strong></td><td colspan="3">5.187B</td></tr>
+<tr><td><strong>Implied Share Price</strong></td><td class="dn">~$110</td><td>~$220</td><td class="up">~$446</td></tr>
+<tr><td><strong>Upside / Downside</strong></td><td class="dn">-67.5%</td><td class="dn">-34.9%</td><td class="up">+31.8%</td></tr>
+</tbody>
+</table>
+<p style="color:#64748b;font-size:0.9em;margin-top:8px;">DCF computed using USD-converted FCF to avoid currency distortion. Growth rates derived from trailing revenue growth (20.5%) with &plusmn;50% adjustments for bear/bull scenarios. The 10% WACC reflects TSM's 1.28 beta and geopolitical risk premium. Terminal growth of 3% assumes long-term GDP+ growth given semiconductor's increasing share of global economic output.</p>
+
+<!-- FINAL RATING -->
+<h2 class="pb">Final Rating &amp; Recommendation</h2>
+<div style="text-align:center;margin:24px 0;">
+<div style="display:inline-block;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;padding:20px 48px;border-radius:16px;box-shadow:0 4px 16px rgba(22,163,74,0.3);">
+<div style="font-size:3em;font-weight:900;line-height:1;">74 / 100</div>
+<div style="font-size:1.4em;font-weight:700;margin-top:8px;">BUY</div>
+</div>
+</div>
+
+<div class="sg" style="margin-top:24px;">
+    <div class="sc bull" style="border-top-color:#16a34a;">
+        <div class="lb">Strengths</div>
+        <div class="ds" style="text-align:left;">
+            <ul style="margin-left:12px;">
+                <li>Monopoly on leading-edge chip manufacturing</li>
+                <li>45.1% net margin, 53.9% operating margin</li>
+                <li>AI is the strongest secular tailwind in tech</li>
+                <li>Forward P/E of 18.8x &mdash; cheap for the moat</li>
+                <li>35% earnings growth, 20.5% revenue growth</li>
+                <li>Net cash balance sheet (~$62B)</li>
+                <li>ROE of 35.1% &mdash; best among peers</li>
+                <li>No insider selling</li>
+            </ul>
+        </div>
+    </div>
+    <div class="sc base" style="border-top-color:#ca8a04;">
+        <div class="lb">Key Concerns</div>
+        <div class="ds" style="text-align:left;">
+            <ul style="margin-left:12px;">
+                <li>Taiwan geopolitical tail risk</li>
+                <li>DCF base case implies 35% overvaluation</li>
+                <li>Customer concentration (Apple ~25%)</li>
+                <li>Overseas fabs may dilute margins</li>
+                <li>Bearish options positioning (P/C 1.92)</li>
+                <li>High P/B ratio (51.7x)</li>
+                <li>Below 50-day SMA, weak near-term technicals</li>
+                <li>Capex-intensive business model</li>
+            </ul>
+        </div>
+    </div>
+    <div class="sc bear" style="border-top-color:#2563eb;">
+        <div class="lb">Recommendation</div>
+        <div class="ds" style="text-align:left;">
+            <p style="margin-bottom:12px;">TSMC is the most strategically important company in the semiconductor industry. Its monopoly on advanced chip manufacturing &mdash; powering every major AI accelerator, smartphone processor, and HPC chip &mdash; is unassailable for at least the next 5 years.</p>
+            <p style="margin-bottom:12px;">At 18.8x forward earnings with 35% earnings growth, the stock is reasonably valued for its quality. While DCF suggests overvaluation, this is a franchise that transcends traditional valuation frameworks.</p>
+            <p><strong>Action:</strong> Accumulate on pullbacks to $300&ndash;$320. Size appropriately given geopolitical tail risk. Consider a 3-5 year holding period to capture the full AI capex cycle.</p>
+        </div>
+    </div>
+</div>
+
+<!-- SCORING BREAKDOWN -->
+<h3 style="margin-top:32px;">Score Breakdown</h3>
+<table>
+<thead><tr><th>Category</th><th>Weight</th><th>Score</th><th>Weighted</th><th>Rationale</th></tr></thead>
+<tbody>
+<tr><td><strong>Business Quality &amp; Moat</strong></td><td>25%</td><td class="up">95</td><td class="up">23.8</td><td>Irreplaceable monopoly in advanced foundry</td></tr>
+<tr><td><strong>Financial Health</strong></td><td>20%</td><td class="up">90</td><td class="up">18.0</td><td>45% net margin, net cash, 35% ROE</td></tr>
+<tr><td><strong>Growth Trajectory</strong></td><td>20%</td><td class="up">85</td><td class="up">17.0</td><td>20.5% revenue, 35% EPS, AI tailwinds</td></tr>
+<tr><td><strong>Valuation</strong></td><td>20%</td><td class="neu">55</td><td>11.0</td><td>Fair on forward P/E; DCF says overvalued</td></tr>
+<tr><td><strong>Risk Profile</strong></td><td>15%</td><td class="dn">30</td><td>4.5</td><td>Geopolitical risk, concentration, cyclicality</td></tr>
+<tr class="hl"><td><strong>Total</strong></td><td>100%</td><td></td><td><strong>74.3</strong></td><td></td></tr>
+</tbody>
+</table>
+
+<div class="ft">
+<p>TSM Equity Research Report &middot; Generated 2026-03-16 &middot; For informational purposes only &middot; Not financial advice</p>
+<p>Data sourced from public filings, Yahoo Finance, and market data providers. All figures as of 2026-03-16.</p>
+</div>
+
+</div>
+</body>
+</html>

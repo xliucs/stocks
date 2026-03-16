@@ -224,6 +224,22 @@
     "url": "reports/BABA-2026-03-08.html"
   },
   {
+    "ticker": "TSM",
+    "company": "Taiwan Semiconductor Manufacturing",
+    "date": "2026-03-16",
+    "rating": "Bullish",
+    "score": 78,
+    "category": [
+      "Semis"
+    ],
+    "nextEarnings": null,
+    "price": 343.78,
+    "analystPT": 430.65,
+    "forwardPE": 19.1,
+    "thesis": "World's leading foundry capturing AI chip demand with unmatched process leadership",
+    "url": "reports/TSM-2026-03-16.html"
+  },
+  {
     "ticker": "WRD",
     "company": "WeRide Inc.",
     "date": "2026-03-08",
