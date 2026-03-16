@@ -218,6 +218,15 @@ body {
 .empty { grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-secondary); }
 .empty-icon { font-size: 3em; margin-bottom: 12px; }
 
+/* Nav */
+.nav { background:var(--bg); border-bottom:1px solid var(--border); padding:0 24px; position:sticky; top:0; z-index:100; }
+.nav-inner { max-width:1280px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; height:48px; }
+.nav-brand { font-weight:800; font-size:1em; color:var(--text); text-decoration:none; display:flex; align-items:center; gap:6px; }
+.nav-links { display:flex; gap:4px; }
+.nav-links a { padding:6px 14px; border-radius:8px; font-size:0.85em; font-weight:600; color:var(--text-secondary); text-decoration:none; transition:all 0.2s; }
+.nav-links a:hover { background:var(--bg-secondary); color:var(--text); }
+.nav-links a.active { background:var(--accent); color:#fff; }
+
 .footer {
   text-align: center; padding: 40px 24px; color: var(--text-secondary);
   font-size: 0.85em; border-top: 1px solid var(--border); margin-top: 40px;
@@ -227,8 +236,17 @@ body {
 </style>
 </head>
 <body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">Cooper Valuation</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="reports.html" class="active">Reports</a>
+        <a href="digest.html">Digest</a>
+      </div>
+    </div>
+  </nav>
   <header class="header">
-    <a href="/stocks/" style="position:absolute;top:20px;left:24px;z-index:2;color:#94a3b8;text-decoration:none;font-size:0.9em;font-weight:600;">← Cooper Valuation</a>
     <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
     <div class="header-content">
       <h1>📈 Stock Valuation Reports</h1>

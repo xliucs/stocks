@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Digest — Cooper Valuation</title>
+<style>
+:root {
+  --bg: #ffffff; --bg2: #f8fafc; --text: #0f172a; --text2: #64748b; --text3: #94a3b8;
+  --border: #e2e8f0; --accent: #2563eb; --green: #16a34a; --orange: #d97706; --red: #dc2626;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --card-hover: 0 20px 40px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.04);
+  --header-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+
+/* Nav */
+.nav { background:var(--bg); border-bottom:1px solid var(--border); padding:0 24px; position:sticky; top:0; z-index:100; }
+.nav-inner { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; height:48px; }
+.nav-brand { font-weight:800; font-size:1em; color:var(--text); text-decoration:none; display:flex; align-items:center; gap:6px; }
+.nav-links { display:flex; gap:4px; }
+.nav-links a { padding:6px 14px; border-radius:8px; font-size:0.85em; font-weight:600; color:var(--text2); text-decoration:none; transition:all 0.2s; }
+.nav-links a:hover { background:var(--bg2); color:var(--text); }
+.nav-links a.active { background:var(--accent); color:#fff; }
+
+/* Hero */
+.hero {
+  background: var(--header-gradient);
+  color: #fff;
+  padding: 48px 24px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content:''; position:absolute; top:0; left:0; right:0; bottom:0;
+  background: radial-gradient(circle at 30% 40%, rgba(217,119,6,0.15) 0%, transparent 50%),
+              radial-gradient(circle at 70% 60%, rgba(234,88,12,0.1) 0%, transparent 50%);
+}
+.hero-content { position:relative; z-index:1; max-width:800px; margin:0 auto; }
+.hero h1 { font-size:2.4em; font-weight:800; letter-spacing:-0.03em; margin-bottom:4px; }
+.hero .tagline { color:#94a3b8; font-size:1.1em; }
+
+/* Date selector */
+.date-nav { max-width:1100px; margin:20px auto 0; padding:0 24px; display:flex; gap:8px; flex-wrap:wrap; }
+.date-btn {
+  padding:8px 16px; border-radius:10px; border:1.5px solid var(--border);
+  background:var(--bg); color:var(--text); font-size:0.85em; font-weight:600;
+  cursor:pointer; transition:all 0.2s;
+}
+.date-btn:hover { border-color:var(--accent); color:var(--accent); }
+.date-btn.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+
+/* Content */
+.digest-content { max-width:1100px; margin:20px auto; padding:0 24px; }
+
+/* Summary card */
+.summary-card {
+  background:var(--bg); border:1px solid var(--border); border-radius:16px;
+  padding:24px; box-shadow:var(--card-shadow); margin-bottom:20px;
+}
+.summary-card h2 { font-size:1.1em; font-weight:700; margin-bottom:8px; }
+.summary-card p { color:var(--text2); font-size:0.95em; line-height:1.7; }
+
+/* Index grid */
+.index-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:20px; }
+.index-card {
+  background:var(--bg); border:1px solid var(--border); border-radius:14px;
+  padding:20px; text-align:center; box-shadow:var(--card-shadow);
+}
+.index-name { font-size:0.78em; color:var(--text3); text-transform:uppercase; letter-spacing:0.5px; font-weight:700; }
+.index-value { font-size:1.5em; font-weight:800; margin:4px 0; }
+.index-change { font-size:0.95em; font-weight:700; }
+.index-change.up { color:var(--green); }
+.index-change.down { color:var(--red); }
+
+/* Two-column layout */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px; }
+
+/* Movers table */
+.movers-card {
+  background:var(--bg); border:1px solid var(--border); border-radius:14px;
+  padding:20px; box-shadow:var(--card-shadow);
+}
+.movers-card h3 { font-size:0.95em; font-weight:700; margin-bottom:12px; display:flex; align-items:center; gap:6px; }
+.mover-row {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:8px 0; border-bottom:1px solid var(--border);
+}
+.mover-row:last-child { border-bottom:none; }
+.mover-ticker { font-weight:800; font-size:0.95em; }
+.mover-company { color:var(--text3); font-size:0.8em; }
+.mover-right { text-align:right; }
+.mover-price { font-size:0.85em; color:var(--text2); }
+.mover-change { font-size:0.9em; font-weight:700; }
+.mover-change.up { color:var(--green); }
+.mover-change.down { color:var(--red); }
+
+/* Sectors */
+.sectors-card {
+  background:var(--bg); border:1px solid var(--border); border-radius:14px;
+  padding:20px; box-shadow:var(--card-shadow); margin-bottom:20px;
+}
+.sectors-card h3 { font-size:0.95em; font-weight:700; margin-bottom:12px; }
+.sector-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:8px; }
+.sector-row {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:8px 12px; border-radius:8px; background:var(--bg2);
+}
+.sector-name { font-size:0.85em; font-weight:600; }
+.sector-change { font-size:0.85em; font-weight:700; }
+.sector-change.up { color:var(--green); }
+.sector-change.down { color:var(--red); }
+.sector-bar {
+  height:4px; border-radius:2px; margin-top:4px; min-width:2px;
+}
+.sector-bar.up { background:var(--green); }
+.sector-bar.down { background:var(--red); }
+
+/* Earnings */
+.earnings-card {
+  background:var(--bg); border:1px solid var(--border); border-radius:14px;
+  padding:20px; box-shadow:var(--card-shadow); margin-bottom:20px;
+}
+.earnings-card h3 { font-size:0.95em; font-weight:700; margin-bottom:12px; display:flex; align-items:center; gap:6px; }
+.earnings-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(180px, 1fr)); gap:10px; }
+.earnings-item {
+  padding:12px; border-radius:10px; background:var(--bg2); border:1px solid var(--border);
+  text-align:center;
+}
+.earnings-ticker { font-weight:800; font-size:1.1em; }
+.earnings-company { font-size:0.78em; color:var(--text3); }
+.earnings-date { font-size:0.82em; font-weight:600; color:var(--accent); margin-top:4px; }
+.earnings-estimate { font-size:0.78em; color:var(--text2); }
+
+/* News */
+.news-card {
+  background:var(--bg); border:1px solid var(--border); border-radius:14px;
+  padding:20px; box-shadow:var(--card-shadow); margin-bottom:20px;
+}
+.news-card h3 { font-size:0.95em; font-weight:700; margin-bottom:12px; display:flex; align-items:center; gap:6px; }
+.news-item {
+  padding:10px 0; border-bottom:1px solid var(--border);
+  display:flex; justify-content:space-between; align-items:center; gap:12px;
+}
+.news-item:last-child { border-bottom:none; }
+.news-headline { font-size:0.9em; font-weight:500; }
+.news-cat {
+  font-size:0.7em; font-weight:700; padding:3px 8px; border-radius:6px;
+  background:var(--bg2); color:var(--text3); white-space:nowrap; text-transform:uppercase; letter-spacing:0.3px;
+}
+
+.footer {
+  text-align:center; padding:40px 24px; color:var(--text3); font-size:0.85em;
+  border-top:1px solid var(--border); margin-top:40px;
+}
+
+@media(max-width:768px) {
+  .index-grid { grid-template-columns:repeat(2,1fr); }
+  .two-col { grid-template-columns:1fr; }
+  .hero h1 { font-size:1.8em; }
+  .hero { padding:36px 16px 30px; }
+  .sector-grid { grid-template-columns:1fr 1fr; }
+  .earnings-grid { grid-template-columns:1fr 1fr; }
+}
+@media(max-width:480px) {
+  .index-grid { grid-template-columns:1fr 1fr; }
+  .sector-grid { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">Cooper Valuation</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="reports.html">Reports</a>
+      <a href="digest.html" class="active">Digest</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Daily Digest</h1>
+    <p class="tagline">AI-generated market summaries for your watchlist</p>
+  </div>
+</section>
+
+<div class="date-nav" id="date-nav"></div>
+
+<div class="digest-content" id="digest-content">
+  <div style="text-align:center;padding:60px 20px;color:var(--text3);">Loading digest...</div>
+</div>
+
+<div class="footer">
+  <p>Built with AI-powered research &bull; Not financial advice</p>
+  <p style="margin-top:4px;">Cooper Valuation &copy; 2026 &bull; Powered by curiosity</p>
+</div>
+
+<script>
+let digestData = [];
+let selectedDate = null;
+
+function formatDate(dateStr) {
+  const d = new Date(dateStr + 'T00:00:00');
+  return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function formatShortDate(dateStr) {
+  const d = new Date(dateStr + 'T00:00:00');
+  return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+}
+
+function changeClass(val) {
+  return val >= 0 ? 'up' : 'down';
+}
+
+function changeStr(val) {
+  return (val >= 0 ? '+' : '') + val.toFixed(2) + '%';
+}
+
+function renderDateNav() {
+  const nav = document.getElementById('date-nav');
+  nav.innerHTML = digestData.map(d =>
+    `<button class="date-btn ${d.date === selectedDate ? 'active' : ''}" onclick="selectDate('${d.date}')">${formatShortDate(d.date)}</button>`
+  ).join('');
+}
+
+function selectDate(dateStr) {
+  selectedDate = dateStr;
+  renderDateNav();
+  renderDigest();
+}
+
+function renderDigest() {
+  const entry = digestData.find(d => d.date === selectedDate);
+  if (!entry) {
+    document.getElementById('digest-content').innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--text3);">No digest available for this date.</div>';
+    return;
+  }
+
+  const container = document.getElementById('digest-content');
+  let html = '';
+
+  // Summary
+  html += `<div class="summary-card">
+    <h2>${formatDate(entry.date)}</h2>
+    <p>${entry.summary}</p>
+  </div>`;
+
+  // Indices
+  const idx = entry.indices;
+  html += '<div class="index-grid">';
+  for (const [key, data] of Object.entries(idx)) {
+    const isVix = key === 'VIX';
+    const val = isVix ? data.value.toFixed(2) : data.value.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    html += `<div class="index-card">
+      <div class="index-name">${data.name}</div>
+      <div class="index-value">${val}</div>
+      <div class="index-change ${changeClass(data.change)}">${changeStr(data.change)}</div>
+    </div>`;
+  }
+  html += '</div>';
+
+  // Top Gainers / Losers
+  html += '<div class="two-col">';
+
+  html += '<div class="movers-card"><h3>Top Gainers</h3>';
+  entry.topGainers.forEach(m => {
+    html += `<div class="mover-row">
+      <div><div class="mover-ticker">${m.ticker}</div><div class="mover-company">${m.company}</div></div>
+      <div class="mover-right"><div class="mover-price">$${m.price.toFixed(2)}</div><div class="mover-change up">+${m.change.toFixed(1)}%</div></div>
+    </div>`;
+  });
+  html += '</div>';
+
+  html += '<div class="movers-card"><h3>Top Losers</h3>';
+  entry.topLosers.forEach(m => {
+    html += `<div class="mover-row">
+      <div><div class="mover-ticker">${m.ticker}</div><div class="mover-company">${m.company}</div></div>
+      <div class="mover-right"><div class="mover-price">$${m.price.toFixed(2)}</div><div class="mover-change down">${m.change.toFixed(1)}%</div></div>
+    </div>`;
+  });
+  html += '</div>';
+
+  html += '</div>';
+
+  // Sectors
+  const sectors = entry.sectors;
+  if (sectors && Object.keys(sectors).length) {
+    const maxAbs = Math.max(...Object.values(sectors).map(Math.abs), 0.01);
+    const sorted = Object.entries(sectors).sort((a, b) => b[1] - a[1]);
+    html += '<div class="sectors-card"><h3>Sector Performance</h3><div class="sector-grid">';
+    sorted.forEach(([name, change]) => {
+      const barWidth = Math.round(Math.abs(change) / maxAbs * 100);
+      html += `<div class="sector-row">
+        <div>
+          <div class="sector-name">${name}</div>
+          <div class="sector-bar ${changeClass(change)}" style="width:${barWidth}%"></div>
+        </div>
+        <div class="sector-change ${changeClass(change)}">${changeStr(change)}</div>
+      </div>`;
+    });
+    html += '</div></div>';
+  }
+
+  // Upcoming Earnings
+  if (entry.earnings && entry.earnings.length) {
+    html += '<div class="earnings-card"><h3>Upcoming Earnings</h3><div class="earnings-grid">';
+    entry.earnings.forEach(e => {
+      const ed = new Date(e.date + 'T00:00:00');
+      const dateLabel = ed.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+      html += `<div class="earnings-item">
+        <div class="earnings-ticker">${e.ticker}</div>
+        <div class="earnings-company">${e.company}</div>
+        <div class="earnings-date">${dateLabel}</div>
+        ${e.estimate ? `<div class="earnings-estimate">${e.estimate}</div>` : ''}
+      </div>`;
+    });
+    html += '</div></div>';
+  }
+
+  // News
+  if (entry.news && entry.news.length) {
+    html += '<div class="news-card"><h3>Market Headlines</h3>';
+    entry.news.forEach(n => {
+      html += `<div class="news-item">
+        <div class="news-headline">${n.headline}</div>
+        <span class="news-cat">${n.category}</span>
+      </div>`;
+    });
+    html += '</div>';
+  }
+
+  container.innerHTML = html;
+}
+
+fetch('digest.json')
+  .then(r => r.json())
+  .then(data => {
+    digestData = data;
+    if (digestData.length) {
+      selectedDate = digestData[0].date;
+    }
+    renderDateNav();
+    renderDigest();
+  })
+  .catch(() => {
+    document.getElementById('digest-content').innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--text3);">Failed to load digest data.</div>';
+  });
+</script>
+</body>
+</html>

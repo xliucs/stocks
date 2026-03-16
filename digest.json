@@ -1,0 +1,105 @@
+[
+  {
+    "date": "2026-03-15",
+    "summary": "Markets retreated on Friday as investors weighed mixed economic signals. The S&P 500 slipped 0.32% while the NASDAQ underperformed, falling 0.51% as mega-cap tech names pulled back. The Dow eked out a small gain of 0.12%, buoyed by healthcare and industrial names. VIX rose to 18.45, reflecting growing uncertainty ahead of next week's Fed meeting and a heavy earnings calendar featuring MU and XPEV on Wednesday.",
+    "indices": {
+      "SP500": { "value": 5890.24, "change": -0.32, "name": "S&P 500" },
+      "NASDAQ": { "value": 19245.67, "change": -0.51, "name": "NASDAQ" },
+      "DOW": { "value": 43120.89, "change": 0.12, "name": "Dow Jones" },
+      "VIX": { "value": 18.45, "change": 5.2, "name": "VIX" }
+    },
+    "sectors": {
+      "Technology": -0.82,
+      "Healthcare": 0.54,
+      "Financials": 0.31,
+      "Consumer Discretionary": -0.45,
+      "Energy": 1.18,
+      "Industrials": 0.14,
+      "Materials": -0.22,
+      "Real Estate": -0.61,
+      "Utilities": 0.38,
+      "Communication Services": -0.33,
+      "Consumer Staples": 0.21
+    },
+    "topGainers": [
+      { "ticker": "TIGR", "company": "UP Fintech", "change": 4.2, "price": 7.50, "volume": "12.3M" },
+      { "ticker": "WRD", "company": "WeRide", "change": 3.8, "price": 6.61, "volume": "8.7M" },
+      { "ticker": "PONY", "company": "Pony.ai", "change": 2.9, "price": 12.84, "volume": "5.2M" },
+      { "ticker": "UNH", "company": "UnitedHealth", "change": 1.5, "price": 290.78, "volume": "6.1M" },
+      { "ticker": "GM", "company": "General Motors", "change": 1.2, "price": 76.11, "volume": "9.4M" }
+    ],
+    "topLosers": [
+      { "ticker": "QUBT", "company": "Quantum Computing", "change": -5.3, "price": 7.20, "volume": "22.1M" },
+      { "ticker": "TSLA", "company": "Tesla", "change": -2.8, "price": 385.62, "volume": "45.2M" },
+      { "ticker": "XPEV", "company": "XPeng", "change": -2.1, "price": 16.96, "volume": "14.8M" },
+      { "ticker": "NIO", "company": "NIO", "change": -1.8, "price": 4.69, "volume": "31.5M" },
+      { "ticker": "LMND", "company": "Lemonade", "change": -1.5, "price": 54.30, "volume": "3.2M" }
+    ],
+    "earnings": [
+      { "ticker": "MU", "company": "Micron", "date": "2026-03-18", "status": "upcoming", "estimate": "$1.92 EPS" },
+      { "ticker": "XPEV", "company": "XPeng", "date": "2026-03-18", "status": "upcoming", "estimate": "$-0.12 EPS" },
+      { "ticker": "TIGR", "company": "UP Fintech", "date": "2026-03-19", "status": "upcoming", "estimate": "$0.08 EPS" },
+      { "ticker": "PONY", "company": "Pony.ai", "date": "2026-03-20", "status": "upcoming", "estimate": "$-0.15 EPS" },
+      { "ticker": "NIO", "company": "NIO", "date": "2026-03-24", "status": "upcoming", "estimate": "$-0.30 EPS" }
+    ],
+    "news": [
+      { "headline": "Micron earnings preview: HBM3e demand expected to drive record Q2 revenue", "category": "Earnings" },
+      { "headline": "Fed rate decision next week — markets pricing 72% chance of hold", "category": "Macro" },
+      { "headline": "XPeng launches autonomous driving in 50 new cities across Europe", "category": "EV/AI" },
+      { "headline": "UP Fintech reports record Q4 user growth, shares surge 4%", "category": "Fintech" },
+      { "headline": "Senate introduces new AI chip export controls targeting advanced GPUs", "category": "Regulation" },
+      { "headline": "Tesla Robotaxi Austin pilot delayed to Q3 amid regulatory hurdles", "category": "EV" }
+    ]
+  },
+  {
+    "date": "2026-03-14",
+    "summary": "Markets rallied on Thursday as February CPI came in cooler than expected at 2.8% YoY, boosting rate-cut hopes. The S&P 500 surged 1.12% to close at 5909.14, with the NASDAQ jumping 1.47% as growth names led the charge. The Dow gained 0.68%. VIX dropped sharply to 17.54 as risk appetite returned. Technology and Semiconductors outperformed, with AVGO +3.1% and AMD +2.8% leading the AI chip rally.",
+    "indices": {
+      "SP500": { "value": 5909.14, "change": 1.12, "name": "S&P 500" },
+      "NASDAQ": { "value": 19344.85, "change": 1.47, "name": "NASDAQ" },
+      "DOW": { "value": 43068.93, "change": 0.68, "name": "Dow Jones" },
+      "VIX": { "value": 17.54, "change": -8.3, "name": "VIX" }
+    },
+    "sectors": {
+      "Technology": 1.65,
+      "Healthcare": 0.42,
+      "Financials": 0.88,
+      "Consumer Discretionary": 1.21,
+      "Energy": -0.35,
+      "Industrials": 0.55,
+      "Materials": 0.32,
+      "Real Estate": 1.44,
+      "Utilities": 0.18,
+      "Communication Services": 0.91,
+      "Consumer Staples": -0.12
+    },
+    "topGainers": [
+      { "ticker": "QUBT", "company": "Quantum Computing", "change": 8.7, "price": 7.60, "volume": "34.5M" },
+      { "ticker": "BILI", "company": "Bilibili", "change": 5.2, "price": 24.90, "volume": "11.2M" },
+      { "ticker": "AVGO", "company": "Broadcom", "change": 3.1, "price": 330.45, "volume": "18.9M" },
+      { "ticker": "AMD", "company": "AMD", "change": 2.8, "price": 192.44, "volume": "42.1M" },
+      { "ticker": "BABA", "company": "Alibaba", "change": 2.4, "price": 131.50, "volume": "22.7M" }
+    ],
+    "topLosers": [
+      { "ticker": "LI", "company": "Li Auto", "change": -3.4, "price": 17.16, "volume": "15.8M" },
+      { "ticker": "WRD", "company": "WeRide", "change": -2.1, "price": 6.37, "volume": "6.4M" },
+      { "ticker": "LULU", "company": "Lululemon", "change": -1.8, "price": 170.13, "volume": "7.3M" },
+      { "ticker": "COST", "company": "Costco", "change": -0.9, "price": 998.10, "volume": "3.8M" },
+      { "ticker": "UNH", "company": "UnitedHealth", "change": -0.6, "price": 286.48, "volume": "5.9M" }
+    ],
+    "earnings": [
+      { "ticker": "MU", "company": "Micron", "date": "2026-03-18", "status": "upcoming", "estimate": "$1.92 EPS" },
+      { "ticker": "XPEV", "company": "XPeng", "date": "2026-03-18", "status": "upcoming", "estimate": "$-0.12 EPS" },
+      { "ticker": "TIGR", "company": "UP Fintech", "date": "2026-03-19", "status": "upcoming", "estimate": "$0.08 EPS" },
+      { "ticker": "PONY", "company": "Pony.ai", "date": "2026-03-20", "status": "upcoming", "estimate": "$-0.15 EPS" },
+      { "ticker": "NIO", "company": "NIO", "date": "2026-03-24", "status": "upcoming", "estimate": "$-0.30 EPS" }
+    ],
+    "news": [
+      { "headline": "February CPI cools to 2.8% — rate-cut odds jump to 68% for June", "category": "Macro" },
+      { "headline": "Broadcom AI revenue doubles YoY, custom ASIC backlog hits $73B", "category": "Semis" },
+      { "headline": "Bilibili posts first-ever GAAP profit, shares surge 5%", "category": "Emerging" },
+      { "headline": "Li Auto Q4 deliveries miss estimates, shares drop 3.4%", "category": "EV" },
+      { "headline": "Quantum Computing Inc. secures $200M DoD contract for photonic sensors", "category": "Speculative" }
+    ]
+  }
+]

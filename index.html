@@ -107,6 +107,15 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 }
 .report-tag:hover { border-color:var(--accent); color:var(--accent); transform:translateY(-1px); }
 
+/* Nav */
+.nav { background:var(--bg); border-bottom:1px solid var(--border); padding:0 24px; position:sticky; top:0; z-index:100; }
+.nav-inner { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; height:48px; }
+.nav-brand { font-weight:800; font-size:1em; color:var(--text); text-decoration:none; display:flex; align-items:center; gap:6px; }
+.nav-links { display:flex; gap:4px; }
+.nav-links a { padding:6px 14px; border-radius:8px; font-size:0.85em; font-weight:600; color:var(--text2); text-decoration:none; transition:all 0.2s; }
+.nav-links a:hover { background:var(--bg2); color:var(--text); }
+.nav-links a.active { background:var(--accent); color:#fff; }
+
 .footer {
   text-align:center; padding:40px 24px; color:var(--text3); font-size:0.85em;
   border-top:1px solid var(--border); margin-top:40px;
@@ -127,6 +136,17 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 </style>
 </head>
 <body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">Cooper Valuation</a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="reports.html">Reports</a>
+      <a href="digest.html">Digest</a>
+    </div>
+  </div>
+</nav>
 
 <section class="hero">
   <div class="hero-content">
@@ -162,15 +182,15 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
       <span class="panel-badge badge-live">✅ Live</span>
     </a>
 
-    <div class="panel panel-digest fade-up" style="cursor:default;">
+    <a href="digest.html" class="panel panel-digest fade-up">
       <div class="icon">📰</div>
       <h2>Daily Digest</h2>
       <p>AI-generated daily market summaries — key movers, earnings, breaking news, and sentiment from X/Twitter.</p>
       <div class="stat-row">
-        <div class="mini-stat"><div class="mini-stat-val">—</div><div class="mini-stat-label">Latest</div></div>
+        <div class="mini-stat"><div class="mini-stat-val" id="digest-latest">—</div><div class="mini-stat-label">Latest</div></div>
       </div>
-      <span class="panel-badge badge-soon">🚧 Coming Soon</span>
-    </div>
+      <span class="panel-badge badge-live">✅ Live</span>
+    </a>
 
   </div>
 </div>
@@ -212,6 +232,16 @@ fetch('reports.json')
   .catch(() => {
     document.getElementById('report-tags').innerHTML = '<span style="color:#94a3b8;">Loading reports...</span>';
   });
+
+fetch('digest.json')
+  .then(r => r.json())
+  .then(digest => {
+    if (digest.length) {
+      const d = new Date(digest[0].date + 'T00:00:00');
+      document.getElementById('digest-latest').textContent = d.toLocaleDateString('en-US', {month:'short', day:'numeric'});
+    }
+  })
+  .catch(() => {});
 </script>
 </body>
 </html>
