@@ -611,6 +611,23 @@
     "url": "reports/COST-2026-03-08.html"
   },
   {
+    "ticker": "COST",
+    "company": "Costco Wholesale",
+    "date": "2026-03-16",
+    "rating": "Neutral",
+    "score": 49,
+    "category": [
+      "Consumer",
+      "Value"
+    ],
+    "nextEarnings": null,
+    "price": 1008.43,
+    "analystPT": 1067.09,
+    "forwardPE": 45.0,
+    "thesis": "Membership moat with defensive consumer spending and international expansion",
+    "url": "reports/COST-2026-03-16.html"
+  },
+  {
     "ticker": "TSLA",
     "company": "Tesla Inc.",
     "date": "2026-03-08",
