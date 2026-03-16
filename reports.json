@@ -87,6 +87,23 @@
     "url": "reports/META-2026-03-08.html"
   },
   {
+    "ticker": "AVGO",
+    "company": "Broadcom Inc.",
+    "date": "2026-03-16",
+    "rating": "Bullish",
+    "score": 81,
+    "category": [
+      "Semis",
+      "AI"
+    ],
+    "nextEarnings": null,
+    "price": 322.16,
+    "analystPT": 467.8,
+    "forwardPE": 18.4,
+    "thesis": "AI networking and custom ASIC dominance with VMware integration",
+    "url": "reports/AVGO-2026-03-16.html"
+  },
+  {
     "ticker": "MU",
     "company": "Micron Technology Inc.",
     "date": "2026-03-08",
