@@ -4,33 +4,74 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cooper Valuation — AI-Powered Stock Research</title>
+
+<!-- Favicon -->
+<link rel="icon" type="image/jpeg" href="cooper.jpg">
+<link rel="apple-touch-icon" href="cooper-logo.png">
+
+<!-- SEO Meta Tags -->
+<meta name="description" content="AI-powered stock research and valuation. Deep industry analysis, quantitative scoring, DCF models, and market intelligence covering 25+ stocks across 15 sectors.">
+<meta name="keywords" content="stock valuation, AI stock research, DCF calculator, earnings calendar, stock screener, investment analysis">
+<meta name="author" content="Cooper Valuation">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Cooper Valuation — AI-Powered Stock Research">
+<meta property="og:description" content="Deep industry analysis, quantitative scoring, and market intelligence — curated by Cooper and his AI assistant.">
+<meta property="og:image" content="cooper.jpg">
+<meta property="og:type" content="website">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cooper Valuation — AI-Powered Stock Research">
+<meta name="twitter:description" content="AI-powered stock research covering 25+ stocks. Quantitative scoring, DCF models, and daily market intelligence.">
+<meta name="twitter:image" content="cooper.jpg">
+
 <style>
 :root {
-  --bg: #ffffff; --bg2: #f8fafc; --text: #0f172a; --text2: #64748b; --text3: #94a3b8;
-  --border: #e2e8f0; --accent: #2563eb; --green: #16a34a; --orange: #d97706; --red: #dc2626;
+  --bg: #ffffff; --bg2: #f8fafc; --bg3: #f1f5f9; --text: #0f172a; --text2: #64748b; --text3: #94a3b8;
+  --border: #e2e8f0; --accent: #2563eb; --accent2: #6366f1; --green: #16a34a; --orange: #d97706; --red: #dc2626;
   --card-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
   --card-hover: 0 20px 40px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.04);
   --header-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  --ticker-bg: #020617;
+  --stats-bg: var(--bg);
 }
 [data-theme="dark"] {
-  --bg: #0f172a; --bg2: #1e293b; --text: #f1f5f9; --text2: #94a3b8; --text3: #64748b;
-  --border: #334155; --accent: #3b82f6;
+  --bg: #0f172a; --bg2: #1e293b; --bg3: #334155; --text: #f1f5f9; --text2: #94a3b8; --text3: #64748b;
+  --border: #334155; --accent: #3b82f6; --accent2: #818cf8;
   --card-shadow: 0 1px 3px rgba(0,0,0,0.3);
   --card-hover: 0 20px 40px rgba(0,0,0,0.3), 0 8px 16px rgba(0,0,0,0.2);
   --header-gradient: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e293b 100%);
+  --ticker-bg: #020617;
+  --stats-bg: var(--bg2);
 }
 [data-theme="dark"] .badge-live { background:#052e16; color:#4ade80; border-color:#166534; }
 [data-theme="dark"] .badge-soon { background:#422006; color:#fbbf24; border-color:#92400e; }
+[data-theme="dark"] .ticker-bar { background: #020617; border-color: #1e293b; }
+[data-theme="dark"] .stats-section { background: var(--bg2); }
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:var(--bg); color:var(--text); line-height:1.6; transition: background 0.3s, color 0.3s; }
-.theme-toggle { background:none; border:1px solid var(--border); color:var(--text2); border-radius:8px; padding:4px 8px; cursor:pointer; font-size:1em; line-height:1; transition:all 0.2s; }
-.theme-toggle:hover { background:var(--bg2); }
+.theme-toggle { background:none; border:1px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.7); border-radius:8px; padding:4px 8px; cursor:pointer; font-size:1em; line-height:1; transition:all 0.2s; }
+.theme-toggle:hover { background:rgba(255,255,255,0.1); color:#fff; }
+
+/* Nav */
+.nav { background:var(--bg); border-bottom:1px solid var(--border); padding:0 24px; position:sticky; top:0; z-index:100; backdrop-filter:blur(12px); background:rgba(255,255,255,0.85); }
+[data-theme="dark"] .nav { background:rgba(15,23,42,0.85); }
+.nav-inner { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; height:48px; }
+.nav-brand { font-weight:800; font-size:1em; color:var(--text); text-decoration:none; display:flex; align-items:center; gap:8px; }
+.nav-brand img { width:24px; height:24px; border-radius:50%; object-fit:cover; }
+.nav-links { display:flex; gap:4px; }
+.nav-links a { padding:6px 14px; border-radius:8px; font-size:0.85em; font-weight:600; color:var(--text2); text-decoration:none; transition:all 0.2s; }
+.nav-links a:hover { background:var(--bg2); color:var(--text); }
+.nav-links a.active { background:var(--accent); color:#fff; }
+.nav .theme-toggle { border-color:var(--border); color:var(--text2); }
+.nav .theme-toggle:hover { background:var(--bg2); }
 
 /* Hero */
 .hero {
   background: var(--header-gradient);
   color: #fff;
-  padding: 60px 24px 50px;
+  padding: 70px 24px 55px;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -38,28 +79,122 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .hero::before {
   content:''; position:absolute; top:0; left:0; right:0; bottom:0;
   background: radial-gradient(circle at 30% 40%, rgba(37,99,235,0.15) 0%, transparent 50%),
-              radial-gradient(circle at 70% 60%, rgba(99,102,241,0.1) 0%, transparent 50%);
+              radial-gradient(circle at 70% 60%, rgba(99,102,241,0.1) 0%, transparent 50%),
+              radial-gradient(circle at 50% 80%, rgba(244,114,182,0.08) 0%, transparent 40%);
+}
+.hero::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg, transparent, rgba(99,102,241,0.3), transparent);
 }
 .hero-content { position:relative; z-index:1; max-width:800px; margin:0 auto; }
 .hero-avatar {
-  width: 100px; height: 100px; border-radius: 50%; border: 3px solid rgba(255,255,255,0.3);
-  object-fit: cover; margin-bottom: 16px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  width: 110px; height: 110px; border-radius: 50%; border: 3px solid rgba(255,255,255,0.2);
+  object-fit: cover; margin-bottom: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 60px rgba(99,102,241,0.15);
+  animation: avatarGlow 4s ease-in-out infinite alternate;
 }
-.hero h1 { font-size: 2.8em; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 4px; }
-.hero h1 span { background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-.hero .tagline { color: #94a3b8; font-size: 1.15em; margin-bottom: 8px; }
-.hero .sub { color: #64748b; font-size: 0.85em; }
+@keyframes avatarGlow {
+  from { box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 40px rgba(99,102,241,0.1); }
+  to { box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 60px rgba(99,102,241,0.25); }
+}
+.hero h1 { font-size: 3em; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 6px; }
+.hero h1 span { background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hero .tagline { color: #cbd5e1; font-size: 1.2em; margin-bottom: 8px; font-weight:500; }
+.hero .sub { color: #64748b; font-size: 0.9em; max-width:600px; margin:0 auto; }
+
+/* Ticker Marquee */
+.ticker-bar {
+  background: #0f172a;
+  border-top: 1px solid #1e293b;
+  border-bottom: 1px solid #1e293b;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+}
+.ticker-bar::before, .ticker-bar::after {
+  content:''; position:absolute; top:0; bottom:0; width:60px; z-index:3; pointer-events:none;
+}
+.ticker-bar::before { left:0; background:linear-gradient(90deg, #0f172a, transparent); }
+.ticker-bar::after { right:0; background:linear-gradient(270deg, #0f172a, transparent); }
+[data-theme="dark"] .ticker-bar::before { background:linear-gradient(90deg, #020617, transparent); }
+[data-theme="dark"] .ticker-bar::after { background:linear-gradient(270deg, #020617, transparent); }
+
+.ticker-track {
+  display: flex;
+  animation: tickerScroll 45s linear infinite;
+  width: max-content;
+}
+.ticker-track:hover { animation-play-state: paused; }
+@keyframes tickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  white-space: nowrap;
+  font-size: 0.82em;
+  font-weight: 600;
+  color: #94a3b8;
+  border-right: 1px solid #1e293b;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.ticker-item:hover { background: rgba(255,255,255,0.05); }
+.ticker-item .ticker-sym { color:#e2e8f0; font-weight:800; letter-spacing:0.5px; }
+.ticker-item .ticker-score { font-weight:700; font-size:0.9em; }
+.ticker-item .ticker-score.bullish { color:#4ade80; }
+.ticker-item .ticker-score.neutral { color:#fbbf24; }
+.ticker-item .ticker-score.bearish { color:#f87171; }
+
+/* Coverage Stats */
+.stats-section {
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 32px 24px;
+}
+.stats-grid {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  text-align: center;
+}
+.stat-card {
+  padding: 8px 0;
+}
+.stat-number {
+  font-size: 2.4em;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+}
+.stat-label {
+  font-size: 0.8em;
+  font-weight: 600;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 2px;
+}
 
 /* Panels */
-.panels-section { max-width: 1100px; margin: -30px auto 0; padding: 0 24px; position: relative; z-index: 2; }
-.panels-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.panels-section { max-width: 1100px; margin: 40px auto 0; padding: 0 24px; }
+.panels-section > h3 { font-size:0.85em; text-transform:uppercase; letter-spacing:1.5px; color:var(--text3); font-weight:700; margin-bottom:20px; }
+.panels-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
 
 .panel {
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 32px 24px;
+  padding: 32px 28px;
   text-decoration: none;
   color: inherit;
   display: flex;
@@ -68,7 +203,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   text-align: center;
   gap: 12px;
   box-shadow: var(--card-shadow);
-  transition: all 0.3s ease;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
 }
@@ -79,7 +214,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   height: 4px;
   border-radius: 16px 16px 0 0;
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.35s;
 }
 .panel:hover {
   transform: translateY(-6px);
@@ -90,26 +225,28 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .panel-valuation::before { background: linear-gradient(90deg, #2563eb, #6366f1); }
 .panel-research::before { background: linear-gradient(90deg, #16a34a, #059669); }
 .panel-digest::before { background: linear-gradient(90deg, #d97706, #ea580c); }
-.panel-portfolio::before { background: linear-gradient(90deg, #8b5cf6, #6366f1); }
+.panel-screener::before { background: linear-gradient(90deg, #8b5cf6, #6366f1); }
+.panel-dcf::before { background: linear-gradient(90deg, #06b6d4, #0284c7); }
+.panel-earnings::before { background: linear-gradient(90deg, #ec4899, #db2777); }
 
-.panel .icon { font-size: 3rem; margin-bottom: 4px; }
-.panel h2 { font-size: 1.3em; font-weight: 700; }
-.panel p { color: var(--text2); font-size: 0.9em; line-height: 1.5; }
+.panel .icon { font-size: 2.8rem; margin-bottom: 4px; }
+.panel h2 { font-size: 1.25em; font-weight: 700; }
+.panel p { color: var(--text2); font-size: 0.88em; line-height: 1.5; }
 .panel .stat-row { display:flex; gap:16px; margin-top:8px; }
 .panel .mini-stat { text-align:center; }
-.panel .mini-stat-val { font-size:1.4em; font-weight:800; color:var(--accent); }
+.panel .mini-stat-val { font-size:1.3em; font-weight:800; color:var(--accent); }
 .panel .mini-stat-label { font-size:0.7em; color:var(--text3); text-transform:uppercase; letter-spacing:0.5px; }
 
 .panel-badge {
   display:inline-block; padding:4px 12px; border-radius:20px;
-  font-size:0.75em; font-weight:700; margin-top:8px;
+  font-size:0.75em; font-weight:700; margin-top:4px;
 }
 .badge-live { background:#f0fdf4; color:#16a34a; border:1px solid #bbf7d0; }
 .badge-soon { background:#fffbeb; color:#d97706; border:1px solid #fde68a; }
 
 /* Reports available section */
 .available { max-width:1100px; margin:40px auto; padding:0 24px; }
-.available h3 { font-size:1.1em; color:var(--text2); margin-bottom:16px; font-weight:600; }
+.available h3 { font-size:0.85em; text-transform:uppercase; letter-spacing:1.5px; color:var(--text3); font-weight:700; margin-bottom:16px; }
 .report-tags { display:flex; flex-wrap:wrap; gap:8px; }
 .report-tag {
   display:inline-flex; align-items:center; gap:4px;
@@ -119,35 +256,76 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 }
 .report-tag:hover { border-color:var(--accent); color:var(--accent); transform:translateY(-1px); }
 
-/* Nav */
-.nav { background:var(--bg); border-bottom:1px solid var(--border); padding:0 24px; position:sticky; top:0; z-index:100; }
-.nav-inner { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; height:48px; }
-.nav-brand { font-weight:800; font-size:1em; color:var(--text); text-decoration:none; display:flex; align-items:center; gap:6px; }
-.nav-links { display:flex; gap:4px; }
-.nav-links a { padding:6px 14px; border-radius:8px; font-size:0.85em; font-weight:600; color:var(--text2); text-decoration:none; transition:all 0.2s; }
-.nav-links a:hover { background:var(--bg2); color:var(--text); }
-.nav-links a.active { background:var(--accent); color:#fff; }
+/* Scroll animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* Hero entrance animation */
+@keyframes heroFadeIn {
+  from { opacity:0; transform:translateY(20px); }
+  to { opacity:1; transform:translateY(0); }
+}
+.hero-content > * {
+  animation: heroFadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  opacity: 0;
+}
+.hero-content > *:nth-child(1) { animation-delay: 0.1s; }
+.hero-content > *:nth-child(2) { animation-delay: 0.25s; }
+.hero-content > *:nth-child(3) { animation-delay: 0.4s; }
+.hero-content > *:nth-child(4) { animation-delay: 0.55s; }
 
 .footer {
-  text-align:center; padding:40px 24px; color:var(--text3); font-size:0.85em;
-  border-top:1px solid var(--border); margin-top:40px;
+  text-align:center; padding:48px 24px; color:var(--text3); font-size:0.85em;
+  border-top:1px solid var(--border); margin-top:48px;
 }
+.footer a { color:var(--text2); text-decoration:none; }
+.footer a:hover { color:var(--accent); }
 
-@keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
-.fade-up { animation: fadeUp 0.5s ease forwards; opacity:0; }
-.fade-up:nth-child(1) { animation-delay:0.1s; }
-.fade-up:nth-child(2) { animation-delay:0.2s; }
-.fade-up:nth-child(3) { animation-delay:0.3s; }
-.fade-up:nth-child(4) { animation-delay:0.4s; }
-
-@media(max-width:960px) {
-  .panels-grid { grid-template-columns:repeat(2, 1fr); }
-}
+/* Responsive */
 @media(max-width:768px) {
   .panels-grid { grid-template-columns:1fr; }
-  .hero h1 { font-size:2em; }
-  .hero { padding:40px 16px 35px; }
-  .panels-section { margin-top:-20px; padding:0 16px; }
+  .stats-grid { grid-template-columns:repeat(2, 1fr); gap:16px; }
+  .hero h1 { font-size:2.2em; }
+  .hero { padding:50px 16px 40px; }
+  .panels-section { margin-top:30px; padding:0 16px; }
+  .available { padding:0 16px; }
+  .stat-number { font-size:1.8em; }
+  .nav-links a { padding:6px 10px; font-size:0.78em; }
+
+  /* Scrollable panels on mobile */
+  .panels-grid.mobile-scroll {
+    display:flex;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    gap:16px;
+    padding-bottom:8px;
+  }
+  .panels-grid.mobile-scroll .panel {
+    min-width:280px;
+    flex-shrink:0;
+    scroll-snap-align:start;
+  }
+  .panels-grid.mobile-scroll::-webkit-scrollbar { height:4px; }
+  .panels-grid.mobile-scroll::-webkit-scrollbar-track { background:var(--bg2); border-radius:4px; }
+  .panels-grid.mobile-scroll::-webkit-scrollbar-thumb { background:var(--border); border-radius:4px; }
+}
+@media(max-width:480px) {
+  .nav-links a { padding:4px 8px; font-size:0.72em; }
+  .hero h1 { font-size:1.8em; }
+  .stat-number { font-size:1.5em; }
 }
 </style>
 </head>
@@ -155,7 +333,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 
 <nav class="nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-brand">Cooper Valuation</a>
+    <a href="index.html" class="nav-brand">
+      <img src="cooper-logo-sm.png" alt="Cooper">
+      Cooper Valuation
+    </a>
     <div style="display:flex;align-items:center;gap:8px;">
       <div class="nav-links">
         <a href="index.html" class="active">Home</a>
@@ -172,69 +353,120 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 
 <section class="hero">
   <div class="hero-content">
-    <img src="cooper.jpg?v=2" alt="Cooper" class="hero-avatar">
-    <h1>🐈 Cooper <span>Valuation</span> 📈</h1>
+    <img src="cooper.jpg?v=2" alt="Cooper the cat — AI Stock Research mascot" class="hero-avatar">
+    <h1>Cooper <span>Valuation</span></h1>
     <p class="tagline">AI-Powered Stock Research & Analysis</p>
-    <p class="sub">Deep industry analysis, quantitative scoring, and market intelligence — curated by Cooper (and his AI assistant)</p>
+    <p class="sub">Deep industry analysis, quantitative scoring, and market intelligence — curated by Cooper and his AI assistant</p>
   </div>
 </section>
 
-<div class="panels-section">
-  <div class="panels-grid">
+<!-- Animated Stock Ticker Marquee -->
+<div class="ticker-bar" aria-label="Stock ticker scores">
+  <div class="ticker-track" id="ticker-track"></div>
+</div>
 
-    <a href="reports.html" class="panel panel-valuation fade-up">
+<!-- Coverage Stats -->
+<section class="stats-section reveal">
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-number" id="stat-stocks">25</div>
+      <div class="stat-label">Stocks Covered</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="stat-avg">—</div>
+      <div class="stat-label">Avg Score</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="stat-sectors">—</div>
+      <div class="stat-label">Sectors</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="stat-reports">—</div>
+      <div class="stat-label">Reports Generated</div>
+    </div>
+  </div>
+</section>
+
+<!-- Main Panels -->
+<div class="panels-section">
+  <h3>Explore</h3>
+  <div class="panels-grid mobile-scroll">
+
+    <a href="reports.html" class="panel panel-valuation reveal reveal-delay-1">
       <div class="icon">📊</div>
       <h2>Stock Valuation</h2>
       <p>Individual company analysis with quantitative scoring, financial metrics, analyst consensus, and investment thesis.</p>
       <div class="stat-row">
-        <div class="mini-stat"><div class="mini-stat-val">25</div><div class="mini-stat-label">Reports</div></div>
-        <div class="mini-stat"><div class="mini-stat-val">7</div><div class="mini-stat-label">Sectors</div></div>
+        <div class="mini-stat"><div class="mini-stat-val" id="panel-reports">25</div><div class="mini-stat-label">Reports</div></div>
+        <div class="mini-stat"><div class="mini-stat-val" id="panel-sectors">7</div><div class="mini-stat-label">Sectors</div></div>
       </div>
-      <span class="panel-badge badge-live">✅ Live</span>
+      <span class="panel-badge badge-live">Live</span>
     </a>
 
-    <a href="analysis/ev-comparison.html" class="panel panel-research fade-up">
-      <div class="icon">🔬</div>
-      <h2>Industry Research</h2>
-      <p>Expert-level competitive analysis — product head-to-heads, technology comparisons, market share, and supply chain deep dives.</p>
-      <div class="stat-row">
-        <div class="mini-stat"><div class="mini-stat-val">5</div><div class="mini-stat-label">Reports</div></div>
-        <div class="mini-stat"><div class="mini-stat-val">AI · EV · 🇨🇳</div><div class="mini-stat-label">Industries</div></div>
-      </div>
-      <span class="panel-badge badge-live">✅ Live</span>
-    </a>
-
-    <a href="digest.html" class="panel panel-digest fade-up">
-      <div class="icon">📰</div>
-      <h2>Daily Digest</h2>
-      <p>AI-generated daily market summaries — key movers, earnings, breaking news, and sentiment from X/Twitter.</p>
-      <div class="stat-row">
-        <div class="mini-stat"><div class="mini-stat-val" id="digest-latest">—</div><div class="mini-stat-label">Latest</div></div>
-      </div>
-      <span class="panel-badge badge-live">✅ Live</span>
-    </a>
-
-    <a href="screener.html" class="panel panel-portfolio fade-up">
+    <a href="screener.html" class="panel panel-screener reveal reveal-delay-2">
       <div class="icon">🔍</div>
       <h2>Stock Screener</h2>
       <p>Compare all covered stocks side-by-side — sortable table with scores, valuations, and analyst targets.</p>
       <div class="stat-row">
-        <div class="mini-stat"><div class="mini-stat-val" id="portfolio-count">25</div><div class="mini-stat-label">Holdings</div></div>
-        <div class="mini-stat"><div class="mini-stat-val" id="portfolio-avg">—</div><div class="mini-stat-label">Avg Score</div></div>
+        <div class="mini-stat"><div class="mini-stat-val" id="panel-count">25</div><div class="mini-stat-label">Stocks</div></div>
+        <div class="mini-stat"><div class="mini-stat-val" id="panel-avg">—</div><div class="mini-stat-label">Avg Score</div></div>
       </div>
-      <span class="panel-badge badge-live">✅ Live</span>
+      <span class="panel-badge badge-live">Live</span>
+    </a>
+
+    <a href="dcf.html" class="panel panel-dcf reveal reveal-delay-3">
+      <div class="icon">🧮</div>
+      <h2>DCF Calculator</h2>
+      <p>Build interactive discounted cash flow models with adjustable growth, margins, WACC, and scenario analysis.</p>
+      <div class="stat-row">
+        <div class="mini-stat"><div class="mini-stat-val">3</div><div class="mini-stat-label">Scenarios</div></div>
+        <div class="mini-stat"><div class="mini-stat-val">Live</div><div class="mini-stat-label">Charts</div></div>
+      </div>
+      <span class="panel-badge badge-live">Live</span>
+    </a>
+
+    <a href="earnings.html" class="panel panel-earnings reveal reveal-delay-4">
+      <div class="icon">📅</div>
+      <h2>Earnings Calendar</h2>
+      <p>Track upcoming earnings dates for all covered stocks — calendar view with score badges and company details.</p>
+      <div class="stat-row">
+        <div class="mini-stat"><div class="mini-stat-val" id="panel-earnings-count">—</div><div class="mini-stat-label">Upcoming</div></div>
+        <div class="mini-stat"><div class="mini-stat-val" id="panel-earnings-next">—</div><div class="mini-stat-label">Next</div></div>
+      </div>
+      <span class="panel-badge badge-live">Live</span>
+    </a>
+
+    <a href="analysis/ev-comparison.html" class="panel panel-research reveal reveal-delay-5">
+      <div class="icon">🔬</div>
+      <h2>Industry Research</h2>
+      <p>Expert-level competitive analysis — product comparisons, technology deep dives, and supply chain analysis.</p>
+      <div class="stat-row">
+        <div class="mini-stat"><div class="mini-stat-val">5</div><div class="mini-stat-label">Reports</div></div>
+        <div class="mini-stat"><div class="mini-stat-val">AI · EV · 🇨🇳</div><div class="mini-stat-label">Industries</div></div>
+      </div>
+      <span class="panel-badge badge-live">Live</span>
+    </a>
+
+    <a href="digest.html" class="panel panel-digest reveal reveal-delay-5">
+      <div class="icon">📰</div>
+      <h2>Daily Digest</h2>
+      <p>AI-generated daily market summaries — key movers, earnings, breaking news, and sentiment analysis.</p>
+      <div class="stat-row">
+        <div class="mini-stat"><div class="mini-stat-val" id="digest-latest">—</div><div class="mini-stat-label">Latest</div></div>
+      </div>
+      <span class="panel-badge badge-live">Live</span>
     </a>
 
   </div>
 </div>
 
-<div class="available">
-  <h3>📋 Available Valuation Reports</h3>
+<div class="available reveal">
+  <h3>Available Valuation Reports</h3>
   <div class="report-tags" id="report-tags"></div>
 </div>
 
-<div class="available">
-  <h3>🔬 Industry Deep Dives</h3>
+<div class="available reveal">
+  <h3>Industry Deep Dives</h3>
   <div class="report-tags">
     <a href="analysis/ev-comparison.html" class="report-tag">🚗 EV Industry</a>
     <a href="analysis/semiconductor-landscape.html" class="report-tag">🔬 Semiconductors</a>
@@ -245,11 +477,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 </div>
 
 <div class="footer">
-  <p>Built with AI-powered research • Not financial advice</p>
-  <p style="margin-top:4px;">Cooper Valuation © 2026 • Powered by curiosity 🐱</p>
+  <p>Built with AI-powered research · Not financial advice</p>
+  <p style="margin-top:4px;">Cooper Valuation © 2026 · Powered by curiosity 🐱</p>
 </div>
 
 <script>
+// Theme toggle
 function toggleTheme() {
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
   document.documentElement.setAttribute('data-theme', isDark ? '' : 'dark');
@@ -261,18 +494,76 @@ if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') 
   document.querySelector('.theme-toggle').textContent = '☀️';
 }
 
-// Load reports.json and populate report tags
+// Scroll reveal animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Load reports.json — populate ticker, stats, and panels
 fetch('reports.json')
   .then(r => r.json())
   .then(reports => {
+    // Deduplicate: keep latest report per ticker
+    const latest = {};
+    reports.forEach(r => {
+      if (!latest[r.ticker] || r.date > latest[r.ticker].date) latest[r.ticker] = r;
+    });
+    const unique = Object.values(latest).sort((a, b) => b.score - a.score);
+
+    // Coverage stats
+    const allCategories = new Set();
+    unique.forEach(r => (r.category || []).forEach(c => allCategories.add(c)));
+    const avgScore = Math.round(unique.reduce((s, r) => s + r.score, 0) / unique.length);
+
+    document.getElementById('stat-stocks').textContent = unique.length;
+    document.getElementById('stat-avg').textContent = avgScore;
+    document.getElementById('stat-sectors').textContent = allCategories.size;
+    document.getElementById('stat-reports').textContent = reports.length;
+
+    // Panel stats
+    document.getElementById('panel-reports').textContent = unique.length;
+    document.getElementById('panel-sectors').textContent = allCategories.size;
+    document.getElementById('panel-count').textContent = unique.length;
+    document.getElementById('panel-avg').textContent = avgScore;
+
+    // Earnings stats
+    const upcoming = unique.filter(r => r.nextEarnings && r.nextEarnings >= new Date().toISOString().slice(0, 10));
+    document.getElementById('panel-earnings-count').textContent = upcoming.length;
+    if (upcoming.length) {
+      upcoming.sort((a, b) => a.nextEarnings.localeCompare(b.nextEarnings));
+      const nd = new Date(upcoming[0].nextEarnings + 'T00:00:00');
+      document.getElementById('panel-earnings-next').textContent = nd.toLocaleDateString('en-US', {month:'short', day:'numeric'});
+    }
+
+    // Ticker marquee
+    const track = document.getElementById('ticker-track');
+    function buildTickerItems() {
+      let html = '';
+      unique.forEach(r => {
+        const cls = r.score >= 68 ? 'bullish' : r.score >= 45 ? 'neutral' : 'bearish';
+        html += '<a href="reports/' + r.url.replace('reports/', '') + '" class="ticker-item">' +
+          '<span class="ticker-sym">' + r.ticker + '</span>' +
+          '<span class="ticker-score ' + cls + '">' + r.score + '</span>' +
+          '</a>';
+      });
+      return html;
+    }
+    // Duplicate for seamless loop
+    track.innerHTML = buildTickerItems() + buildTickerItems();
+
+    // Report tags
     const container = document.getElementById('report-tags');
-    document.getElementById('portfolio-count').textContent = reports.length;
-    const avgScore = (reports.reduce((s, r) => s + r.score, 0) / reports.length).toFixed(0);
-    document.getElementById('portfolio-avg').textContent = avgScore;
-    const sorted = reports.sort((a,b) => a.ticker.localeCompare(b.ticker));
+    const sorted = unique.sort((a, b) => a.ticker.localeCompare(b.ticker));
     sorted.forEach(r => {
       const a = document.createElement('a');
-      a.href = 'reports/' + r.file;
+      a.href = r.url;
       a.className = 'report-tag';
       const scoreColor = r.score >= 68 ? '#16a34a' : r.score >= 45 ? '#d97706' : '#dc2626';
       a.innerHTML = '<span style="font-weight:800;">' + r.ticker + '</span> <span style="color:' + scoreColor + ';font-size:0.85em;">' + r.score + '</span>';
@@ -283,6 +574,7 @@ fetch('reports.json')
     document.getElementById('report-tags').innerHTML = '<span style="color:#94a3b8;">Loading reports...</span>';
   });
 
+// Load digest date
 fetch('digest.json')
   .then(r => r.json())
   .then(digest => {
@@ -292,6 +584,18 @@ fetch('digest.json')
     }
   })
   .catch(() => {});
+
+// Mobile scroll behavior for panels
+function updateMobileScroll() {
+  const grid = document.querySelector('.panels-grid');
+  if (window.innerWidth <= 768) {
+    grid.classList.add('mobile-scroll');
+  } else {
+    grid.classList.remove('mobile-scroll');
+  }
+}
+updateMobileScroll();
+window.addEventListener('resize', updateMobileScroll);
 </script>
 </body>
 </html>
