@@ -242,6 +242,23 @@
   },
   {
     "ticker": "GM",
+    "company": "General Motors Co.",
+    "date": "2026-03-16",
+    "rating": "Bullish",
+    "score": 76,
+    "category": [
+      "Auto",
+      "EV"
+    ],
+    "nextEarnings": null,
+    "price": 72.39,
+    "analystPT": 95.04,
+    "forwardPE": 5.2,
+    "thesis": "Deep value legacy auto with Cruise optionality and EV transition underway",
+    "url": "reports/GM-2026-03-16.html"
+  },
+  {
+    "ticker": "GM",
     "company": "General Motors Company",
     "date": "2026-03-08",
     "rating": "Bullish",
