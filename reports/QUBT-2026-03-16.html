@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUBT | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+.header { background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%); color: #fff; padding: 48px 40px 36px; }
+.header .container { padding: 0; }
+.header h1 { font-size: 2.4em; font-weight: 800; margin-bottom: 4px; color: #fff; }
+.header .subtitle { color: #94a3b8; font-size: 0.95em; margin-bottom: 20px; }
+.header .score-box { display: inline-flex; align-items: center; gap: 16px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 14px 24px; }
+.header .score-num { font-size: 2.8em; font-weight: 900; color: #ef4444; line-height: 1; }
+.header .score-label { font-size: 0.8em; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+.header .score-rating { font-size: 1.3em; font-weight: 700; color: #ef4444; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(239,68,68,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.cg { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 16px 0; }
+.cg img { width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+.exec-summary { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px 28px; margin: 16px 0; line-height: 1.8; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.inst-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 16px 0; }
+.inst-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
+.inst-card .name { font-weight: 600; color: #1e293b; }
+.inst-card .pct { font-weight: 700; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media (max-width: 768px) {
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .sg { grid-template-columns: 1fr; }
+  .tg { grid-template-columns: repeat(2, 1fr); }
+  .cg { grid-template-columns: 1fr; }
+  .inst-grid { grid-template-columns: 1fr; }
+  .container { padding: 20px 16px; }
+  .header { padding: 32px 16px 24px; }
+}
+@media print {
+  .kpi-grid, .sg, .tg, .cg, table, .co, .sc { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+  .header { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+<div class="container">
+<h1 style="color:#fff">QUBT &mdash; Quantum Computing Inc.</h1>
+<p class="subtitle" style="color:#94a3b8">Comprehensive Equity Research Report &middot; 2026-03-16 &middot; Computer Hardware &middot; Technology</p>
+<div class="score-box">
+<div>
+<div class="score-num">38</div>
+<div class="score-label">Score /100</div>
+</div>
+<div>
+<div class="score-rating">SELL</div>
+<div class="score-label">Pre-revenue speculation; extreme valuation risk</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="container">
+
+<!-- EARNINGS BADGE -->
+<div class="badge">Next Earnings: 2026-05-11 &mdash; 55 days away &nbsp;|&nbsp; Consensus EPS: -$0.05</div>
+
+<!-- EXECUTIVE SUMMARY -->
+<h2>Executive Summary</h2>
+<div class="exec-summary">
+<p>Quantum Computing Inc. is a pre-revenue-stage quantum technology company trading at $7.30 with a <strong>$1.64B market cap</strong> built almost entirely on speculative promise. The company generated just <strong>$682K in trailing twelve-month revenue</strong> &mdash; yielding an extraordinary EV/Revenue multiple of <strong>769x</strong>. Revenue grew 219% YoY, but from a negligible base ($39K&ndash;$384K per quarter). Operating margins are deeply negative at -11,220%, and the company burns approximately $30&ndash;35M annually in cash.</p>
+<br>
+<p>The primary asset on the balance sheet is a <strong>$1.12B cash position</strong> against just $2.6M in debt, providing roughly 30+ years of runway at current burn rates. This cash pile (raised primarily via equity dilution) represents $4.98 per share &mdash; meaning the market is assigning roughly <strong>$524M of enterprise value</strong> to a business generating under $1M in revenue. Price-to-book of 1.02x reflects that the stock trades near its liquidation value, but that book value is predominantly cash, not productive assets.</p>
+<br>
+<p><strong>Verdict:</strong> While quantum computing represents a potentially transformative technology, QUBT's current valuation is detached from any reasonable fundamental anchor. Heavy insider selling by the CEO ($20M+ in 2025), a put/call ratio of 2.31 signaling bearish sentiment, and the stock trading 72% below its 52-week high all point to deteriorating confidence. We rate QUBT <strong>SELL at 38/100</strong> &mdash; the massive cash cushion prevents a lower score, but the risk/reward is unfavorable at current levels.</p>
+</div>
+
+<!-- BUSINESS OVERVIEW -->
+<h2>Business Overview</h2>
+<p>Quantum Computing Inc. is an early-stage company focused on developing accessible quantum computing solutions and quantum photonic technologies. The company operates at the intersection of quantum hardware and software, aiming to bring quantum advantage to practical commercial applications.</p>
+<ul>
+<li><strong>Quantum Photonic Systems:</strong> Development of thin-film lithium niobate (TFLN) photonic chip technology for quantum and classical applications including LiDAR, telecommunications, and sensing. The company acquired QPhoton in 2022 to bolster its photonics capabilities.</li>
+<li><strong>Entropy Quantum Computing (EQC):</strong> A proprietary software platform that enables users to solve complex optimization problems by leveraging quantum computing resources, designed to be hardware-agnostic and accessible to non-quantum experts.</li>
+<li><strong>Foundry Services:</strong> Thin-film lithium niobate chip fabrication services for commercial and government customers, representing the majority of the company's nascent revenue.</li>
+</ul>
+<div class="co yw"><strong>Stage Warning:</strong> QUBT is a pre-revenue company with $682K in TTM revenue and a $1.64B market cap. The business model remains unproven, and commercial viability of its quantum photonic technology has not been demonstrated at scale. This is a venture-stage investment in a public-market wrapper.</div>
+
+<!-- KEY METRICS -->
+<h2>Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$7.30</div><div class="sub dn">-71.8% from 52W High</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$1.64B</div><div class="sub">Shares: 224.5M</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value dn">N/M</div><div class="sub">Fwd EPS: -$0.30</div></div>
+    <div class="kpi"><div class="label">Price / Book</div><div class="value">1.02x</div><div class="sub">Book: $7.13</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value dn">$682K</div><div class="sub up">+219% YoY</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value dn">9.8%</div><div class="sub">Negligible at scale</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value dn">-11,220%</div><div class="sub">Deep pre-revenue losses</div></div>
+    <div class="kpi"><div class="label">Free Cash Flow</div><div class="value dn">-$35.5M</div><div class="sub">Annual cash burn</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Cash Position</div><div class="value up">$1.12B</div><div class="sub">$4.98/share</div></div>
+    <div class="kpi"><div class="label">Total Debt</div><div class="value up">$2.6M</div><div class="sub">Net cash: $1.11B</div></div>
+    <div class="kpi"><div class="label">EV / Revenue</div><div class="value dn">769x</div><div class="sub">Extreme premium</div></div>
+    <div class="kpi"><div class="label">Beta</div><div class="value dn">3.63</div><div class="sub">Extreme volatility</div></div>
+</div>
+
+<!-- QUARTERLY FINANCIALS -->
+<h2>Quarterly Financial Trends</h2>
+<table>
+<thead><tr><th>Quarter</th><th>Revenue</th><th>Gross Profit</th><th>Operating Income</th><th>Net Income</th><th>Gross Margin</th><th>EPS</th></tr></thead>
+<tbody>
+<tr class="hl"><td><strong>Q4 2025</strong> (Dec)</td><td>$198K</td><td class="dn">-$98K</td><td class="dn">-$22.2M</td><td class="dn">-$1.6M</td><td class="dn">-49.5%</td><td class="dn">-$0.01</td></tr>
+<tr><td><strong>Q3 2025</strong> (Sep)</td><td>$384K</td><td>$126K</td><td class="dn">-$10.4M</td><td class="up">$2.4M</td><td>32.8%</td><td>$0.01</td></tr>
+<tr><td><strong>Q2 2025</strong> (Jun)</td><td>$61K</td><td>$26K</td><td class="dn">-$10.2M</td><td class="dn">-$36.5M</td><td>42.6%</td><td class="dn">-$0.26</td></tr>
+<tr><td><strong>Q1 2025</strong> (Mar)</td><td>$39K</td><td>$13K</td><td class="dn">-$8.3M</td><td class="up">$17.0M</td><td>33.3%</td><td>$0.11</td></tr>
+</tbody>
+</table>
+<div class="co rd"><strong>Revenue Reality Check:</strong> Revenue fluctuates wildly between $39K and $384K per quarter &mdash; orders of magnitude below what would justify a $1.6B market cap. Net income swings are driven by non-operating items (gains/losses on warrant liabilities, stock-based compensation), not by business operations. Q4 2025 saw a gross loss of $98K on just $198K revenue, indicating the core business is not yet self-sustaining even at the unit level.</div>
+
+<!-- GROWTH CATALYSTS -->
+<h2>Growth Catalysts</h2>
+<h3>1. Thin-Film Lithium Niobate (TFLN) Photonic Chips</h3>
+<p>QUBT's core technology bet centers on TFLN photonic chips, which have applications across quantum computing, LiDAR, telecommunications, and defense sensing. The global photonics market is projected to exceed $1 trillion by 2030, and TFLN chips offer superior performance in electro-optic modulation, frequency conversion, and quantum state manipulation. If QUBT can establish itself as a leading TFLN foundry, it could capture meaningful share of a massive market.</p>
+
+<h3>2. Massive Cash Runway</h3>
+<p>With $1.12B in cash and only $35M in annual burn, QUBT has approximately 30+ years of runway at current spending levels. This extraordinary cushion allows the company to invest aggressively in R&D, pursue acquisitions, and weather technology development delays without dilutive financing. Few quantum computing peers have this level of financial flexibility.</p>
+
+<h3>3. Government & Defense Contracts</h3>
+<p>Quantum technologies are a national security priority. QUBT's photonic chip capabilities align with Department of Defense needs for secure communications, advanced sensing, and quantum networking. Government contracts could provide both revenue and credibility validation. The CHIPS Act and related programs allocate billions for domestic quantum/photonic manufacturing.</p>
+
+<h3>4. Revenue Inflection Potential</h3>
+<p>Consensus estimates project Q1 2026 revenue of $3.14M (range: $2.0M&ndash;$4.5M), which would represent a massive step-up from the $198K reported in Q4 2025. If realized, this would signal initial commercial traction for foundry services and could trigger a re-rating of the stock's growth trajectory.</p>
+
+<h3>5. Quantum Computing Industry Tailwinds</h3>
+<p>The quantum computing market is expected to grow from $1.3B in 2025 to $12B+ by 2032 (40%+ CAGR). As a pure-play quantum company with photonic hardware capabilities, QUBT is positioned to benefit from sector-wide investment flows, partnerships, and increasing enterprise experimentation with quantum solutions.</p>
+
+<div class="co bl"><strong>Catalyst Watch:</strong> Next earnings on 2026-05-11. Consensus expects $3.14M revenue (a 15.8x sequential increase from Q4) and EPS of -$0.05. Hitting the revenue target would be a significant proof point for commercial viability.</div>
+
+<!-- RISK FACTORS -->
+<h2 class="pb">Risk Factors</h2>
+<h3>1. Extreme Valuation Disconnect</h3>
+<p>QUBT trades at 769x EV/Revenue on $682K in TTM revenue. For context, even the most richly valued growth companies rarely exceed 30&ndash;50x revenue. The company would need to generate approximately $52M in annual revenue just to trade at 10x EV/Revenue &mdash; roughly 76x current revenue levels. The market is pricing in a future that may take many years to materialize, if ever.</p>
+
+<h3>2. Heavy Insider Selling</h3>
+<p>CEO Yuping Huang sold 1,000,000 shares for $14.4M in September 2025 at $14.42/share, followed by another 500,000 shares for $5.85M in May 2025. CFO Boehmler sold 318,885 shares for $5.5M+ in June 2025. While some insider selling is routine, the magnitude and timing (near 52-week highs) suggest management saw the stock as overvalued.</p>
+
+<h3>3. Technology Commercialization Risk</h3>
+<p>Quantum computing remains largely experimental. QUBT's TFLN photonic chip technology, while promising, has not been demonstrated at commercial scale. The jump from lab-stage results to volume manufacturing is fraught with yield issues, quality control challenges, and customer qualification processes that can take years.</p>
+
+<h3>4. Competitive Landscape</h3>
+<p>QUBT competes against far larger and better-resourced players including IBM, Google, Microsoft, Amazon (via Braket), IonQ, Rigetti, and D-Wave. These competitors have deeper R&D budgets, established customer relationships, and integrated ecosystem advantages. In the photonics space specifically, PsiQuantum has raised $700M+ and partners with GlobalFoundries for chip manufacturing.</p>
+
+<h3>5. Dilution History & Risk</h3>
+<p>The $1.12B cash balance was raised primarily through equity offerings, diluting existing shareholders. Shares outstanding have grown significantly. At a $35M annual burn rate, continued cash raises are unnecessary near-term, but any acceleration in spending could lead to further dilution. Stock-based compensation also contributes to ongoing dilution.</p>
+
+<h3>6. Extreme Volatility</h3>
+<p>A beta of 3.63 means QUBT moves 3.6x the market in either direction. The stock has ranged from $5.76 to $25.84 in the past year &mdash; a 349% range. This level of volatility makes position sizing critical and can lead to forced selling during drawdowns.</p>
+
+<!-- TECHNICAL ANALYSIS -->
+<h2>Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">50-Day SMA</div><div class="vl dn">$9.65</div><div class="nt dn">Below &mdash; Bearish</div></div>
+    <div class="tc"><div class="mk">200-Day SMA</div><div class="vl dn">$14.23</div><div class="nt dn">Below &mdash; Bearish</div></div>
+    <div class="tc"><div class="mk">RSI (14)</div><div class="vl neu">36.5</div><div class="nt neu">Approaching Oversold</div></div>
+</div>
+<div class="tg">
+    <div class="tc"><div class="mk">MACD Line</div><div class="vl dn">-0.580</div><div class="nt">Signal: -0.599</div></div>
+    <div class="tc"><div class="mk">MACD Histogram</div><div class="vl up">+0.019</div><div class="nt up">Bullish Crossover</div></div>
+    <div class="tc"><div class="mk">52W Range Position</div><div class="vl dn">7.7%</div><div class="nt">Near 52-week low</div></div>
+</div>
+<div class="co yw"><strong>Technical Signal:</strong> QUBT is in a clear downtrend, trading 24% below its 50-day SMA and 49% below the 200-day SMA. RSI at 36.5 is approaching oversold territory but has not yet reached the extreme oversold level (below 30) that might signal a reversal. The MACD histogram has turned slightly positive (+0.019), hinting at a potential slowing of bearish momentum, but the MACD line remains deeply negative. The stock sits just 27% above its 52-week low of $5.76. Watch the $5.76 support level &mdash; a break below could trigger accelerated selling.</div>
+
+<!-- DCF VALUATION -->
+<h2 class="pb">DCF Valuation &mdash; Bull / Base / Bear Scenarios</h2>
+<p style="margin-bottom:8px;color:#64748b;">Revenue-based scenario analysis. Traditional FCF-based DCF is not applicable for a pre-revenue company. Discount rate: 15% (reflecting high risk). Cash per share: $4.98. Shares: 224.5M.</p>
+<div class="sg">
+    <div class="sc bear">
+        <div class="lb">Bear Case</div>
+        <div class="pr dn">$3.00</div>
+        <div class="us dn">-58.9%</div>
+        <div class="mt">2030E Revenue: $10M</div>
+        <div class="ds">Technology fails to scale commercially. Revenue remains sub-$10M by 2030. Cash burn accelerates with R&D spending. Valued at remaining cash minus accumulated losses. Potential equity raise at depressed prices.</div>
+    </div>
+    <div class="sc base">
+        <div class="lb">Base Case</div>
+        <div class="pr dn">$5.50</div>
+        <div class="us dn">-24.7%</div>
+        <div class="mt">2030E Revenue: $75M</div>
+        <div class="ds">Modest commercialization of TFLN foundry services. Revenue reaches $75M by 2030 via government contracts and early commercial customers. Valued near cash plus modest technology premium (8x 2030 revenue, discounted back).</div>
+    </div>
+    <div class="sc bull">
+        <div class="lb">Bull Case</div>
+        <div class="pr up">$14.00</div>
+        <div class="us up">+91.8%</div>
+        <div class="mt">2030E Revenue: $300M</div>
+        <div class="ds">Quantum/photonic breakthrough drives rapid adoption. Major defense or hyperscaler contracts secured. Revenue reaches $300M by 2030 with improving margins. Valued at 15x 2030 revenue, discounted back at 15%.</div>
+    </div>
+</div>
+<div class="co rd"><strong>Valuation Warning:</strong> Even the bull case of $14.00 only returns the stock to its recent trading levels &mdash; well below the 52-week high of $25.84. The base case implies 25% downside. The core problem is that $682K in TTM revenue cannot support a $1.6B market cap under any reasonable valuation framework. The $4.98/share cash floor provides a degree of downside protection, but if cash burn accelerates, this cushion erodes. Investors are essentially paying a $524M premium for technology that has yet to generate meaningful revenue.</div>
+
+<!-- COMPARABLE COMPANY ANALYSIS -->
+<h2>Comparable Company Analysis</h2>
+<p style="margin-bottom:8px;color:#64748b;">Compared against publicly traded quantum computing and early-stage deep-tech peers.</p>
+<table>
+<thead><tr><th>Metric</th><th class="hl">QUBT</th><th>IONQ</th><th>RGTI</th><th>QBTS</th></tr></thead>
+<tbody>
+<tr><td><strong>Price</strong></td><td class="hl"><strong>$7.30</strong></td><td>$32.50</td><td>$11.20</td><td>$5.80</td></tr>
+<tr><td><strong>Market Cap</strong></td><td class="hl"><strong>$1.64B</strong></td><td>$7.1B</td><td>$3.1B</td><td>$1.0B</td></tr>
+<tr><td><strong>Revenue (TTM)</strong></td><td class="hl"><strong>$682K</strong></td><td>$45M</td><td>$14M</td><td>$9M</td></tr>
+<tr><td><strong>Rev Growth</strong></td><td class="hl up"><strong>+219%</strong></td><td class="up">+89%</td><td class="up">+75%</td><td class="up">+112%</td></tr>
+<tr><td><strong>Gross Margin</strong></td><td class="hl dn"><strong>9.8%</strong></td><td>55%</td><td>-15%</td><td>65%</td></tr>
+<tr><td><strong>Operating Margin</strong></td><td class="hl dn"><strong>-11,220%</strong></td><td class="dn">-420%</td><td class="dn">-640%</td><td class="dn">-780%</td></tr>
+<tr><td><strong>EV/Revenue</strong></td><td class="hl dn"><strong>769x</strong></td><td>140x</td><td>200x</td><td>100x</td></tr>
+<tr><td><strong>Cash</strong></td><td class="hl up"><strong>$1.12B</strong></td><td>$450M</td><td>$250M</td><td>$100M</td></tr>
+<tr><td><strong>Cash/Share</strong></td><td class="hl"><strong>$4.98</strong></td><td>$2.06</td><td>$0.90</td><td>$0.58</td></tr>
+<tr><td><strong>FCF</strong></td><td class="hl dn"><strong>-$35.5M</strong></td><td class="dn">-$130M</td><td class="dn">-$65M</td><td class="dn">-$28M</td></tr>
+<tr><td><strong>Beta</strong></td><td class="hl"><strong>3.63</strong></td><td>2.85</td><td>3.20</td><td>2.95</td></tr>
+</tbody>
+</table>
+<div class="co bl"><strong>Peer Comparison:</strong> Among quantum computing peers, QUBT stands out for having the <strong>highest cash per share ($4.98)</strong> and <strong>lowest cash burn (-$35.5M)</strong> relative to its market cap. However, it also has by far the <strong>lowest revenue ($682K vs. $9M&ndash;$45M for peers)</strong> and the most extreme EV/Revenue multiple (769x vs. 100&ndash;200x). IonQ leads the group with $45M in revenue and 55% gross margins, demonstrating more advanced commercialization. QUBT's 219% revenue growth rate is the highest, but the absolute base is so small that this metric is misleading. The stock's beta of 3.63 is the highest in the group, reflecting maximum speculative volatility.</div>
+
+<!-- INSTITUTIONAL OWNERSHIP -->
+<h2>Institutional Ownership</h2>
+<div class="inst-grid">
+    <div class="inst-card"><span class="name">Vanguard Group</span><span class="pct">0.58% &middot; 16.8M shares</span></div>
+    <div class="inst-card"><span class="name">BlackRock Inc.</span><span class="pct">0.57% &middot; 16.6M shares</span></div>
+    <div class="inst-card"><span class="name">Marex Group Plc</span><span class="pct">0.28% &middot; 8.3M shares</span></div>
+    <div class="inst-card"><span class="name">Geode Capital Mgmt.</span><span class="pct">0.16% &middot; 4.6M shares</span></div>
+    <div class="inst-card"><span class="name">State Street Corp.</span><span class="pct">0.15% &middot; 4.3M shares</span></div>
+    <div class="inst-card"><span class="name">Penserra Capital</span><span class="pct">0.11% &middot; 3.2M shares</span></div>
+    <div class="inst-card"><span class="name">Defiance ETFs</span><span class="pct">0.11% &middot; 3.2M shares</span></div>
+    <div class="inst-card"><span class="name">Citadel Advisors</span><span class="pct">0.08% &middot; 2.4M shares</span></div>
+</div>
+<p style="color:#64748b;font-size:0.9em;margin-top:8px;">Notable: Marex Group increased its position by 256% in Q4 2025. Capital Fund Management increased holdings by 606%. Citadel reduced its position by 63%. Institutional ownership is dominated by passive index funds (Vanguard, BlackRock, State Street), not active conviction holders.</p>
+
+<!-- INSIDER ACTIVITY -->
+<h2>Insider Activity (Last 6 Months)</h2>
+<table>
+<thead><tr><th>Metric</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Purchases / Grants (shares acquired)</td><td>813,550 shares (3 transactions)</td></tr>
+<tr><td>Sales</td><td class="dn">181,122 shares (3 transactions)</td></tr>
+<tr><td>Net Shares Purchased</td><td class="up">+632,428 shares</td></tr>
+<tr><td>Total Insider Holdings</td><td>24,966,410 shares (11.1%)</td></tr>
+<tr><td>Net as % of Holdings</td><td class="up">+2.6%</td></tr>
+</tbody>
+</table>
+
+<h3>Notable Insider Transactions</h3>
+<table>
+<thead><tr><th>Date</th><th>Insider</th><th>Position</th><th>Action</th><th>Shares</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>2026-03-11</td><td>Christopher Roberts</td><td>General Counsel</td><td class="dn">Sale</td><td>78,262</td><td>$614K</td></tr>
+<tr><td>2026-03-10</td><td>Christopher Roberts</td><td>General Counsel</td><td>Exercise</td><td>400,000</td><td>$2.74M</td></tr>
+<tr><td>2026-01-07</td><td>Milan Begliarbekov</td><td>COO</td><td class="dn">Sale</td><td>2,860</td><td>$34K</td></tr>
+<tr><td>2025-12-31</td><td>Milan Begliarbekov</td><td>COO</td><td class="up">Grant</td><td>13,550</td><td>$139K</td></tr>
+<tr><td>2025-09-15</td><td>Robert Fagenson</td><td>Director</td><td class="dn">Sale</td><td>100,000</td><td>$1.56M</td></tr>
+<tr><td>2025-09-04</td><td>Yuping Huang</td><td>CEO</td><td class="dn">Sale</td><td>1,000,000</td><td>$14.4M</td></tr>
+<tr><td>2025-06-12</td><td>Christopher Boehmler</td><td>CFO</td><td class="dn">Sale</td><td>318,885</td><td>$5.52M</td></tr>
+<tr><td>2025-05-19</td><td>Yuping Huang</td><td>CEO</td><td class="dn">Sale</td><td>500,000</td><td>$5.85M</td></tr>
+</tbody>
+</table>
+<div class="co rd"><strong>Insider Warning:</strong> CEO Yuping Huang sold 1,500,000 shares for $20.3M total between May and September 2025, disposing of stock at prices ranging from $11.70 to $14.42 &mdash; all well above today's $7.30 price. CFO Boehmler sold $5.5M+ worth. The recent 6-month net purchase figure (+632K shares) is positive due to derivative exercises and grants, but dollar-weighted net activity is heavily negative. Management has been monetizing their positions at higher prices.</div>
+
+<!-- OPTIONS ACTIVITY -->
+<h2>Options Activity (Expiry: 2026-03-20)</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Call Volume</div><div class="value">2,412</div><div class="sub">OI: 22,552</div></div>
+    <div class="kpi"><div class="label">Put Volume</div><div class="value dn">5,573</div><div class="sub">OI: 29,626</div></div>
+    <div class="kpi"><div class="label">Put/Call Ratio</div><div class="value dn">2.31</div><div class="sub">Heavily bearish</div></div>
+    <div class="kpi"><div class="label">Avg Call IV</div><div class="value">33.8%</div><div class="sub">Put IV: 26.6%</div></div>
+</div>
+<div class="co rd"><strong>Options Signal:</strong> The put/call volume ratio of 2.31 is heavily bearish &mdash; traders are buying puts at more than double the rate of calls. Open interest also skews bearish at 1.31x put/call OI ratio. Put volume of 5,573 significantly exceeds call volume of 2,412, indicating active downside hedging or directional bearish bets. The elevated call IV (33.8% vs. 26.6% put IV) suggests remaining call buyers are paying up for speculative upside, while puts are more efficiently priced.</div>
+
+<!-- FINAL RATING -->
+<h2 class="pb">Final Rating & Recommendation</h2>
+<div style="text-align:center;margin:24px 0;">
+<div style="display:inline-block;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;padding:20px 48px;border-radius:16px;box-shadow:0 4px 16px rgba(239,68,68,0.3);">
+<div style="font-size:3em;font-weight:900;line-height:1;">38 / 100</div>
+<div style="font-size:1.4em;font-weight:700;margin-top:8px;">SELL</div>
+</div>
+</div>
+
+<div class="sg" style="margin-top:24px;">
+    <div class="sc bull" style="border-top-color:#16a34a;">
+        <div class="lb">Strengths</div>
+        <div class="ds" style="text-align:left;">
+            <ul style="margin-left:12px;">
+                <li>$1.12B cash &mdash; 30+ year runway</li>
+                <li>Minimal debt ($2.6M)</li>
+                <li>219% revenue growth rate</li>
+                <li>TFLN photonic chip technology</li>
+                <li>P/B of 1.02x near book value</li>
+                <li>Quantum/photonic sector tailwinds</li>
+            </ul>
+        </div>
+    </div>
+    <div class="sc base">
+        <div class="lb">Key Considerations</div>
+        <div class="ds" style="text-align:left;">
+            <ul style="margin-left:12px;">
+                <li>DCF base case: $5.50 (-25%)</li>
+                <li>EV/Revenue of 769x is extreme</li>
+                <li>Revenue consensus: $3.14M next Q</li>
+                <li>Below both 50-day and 200-day SMA</li>
+                <li>Next earnings 55 days away</li>
+                <li>Quantum computing still pre-commercial</li>
+            </ul>
+        </div>
+    </div>
+    <div class="sc bear" style="border-top-color:#dc2626;">
+        <div class="lb">Risks</div>
+        <div class="ds" style="text-align:left;">
+            <ul style="margin-left:12px;">
+                <li>CEO sold $20.3M in stock</li>
+                <li>$682K TTM revenue for $1.6B co.</li>
+                <li>Put/call ratio 2.31 (bearish)</li>
+                <li>-71.8% from 52-week high</li>
+                <li>Beta 3.63 &mdash; extreme volatility</li>
+                <li>Competition from IBM, Google, IonQ</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="co rd"><strong>Investment Thesis:</strong> Quantum Computing Inc. is a pre-revenue speculative play on quantum photonic technology that is priced as though commercialization is a certainty rather than a possibility. At $7.30, investors are paying $524M above cash value for a business generating under $1M in annual revenue with deeply negative operating margins. While the $1.12B cash position provides a meaningful floor around $5.00 and the company has years of runway, the risk/reward is unfavorable. We recommend <strong>SELL</strong> and would reconsider only if: (a) the stock drops to cash-per-share levels near $5.00, removing the technology premium and offering a free option on quantum upside; or (b) revenue demonstrates sustained acceleration above $10M/quarter, validating the commercial thesis. For speculative investors who must have quantum exposure, IonQ offers a more advanced commercial stage with higher revenue and better margins. Position sizing should reflect that this is a venture-stage bet &mdash; do not risk more than you can afford to lose entirely.</div>
+
+<div class="ft">
+<p>Disclaimer: This report is for informational purposes only and does not constitute investment advice. Past performance is not indicative of future results. Always conduct your own research before making investment decisions.</p>
+<p style="margin-top:8px;">Generated 2026-03-16 &middot; Data sources: yfinance, company filings, analyst consensus</p>
+</div>
+
+</div>
+</body>
+</html>

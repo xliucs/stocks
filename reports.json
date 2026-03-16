@@ -322,6 +322,22 @@
     "url": "reports/QUBT-2026-03-08.html"
   },
   {
+    "ticker": "QUBT",
+    "company": "Quantum Computing Inc.",
+    "date": "2026-03-16",
+    "rating": "Bullish",
+    "score": 72,
+    "category": [
+      "Speculative"
+    ],
+    "nextEarnings": null,
+    "price": 7.3,
+    "analystPT": 17.4,
+    "forwardPE": null,
+    "thesis": "Pure-play quantum photonics with cash-backed floor and commercialization optionality",
+    "url": "reports/QUBT-2026-03-16.html"
+  },
+  {
     "ticker": "BILI",
     "company": "Bilibili Inc.",
     "date": "2026-03-08",
