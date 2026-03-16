@@ -355,6 +355,23 @@
     "url": "reports/QUBT-2026-03-16.html"
   },
   {
+    "ticker": "TEM",
+    "company": "Tempus AI",
+    "date": "2026-03-16",
+    "rating": "Bullish",
+    "score": 72,
+    "category": [
+      "Healthcare",
+      "AI"
+    ],
+    "nextEarnings": null,
+    "price": 51.33,
+    "analystPT": 77.93,
+    "forwardPE": null,
+    "thesis": "AI-driven precision medicine platform monetizing clinical genomics data",
+    "url": "reports/TEM-2026-03-16.html"
+  },
+  {
     "ticker": "BILI",
     "company": "Bilibili Inc.",
     "date": "2026-03-08",
