@@ -731,6 +731,25 @@
   {
     "ticker": "TSLA",
     "company": "Tesla Inc.",
+    "date": "2026-04-08",
+    "rating": "Neutral",
+    "score": 49,
+    "category": [
+      "Mag7",
+      "EV",
+      "AI",
+      "Autonomous"
+    ],
+    "nextEarnings": null,
+    "price": 342.97,
+    "analystPT": 416.15,
+    "forwardPE": 122.0,
+    "thesis": "Robotaxi and Optimus optionality vs core EV margin compression; high conviction bull/bear debate",
+    "url": "reports/TSLA-2026-04-08.html"
+  },
+  {
+    "ticker": "TSLA",
+    "company": "Tesla Inc.",
     "date": "2026-03-08",
     "rating": "Bearish",
     "score": 42,
