@@ -72,6 +72,24 @@
   {
     "ticker": "META",
     "company": "Meta Platforms Inc.",
+    "date": "2026-04-08",
+    "rating": "Bullish",
+    "score": 84,
+    "category": [
+      "Mag7",
+      "AI",
+      "Social"
+    ],
+    "nextEarnings": null,
+    "price": 611.71,
+    "analystPT": 860.25,
+    "forwardPE": 17.0,
+    "thesis": "Best-in-class ad margins with AI-driven revenue growth at compelling valuation",
+    "url": "reports/META-2026-04-08.html"
+  },
+  {
+    "ticker": "META",
+    "company": "Meta Platforms Inc.",
     "date": "2026-03-08",
     "rating": "Bullish",
     "score": 82,
