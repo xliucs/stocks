@@ -37,6 +37,24 @@
   {
     "ticker": "MSFT",
     "company": "Microsoft Corporation",
+    "date": "2026-04-08",
+    "rating": "Bullish",
+    "score": 91,
+    "category": [
+      "Mag7",
+      "AI",
+      "Cloud"
+    ],
+    "nextEarnings": null,
+    "price": 373.64,
+    "analystPT": 587.31,
+    "forwardPE": 19.8,
+    "thesis": "Azure AI + Copilot monetization at multi-year valuation low; 60% upside to analyst consensus",
+    "url": "reports/MSFT-2026-04-08.html"
+  },
+  {
+    "ticker": "MSFT",
+    "company": "Microsoft Corporation",
     "date": "2026-03-08",
     "rating": "Bullish",
     "score": 85,
