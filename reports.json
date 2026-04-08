@@ -19,6 +19,23 @@
   },
   {
     "ticker": "TIGR",
+    "company": "UP Fintech Holding (Tiger Brokers)",
+    "date": "2026-04-08",
+    "rating": "Bullish",
+    "score": 100,
+    "category": [
+      "Fintech",
+      "Emerging"
+    ],
+    "nextEarnings": null,
+    "price": 6.74,
+    "analystPT": 12.63,
+    "forwardPE": 5.9,
+    "thesis": "56% revenue growth at 7x P/E; Singapore-domiciled Asia-Pacific retail broker with massive valuation discount",
+    "url": "reports/TIGR-2026-04-08.html"
+  },
+  {
+    "ticker": "TIGR",
     "company": "UP Fintech Holding Limited",
     "date": "2026-03-08",
     "rating": "Bullish",
