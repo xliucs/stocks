@@ -35,6 +35,23 @@
     "url": "reports/MSFT-2026-04-08.html"
   },
   {
+    "ticker": "MU",
+    "company": "Micron Technology Inc.",
+    "date": "2026-04-09",
+    "rating": "Bullish",
+    "score": 85,
+    "category": [
+      "Semis",
+      "AI"
+    ],
+    "nextEarnings": null,
+    "price": 420.89,
+    "analystPT": 526.1,
+    "forwardPE": 4.3,
+    "thesis": "HBM4 supercycle leader with record earnings trajectory",
+    "url": "reports/MU-2026-04-09.html"
+  },
+  {
     "ticker": "META",
     "company": "Meta Platforms Inc.",
     "date": "2026-04-08",
