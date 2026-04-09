@@ -237,6 +237,24 @@
     "url": "reports/BABA-2026-03-16.html"
   },
   {
+    "ticker": "GM",
+    "company": "General Motors Company",
+    "date": "2026-04-09",
+    "rating": "Bullish",
+    "score": 74,
+    "category": [
+      "Auto",
+      "EV",
+      "Value"
+    ],
+    "nextEarnings": null,
+    "price": 76.69,
+    "analystPT": 94.88,
+    "forwardPE": 5.5,
+    "thesis": "Deep value at 5x forward PE with EV transition and Cruise optionality",
+    "url": "reports/GM-2026-04-09.html"
+  },
+  {
     "ticker": "LULU",
     "company": "Lululemon Athletica Inc.",
     "date": "2026-03-08",
