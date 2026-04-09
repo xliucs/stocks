@@ -104,6 +104,23 @@
     "url": "reports/AMD-2026-03-15.html"
   },
   {
+    "ticker": "AVGO",
+    "company": "Broadcom Inc.",
+    "date": "2026-04-09",
+    "rating": "Bullish",
+    "score": 79,
+    "category": [
+      "Semis",
+      "AI"
+    ],
+    "nextEarnings": null,
+    "price": 355.01,
+    "analystPT": 472.52,
+    "forwardPE": 19.9,
+    "thesis": "AI ASIC and VMware integration driving 106% AI revenue growth",
+    "url": "reports/AVGO-2026-04-09.html"
+  },
+  {
     "ticker": "TSM",
     "company": "Taiwan Semiconductor Manufacturing",
     "date": "2026-03-16",
