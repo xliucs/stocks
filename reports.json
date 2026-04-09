@@ -592,6 +592,23 @@
     "url": "reports/NIO-2026-03-16.html"
   },
   {
+    "ticker": "NIO",
+    "company": "NIO Inc.",
+    "date": "2026-04-09",
+    "rating": "Neutral",
+    "score": 61,
+    "category": [
+      "EV",
+      "Emerging"
+    ],
+    "nextEarnings": null,
+    "price": 6.08,
+    "analystPT": 6.58,
+    "forwardPE": null,
+    "thesis": "Multi-brand EV strategy with battery swap moat and profitability inflection",
+    "url": "reports/NIO-2026-04-09.html"
+  },
+  {
     "ticker": "LI",
     "company": "Li Auto Inc.",
     "date": "2026-03-16",
