@@ -592,6 +592,23 @@
     "url": "reports/LI-2026-03-16.html"
   },
   {
+    "ticker": "PONY",
+    "company": "Pony.ai Inc.",
+    "date": "2026-04-09",
+    "rating": "Neutral",
+    "score": 56,
+    "category": [
+      "Autonomous",
+      "Emerging"
+    ],
+    "nextEarnings": null,
+    "price": 9.43,
+    "analystPT": 21.65,
+    "forwardPE": null,
+    "thesis": "Robotaxi fleet scaling to 3000+ vehicles with UE breakeven achieved",
+    "url": "reports/PONY-2026-04-09.html"
+  },
+  {
     "ticker": "LMND",
     "company": "Lemonade Inc.",
     "date": "2026-03-08",
