@@ -236,6 +236,24 @@
     "url": "reports/LULU-2026-03-08.html"
   },
   {
+    "ticker": "TSM",
+    "company": "Taiwan Semiconductor Manufacturing",
+    "date": "2026-04-09",
+    "rating": "Bullish",
+    "score": 74,
+    "category": [
+      "Semis",
+      "AI",
+      "Emerging"
+    ],
+    "nextEarnings": null,
+    "price": 364.48,
+    "analystPT": 432.32,
+    "forwardPE": 20.2,
+    "thesis": "AI foundry monopoly with N2 ramp and 54% AI revenue growth",
+    "url": "reports/TSM-2026-04-09.html"
+  },
+  {
     "ticker": "QUBT",
     "company": "Quantum Computing Inc.",
     "date": "2026-03-16",
