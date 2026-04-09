@@ -240,6 +240,22 @@
     "url": "reports/GM-2026-03-16.html"
   },
   {
+    "ticker": "BILI",
+    "company": "Bilibili Inc.",
+    "date": "2026-04-09",
+    "rating": "Bullish",
+    "score": 75,
+    "category": [
+      "Emerging"
+    ],
+    "nextEarnings": null,
+    "price": 23.75,
+    "analystPT": 30.9,
+    "forwardPE": 17.3,
+    "thesis": "GAAP profitable with AI-driven ad revenue surging 90% YoY",
+    "url": "reports/BILI-2026-04-09.html"
+  },
+  {
     "ticker": "MU",
     "company": "Micron Technology",
     "date": "2026-03-16",
