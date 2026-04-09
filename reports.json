@@ -339,6 +339,22 @@
     "url": "reports/QUBT-2026-03-16.html"
   },
   {
+    "ticker": "QUBT",
+    "company": "Quantum Computing Inc.",
+    "date": "2026-04-09",
+    "rating": "Bullish",
+    "score": 72,
+    "category": [
+      "Speculative"
+    ],
+    "nextEarnings": null,
+    "price": 6.81,
+    "analystPT": 17.4,
+    "forwardPE": null,
+    "thesis": "Cash-rich TFLN photonics play with Lumina commercialization",
+    "url": "reports/QUBT-2026-04-09.html"
+  },
+  {
     "ticker": "TEM",
     "company": "Tempus AI",
     "date": "2026-03-16",
