@@ -137,6 +137,23 @@
     "url": "reports/TSM-2026-03-16.html"
   },
   {
+    "ticker": "UNH",
+    "company": "UnitedHealth Group Inc.",
+    "date": "2026-04-09",
+    "rating": "Bullish",
+    "score": 78,
+    "category": [
+      "Healthcare",
+      "Value"
+    ],
+    "nextEarnings": null,
+    "price": 307.12,
+    "analystPT": 360.62,
+    "forwardPE": 15.3,
+    "thesis": "CMS rate boost + Optum recovery at 15x forward PE",
+    "url": "reports/UNH-2026-04-09.html"
+  },
+  {
     "ticker": "WRD",
     "company": "WeRide Inc.",
     "date": "2026-03-08",
