@@ -171,6 +171,24 @@
     "url": "reports/UNH-2026-04-09.html"
   },
   {
+    "ticker": "XPEV",
+    "company": "XPeng Inc.",
+    "date": "2026-04-09",
+    "rating": "Bullish",
+    "score": 78,
+    "category": [
+      "EV",
+      "Emerging",
+      "AI"
+    ],
+    "nextEarnings": null,
+    "price": 17.27,
+    "analystPT": 25.01,
+    "forwardPE": 24.4,
+    "thesis": "First GAAP profit with 126% delivery growth and robotaxi launch",
+    "url": "reports/XPEV-2026-04-09.html"
+  },
+  {
     "ticker": "WRD",
     "company": "WeRide Inc.",
     "date": "2026-03-08",
