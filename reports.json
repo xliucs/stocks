@@ -171,6 +171,23 @@
     "url": "reports/WRD-2026-03-08.html"
   },
   {
+    "ticker": "WRD",
+    "company": "WeRide Inc.",
+    "date": "2026-04-09",
+    "rating": "Bullish",
+    "score": 77,
+    "category": [
+      "Autonomous",
+      "Emerging"
+    ],
+    "nextEarnings": null,
+    "price": 7.57,
+    "analystPT": 14.13,
+    "forwardPE": null,
+    "thesis": "Global robotaxi leader with 90% revenue growth and fortress balance sheet",
+    "url": "reports/WRD-2026-04-09.html"
+  },
+  {
     "ticker": "GM",
     "company": "General Motors Co.",
     "date": "2026-03-16",
