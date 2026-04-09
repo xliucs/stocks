@@ -712,6 +712,23 @@
     "url": "reports/COST-2026-03-16.html"
   },
   {
+    "ticker": "COST",
+    "company": "Costco Wholesale Corporation",
+    "date": "2026-04-09",
+    "rating": "Neutral",
+    "score": 49,
+    "category": [
+      "Consumer",
+      "Value"
+    ],
+    "nextEarnings": null,
+    "price": 1032.18,
+    "analystPT": 1067.94,
+    "forwardPE": 45.9,
+    "thesis": "Membership moat with 92% renewal rate but extreme premium valuation",
+    "url": "reports/COST-2026-04-09.html"
+  },
+  {
     "ticker": "TSLA",
     "company": "Tesla Inc.",
     "date": "2026-04-08",
