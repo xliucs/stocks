@@ -390,6 +390,22 @@
     "url": "reports/BILI-2026-03-16.html"
   },
   {
+    "ticker": "LULU",
+    "company": "Lululemon Athletica Inc.",
+    "date": "2026-04-09",
+    "rating": "Bullish",
+    "score": 68,
+    "category": [
+      "Consumer"
+    ],
+    "nextEarnings": null,
+    "price": 166.48,
+    "analystPT": 183.8,
+    "forwardPE": 12.5,
+    "thesis": "China growth engine with margin recovery potential",
+    "url": "reports/LULU-2026-04-09.html"
+  },
+  {
     "ticker": "AMD",
     "company": "Advanced Micro Devices Inc.",
     "date": "2026-04-09",
