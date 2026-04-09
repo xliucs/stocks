@@ -372,6 +372,23 @@
     "url": "reports/TEM-2026-03-16.html"
   },
   {
+    "ticker": "TEM",
+    "company": "Tempus AI Inc.",
+    "date": "2026-04-09",
+    "rating": "Bullish",
+    "score": 72,
+    "category": [
+      "Healthcare",
+      "AI"
+    ],
+    "nextEarnings": null,
+    "price": 44.15,
+    "analystPT": 75.43,
+    "forwardPE": null,
+    "thesis": "Precision medicine platform with 83% revenue growth and genomic data moat",
+    "url": "reports/TEM-2026-04-09.html"
+  },
+  {
     "ticker": "XPEV",
     "company": "XPeng Inc.",
     "date": "2026-03-08",
