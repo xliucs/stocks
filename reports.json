@@ -306,6 +306,23 @@
     "url": "reports/TSM-2026-04-09.html"
   },
   {
+    "ticker": "BABA",
+    "company": "Alibaba Group Holding",
+    "date": "2026-04-09",
+    "rating": "Bullish",
+    "score": 73,
+    "category": [
+      "Emerging",
+      "AI"
+    ],
+    "nextEarnings": null,
+    "price": 127.42,
+    "analystPT": 188.96,
+    "forwardPE": 16.7,
+    "thesis": "Cloud AI at 36% growth with deep value at 15x forward PE",
+    "url": "reports/BABA-2026-04-09.html"
+  },
+  {
     "ticker": "QUBT",
     "company": "Quantum Computing Inc.",
     "date": "2026-03-16",
