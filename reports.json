@@ -72,57 +72,6 @@
   {
     "ticker": "AVGO",
     "company": "Broadcom Inc.",
-    "date": "2026-03-16",
-    "rating": "Bullish",
-    "score": 81,
-    "category": [
-      "Semis",
-      "AI"
-    ],
-    "nextEarnings": null,
-    "price": 322.16,
-    "analystPT": 467.8,
-    "forwardPE": 18.4,
-    "thesis": "AI networking and custom ASIC dominance with VMware integration",
-    "url": "reports/AVGO-2026-03-16.html"
-  },
-  {
-    "ticker": "UNH",
-    "company": "UnitedHealth Group Inc.",
-    "date": "2026-03-08",
-    "rating": "Bullish",
-    "score": 81,
-    "category": [
-      "Healthcare",
-      "Value"
-    ],
-    "nextEarnings": "2026-04-15",
-    "price": 286.48,
-    "analystPT": 364.62,
-    "forwardPE": 14.3,
-    "thesis": "2026 transition year with DOJ overhang; repricing cycle and Optum recovery make this a compelling asymmetric opportunity",
-    "url": "reports/UNH-2026-03-08.html"
-  },
-  {
-    "ticker": "AMD",
-    "company": "Advanced Micro Devices Inc.",
-    "date": "2026-03-15",
-    "rating": "Bullish",
-    "score": 79,
-    "category": [
-      "Semis",
-      "AI"
-    ],
-    "nextEarnings": null,
-    "price": 193.39,
-    "analystPT": 289.72,
-    "forwardPE": 18.0,
-    "thesis": "AI chip challenger gaining hyperscaler share; 34% revenue growth at 18x P/E \u2014 materially discounted to NVDA",
-    "url": "reports/AMD-2026-03-15.html"
-  },
-  {
-    "ticker": "AVGO",
-    "company": "Broadcom Inc.",
     "date": "2026-04-09",
     "rating": "Bullish",
     "score": 79,
@@ -136,22 +85,6 @@
     "forwardPE": 19.9,
     "thesis": "AI ASIC and VMware integration driving 106% AI revenue growth",
     "url": "reports/AVGO-2026-04-09.html"
-  },
-  {
-    "ticker": "TSM",
-    "company": "Taiwan Semiconductor Manufacturing",
-    "date": "2026-03-16",
-    "rating": "Bullish",
-    "score": 78,
-    "category": [
-      "Semis"
-    ],
-    "nextEarnings": null,
-    "price": 343.78,
-    "analystPT": 430.65,
-    "forwardPE": 19.1,
-    "thesis": "World's leading foundry capturing AI chip demand with unmatched process leadership",
-    "url": "reports/TSM-2026-03-16.html"
   },
   {
     "ticker": "UNH",
@@ -191,23 +124,6 @@
   {
     "ticker": "WRD",
     "company": "WeRide Inc.",
-    "date": "2026-03-08",
-    "rating": "Bullish",
-    "score": 77,
-    "category": [
-      "Autonomous",
-      "Emerging"
-    ],
-    "nextEarnings": "2026-03-27",
-    "price": 6.37,
-    "analystPT": 15.76,
-    "forwardPE": null,
-    "thesis": "Global robotaxi leader trading at deep discount as unit economics improve and 8-country regulatory moat expands",
-    "url": "reports/WRD-2026-03-08.html"
-  },
-  {
-    "ticker": "WRD",
-    "company": "WeRide Inc.",
     "date": "2026-04-09",
     "rating": "Bullish",
     "score": 77,
@@ -221,23 +137,6 @@
     "forwardPE": null,
     "thesis": "Global robotaxi leader with 90% revenue growth and fortress balance sheet",
     "url": "reports/WRD-2026-04-09.html"
-  },
-  {
-    "ticker": "GM",
-    "company": "General Motors Co.",
-    "date": "2026-03-16",
-    "rating": "Bullish",
-    "score": 76,
-    "category": [
-      "Auto",
-      "EV"
-    ],
-    "nextEarnings": null,
-    "price": 72.39,
-    "analystPT": 95.04,
-    "forwardPE": 5.2,
-    "thesis": "Deep value legacy auto with Cruise optionality and EV transition underway",
-    "url": "reports/GM-2026-03-16.html"
   },
   {
     "ticker": "BILI",
@@ -256,38 +155,6 @@
     "url": "reports/BILI-2026-04-09.html"
   },
   {
-    "ticker": "MU",
-    "company": "Micron Technology",
-    "date": "2026-03-16",
-    "rating": "Bullish",
-    "score": 75,
-    "category": [
-      "Semis"
-    ],
-    "nextEarnings": null,
-    "price": 426.13,
-    "analystPT": 426.59,
-    "forwardPE": 7.6,
-    "thesis": "Memory leader positioned for AI-driven HBM demand cycle",
-    "url": "reports/MU-2026-03-16.html"
-  },
-  {
-    "ticker": "BABA",
-    "company": "Alibaba Group",
-    "date": "2026-03-16",
-    "rating": "Bullish",
-    "score": 74,
-    "category": [
-      "Emerging"
-    ],
-    "nextEarnings": null,
-    "price": 135.21,
-    "analystPT": 198.95,
-    "forwardPE": 15.5,
-    "thesis": "Deep value China tech with AI cloud rerating catalyst",
-    "url": "reports/BABA-2026-03-16.html"
-  },
-  {
     "ticker": "GM",
     "company": "General Motors Company",
     "date": "2026-04-09",
@@ -304,22 +171,6 @@
     "forwardPE": 5.5,
     "thesis": "Deep value at 5x forward PE with EV transition and Cruise optionality",
     "url": "reports/GM-2026-04-09.html"
-  },
-  {
-    "ticker": "LULU",
-    "company": "Lululemon Athletica Inc.",
-    "date": "2026-03-08",
-    "rating": "Bullish",
-    "score": 74,
-    "category": [
-      "Consumer"
-    ],
-    "nextEarnings": "2026-06-05",
-    "price": 170.13,
-    "analystPT": 208.35,
-    "forwardPE": 13.5,
-    "thesis": "China +46% growth and Elliott activism create long-term upside, but CEO vacuum, US contraction, and tariff headwind keep near-term risk/reward balanced",
-    "url": "reports/LULU-2026-03-08.html"
   },
   {
     "ticker": "TSM",
@@ -359,22 +210,6 @@
   {
     "ticker": "QUBT",
     "company": "Quantum Computing Inc.",
-    "date": "2026-03-16",
-    "rating": "Bullish",
-    "score": 72,
-    "category": [
-      "Speculative"
-    ],
-    "nextEarnings": null,
-    "price": 7.3,
-    "analystPT": 17.4,
-    "forwardPE": null,
-    "thesis": "Pure-play quantum photonics with cash-backed floor and commercialization optionality",
-    "url": "reports/QUBT-2026-03-16.html"
-  },
-  {
-    "ticker": "QUBT",
-    "company": "Quantum Computing Inc.",
     "date": "2026-04-09",
     "rating": "Bullish",
     "score": 72,
@@ -387,23 +222,6 @@
     "forwardPE": null,
     "thesis": "Cash-rich TFLN photonics play with Lumina commercialization",
     "url": "reports/QUBT-2026-04-09.html"
-  },
-  {
-    "ticker": "TEM",
-    "company": "Tempus AI",
-    "date": "2026-03-16",
-    "rating": "Bullish",
-    "score": 72,
-    "category": [
-      "Healthcare",
-      "AI"
-    ],
-    "nextEarnings": null,
-    "price": 51.33,
-    "analystPT": 77.93,
-    "forwardPE": null,
-    "thesis": "AI-driven precision medicine platform monetizing clinical genomics data",
-    "url": "reports/TEM-2026-03-16.html"
   },
   {
     "ticker": "TEM",
@@ -421,40 +239,6 @@
     "forwardPE": null,
     "thesis": "Precision medicine platform with 83% revenue growth and genomic data moat",
     "url": "reports/TEM-2026-04-09.html"
-  },
-  {
-    "ticker": "XPEV",
-    "company": "XPeng Inc.",
-    "date": "2026-03-08",
-    "rating": "Bullish",
-    "score": 71,
-    "category": [
-      "EV",
-      "Emerging",
-      "AI"
-    ],
-    "nextEarnings": "2026-03-18",
-    "price": 17.32,
-    "analystPT": 26.76,
-    "forwardPE": 87.0,
-    "thesis": "China's Physical AI EV leader targeting breakeven in 2026 with 60% revenue growth and Robotaxi upside",
-    "url": "reports/XPEV-2026-03-08.html"
-  },
-  {
-    "ticker": "BILI",
-    "company": "Bilibili Inc.",
-    "date": "2026-03-16",
-    "rating": "Bullish",
-    "score": 69,
-    "category": [
-      "Emerging"
-    ],
-    "nextEarnings": null,
-    "price": 25.2,
-    "analystPT": 30.61,
-    "forwardPE": 18.4,
-    "thesis": "China's YouTube for Gen-Z monetization inflection with gaming upside",
-    "url": "reports/BILI-2026-03-16.html"
   },
   {
     "ticker": "LULU",
@@ -508,56 +292,6 @@
     "url": "reports/GOOG-2026-04-08.html"
   },
   {
-    "ticker": "PONY",
-    "company": "Pony AI",
-    "date": "2026-03-16",
-    "rating": "Neutral",
-    "score": 66,
-    "category": [
-      "Autonomous",
-      "Emerging"
-    ],
-    "nextEarnings": null,
-    "price": 11.44,
-    "analystPT": 23.31,
-    "forwardPE": null,
-    "thesis": "Autonomous vehicle platform commercializing in China and globally",
-    "url": "reports/PONY-2026-03-16.html"
-  },
-  {
-    "ticker": "AAPL",
-    "company": "Apple Inc.",
-    "date": "2026-03-16",
-    "rating": "Neutral",
-    "score": 63,
-    "category": [
-      "Mag7",
-      "Consumer"
-    ],
-    "nextEarnings": null,
-    "price": 250.12,
-    "analystPT": 295.44,
-    "forwardPE": 26.9,
-    "thesis": "iPhone/Services flywheel with AI supercycle potential",
-    "url": "reports/AAPL-2026-03-16.html"
-  },
-  {
-    "ticker": "STX",
-    "company": "Seagate Technology",
-    "date": "2026-03-16",
-    "rating": "Neutral",
-    "score": 63,
-    "category": [
-      "Storage"
-    ],
-    "nextEarnings": null,
-    "price": 383.71,
-    "analystPT": 475.35,
-    "forwardPE": 19.3,
-    "thesis": "HDD incumbent benefiting from nearline storage growth in AI data centers",
-    "url": "reports/STX-2026-03-16.html"
-  },
-  {
     "ticker": "AAPL",
     "company": "Apple Inc.",
     "date": "2026-04-09",
@@ -577,23 +311,6 @@
   {
     "ticker": "NIO",
     "company": "NIO Inc.",
-    "date": "2026-03-16",
-    "rating": "Neutral",
-    "score": 61,
-    "category": [
-      "EV",
-      "Emerging"
-    ],
-    "nextEarnings": null,
-    "price": 5.86,
-    "analystPT": 6.49,
-    "forwardPE": null,
-    "thesis": "Chinese EV challenger with battery swap tech and premium brand positioning",
-    "url": "reports/NIO-2026-03-16.html"
-  },
-  {
-    "ticker": "NIO",
-    "company": "NIO Inc.",
     "date": "2026-04-09",
     "rating": "Neutral",
     "score": 61,
@@ -607,23 +324,6 @@
     "forwardPE": null,
     "thesis": "Multi-brand EV strategy with battery swap moat and profitability inflection",
     "url": "reports/NIO-2026-04-09.html"
-  },
-  {
-    "ticker": "LI",
-    "company": "Li Auto Inc.",
-    "date": "2026-03-16",
-    "rating": "Neutral",
-    "score": 56,
-    "category": [
-      "EV",
-      "Emerging"
-    ],
-    "nextEarnings": null,
-    "price": 18.19,
-    "analystPT": 22.42,
-    "forwardPE": 18.6,
-    "thesis": "China premium EV with EREV differentiation and AI intelligent driving roadmap",
-    "url": "reports/LI-2026-03-16.html"
   },
   {
     "ticker": "PONY",
@@ -641,23 +341,6 @@
     "forwardPE": null,
     "thesis": "Robotaxi fleet scaling to 3000+ vehicles with UE breakeven achieved",
     "url": "reports/PONY-2026-04-09.html"
-  },
-  {
-    "ticker": "LMND",
-    "company": "Lemonade Inc.",
-    "date": "2026-03-08",
-    "rating": "Neutral",
-    "score": 55,
-    "category": [
-      "Fintech",
-      "AI"
-    ],
-    "nextEarnings": "2026-05-05",
-    "price": 55.13,
-    "analystPT": 65.22,
-    "forwardPE": null,
-    "thesis": "AI-native insurtech with explosive growth but profitability still 2 years out \u2014 buy the dip at $55 with eyes open",
-    "url": "reports/LMND-2026-03-08.html"
   },
   {
     "ticker": "LMND",
@@ -693,23 +376,6 @@
     "forwardPE": 25.1,
     "thesis": "HAMR-powered AI storage with supply tightness and record margins",
     "url": "reports/STX-2026-04-09.html"
-  },
-  {
-    "ticker": "COST",
-    "company": "Costco Wholesale",
-    "date": "2026-03-16",
-    "rating": "Neutral",
-    "score": 49,
-    "category": [
-      "Consumer",
-      "Value"
-    ],
-    "nextEarnings": null,
-    "price": 1008.43,
-    "analystPT": 1067.09,
-    "forwardPE": 45.0,
-    "thesis": "Membership moat with defensive consumer spending and international expansion",
-    "url": "reports/COST-2026-03-16.html"
   },
   {
     "ticker": "COST",
