@@ -712,5 +712,22 @@
     "forwardPE": 122.0,
     "thesis": "Robotaxi and Optimus optionality vs core EV margin compression; high conviction bull/bear debate",
     "url": "reports/TSLA-2026-04-08.html"
+  },
+  {
+    "ticker": "LI",
+    "company": "Li Auto Inc.",
+    "date": "2026-04-09",
+    "rating": "Neutral",
+    "score": 45,
+    "category": [
+      "EV",
+      "Emerging"
+    ],
+    "nextEarnings": null,
+    "price": 18.32,
+    "analystPT": 21.47,
+    "forwardPE": 20.8,
+    "thesis": "EREV leader with L9 refresh and B buyback",
+    "url": "reports/LI-2026-04-09.html"
   }
 ]
