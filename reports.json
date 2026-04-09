@@ -303,6 +303,23 @@
     "url": "reports/BILI-2026-03-16.html"
   },
   {
+    "ticker": "AMD",
+    "company": "Advanced Micro Devices Inc.",
+    "date": "2026-04-09",
+    "rating": "Neutral",
+    "score": 66,
+    "category": [
+      "Semis",
+      "AI"
+    ],
+    "nextEarnings": null,
+    "price": 236.49,
+    "analystPT": 289.35,
+    "forwardPE": 21.9,
+    "thesis": "AI GPU challenger with MI450 launch and 60% DC revenue growth",
+    "url": "reports/AMD-2026-04-09.html"
+  },
+  {
     "ticker": "GOOG",
     "company": "Alphabet Inc.",
     "date": "2026-04-08",
