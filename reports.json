@@ -558,6 +558,23 @@
     "url": "reports/STX-2026-03-16.html"
   },
   {
+    "ticker": "AAPL",
+    "company": "Apple Inc.",
+    "date": "2026-04-09",
+    "rating": "Neutral",
+    "score": 62,
+    "category": [
+      "Mag7",
+      "Consumer"
+    ],
+    "nextEarnings": null,
+    "price": 260.43,
+    "analystPT": 296.12,
+    "forwardPE": 27.9,
+    "thesis": "iPhone AI supercycle potential with Services flywheel",
+    "url": "reports/AAPL-2026-04-09.html"
+  },
+  {
     "ticker": "NIO",
     "company": "NIO Inc.",
     "date": "2026-03-16",
