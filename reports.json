@@ -1,334 +1,339 @@
 [
   {
     "ticker": "TIGR",
-    "company": "UP Fintech Holding (Tiger Brokers)",
-    "date": "2026-04-08",
+    "company": "UP Fintech Holding Limited",
+    "date": "2026-05-04",
     "rating": "Bullish",
-    "score": 100,
+    "score": 97,
     "category": [
       "Fintech",
       "Emerging"
     ],
     "nextEarnings": null,
-    "price": 6.74,
-    "analystPT": 12.63,
+    "price": 6.75,
+    "analystPT": 12.37,
     "forwardPE": 5.9,
-    "thesis": "56% revenue growth at 7x P/E; Singapore-domiciled Asia-Pacific retail broker with massive valuation discount",
-    "url": "reports/TIGR-2026-04-08.html"
+    "thesis": "APAC fintech compounder at 6x P/E with 56% revenue growth and margin inflection",
+    "url": "reports/TIGR-2026-05-04.html"
   },
   {
-    "ticker": "MSFT",
-    "company": "Microsoft Corporation",
-    "date": "2026-04-08",
+    "ticker": "BILI",
+    "company": "Bilibili Inc.",
+    "date": "2026-05-04",
     "rating": "Bullish",
-    "score": 91,
+    "score": 90,
     "category": [
-      "Mag7",
-      "AI",
-      "Cloud"
+      "Emerging",
+      "Social"
     ],
     "nextEarnings": null,
-    "price": 373.64,
-    "analystPT": 587.31,
-    "forwardPE": 19.8,
-    "thesis": "Azure AI + Copilot monetization at multi-year valuation low; 60% upside to analyst consensus",
-    "url": "reports/MSFT-2026-04-08.html"
+    "price": 21.66,
+    "analystPT": 31.0,
+    "forwardPE": 15.7,
+    "thesis": "Profitability inflection: ad surge +27%, op income +299%, AI tailwind",
+    "url": "reports/BILI-2026-05-04.html"
   },
   {
-    "ticker": "MU",
-    "company": "Micron Technology Inc.",
-    "date": "2026-04-09",
+    "ticker": "XPEV",
+    "company": "XPeng Inc.",
+    "date": "2026-05-04",
     "rating": "Bullish",
-    "score": 85,
+    "score": 87,
     "category": [
-      "Semis",
+      "EV",
+      "Emerging",
       "AI"
     ],
     "nextEarnings": null,
-    "price": 420.89,
-    "analystPT": 526.1,
-    "forwardPE": 4.3,
-    "thesis": "HBM4 supercycle leader with record earnings trajectory",
-    "url": "reports/MU-2026-04-09.html"
+    "price": 16.02,
+    "analystPT": 24.67,
+    "forwardPE": 23.3,
+    "thesis": "Physical AI platform: 600K delivery target, first GAAP profit, IRON humanoid + GX robotaxi",
+    "url": "reports/XPEV-2026-05-04.html"
   },
   {
     "ticker": "META",
-    "company": "Meta Platforms Inc.",
-    "date": "2026-04-08",
+    "company": "Meta Platforms, Inc.",
+    "date": "2026-05-04",
     "rating": "Bullish",
-    "score": 84,
+    "score": 86,
     "category": [
       "Mag7",
       "AI",
       "Social"
     ],
     "nextEarnings": null,
-    "price": 611.71,
-    "analystPT": 860.25,
-    "forwardPE": 17.0,
-    "thesis": "Best-in-class ad margins with AI-driven revenue growth at compelling valuation",
-    "url": "reports/META-2026-04-08.html"
+    "price": 612.08,
+    "analystPT": 832.8,
+    "forwardPE": 16.9,
+    "thesis": "Best-positioned hyperscaler with 33% revenue growth and AI-driven ad gap closing on Google",
+    "url": "reports/META-2026-05-04.html"
   },
   {
-    "ticker": "AVGO",
-    "company": "Broadcom Inc.",
-    "date": "2026-04-09",
+    "ticker": "MSFT",
+    "company": "Microsoft Corporation",
+    "date": "2026-05-04",
     "rating": "Bullish",
-    "score": 79,
-    "category": [
-      "Semis",
-      "AI"
-    ],
-    "nextEarnings": null,
-    "price": 355.01,
-    "analystPT": 472.52,
-    "forwardPE": 19.9,
-    "thesis": "AI ASIC and VMware integration driving 106% AI revenue growth",
-    "url": "reports/AVGO-2026-04-09.html"
-  },
-  {
-    "ticker": "UNH",
-    "company": "UnitedHealth Group Inc.",
-    "date": "2026-04-09",
-    "rating": "Bullish",
-    "score": 78,
-    "category": [
-      "Healthcare",
-      "Value"
-    ],
-    "nextEarnings": null,
-    "price": 307.12,
-    "analystPT": 360.62,
-    "forwardPE": 15.3,
-    "thesis": "CMS rate boost + Optum recovery at 15x forward PE",
-    "url": "reports/UNH-2026-04-09.html"
-  },
-  {
-    "ticker": "XPEV",
-    "company": "XPeng Inc.",
-    "date": "2026-04-09",
-    "rating": "Bullish",
-    "score": 78,
-    "category": [
-      "EV",
-      "Emerging",
-      "AI"
-    ],
-    "nextEarnings": null,
-    "price": 17.27,
-    "analystPT": 25.01,
-    "forwardPE": 24.4,
-    "thesis": "First GAAP profit with 126% delivery growth and robotaxi launch",
-    "url": "reports/XPEV-2026-04-09.html"
-  },
-  {
-    "ticker": "WRD",
-    "company": "WeRide Inc.",
-    "date": "2026-04-09",
-    "rating": "Bullish",
-    "score": 77,
-    "category": [
-      "Autonomous",
-      "Emerging"
-    ],
-    "nextEarnings": null,
-    "price": 7.57,
-    "analystPT": 14.13,
-    "forwardPE": null,
-    "thesis": "Global robotaxi leader with 90% revenue growth and fortress balance sheet",
-    "url": "reports/WRD-2026-04-09.html"
-  },
-  {
-    "ticker": "BILI",
-    "company": "Bilibili Inc.",
-    "date": "2026-04-09",
-    "rating": "Bullish",
-    "score": 75,
-    "category": [
-      "Emerging"
-    ],
-    "nextEarnings": null,
-    "price": 23.75,
-    "analystPT": 30.9,
-    "forwardPE": 17.3,
-    "thesis": "GAAP profitable with AI-driven ad revenue surging 90% YoY",
-    "url": "reports/BILI-2026-04-09.html"
-  },
-  {
-    "ticker": "GM",
-    "company": "General Motors Company",
-    "date": "2026-04-09",
-    "rating": "Bullish",
-    "score": 74,
-    "category": [
-      "Auto",
-      "EV",
-      "Value"
-    ],
-    "nextEarnings": null,
-    "price": 76.69,
-    "analystPT": 94.88,
-    "forwardPE": 5.5,
-    "thesis": "Deep value at 5x forward PE with EV transition and Cruise optionality",
-    "url": "reports/GM-2026-04-09.html"
-  },
-  {
-    "ticker": "TSM",
-    "company": "Taiwan Semiconductor Manufacturing",
-    "date": "2026-04-09",
-    "rating": "Bullish",
-    "score": 74,
-    "category": [
-      "Semis",
-      "AI",
-      "Emerging"
-    ],
-    "nextEarnings": null,
-    "price": 364.48,
-    "analystPT": 432.32,
-    "forwardPE": 20.2,
-    "thesis": "AI foundry monopoly with N2 ramp and 54% AI revenue growth",
-    "url": "reports/TSM-2026-04-09.html"
-  },
-  {
-    "ticker": "BABA",
-    "company": "Alibaba Group Holding",
-    "date": "2026-04-09",
-    "rating": "Bullish",
-    "score": 73,
-    "category": [
-      "Emerging",
-      "AI"
-    ],
-    "nextEarnings": null,
-    "price": 127.42,
-    "analystPT": 188.96,
-    "forwardPE": 16.7,
-    "thesis": "Cloud AI at 36% growth with deep value at 15x forward PE",
-    "url": "reports/BABA-2026-04-09.html"
-  },
-  {
-    "ticker": "QUBT",
-    "company": "Quantum Computing Inc.",
-    "date": "2026-04-09",
-    "rating": "Bullish",
-    "score": 72,
-    "category": [
-      "Speculative"
-    ],
-    "nextEarnings": null,
-    "price": 6.81,
-    "analystPT": 17.4,
-    "forwardPE": null,
-    "thesis": "Cash-rich TFLN photonics play with Lumina commercialization",
-    "url": "reports/QUBT-2026-04-09.html"
-  },
-  {
-    "ticker": "TEM",
-    "company": "Tempus AI Inc.",
-    "date": "2026-04-09",
-    "rating": "Bullish",
-    "score": 72,
-    "category": [
-      "Healthcare",
-      "AI"
-    ],
-    "nextEarnings": null,
-    "price": 44.15,
-    "analystPT": 75.43,
-    "forwardPE": null,
-    "thesis": "Precision medicine platform with 83% revenue growth and genomic data moat",
-    "url": "reports/TEM-2026-04-09.html"
-  },
-  {
-    "ticker": "LULU",
-    "company": "Lululemon Athletica Inc.",
-    "date": "2026-04-09",
-    "rating": "Bullish",
-    "score": 68,
-    "category": [
-      "Consumer"
-    ],
-    "nextEarnings": null,
-    "price": 166.48,
-    "analystPT": 183.8,
-    "forwardPE": 12.5,
-    "thesis": "China growth engine with margin recovery potential",
-    "url": "reports/LULU-2026-04-09.html"
-  },
-  {
-    "ticker": "AMD",
-    "company": "Advanced Micro Devices Inc.",
-    "date": "2026-04-09",
-    "rating": "Neutral",
-    "score": 66,
-    "category": [
-      "Semis",
-      "AI"
-    ],
-    "nextEarnings": null,
-    "price": 236.49,
-    "analystPT": 289.35,
-    "forwardPE": 21.9,
-    "thesis": "AI GPU challenger with MI450 launch and 60% DC revenue growth",
-    "url": "reports/AMD-2026-04-09.html"
-  },
-  {
-    "ticker": "GOOG",
-    "company": "Alphabet Inc.",
-    "date": "2026-04-08",
-    "rating": "Neutral",
-    "score": 66,
+    "score": 82,
     "category": [
       "Mag7",
       "AI",
       "Cloud"
     ],
     "nextEarnings": null,
-    "price": 313.95,
-    "analystPT": 359.53,
-    "forwardPE": 23.4,
-    "thesis": "AI-powered search monopoly with Cloud inflection; cheapest Mag7 at multi-year valuation low",
-    "url": "reports/GOOG-2026-04-08.html"
+    "price": 413.07,
+    "analystPT": 560.77,
+    "forwardPE": 21.4,
+    "thesis": "Azure +40%, AI run rate $37B (+123%), $630B backlog \u2014 sell-off creates trough-multiple entry",
+    "url": "reports/MSFT-2026-05-04.html"
+  },
+  {
+    "ticker": "LULU",
+    "company": "Lululemon Athletica Inc.",
+    "date": "2026-05-04",
+    "rating": "Bullish",
+    "score": 80,
+    "category": [
+      "Consumer"
+    ],
+    "nextEarnings": null,
+    "price": 129.19,
+    "analystPT": 181.08,
+    "forwardPE": 9.8,
+    "thesis": "Activist-pressured premium athleisure at multi-year low PE; China + India offset US weakness",
+    "url": "reports/LULU-2026-05-04.html"
+  },
+  {
+    "ticker": "GM",
+    "company": "General Motors Company",
+    "date": "2026-05-04",
+    "rating": "Bullish",
+    "score": 77,
+    "category": [
+      "Auto",
+      "EV",
+      "Value"
+    ],
+    "nextEarnings": null,
+    "price": 75.74,
+    "analystPT": 94.08,
+    "forwardPE": 5.4,
+    "thesis": "Q1 EPS +41% beat, raised FY guide, 6.5x P/E + $6B buyback = deep value",
+    "url": "reports/GM-2026-05-04.html"
+  },
+  {
+    "ticker": "MU",
+    "company": "Micron Technology, Inc.",
+    "date": "2026-05-04",
+    "rating": "Bullish",
+    "score": 76,
+    "category": [
+      "Semis",
+      "AI"
+    ],
+    "nextEarnings": null,
+    "price": 577.7,
+    "analystPT": 551.4,
+    "forwardPE": 5.7,
+    "thesis": "HBM sold out for 2026, 75% gross margin, $1,000 Street-high PT \u2014 AI memory supercycle",
+    "url": "reports/MU-2026-05-04.html"
+  },
+  {
+    "ticker": "TSM",
+    "company": "Taiwan Semiconductor Manufacturing Co.",
+    "date": "2026-05-04",
+    "rating": "Bullish",
+    "score": 73,
+    "category": [
+      "Semis",
+      "AI"
+    ],
+    "nextEarnings": null,
+    "price": 401.1,
+    "analystPT": 463.45,
+    "forwardPE": 20.8,
+    "thesis": "Bottleneck of the AI supercycle: 66% gross margin, FY26 >30% growth, 2nm sold out",
+    "url": "reports/TSM-2026-05-04.html"
+  },
+  {
+    "ticker": "QUBT",
+    "company": "Quantum Computing Inc.",
+    "date": "2026-05-04",
+    "rating": "Bullish",
+    "score": 72,
+    "category": [
+      "Quantum",
+      "Speculative",
+      "Emerging"
+    ],
+    "nextEarnings": null,
+    "price": 9.44,
+    "analystPT": 17.83,
+    "forwardPE": null,
+    "thesis": "Photonic chip foundry pivot: Lumina deal + Fab 1 transform speculative QC bet",
+    "url": "reports/QUBT-2026-05-04.html"
+  },
+  {
+    "ticker": "BABA",
+    "company": "Alibaba Group Holding Limited",
+    "date": "2026-05-04",
+    "rating": "Bullish",
+    "score": 71,
+    "category": [
+      "Emerging",
+      "AI",
+      "Cloud"
+    ],
+    "nextEarnings": null,
+    "price": 133.97,
+    "analystPT": 189.16,
+    "forwardPE": 18.0,
+    "thesis": "Cloud +36% YoY and Qwen 3.5 making BABA China's clearest AI infra winner.",
+    "url": "reports/BABA-2026-05-04.html"
+  },
+  {
+    "ticker": "WRD",
+    "company": "WeRide Inc.",
+    "date": "2026-05-04",
+    "rating": "Bullish",
+    "score": 69,
+    "category": [
+      "Autonomous",
+      "Emerging"
+    ],
+    "nextEarnings": null,
+    "price": 7.86,
+    "analystPT": 14.09,
+    "forwardPE": null,
+    "thesis": "Global L4 robotaxi pure-play scaling 2,600 fleet via Uber/Grab/Nvidia partnerships",
+    "url": "reports/WRD-2026-05-04.html"
+  },
+  {
+    "ticker": "AVGO",
+    "company": "Broadcom Inc.",
+    "date": "2026-05-04",
+    "rating": "Bullish",
+    "score": 68,
+    "category": [
+      "Semis",
+      "AI"
+    ],
+    "nextEarnings": null,
+    "price": 416.83,
+    "analystPT": 475.49,
+    "forwardPE": 23.0,
+    "thesis": "$73B AI backlog and 140% AI revenue growth make AVGO the cleanest AI infra play.",
+    "url": "reports/AVGO-2026-05-04.html"
+  },
+  {
+    "ticker": "STX",
+    "company": "Seagate Technology Holdings plc",
+    "date": "2026-05-04",
+    "rating": "Neutral",
+    "score": 63,
+    "category": [
+      "Semis",
+      "Storage",
+      "AI"
+    ],
+    "nextEarnings": null,
+    "price": 737.08,
+    "analystPT": 770.43,
+    "forwardPE": 28.1,
+    "thesis": "AI storage supercycle: nearline sold out through 2027, Rosenblatt $1,000 PT",
+    "url": "reports/STX-2026-05-04.html"
+  },
+  {
+    "ticker": "TEM",
+    "company": "Tempus AI, Inc.",
+    "date": "2026-05-04",
+    "rating": "Neutral",
+    "score": 61,
+    "category": [
+      "Healthcare",
+      "AI"
+    ],
+    "nextEarnings": null,
+    "price": 56.05,
+    "analystPT": 72.4,
+    "forwardPE": null,
+    "thesis": "Healthcare AI flywheel: $1.59B 2026 guide, profitability one year early",
+    "url": "reports/TEM-2026-05-04.html"
+  },
+  {
+    "ticker": "GOOG",
+    "company": "Alphabet Inc.",
+    "date": "2026-05-04",
+    "rating": "Neutral",
+    "score": 60,
+    "category": [
+      "Mag7",
+      "AI",
+      "Cloud"
+    ],
+    "nextEarnings": null,
+    "price": 380.11,
+    "analystPT": 394.45,
+    "forwardPE": 26.7,
+    "thesis": "Cloud +63%, Gemini taking share, $460B backlog - Mag7 AI leader",
+    "url": "reports/GOOG-2026-05-04.html"
+  },
+  {
+    "ticker": "UNH",
+    "company": "UnitedHealth Group Incorporated",
+    "date": "2026-05-04",
+    "rating": "Neutral",
+    "score": 59,
+    "category": [
+      "Healthcare",
+      "Value"
+    ],
+    "nextEarnings": null,
+    "price": 369.81,
+    "analystPT": 387.27,
+    "forwardPE": 17.8,
+    "thesis": "Turnaround year: MCR improving, Optum margin inflection, FY26 EPS raised to $18.25+",
+    "url": "reports/UNH-2026-05-04.html"
   },
   {
     "ticker": "AAPL",
     "company": "Apple Inc.",
-    "date": "2026-04-09",
+    "date": "2026-05-04",
     "rating": "Neutral",
-    "score": 62,
+    "score": 58,
     "category": [
       "Mag7",
       "Consumer"
     ],
     "nextEarnings": null,
-    "price": 260.43,
-    "analystPT": 296.12,
-    "forwardPE": 27.9,
-    "thesis": "iPhone AI supercycle potential with Services flywheel",
-    "url": "reports/AAPL-2026-04-09.html"
+    "price": 277.25,
+    "analystPT": 300.65,
+    "forwardPE": 29.0,
+    "thesis": "iPhone 17 supercycle plus China rebound and Services records driving record FY26 results.",
+    "url": "reports/AAPL-2026-05-04.html"
   },
   {
     "ticker": "NIO",
     "company": "NIO Inc.",
-    "date": "2026-04-09",
+    "date": "2026-05-04",
     "rating": "Neutral",
-    "score": 61,
+    "score": 56,
     "category": [
       "EV",
-      "Emerging"
+      "Emerging",
+      "Auto"
     ],
     "nextEarnings": null,
-    "price": 6.08,
-    "analystPT": 6.58,
+    "price": 6.09,
+    "analystPT": 6.67,
     "forwardPE": null,
-    "thesis": "Multi-brand EV strategy with battery swap moat and profitability inflection",
-    "url": "reports/NIO-2026-04-09.html"
+    "thesis": "Multi-brand inflection: Q1 +98% YoY, first profitable quarter in sight",
+    "url": "reports/NIO-2026-05-04.html"
   },
   {
     "ticker": "PONY",
-    "company": "Pony.ai Inc.",
-    "date": "2026-04-09",
+    "company": "Pony AI Inc.",
+    "date": "2026-05-04",
     "rating": "Neutral",
     "score": 56,
     "category": [
@@ -336,98 +341,115 @@
       "Emerging"
     ],
     "nextEarnings": null,
-    "price": 9.43,
+    "price": 10.41,
     "analystPT": 21.65,
     "forwardPE": null,
-    "thesis": "Robotaxi fleet scaling to 3000+ vehicles with UE breakeven achieved",
-    "url": "reports/PONY-2026-04-09.html"
-  },
-  {
-    "ticker": "LMND",
-    "company": "Lemonade Inc.",
-    "date": "2026-04-09",
-    "rating": "Neutral",
-    "score": 55,
-    "category": [
-      "Fintech",
-      "AI"
-    ],
-    "nextEarnings": null,
-    "price": 55.77,
-    "analystPT": 65.11,
-    "forwardPE": null,
-    "thesis": "AI insurtech targeting EBITDA breakeven Q4 2026 with 60% revenue growth",
-    "url": "reports/LMND-2026-04-09.html"
-  },
-  {
-    "ticker": "STX",
-    "company": "Seagate Technology Holdings",
-    "date": "2026-04-09",
-    "rating": "Neutral",
-    "score": 53,
-    "category": [
-      "Value",
-      "AI",
-      "Storage"
-    ],
-    "nextEarnings": null,
-    "price": 500.37,
-    "analystPT": 492.79,
-    "forwardPE": 25.1,
-    "thesis": "HAMR-powered AI storage with supply tightness and record margins",
-    "url": "reports/STX-2026-04-09.html"
+    "thesis": "Robotaxi UE breakeven achieved; guides 3x revenue and 3,000+ fleet in 2026",
+    "url": "reports/PONY-2026-05-04.html"
   },
   {
     "ticker": "COST",
     "company": "Costco Wholesale Corporation",
-    "date": "2026-04-09",
+    "date": "2026-05-04",
     "rating": "Neutral",
-    "score": 49,
+    "score": 53,
     "category": [
       "Consumer",
       "Value"
     ],
     "nextEarnings": null,
-    "price": 1032.18,
-    "analystPT": 1067.94,
-    "forwardPE": 45.9,
-    "thesis": "Membership moat with 92% renewal rate but extreme premium valuation",
-    "url": "reports/COST-2026-04-09.html"
+    "price": 1010.66,
+    "analystPT": 1072.16,
+    "forwardPE": 45.0,
+    "thesis": "Vibecession winner: comps +6.5%, e-com +22%, but ~55x P/E demanding",
+    "url": "reports/COST-2026-05-04.html"
+  },
+  {
+    "ticker": "LMND",
+    "company": "Lemonade, Inc.",
+    "date": "2026-05-04",
+    "rating": "Neutral",
+    "score": 53,
+    "category": [
+      "Insurance",
+      "AI",
+      "Speculative"
+    ],
+    "nextEarnings": null,
+    "price": 55.25,
+    "analystPT": 60.89,
+    "forwardPE": null,
+    "thesis": "AI-native insurer scaling to EBITDA breakeven with reinsurance flip unlocking margin",
+    "url": "reports/LMND-2026-05-04.html"
+  },
+  {
+    "ticker": "LI",
+    "company": "Li Auto Inc.",
+    "date": "2026-05-04",
+    "rating": "Neutral",
+    "score": 52,
+    "category": [
+      "EV",
+      "Emerging",
+      "Auto"
+    ],
+    "nextEarnings": null,
+    "price": 17.93,
+    "analystPT": 21.1,
+    "forwardPE": 20.2,
+    "thesis": "L9 launch Q2 + i6 ramp = product cycle bottom; $8B cash + $1B buyback",
+    "url": "reports/LI-2026-05-04.html"
+  },
+  {
+    "ticker": "AMD",
+    "company": "Advanced Micro Devices, Inc.",
+    "date": "2026-05-04",
+    "rating": "Neutral",
+    "score": 50,
+    "category": [
+      "Semis",
+      "AI"
+    ],
+    "nextEarnings": null,
+    "price": 343.43,
+    "analystPT": 307.5,
+    "forwardPE": 30.7,
+    "thesis": "Meta and OpenAI mega-deals validate MI400/Helios as credible NVIDIA challenger.",
+    "url": "reports/AMD-2026-05-04.html"
   },
   {
     "ticker": "TSLA",
-    "company": "Tesla Inc.",
-    "date": "2026-04-08",
+    "company": "Tesla, Inc.",
+    "date": "2026-05-04",
     "rating": "Neutral",
     "score": 49,
     "category": [
       "Mag7",
       "EV",
-      "AI",
-      "Autonomous"
+      "AI"
     ],
     "nextEarnings": null,
-    "price": 342.97,
-    "analystPT": 416.15,
-    "forwardPE": 122.0,
-    "thesis": "Robotaxi and Optimus optionality vs core EV margin compression; high conviction bull/bear debate",
-    "url": "reports/TSLA-2026-04-08.html"
+    "price": 392.82,
+    "analystPT": 413.19,
+    "forwardPE": 154.9,
+    "thesis": "2026 is the prove-it year: Robotaxi expansion + Optimus ramp vs $25B capex bleed",
+    "url": "reports/TSLA-2026-05-04.html"
   },
   {
-    "ticker": "LI",
-    "company": "Li Auto Inc.",
-    "date": "2026-04-09",
-    "rating": "Neutral",
-    "score": 45,
+    "ticker": "INTC",
+    "company": "Intel Corporation",
+    "date": "2026-05-04",
+    "rating": "Bearish",
+    "score": 24,
     "category": [
-      "EV",
-      "Emerging"
+      "Semis",
+      "Value"
     ],
     "nextEarnings": null,
-    "price": 18.32,
-    "analystPT": 21.47,
-    "forwardPE": 20.8,
-    "thesis": "EREV leader with L9 refresh and B buyback",
-    "url": "reports/LI-2026-04-09.html"
+    "price": 96.33,
+    "analystPT": 79.05,
+    "forwardPE": 64.6,
+    "thesis": "Turnaround validated by 22% DC growth and 14A foundry ramp \u2014 but valuation now stretched.",
+    "url": "reports/INTC-2026-05-04.html"
   }
 ]
