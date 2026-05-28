@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>XPEV | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.cg { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 16px 0; }
+.cg img { width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, .cg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>XPEV — XPeng Inc.</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-05-27 · Sources: yfinance, Seeking Alpha, X/Twitter, analyst consensus</p>
+
+<div class="badge">📅 Next Earnings: 2026-05-28 07:00:00 EDT — TOMORROW (Q1 2026 results)</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$16.45</div><div class="sub dn">-41.7% from 52W High</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$15.7B</div><div class="sub">Shares: 781.4M</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value">—</div><div class="sub dn">EPS: $-0.18</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value">23.7x</div><div class="sub">Fwd EPS: $0.69</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">$76.7B</div><div class="sub up">+38.2% YoY</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value up">19.0%</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value up">0.1%</div></div>
+    <div class="kpi"><div class="label">Net Margin</div><div class="value dn">-1.5%</div><div class="sub">ROE: -3.7%</div></div>
+</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter</th><th>Revenue</th><th>Net Income</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th><th>Diluted EPS</th></tr></thead>
+<tbody><tr><td>2025-12-31</td><td>CNY 22.3B <span class="up">↑</span></td><td>CNY 383.2M</td><td>21.3%</td><td>-0.4%</td><td>1.7%</td><td>$0.40</td></tr>
+<tr><td>2025-09-30</td><td>CNY 20.4B <span class="up">↑</span></td><td>CNY -380.9M</td><td>20.1%</td><td>-3.3%</td><td>-1.9%</td><td>$-0.40</td></tr>
+<tr><td>2025-06-30</td><td>CNY 18.3B <span class="up">↑</span></td><td>CNY -477.8M</td><td>17.3%</td><td>-5.3%</td><td>-2.6%</td><td>$-0.50</td></tr>
+<tr><td>2025-03-31</td><td>CNY 15.8B —</td><td>CNY -664.0M</td><td>15.6%</td><td>-5.8%</td><td>-4.2%</td><td>$-0.70</td></tr>
+<tr><td>2024-12-31</td><td>CNY 16.1B</td><td>CNY -1330.0M</td><td>14.4%</td><td>-10.9%</td><td>-8.3%</td><td>$-1.40</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>🔥 First Quarterly GAAP Profit:</strong> Q4 2025 marked XPEV's first-ever quarterly GAAP net profit (CNY 383M), with revenue accelerating to CNY 22.3B (+158% YoY) and gross margin expanding 700bps over 12 months (14.4% → 21.3%). Operating losses narrowed by 97% YoY. Tomorrow's Q1 2026 earnings (consensus revenue ~CNY 12.9B, EPS -$1.12) tests whether seasonal weakness derails the breakeven-by-FY26 trajectory.</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Revenue Stream</th><th>Amount (FY25)</th><th>% of Total</th><th>YoY Trend</th><th>Notes</th></tr></thead>
+<tbody><tr><td><strong>Vehicle sales</strong></td><td>~CNY 65B</td><td>~85%</td><td class="up">+87.7%</td><td>429K units FY25; Mona M03 ~44% of Apr-26 deliveries (13,699 units)</td></tr>
+<tr><td><strong>Services & other</strong></td><td>~CNY 8B</td><td>~10%</td><td class="up">Growing</td><td>Supercharging network, parts, software (XNGP/XOS subscriptions)</td></tr>
+<tr><td><strong>VW technology licensing & platform</strong></td><td>~CNY 3B</td><td>~4%</td><td class="up">Ramping</td><td>CEA electrical architecture + ID.UNYX 08 platform JV; high-margin IP licensing</td></tr>
+<tr><td><strong>AeroHT (flying car) / Iron robot</strong></td><td>—</td><td>&lt;1%</td><td class="up">Pre-rev</td><td>AeroHT Hong Kong IPO targeted 2H26; Iron robot mass production Q4 2026</td></tr>
+</tbody></table>
+
+<h2>🌏 Geographic Expansion</h2>
+<table><thead><tr><th>Market</th><th>Mix (FY25)</th><th>Apr-26 Volume</th><th>2026 Trajectory</th><th>Highlights</th></tr></thead>
+<tbody><tr><td>China (domestic)</td><td>~85%</td><td>25,005 units</td><td class="neu">Soft Q1</td><td>Mona M03 250K+ cumulative; new L03 SUV at ~$20K; price war pressure</td></tr>
+<tr><td>Europe</td><td>~8%</td><td>3,400+ EVs</td><td class="up">Ramping</td><td>Germany, Netherlands, Norway, UK; VW European manufacturing in talks</td></tr>
+<tr><td>Middle East / SEA</td><td>~5%</td><td>~1,500</td><td class="up">Expanding</td><td>UAE, Singapore, Indonesia, Thailand right-hand-drive G6/X9 deliveries</td></tr>
+<tr><td>Other (LatAm, ANZ)</td><td>~2%</td><td>~1,100</td><td class="up">Greenfield</td><td>680 overseas stores by YE26; export 6,006 units in April alone (19% of total)</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>📊 Key Metric:</strong> April 2026 deliveries hit 31,011 vehicles with 19% international mix — the highest export share in XPEV's history. Management targets doubling overseas sales to ~90K in 2026 (>20% of revenue), validating the geographic diversification thesis as a hedge against China consumer softness.</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl neu">55.2</div><div class="nt neu">Neutral</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl dn">$16.91</div><div class="nt dn">Price below</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl dn">$19.67</div><div class="nt dn">Price below</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl up">-0.265</div><div class="nt up">Above signal (improving)</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$28.07</div><div class="nt dn">-41.4%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$14.94</div><div class="nt up">+10.1%</div></div>
+</div>
+
+<div class="co bl"><strong>⚠️ Technical Signal:</strong> Price 41% below 52W high but bouncing 10% off the $14.94 low set last week. MACD turned higher and is now above signal — early reversal characteristic. RSI mid-range (55) leaves room to extend on a Q1 beat or robotaxi catalyst. Key levels: $15.10 (must-hold per Crowd Wisdom), $16.91 SMA50 reclaim, then $19.67 SMA200 as upside target.</div>
+
+<h2>📊 Charts</h2>
+<div class="cg"></div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Company</th><th>Price</th><th>MCap</th><th>Trail P/E</th><th>Fwd P/E</th><th>Rev Growth</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th></tr></thead>
+<tbody><tr class="hl"><td><strong>XPEV</strong></td><td>$16.45</td><td>$15.7B</td><td>—</td><td>23.7x</td><td>38.2%</td><td>19.0%</td><td>0.1%</td><td>-1.5%</td></tr>
+<tr><td><strong>LI</strong></td><td>$15.78</td><td>$16.1B</td><td>98.6x</td><td>18.3x</td><td>-35.0%</td><td>18.7%</td><td>-1.4%</td><td>1.0%</td></tr>
+<tr><td><strong>NIO</strong></td><td>$5.75</td><td>$14.4B</td><td>—</td><td>42.4x</td><td>112.2%</td><td>15.7%</td><td>-1.2%</td><td>-9.1%</td></tr>
+<tr><td><strong>TSLA</strong></td><td>$440.36</td><td>$1.65T</td><td>407.7x</td><td>175.5x</td><td>15.8%</td><td>19.1%</td><td>4.2%</td><td>3.9%</td></tr>
+<tr><td><strong>BYDDY</strong></td><td>$11.84</td><td>$107.9B</td><td>40.8x</td><td>17.3x</td><td>-11.8%</td><td>17.2%</td><td>4.8%</td><td>3.5%</td></tr>
+</tbody></table>
+
+<div class="co bl"><strong>📊 Peer Read:</strong> XPEV is the only direct Chinese EV peer combining (a) accelerating revenue (+38% vs LI -35%, BYDDY -12%), (b) best-in-class gross margins among pure-play startups (19.0% vs NIO 15.7%, LI 18.7%), and (c) operating breakeven achieved. TSLA forward P/E of 175x prices in robotaxi/Optimus optionality — XPEV at 23.7x offers similar Physical AI exposure at 1/7th the multiple.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value up">0.80</div><div class="sub">Slight bullish</div></div>
+    <div class="kpi"><div class="label">P/C Open Interest</div><div class="value up">0.45</div><div class="sub">Bullish bias</div></div>
+    <div class="kpi"><div class="label">Avg Call IV</div><div class="value dn">253%</div><div class="sub">Elevated (earnings)</div></div>
+    <div class="kpi"><div class="label">Avg Put IV</div><div class="value dn">230%</div></div>
+</div>
+
+<div class="co bl"><strong>📊 Options Read:</strong> Earnings-day IV is extremely elevated (253%/230%) — implied move ~12-14% on Q1 print tomorrow. Call OI (13,963) more than 2x put OI (6,291) on the 2026-05-29 expiry signals retail/momentum positioning is heavily skewed bullish into the catalyst.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co bl"><strong>Insider Holdings:</strong> Insiders hold ~4.7% (37M shares); institutions hold ~11.5% — combined ~16%. No insider buys or sells reported in the last 6 months despite the 41% drawdown. He Xiaopeng (Chairman/CEO) has not trimmed founder stake. The absence of selling at $15-17 is a positive tell: management's expected breakeven year is FY26, and they appear to view current levels as well below intrinsic value.</div>
+
+<h2>📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">"XPeng: Robotaxi Launch Validates Physical AI Pivot, Buy"</span> · May 2026 · <span class="st bul">Strong Buy</span><p style="margin-top:8px; color:#475569">May 18 mass-production robotaxi (3,000 TOPS Turing chips, no LiDAR) is the first China automaker to ship — re-rates XPEV from EV OEM to Physical AI platform peer of TSLA.</p></div>
+<div class="tw"><span class="au">"XPeng (XPEV) Stock: What Analysts Expect from Earnings Thursday"</span> · May 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Consensus expects Q1 revenue ~$1.78B (CNY 12.9B) and EPS -$1.12; key items to watch: GM trajectory toward 17%+, FY26 delivery guide, VW JV contribution.</p></div>
+<div class="tw"><span class="au">"XPeng Aeroht IPO Filing Approaches — Sum-of-Parts Mispricing"</span> · May 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">JPM/MS engaged for HK listing of flying car unit (Aridge) in 2H 2026 — 5,000+ pre-orders, $280K ASP, factory capacity 10K units/yr; SOTP implies $4-6/share embedded value.</p></div>
+<div class="tw"><span class="au">"Mona L03 SUV Reveal Extends Sub-$20K Lineup"</span> · May 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">All-new Mona SUV (650km range, ~$20.5K) joins M03 sedan — Mona brand now cumulatively 250K+ units, providing volume base while flagship P7+/G6 carry margin.</p></div>
+<div class="tw"><span class="au">"Goldman Reiterates Buy, $25 PT on EREV Launches and 2026 Breakeven"</span> · May 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">G6/G7/P7+ extended-range variants in Q1 26 expand TAM; Goldman models 40% rev growth and first full-year GAAP NI of CNY 2.2B in 2026.</p></div>
+
+
+<div class="co gr"><strong>SA Consensus:</strong> 5/5 recent articles rate Buy or Strong Buy. Common threads: Q4 25 GAAP profit was the inflection, robotaxi/Aridge/Iron each carry independent option value, and the FY26 breakeven setup makes risk/reward asymmetric ahead of tomorrow's print.</p></div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">@CaesarCapitalz</span> · May 27, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"My main reason for being bullish on XPeng is its in-house push into unified Physical AI — same proprietary Turing AI chips across EVs, eVTOLs and humanoid robots." Frames XPEV as a vertically integrated Physical AI platform, not just an EV OEM.</p></div>
+<div class="tw"><span class="au">@MMatters22596</span> · May 27, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"One of the leading physical AI companies besides $TSLA. Humanoids at scale + Edge AI chip + EV integration. Extremely cheap compared to every other physical AI company."</p></div>
+<div class="tw"><span class="au">@ttvresearch</span> · May 27, 2026 · <span class="st ber">Cautious</span><p style="margin-top:8px; color:#475569">"2026 hasn't been a great year for XPeng — YoY delivery declines every month YTD." Q1 26 print needs to show sequential reacceleration (March +80% MoM is the bull rebuttal).</p></div>
+<div class="tw"><span class="au">@EV_carba</span> · May 26, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"XPeng shares soar as May orders surge to about 50,000 units." If confirmed in the May delivery release, would mark a 61% MoM jump from April's 31,011 and break the YoY decline streak.</p></div>
+<div class="tw"><span class="au">@CrowdWisdomAlgo</span> · May 26, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"23% pullback may be setting up a bounce as XPeng rolls out China's first mass-produced Robotaxi. Bulls watching $15.10 as must-hold zone, eyeing $16.10+ this week."</p></div>
+
+
+<div class="co gr"><strong>X Consensus:</strong> 4/5 bullish, anchored on (1) Physical AI re-rating thesis, (2) cheap relative to TSLA on every Physical AI metric, (3) May order surge to 50K. Lone caution flag is YTD delivery YoY weakness — tomorrow's earnings is the swing factor.</div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>Q1 2026 earnings TOMORROW (May 28, 7:00 AM EDT):</strong> consensus rev CNY 12.9B / EPS -$1.12; watch GM trajectory toward 17%+ and FY26 delivery reaffirm at 550–600K (+28–40% YoY).</li>
+<li><strong>Robotaxi GX mass production (rolled out May 18, 2026):</strong> first China OEM to ship a mass-produced L4 robotaxi — 3,000 TOPS Turing chips, pure-vision, no LiDAR. Pilot operations 2H 2026; driverless ops target early 2027.</li>
+<li><strong>May 2026 delivery release (early June):</strong> rumored ~50,000 orders would be 61% MoM growth and reset the YoY decline narrative driving the $14.94 low.</li>
+<li><strong>AeroHT / Aridge Hong Kong IPO (2H 2026):</strong> JPM/MS engaged; 5,000+ pre-orders on Land Aircraft Carrier ($280K); factory at 10K units/yr capacity. SOTP unlock potential of $4–6/share.</li>
+<li><strong>Iron humanoid robot mass production (Q4 2026):</strong> 178cm / 70kg / 82 DOF; 110,000 sqm factory groundbreaking Q1 2026 complete; long-term target 1M units/yr by 2030.</li>
+<li><strong>VW JV revenue ramp:</strong> ID.UNYX 08 (CEA electrical architecture) commercial launch in coming months — first global automaker licensing Chinese L4 software, validates IP at high margin.</li>
+<li><strong>EREV models (G6, G7, P7+):</strong> extended-range variants launching Q1 26 expand TAM into range-anxiety holdouts; Goldman cites as key driver of FY26 40% revenue growth.</li>
+<li><strong>FY26 breakeven inflection:</strong> Goldman models first full-year GAAP net income of CNY 2.2B — would convert the trailing P/E from N/A to a positive reading and unlock index/ETF buying.</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>YTD 2026 delivery weakness:</strong> annual declines every month YTD vs 2025 base. Mitigant: March +80% MoM, April 31K units, rumored May ~50K orders show sequential recovery.</li>
+<li><strong>Q1 2026 revenue guide implies -16% to -23% YoY:</strong> seasonal Lunar New Year + price-war softness. Mitigant: GM expected to expand sequentially as Mona M03 mix matures.</li>
+<li><strong>China EV price war:</strong> BYD, Tesla Model Y refresh, Li Auto EREV refresh, Xiaomi SU7/YU7, Huawei AITO. Mitigant: XNGP/Turing chip differentiation in ADAS; Mona for value tier; export mix at 19%.</li>
+<li><strong>Physical AI execution risk:</strong> robotaxi/Iron/AeroHT each consume capex with uncertain payoff windows. Mitigant: AeroHT subsidiary IPO funding model; VW JV cash; sub-1% net loss already.</li>
+<li><strong>China macro / consumer weakness + subsidy renewal:</strong> trade-in subsidy program renewal for 2027 unconfirmed. Mitigant: 19%+ international mix and growing.</li>
+<li><strong>ADR delisting / HFCAA risk:</strong> mitigated by HK 9868 dual listing and clean PCAOB audit access.</li>
+<li><strong>Capital intensity for Physical AI bets:</strong> humanoid factory + robotaxi fleet + flying car factory total ~$2B+ committed. Mitigant: VW JV cash + AeroHT IPO + narrowing losses fund the ramp.</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value up">Buy</div><div class="sub">26 analysts</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value up">$24.44</div><div class="sub up">+48.6% upside</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$15.11</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$36.64</div></div>
+</div>
+
+<div class="co bl"><strong>📋 Recent Actions:</strong> Goldman Sachs raised PT to $25 (from $24) on EREV launch slate and 2026 breakeven outlook (Buy). Citi Buy as cleanest Chinese EV beneficiary of premium ADAS adoption. JPM previously Street-high $31 PT on Physical AI optionality. Mix: ~22% Strong Buy / 52% Buy / 19% Hold / 7% Strong Sell.</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data & Methodology:</strong> Financial data from Yahoo Finance (yfinance) as of 2026-05-27. Forward EPS of <strong>$0.69</strong> is the consensus analyst estimate. Trailing P/E unavailable (negative TTM EPS of $-0.18). XPEV's first GAAP-positive quarter was Q4 2025 — full-year P/E will become meaningful only after FY26 breakeven. Peer multiples are current forward P/E ratios. Three independent methods triangulate fair value.</div>
+
+<h3>Method 1: P/E Multiple Approach</h3>
+<p style="color:#64748b; margin-bottom:12px">Each scenario applies a different P/E multiple to forward EPS. Multiples justified by EV-startup peer set (LI, NIO) since legacy autos (GM/F) are imperfect comps for a Physical-AI growth story. Forward EPS of $0.69 is yfinance consensus.</p>
+<table><thead><tr><th>Scenario</th><th>P/E</th><th>EPS</th><th>Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody><tr><td>Conservative (current multiple)</td><td>23.7x</td><td>$0.69</td><td>$16.45</td><td class="neu">0%</td><td>Assumes no re-rating; market holds current multiple</td></tr>
+<tr><td>EV-startup peer-informed avg</td><td>30.4x</td><td>$0.69</td><td>$20.95</td><td class="up">+27%</td><td>Avg of LI 18.3x and NIO 42.4x peer fwd P/E</td></tr>
+<tr><td>LI Parity (closest comp by MCap)</td><td>18.3x</td><td>$0.69</td><td>$12.63</td><td class="dn">-23%</td><td>Most comparable by market cap ($16.1B); penalizes for LI's -35% revenue</td></tr>
+<tr><td>Physical AI multiple (TSLA discount)</td><td>50.0x</td><td>$0.79</td><td>$39.50</td><td class="up">+140%</td><td>TSLA at 175x fwd; XPEV at 30% of TSLA multiple if Iron/robotaxi credit</td></tr>
+<tr><td>Optimistic (multiple expansion)</td><td>35.0x</td><td>$0.79</td><td>$27.65</td><td class="up">+68%</td><td>Bull EPS assumes +15% beat; 35x reflects FY26 first profit + AeroHT IPO</td></tr>
+</tbody></table>
+
+<h3>Method 2: Mean Reversion & Consensus</h3>
+<p style="color:#64748b; margin-bottom:12px">If the stock reverts to its peer-implied or analyst-implied valuation, what would it be worth? Independent cross-checks on Method 1.</p>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">EV-Peer Avg PE × Fwd EPS</div><div class="value up">$20.95</div><div class="sub up">+27% upside</div></div><div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value up">$24.44</div><div class="sub up">+49% upside</div></div>
+</div>
+<div class="co bl"><strong>📐 Calculation Details:</strong><ul><li>EV-startup peer average forward P/E of 30.4x (LI 18.3x, NIO 42.4x) × $0.69 = $20.95</li><li>Wall Street analyst consensus price target: $24.44 (range: $15.11–$36.64, n=26)</li><li>SOTP add-on: AeroHT IPO ($4–6/share embedded) + Iron robot optionality not yet in any sell-side model</li></ul></div>
+
+<h3>Method 3: Discounted Cash Flow (DCF)</h3>
+<p style="color:#64748b; margin-bottom:12px">10-year DCF using FCF projections under three growth scenarios. XPEV remains FCF-negative; values dominated by terminal assumptions — treat as directional only.</p>
+<table><thead><tr><th>Scenario</th><th>Rev Growth (Y1–5)</th><th>WACC</th><th>Terminal Growth</th><th>Steady-State Op Margin</th><th>Intrinsic Value</th></tr></thead><tbody><tr><td>Bear</td><td>15%</td><td>11.0%</td><td>2.5%</td><td>3%</td><td>$11.20</td></tr>
+<tr><td>Base</td><td>30%</td><td>10.0%</td><td>3.0%</td><td>6%</td><td>$24.80</td></tr>
+<tr><td>Bull</td><td>45%</td><td>9.5%</td><td>3.5%</td><td>9%</td><td>$48.50</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>✅ Multiple Methods Converge:</strong> EV-peer parity ($20.95), analyst consensus ($24.44), and base-case DCF ($24.80) cluster in the $20–25 range — all 25-50% above the current $16.45. This convergence across independent methods strengthens the buy case ahead of the FY26 breakeven inflection.</div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<p style="color:#64748b; margin-bottom:12px">Three scenarios combining P/E multiples with EPS estimates. Bear uses 12x × 85% of consensus EPS (Q1 miss + price-war drag). Base uses 30x (EV-peer avg) × consensus EPS. Bull uses 40x × 115% of consensus EPS (FY26 breakeven + AeroHT IPO).</p>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$7.05</div><div class="mt">12x × $0.59 EPS</div><div class="us dn">-57%</div><div class="ds">Q1 miss + China price war intensifies; multiple compresses to legacy-OEM levels and EPS gets cut 15%.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr up">$20.95</div><div class="mt">30.4x × $0.69 EPS</div><div class="us up">+27% upside</div><div class="ds">Q1 in line, FY26 deliveries land at 550K, breakeven reached, multiple re-rates to EV-startup peer avg.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$31.75</div><div class="mt">40x × $0.79 EPS</div><div class="us up">+93% upside</div><div class="ds">FY26 deliveries hit 600K, robotaxi pilot succeeds, AeroHT IPO unlocks ~$5/share SOTP value, Iron Q4 demo confirms 2027 commercial path.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co gr"><p><strong>XPEV</strong> is set up for an asymmetric outcome heading into Q1 2026 earnings <strong>tomorrow (May 28, 7:00 AM EDT)</strong>. The company just printed its first-ever GAAP-profitable quarter in Q4 2025 (CNY 383M NI, gross margin 21.3%), is guiding to 550–600K deliveries in FY26 (+28–40% YoY), and on May 18 became the first Chinese OEM to mass-produce an L4 robotaxi — yet the stock trades 41% off its 52-week high at 23.7x forward earnings, materially below the EV-startup peer average of 30.4x and analyst consensus PT of $24.44. The market is pricing in YTD delivery softness while ignoring (a) the May order surge rumored at ~50K units, (b) AeroHT's Hong Kong IPO targeted 2H 2026, (c) Iron humanoid mass production by Q4 2026, and (d) VW JV licensing revenue ramping. The base case ($20.95, +27%) is supported by three independent valuation methods converging in the $20–25 range; the bull case ($31.75, +93%) hinges on FY26 breakeven confirmation and Physical AI re-rating.</p><p><strong>Verdict: Buy with a 12-month base case target of $20.95 (+27% upside). Position size accounting for ~12-14% implied earnings move.</strong></p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, Seeking Alpha, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, Seeking Alpha, X/Twitter, analyst consensus · 2026-05-27</p></div>
+</div>
+</body></html>

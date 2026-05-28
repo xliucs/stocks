@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PONY | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.cg { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 16px 0; }
+.cg img { width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, .cg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>PONY — Pony AI Inc.</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-05-27 · Sources: yfinance, Seeking Alpha, X/Twitter, analyst consensus</p>
+
+<div class="badge">📅 Q1 2026 Reported 2026-05-26 — Revenue +145% YoY · Next Earnings ~2026-08-18</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$9.74</div><div class="sub dn">-60.9% from 52W High</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$4.22B</div><div class="sub">Shares: 352.5M ADS / 433.5M total</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value">—</div><div class="sub dn">EPS: $-0.35</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value">-16.8x</div><div class="sub">Fwd EPS: $-0.58</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">$110.3M</div><div class="sub up">+145% YoY (Q1)</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value up">15.8%</div><div class="sub">Q1: 16.2%</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value dn">-170%</div><div class="sub up">Narrowed from -401% YoY</div></div>
+    <div class="kpi"><div class="label">Cash & ST Inv.</div><div class="value up">$1.07B</div><div class="sub">Net cash $1.05B · ~7-yr runway</div></div>
+</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter</th><th>Revenue</th><th>Net Income</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th><th>Diluted EPS</th></tr></thead>
+<tbody><tr class="hl"><td>2026-03-31</td><td>$34.3M <span class="up">↑↑</span></td><td>$-50.4M</td><td>16.2%</td><td>-170.3%</td><td>-147.2%</td><td>$-0.120</td></tr>
+<tr><td>2025-12-31</td><td>$29.1M <span class="up">↑</span></td><td>$23.4M</td><td>12.7%</td><td>-253.6%</td><td>80.5%</td><td>$0.060</td></tr>
+<tr><td>2025-09-30</td><td>$25.4M <span class="up">↑</span></td><td>$-61.3M</td><td>18.4%</td><td>-273.9%</td><td>-241.0%</td><td>$-0.160</td></tr>
+<tr><td>2025-06-30</td><td>$21.5M <span class="up">↑↑</span></td><td>$-53.1M</td><td>16.1%</td><td>-285.6%</td><td>-247.5%</td><td>$-0.140</td></tr>
+<tr><td>2025-03-31</td><td>$14.0M —</td><td>$-37.4M</td><td>16.6%</td><td>-400.9%</td><td>-267.1%</td><td>$-0.120</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>🔥 Accelerating Growth:</strong> Q1 2026 revenue hit $34.3M, up 145% YoY (vs. $14.0M in Q1 2025) and 17.7% sequentially — the 5th consecutive quarter of sequential growth. Robotaxi revenue alone surged 395% YoY to $8.6M, with fare-charging revenue +450%. Operating margin compressed dramatically from -401% to -170% YoY despite net loss widening to $50.4M (vs. $37.4M) — the widening was driven by lower investment income, NOT operating deterioration.</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Revenue Stream</th><th>Amount (Q1'26)</th><th>% of Total</th><th>YoY Trend</th><th>Notes</th></tr></thead>
+<tbody><tr><td><strong>Robotaxi Services</strong></td><td>~$8.6M</td><td>~25%</td><td class="up">+395% YoY</td><td>Fare-charging revenue +450% YoY; weekly paid orders +100% since Jan; UE breakeven in Guangzhou + Shenzhen</td></tr>
+<tr><td><strong>Robotruck (Pony Trucking)</strong></td><td>~$10.2M</td><td>~30%</td><td class="up">+31% YoY</td><td>Sinotrans deeper cooperation; Gen-4 mass production H2 2026; driverless light truck launched Apr</td></tr>
+<tr><td><strong>Licensing / Technical Services / Other</strong></td><td>~$15.5M</td><td>~45%</td><td class="up">Strong</td><td>Toyota Gen-7 royalty stream, Tencent, Uber/Verne (Europe), Mowasalat Karwa (Qatar)</td></tr>
+</tbody></table>
+
+<div class="co bl"><strong>Mix shift:</strong> Robotaxi share of revenue rising fast as fleet scales from 1,159 (Dec'25) → 1,700+ (May'26) → 3,500+ targeted (year-end 2026). Management raised FY26 robotaxi revenue target from 3.0x to 3.5x 2025 levels.</div>
+
+<h2>🌏 Geographic Expansion</h2>
+<table><thead><tr><th>Market</th><th>Fleet / Status</th><th>Regulatory</th><th>Highlights</th></tr></thead>
+<tbody><tr><td>China — Beijing, Shanghai, Guangzhou, Shenzhen</td><td>~1,700 vehicles (May'26)</td><td>Full driverless commercial in all 4 Tier-1s</td><td>UE breakeven in Guangzhou + Shenzhen; weekly paid orders +100% since Jan'26; registered users +200% YoY</td></tr>
+<tr><td>UAE — Dubai</td><td>Testing permit secured</td><td>Driverless approval expected late Mar'26</td><td>Supports Dubai's 25% autonomous trip target</td></tr>
+<tr><td>Qatar — Doha</td><td>Live commercial fare-charging</td><td>Permit granted</td><td>JV with Mowasalat Karwa</td></tr>
+<tr><td>Europe — Zagreb (Croatia)</td><td>Europe's first commercial robotaxi service</td><td>Pilot</td><td>Strategic deal: Pony.ai (stack) + Verne (operator) + Uber (rideshare integration)</td></tr>
+<tr><td>South Korea, Singapore, Luxembourg</td><td>Pilots / road testing</td><td>Various</td><td>Targeting 20+ cities globally by year-end, ~half overseas</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>📊 Key Metric:</strong> Pony.ai is the only China robotaxi player with confirmed commercial driverless ops in all 4 Tier-1 cities AND a paying customer outside Asia. Geographic diversification across China + UAE + Qatar + Europe meaningfully de-risks single-jurisdiction regulatory tail risk.</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl neu">43.2</div><div class="nt neu">Neutral, leaning oversold</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl dn">$9.88</div><div class="nt dn">Price 1.4% below</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl dn">$14.40</div><div class="nt dn">Price 32% below</div></div>
+</div>
+<div class="tg">
+    <div class="tc"><div class="mk">1-Month Return</div><div class="vl dn">-7.7%</div><div class="nt dn">Slid into earnings</div></div>
+    <div class="tc"><div class="mk">3-Month Return</div><div class="vl dn">-27.9%</div><div class="nt dn">De-rating despite ops</div></div>
+    <div class="tc"><div class="mk">Avg Volume (30D)</div><div class="vl">4.54M</div><div class="nt">Spike to 17.9M on Q1 print day</div></div>
+</div>
+
+<div class="co yw"><strong>📊 Technical Read:</strong> Stock made fresh 52-week low at $7.99 in mid-May ahead of Q1 print, then rallied ~22% intraday on the earnings beat (May 26 volume = 17.9M vs. 4.5M avg) before fading. Price ($9.74) is hovering at SMA50 ($9.88) — a clean break above signals recovery. Heavy resistance at $14.40 (SMA200) and $24.92 (52W high). RSI 43 leaves room either direction. The technical setup is classic post-earnings consolidation in a downtrend stock.</div>
+
+<h2>📊 Charts</h2>
+<div class="cg">
+</div>
+
+<h2>📏 Historical Valuation</h2>
+<table><thead><tr><th>Metric</th><th>Current</th><th>1Y Ago</th><th>Trend</th><th>Read</th></tr></thead>
+<tbody><tr><td>Price / Sales (TTM)</td><td>~38x</td><td>~70x</td><td class="up">Compressed</td><td>Multiple cut despite revenue accelerating — bull case asymmetry</td></tr>
+<tr><td>EV / Sales (TTM)</td><td>~27.7x</td><td>~55x</td><td class="up">Compressed</td><td>$1.17B cash creates meaningful EV gap to market cap</td></tr>
+<tr><td>Price / Book</td><td>~2.6x</td><td>~3.5x</td><td class="up">Compressed</td><td>$1.61B stockholder equity, $1.07B in cash & ST inv.</td></tr>
+<tr><td>Forward P/E</td><td>-16.8x</td><td>n/a</td><td>n/a</td><td>Still loss-making at consensus — earliest GAAP breakeven 2027/28</td></tr>
+<tr><td>52W Range</td><td>$7.99 – $24.92</td><td>—</td><td class="dn">Bottom quartile</td><td>Trading 22% above 52W low, 61% below 52W high</td></tr>
+</tbody></table>
+
+<div class="co bl"><strong>Valuation Read:</strong> EV/Sales compression from ~55x to ~28x in 12 months while top-line growth accelerated from sub-30% to +145% YoY represents one of the cleanest "growth at a discount" setups in the China autonomous complex. Caveat: still a pre-profitability narrative stock and EV/S is a fragile anchor given the small base.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Ticker</th><th>Mkt Cap</th><th>P/S (TTM)</th><th>Rev Growth</th><th>Gross Margin</th><th>Op Margin</th><th>Notes</th></tr></thead>
+<tbody><tr class="hl"><td><strong>PONY</strong></td><td>$4.2B</td><td>~38x</td><td class="up">+145%</td><td>15.8%</td><td>-170%</td><td>L4 robotaxi pure-play; 1,700+ fleet; UE breakeven 2 cities</td></tr>
+<tr><td>WRD (WeRide)</td><td>$2.4B</td><td>3.3x</td><td class="up">+57.6%</td><td>30.4%</td><td>-378%</td><td>~1,000 robotaxis globally; broader L4 portfolio (taxi, bus, sanitation)</td></tr>
+<tr><td>TSLA</td><td>$1.65T</td><td>16.9x</td><td>+15.8%</td><td>19.1%</td><td>4.2%</td><td>Robotaxi optionality + EV core; Austin/Bay Area pilots</td></tr>
+<tr><td>GOOG (Waymo)</td><td>$4.66T</td><td>11.0x</td><td>+21.8%</td><td>60.4%</td><td>36.1%</td><td>Waymo: ~2,500 vehicles, 14M paid rides 2025, $350M+ run-rate</td></tr>
+<tr><td>MBLY</td><td>$8.6B</td><td>4.2x</td><td>+27.4%</td><td>48.3%</td><td>-19.4%</td><td>L2+/L3 ADAS supplier; not robotaxi exposure</td></tr>
+</tbody></table>
+
+<div class="co yw"><strong>Peer Read:</strong> PONY trades at the highest P/S in the cohort (~38x vs. WRD ~3.3x), reflecting investor preference for the pure China robotaxi play and unit-economics narrative. The valuation gap to WRD is striking given WRD's higher gross margin (30% vs. 16%). The Waymo benchmark (already at $350M run-rate, profitable platform inside Alphabet) sets the destination — PONY needs ~10x current revenue to compete on scale.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value up">0.37</div><div class="sub">Bullish bias</div></div>
+    <div class="kpi"><div class="label">P/C Open Interest</div><div class="value up">0.60</div><div class="sub">Lean bullish</div></div>
+    <div class="kpi"><div class="label">Avg Call IV (ATM)</div><div class="value">107%</div></div>
+    <div class="kpi"><div class="label">Avg Put IV (ATM)</div><div class="value neu">95%</div></div>
+</div>
+
+<div class="co bl"><strong>📊 Options Read:</strong> Post-earnings IV has compressed from 168%/175% pre-print to ~107%/95% — typical vol crush. Call volume (2,006) outpacing puts (739) at the May-29 expiry with P/C OI of 0.60 signals bullish positioning. ATM $10 calls are the most active strike. Skew flipped slightly bullish: call IV no longer trading at a discount to put IV.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co yw"><strong>Recent insider activity (last 90 days):</strong>
+<ul>
+<li>WANG HAOJUN (CFO) — Sale of 18,283 shares @ $8.69 = $158,834 on 2026-03-30 (D-form)</li>
+<li>Founders (Peng + Lou) remain under <strong>voluntary extended 540-day lockup</strong> from May 25, 2025 covering 22.9% of total outstanding shares — expires ~Nov 2026</li>
+<li>Insiders hold ~1.3% of float; institutions hold 47.5% across 223 holders</li>
+</ul>
+</div>
+
+<h2>📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">"Pony.ai rallies as Q1 revenue nearly triples, raises FY26 robotaxi fleet expansion"</span> · May 26, 2026 · <span class="st bul">News / Bullish</span><p style="margin-top:8px; color:#475569">Q1 revenue +145% YoY beat consensus; mgmt lifted FY26 robotaxi rev target to >3.5x 2025 (was 3.0x) and fleet to 3,500+ (was 3,000). Pre-market rally on the print.</p></div>
+<div class="tw"><span class="au">"Pony AI: Heading Into Earnings With A Scalable Edge"</span> · May 2026 · <span class="st bul">Strong Buy</span><p style="margin-top:8px; color:#475569">Asset-light licensing model + Gen-7 BOM down 70% gives PONY a cost structure peers can't match. UE breakeven in 2 cities is the operational proof point.</p></div>
+<div class="tw"><span class="au">"Pony AI: A Big Year Ahead As Company Guides To Tripling Robotaxi Revenue"</span> · Apr 2026 · <span class="st bul">Strong Buy</span><p style="margin-top:8px; color:#475569">Mgmt guides 3x robotaxi revenue in FY26 via 3,000-vehicle fleet (since raised to 3,500), 20-city expansion, and Toyota/Tencent/Uber partnerships.</p></div>
+<div class="tw"><span class="au">"Pony AI: Massively Expanded Fleet And A Path To Profitability"</span> · Apr 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Path to GAAP profitability via fleet scale + Gen-7 cost structure; cash runway sufficient to bridge to breakeven.</p></div>
+<div class="tw"><span class="au">"Scaling Up: How Pony AI's Fleet Targets Could Double Revenue By 2026"</span> · Feb 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Gen-7 cost reduction (-70% BOM) + Toyota mass-production deal makes 3,000-vehicle scale economically viable.</p></div>
+
+<div class="co gr"><strong>SA Consensus:</strong> 5 of 5 recent articles rate Buy or Strong Buy. Common threads: Gen-7 BOM economics, UE breakeven proof, asset-light licensing, and the fleet-size guidance raise as a credibility milestone.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">@yaesakura2019</span> · 2026-05-27 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"Pony AI Q1 sales +145% to $34.3M, robotaxi +395.4% to $8.6M — company lifted FY26 revenue target to 3.5x last year and fleet target from 3,000 to 3,500." Quoted PONY's official IR announcement.</p></div>
+<div class="tw"><span class="au">@juliaaq38726650</span> · 2026-05-27 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"$PONY Q1 2026 — Robotaxi revenue EXPLODES & global expansion accelerates." Highlighted the print as inflection.</p></div>
+<div class="tw"><span class="au">@GoldSpotX</span> · 2026-05-27 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"Pony AI raises robotaxi target after 145% revenue surge" — flagged the guidance raise as the bull thesis confirmation.</p></div>
+<div class="tw"><span class="au">@GoldmanSachs (via Allen Chang note)</span> · 2026-05-21 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Raised PT to $27.70 from $24.50 (Buy) — cites L4 leadership in China, Tier-1 driverless permits, and fleet scaling.</p></div>
+<div class="tw"><span class="au">@longportapp (HK rumor mill)</span> · 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">Pony.ai pre-market surged 16% on HK secondary listing news (confirmed: dual-primary listing on HKEX as 2026.HK since Nov 6, 2025). HKEX shares trading ~HKD 70 (May'26).</p></div>
+
+<div class="co gr"><strong>X Consensus:</strong> Overwhelmingly bullish post-Q1 print (4/5 strongly positive, 1 neutral). Themes: revenue triple, robotaxi 4x, fleet target raise, and Goldman PT increase. Note: organic retail chatter on $PONY is sparse — most signal comes from financial news accounts.</div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>FY26 fleet target raised to 3,500+ vehicles</strong> (from 3,000) — currently at 1,700+ as of May'26; means ~1,800 net adds in 7 months</li>
+<li><strong>FY26 robotaxi revenue target lifted to >3.5x 2025</strong> (from 3.0x) — implies ~$50M+ robotaxi revenue (vs. ~$14M in 2025)</li>
+<li><strong>Toyota Gen-7 bZ4X mass production</strong> — 1,000+ units targeted in 2026; BOM cost -70% vs. Gen-6, drives UE flywheel</li>
+<li><strong>UE breakeven proven in Guangzhou + Shenzhen</strong> — first verifiable proof of robotaxi unit economics globally</li>
+<li><strong>Gen-4 Robotruck mass production H2 2026</strong> — Sinotrans partnership; Q1 robotruck revenue +31% YoY to $10.2M</li>
+<li><strong>International expansion ramp</strong> — Qatar (live commercial), Dubai (driverless approval pending), Zagreb/Europe (Uber + Verne), South Korea, Singapore, Luxembourg pilots</li>
+<li><strong>20+ cities by year-end 2026</strong>, ~half overseas — geographic de-risking story</li>
+<li><strong>HK dual-listing arbitrage</strong> — 2026.HK trading at ~HKD 70 (~$8.95), pricing gap to US ADR may close on improving sentiment</li>
+<li><strong>Q2 2026 print (~Aug 18)</strong> — first quarter benefiting from raised guidance; fleet adds and overseas city count are the watch items</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>Cash burn $170M FCF/yr against $1.07B cash + $0.74B ST investments ($1.4B total liquidity)</strong> → ~7-8 yr runway, but burn accelerates as fleet scales (each Gen-7 adds capex)</li>
+<li><strong>Net loss widened YoY ($50.4M vs. $37.4M)</strong> despite revenue tripling — driven by lower investment income, but underlying opex up modestly. Margin path matters more than headline</li>
+<li><strong>Tesla Robotaxi (Austin/Bay Area) + Waymo's $350M+ run-rate</strong> — PONY needs to win in China while these scale in US; capital intensity gap is wide</li>
+<li><strong>Baidu Apollo Go fleet ~10x larger</strong> in China; Apollo has lower ride pricing and deeper integration with Baidu Maps</li>
+<li><strong>IPO lockup overhang</strong> — founders' voluntary 540-day extension expires ~Nov 2026 (covers 22.9% of shares); regular IPO lockup already expired May 26, 2025</li>
+<li><strong>Regulatory tail risk</strong> — driverless permits revocable in China; overseas approvals (Dubai, EU) not yet driverless</li>
+<li><strong>Stock down 61% from 52W high $24.92</strong> — sentiment vs. fundamentals disconnect could persist if path to profitability slips beyond 2028</li>
+<li><strong>Toyota mass-production execution</strong> — only 1,000 Gen-7 units planned in 2026 → if behind schedule, fleet target slips</li>
+<li><strong>Concentrated VIE / China ADR structure risk</strong> — geopolitical overhang, HKEX dual-listing partially mitigates</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value up">Strong Buy</div><div class="sub">Mean: 1.33</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value up">$21.59</div><div class="sub up">+122% upside</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$10.00</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$32.80</div></div>
+</div>
+<div class="co bl"><strong>Note:</strong> 16 analysts cover the name; 9 of last 10 ratings are Buy/Strong Buy. Goldman Sachs (Allen Chang) raised PT to $27.70 from $24.50 on May 21, 2026 citing L4 leadership in China and Tier-1 driverless permits. Lowest PT ($10) implies the bear case is largely priced in at current $9.74.</div>
+
+<h2>💎 Valuation Framework</h2>
+<div class="sg">
+    <div class="sc bear"><div class="lb">Bear Case</div><div class="pr dn">$6.50</div><div class="mt">15x FY27E EV/S, no overseas traction</div><div class="us dn">-33% downside</div><div class="ds">Fleet scale stalls at ~2,500, Beijing/Shanghai regulatory tightening, Toyota Gen-7 production behind. Robotaxi UE breakeven doesn't generalize beyond GZ/SZ. Cash burn forces dilutive raise late 2027.</div></div>
+    <div class="sc base"><div class="lb">Base Case</div><div class="pr">$18.00</div><div class="mt">30x FY27E EV/S; 3,500 fleet, 20 cities</div><div class="us">+85% upside</div><div class="ds">Mgmt hits guidance: 3,500-vehicle fleet, ~$50M robotaxi revenue 2026, GAAP profitability 2028. Goldman / consensus midpoint scenario. Re-rating as overseas paid rides scale.</div></div>
+    <div class="sc bull"><div class="lb">Bull Case</div><div class="pr up">$32.00</div><div class="mt">50x FY27E EV/S; UE breakeven generalizes</div><div class="us up">+229% upside</div><div class="ds">UE breakeven extends to all 4 Tier-1s + overseas; Uber/Verne Europe deal scales; Toyota Gen-7 production exceeds 1,000 units. Investors re-rate PONY toward Waymo comp on per-vehicle revenue. HK listing closes valuation gap.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co gr"><p><strong>PONY</strong> just delivered the print bulls have been waiting for: Q1 2026 revenue +145% YoY ($34.3M), robotaxi revenue +395% to $8.6M, fleet at 1,700+ vehicles, and management raised FY26 fleet and revenue targets (3,500 vehicles, 3.5x 2025 robotaxi revenue) — yet the stock trades at $9.74, 61% below the 52W high and just 22% above the 52W low. The disconnect is the setup: a company executing ahead of plan in a market (China L4 robotaxi) where it has Tier-1-city driverless permits AND Toyota mass-production economics (BOM -70%), with $1.4B liquidity buying ~7 years of runway.</p>
+<p>The risks are concrete: net loss widened to $50.4M on lower investment income, Baidu Apollo Go is ~10x larger in China, Tesla/Waymo scale dwarfs PONY's revenue base, and the founder lockup extension expires ~Nov 2026. But at ~28x EV/S with 145% growth and UE-breakeven proof points in 2 cities, the setup is asymmetric — bear case ($6.50) is only ~33% down while base case ($18) is ~85% up.</p>
+<p><strong>Verdict: Buy — accumulate aggressively on weakness below $9. Base-case 12M target $18 (+85%); bull case $32 (+229%). Position size: small-to-medium given binary catalysts and cash-burn dependency.</strong></p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, Seeking Alpha, X/Twitter, SEC filings, and company press releases. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, Seeking Alpha, X/Twitter, analyst consensus, SEC filings · 2026-05-27</p></div>
+</div>
+</body>
+</html>

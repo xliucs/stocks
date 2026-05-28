@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AMD | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.cg { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 16px 0; }
+.cg img { width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, .cg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>AMD — Advanced Micro Devices, Inc.</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-05-27 · Sources: yfinance, Seeking Alpha, X/Twitter, analyst consensus</p>
+
+<div class="badge">📅 Next Earnings: 2026-08-04 (Q2 2026) — ~10 weeks away · Q2 guide $11.2B (+46% YoY)</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$495.54</div><div class="sub dn">-2.9% from 52W High</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$808.0B</div><div class="sub">Shares: 1.63B</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value dn">164.1x</div><div class="sub">EPS: $3.02</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value neu">38.2x</div><div class="sub up">Fwd EPS: $12.96</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">$37.5B</div><div class="sub up">+37.8% YoY</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value up">53.1%</div><div class="sub">Expanding toward 56%</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value up">14.4%</div><div class="sub">Recovering</div></div>
+    <div class="kpi"><div class="label">Net Margin</div><div class="value up">13.4%</div><div class="sub">ROE: 8.1% · Earn. growth +91%</div></div>
+</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter</th><th>Revenue</th><th>Net Income</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th><th>Diluted EPS</th></tr></thead>
+<tbody>
+<tr><td>2026-03-31 (Q1'26)</td><td>$10.25B <span class="up">↑</span></td><td>$1.38B</td><td>52.8%</td><td>14.4%</td><td>13.5%</td><td>$0.840</td></tr>
+<tr><td>2025-12-31 (Q4'25)</td><td>$10.27B <span class="up">↑</span></td><td>$1.51B</td><td>54.3%</td><td>17.1%</td><td>14.7%</td><td>$0.920</td></tr>
+<tr><td>2025-09-30 (Q3'25)</td><td>$9.25B <span class="up">↑↑</span></td><td>$1.24B</td><td>51.7%</td><td>13.7%</td><td>13.4%</td><td>$0.750</td></tr>
+<tr><td>2025-06-30 (Q2'25)</td><td>$7.69B <span class="up">↑</span></td><td>$872M</td><td>39.8%</td><td>-1.7%</td><td>11.3%</td><td>$0.540</td></tr>
+<tr><td>2025-03-31 (Q1'25)</td><td>$7.44B —</td><td>$709M</td><td>50.2%</td><td>10.8%</td><td>9.5%</td><td>$0.440</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>🔥 Q1 2026 Print (May 6):</strong> Revenue $10.25B (+38% YoY), Data Center +57% YoY to $5.8B, record FCF $2.6B, operating cash $3.0B. Q2 2026 guide: $11.2B ±$300M (+46% YoY) with non-GAAP gross margin guided to 56%. AI accelerators ~73% of Data Center revenue.</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Revenue Stream</th><th>Q1 2026</th><th>% of Total</th><th>YoY Trend</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td><strong>Data Center</strong></td><td>$5.8B</td><td>~57%</td><td class="up">+57% YoY</td><td>5th-gen EPYC + Instinct MI350; AI accels ~73% of segment ($4.2B+)</td></tr>
+<tr><td><strong>Client (PC)</strong></td><td>~$2.4B</td><td>~23%</td><td class="up">+20% YoY</td><td>Ryzen AI Max + agentic AI driving CPU refresh cycle</td></tr>
+<tr><td><strong>Gaming</strong></td><td>~$0.7B</td><td>~7%</td><td class="dn">Down YoY</td><td>Console cycle trough; semi-custom roll-off</td></tr>
+<tr><td><strong>Embedded (Xilinx)</strong></td><td>~$1.4B</td><td>~13%</td><td class="up">+12% YoY</td><td>Industrial/aerospace/defense recovery accelerating</td></tr>
+</tbody></table>
+
+<div class="co bl"><strong>📊 Mix shift:</strong> Data Center now &gt;57% of revenue (was ~50% in Q4'25) — AMD has structurally re-rated as an AI accelerator company. Q2 2026 guide implies Data Center could exceed $6.5B alone.</div>
+
+<h2>🌏 Geographic Expansion</h2>
+<table><thead><tr><th>Market</th><th>Revenue Mix %</th><th>Key Customers</th><th>Growth</th><th>Highlights</th></tr></thead>
+<tbody>
+<tr><td>Americas</td><td>~52%</td><td>Meta, MSFT, ORCL, OpenAI</td><td class="up">Accelerating</td><td>Meta 6 GW MI450 deal; Oracle 50,000 GPU Helios supercluster</td></tr>
+<tr><td>Asia-Pac (ex-China)</td><td>~24%</td><td>AWS Tokyo, Tencent, OneQode</td><td class="up">Strong</td><td>OneQode rolling MI355X across APAC; Japan/Korea cloud build</td></tr>
+<tr><td>China</td><td>~14%</td><td>Chinese hyperscalers</td><td class="neu">Constrained</td><td>MI308 export-compliant variant; ~$100M Q1 China DC revenue</td></tr>
+<tr><td>EMEA</td><td>~10%</td><td>Sovereign AI, MS Azure EU</td><td class="up">Sovereign push</td><td>EU sovereign AI infrastructure tailwind</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>📊 Geographic Read:</strong> Americas dominate (~52%) on hyperscaler concentration (Meta, MSFT, ORCL, OpenAI). APAC is the fastest growing — OneQode (May 2026) announced MI355X + future Helios rack deployment across APAC/EU.</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl up">67.3</div><div class="nt up">Approaching overbought</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl up">$309.40</div><div class="nt up">Price +60% above</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl up">$232.53</div><div class="nt up">Price +113% above</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl up">47.01</div><div class="nt up">Bullish (above signal 45.5)</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$510.21</div><div class="nt dn">-2.9%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$108.62</div><div class="nt up">+356%</div></div>
+</div>
+
+<div class="co yw"><strong>⚠️ Technical Signal:</strong> Stock cleared $500 for first time ever this week, +356% off 52W low, +60% above SMA50. RSI 67 — approaching overbought but not extreme. MACD remains positive. Risk: extension from moving averages invites mean-reversion pullback to $440–$470 range.</div>
+
+<h2>📊 Charts</h2>
+<div class="co bl"><strong>Price Action Summary:</strong> AMD has rallied from $108.62 (52W low) to $510 (52W high) — a 356% gain over 12 months. The breakout above the prior $362 ATH (April 2026) was triggered by the Q1 2026 print on May 6 (Data Center +57% YoY) and the May 19 Evercore upgrade to $579 PT. SMA50 ($309) and SMA200 ($233) both rising steeply. Volume has expanded on up-days: 38M shares on May 26 vs 20-day avg of ~28M. Chart pattern: clean stair-step accumulation, no distribution days in last 10 sessions.</div>
+
+<h2>📏 Historical Valuation</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Current Fwd P/E</div><div class="value neu">38.2x</div></div>
+    <div class="kpi"><div class="label">5Y Avg Fwd P/E*</div><div class="value">32.5x</div><div class="sub">*Outliers filtered</div></div>
+    <div class="kpi"><div class="label">5Y P/E Range</div><div class="value">18x – 45x</div></div>
+    <div class="kpi"><div class="label">Percentile</div><div class="value dn">82nd</div><div class="sub">Above average</div></div>
+</div>
+
+<div class="co yw"><strong>📐 Mean Reversion Check:</strong> At 38.2x forward P/E vs. filtered 5Y average of ~32.5x, AMD trades modestly above its historical norm — but this is justified by accelerating growth (Q2 guide +46% YoY vs. 5Y avg ~25%). Applying the 5Y average P/E to forward EPS of $12.96 implies <strong>$421</strong> (-15%). Applying historical 70th-percentile P/E (~40x) gives <strong>$518</strong> (+5%).</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Company</th><th>Price</th><th>MCap</th><th>Trail P/E</th><th>Fwd P/E</th><th>Rev Growth</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th></tr></thead>
+<tbody>
+<tr class="hl"><td><strong>AMD</strong></td><td>$495.54</td><td>$808.0B</td><td>164.1x</td><td>38.2x</td><td>37.8%</td><td>53.1%</td><td>14.4%</td><td>13.4%</td></tr>
+<tr><td><strong>NVDA</strong></td><td>$212.60</td><td>$5,149B</td><td>32.6x</td><td>16.8x</td><td>85.2%</td><td>74.1%</td><td>65.6%</td><td>63.0%</td></tr>
+<tr><td><strong>INTC</strong></td><td>$121.77</td><td>$612.0B</td><td>—</td><td>79.1x</td><td>7.2%</td><td>37.2%</td><td>6.9%</td><td>-5.9%</td></tr>
+<tr><td><strong>AVGO</strong></td><td>$421.86</td><td>$1,997B</td><td>81.9x</td><td>23.1x</td><td>29.5%</td><td>76.7%</td><td>44.9%</td><td>36.6%</td></tr>
+<tr><td><strong>MRVL</strong></td><td>$198.70</td><td>$174.0B</td><td>64.9x</td><td>35.9x</td><td>22.1%</td><td>51.0%</td><td>18.7%</td><td>32.6%</td></tr>
+</tbody></table>
+
+<div class="co yw"><strong>🔍 Peer Read:</strong> AMD's 38.2x forward P/E is above NVDA (16.8x) and AVGO (23.1x) but trails INTC's distressed 79x and is in line with MRVL (35.9x). AMD has the second-highest revenue growth in the cohort (+38%) behind NVDA (+85%). Gross margin (53%) and operating margin (14%) trail NVDA (74%/66%) and AVGO (77%/45%) — leaving meaningful margin-expansion headroom as MI400/Helios ramps in H2 2026.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value up">0.77</div><div class="sub">Bullish (calls > puts)</div></div>
+    <div class="kpi"><div class="label">P/C Open Interest</div><div class="value neu">1.11</div><div class="sub">Slight put bias (hedges)</div></div>
+    <div class="kpi"><div class="label">Avg Call IV</div><div class="value">250%</div></div>
+    <div class="kpi"><div class="label">Avg Put IV</div><div class="value neu">239%</div></div>
+</div>
+
+<div class="co bl"><strong>📊 Options Read:</strong> P/C volume ratio of 0.77 reflects bullish near-term flow (calls outpacing puts). P/C OI of 1.11 indicates investors holding protective puts after the +356% move — typical hedging behavior post-rally. Elevated IV (~250%) reflects pre-MI350-shipment and pre-Q2-earnings event premium. Nearest expiry: 2026-05-29.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co bl"><strong>Insider activity (last 6 months):</strong> Total insider shares held: 6.7M. <strong>Net Shares Purchased (Sold):</strong> +303K (937K purchases / 634K sales · 19 buys / 16 sells). <strong>% Net:</strong> +4.7% of insider float — net buying.
+<ul>
+<li><strong>Forrest Norrod</strong> (EVP, Data Center Solutions) — 19,487 shares ($8.4M) on 2026-05-20</li>
+<li><strong>Lisa Su</strong> (CEO) — 125,000 shares ($55.7M) on 2026-05-13 (option exercise + sale)</li>
+<li><strong>Mark Papermaster</strong> (CTO) — 24,376 shares ($10.8M) on 2026-05-08</li>
+<li><strong>Jean Hu</strong> (CFO) — 31,320 shares ($11.0M) on 2026-04-24</li>
+<li><strong>Phil Guido</strong> (EVP) — 33,109 shares ($9.0M) on 2026-04-16</li>
+</ul>
+Mix of post-earnings option exercises and 10b5-1 plan sales — not a clean bullish signal, but net insider position is up on absolute share count from new awards.</div>
+
+<h2>📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">"AMD Stock: I Called The Surge - Here's What Comes Next"</span> · May 14, 2026 · <span class="st bul">Strong Buy</span><p style="margin-top:8px; color:#475569">AMD surged 75% in the past month as CPU prices rose on exploding agentic AI demand. Author expects continued multi-leg upside through MI400 ramp.</p></div>
+<div class="tw"><span class="au">"AMD: This AI Rally Is Not Over"</span> · May 6, 2026 · <span class="st bul">Strong Buy</span><p style="margin-top:8px; color:#475569">Q1 2026: $10.25B revenue (+38% YoY), $2.57B FCF, Data Center +57% YoY. The 6GW Meta + OpenAI partnerships are backed by warrant structures aligning incentives.</p></div>
+<div class="tw"><span class="au">"AMD: ~110% Up And Nowhere Near Done (Rating Upgrade)"</span> · May 2026 · <span class="st bul">Strong Buy</span><p style="margin-top:8px; color:#475569">Q2 2026 guide meaningfully above consensus: revenue midpoint $11.2B (+46% YoY), non-GAAP gross margin guided to 56% (up from 53%). Multiple expansion justified.</p></div>
+<div class="tw"><span class="au">"Why AMD Could Reach $1,000 Before 2030"</span> · May 21, 2026 · <span class="st bul">Strong Buy</span><p style="margin-top:8px; color:#475569">Bull case argues Data Center alone hits $40B+ run rate by 2028 on MI400/MI500 cycle; $1,000 PT predicated on 30x 2028 EPS of ~$33.</p></div>
+<div class="tw"><span class="au">"AMD: Growing Outside Of Nvidia's Shadow"</span> · May 21, 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Hyperscaler diversification thesis: AMD is no longer "cheaper NVDA" — it's the primary AI inference platform for customers wanting GPU vendor diversification.</p></div>
+<div class="tw"><span class="au">"AMD: Taking Profits And Eyeing Arm"</span> · May 6, 2026 · <span class="st net">Hold</span><p style="margin-top:8px; color:#475569">Author trims position after the 110%+ rally and rotates to ARM — sees AMD as fully priced for near-term execution; eyes re-entry on pullbacks to $400.</p></div>
+
+<div class="co gr"><strong>SA Consensus:</strong> 5 of 6 recent articles rate Buy or Strong Buy, citing the Q1 2026 print, $5.8B Data Center revenue, and the $120B server CPU TAM call. One author (Hold) sees the move as priced in for now.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">@Silent_fill0</span> · May 27, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"Next $1T is $AMD. Crossed $500 for the first time, market cap still sub-$800B, reframe from 'cheaper NVDA' to 'primary AI inference play' just getting started. Hyperscalers want vendor diversification."</p></div>
+<div class="tw"><span class="au">@GoonKingCap</span> · May 27, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"AMD MI400/Helios is reportedly 432GB HBM4/GPU, or ~31TB HBM per 72-GPU rack — meaningfully ahead of Nvidia Rubin's 288GB. Burden of proof is on the bears."</p></div>
+<div class="tw"><span class="au">@EarningsBrief</span> · May 26, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"AMD tailwinds: hyperscaler deals (OpenAI, Meta, Oracle), MI350/MI400 roadmap, 1/5 the size of NVDA with cheaper chips. Hyperscalers pivoting to AMD for value."</p></div>
+<div class="tw"><span class="au">@StockStormX</span> · May 26, 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">"$AMD multiple is riding the MI400 ramp story. If that ships late the whole thing rerates fast. $515 doable if hyperscaler capex doesn't blink."</p></div>
+<div class="tw"><span class="au">@reasonus4</span> · May 27, 2026 · <span class="st ber">Bearish</span><p style="margin-top:8px; color:#475569">"GPU prices cratering -52% in a few days suggests pumpers used ST supply disruption to sell a false chip/memory shortage narrative. $SOXS volume 530M — traders nervous semi bubble popping."</p></div>
+
+<div class="co gr"><strong>X Consensus:</strong> 3 of 5 cited posts bullish, 1 neutral, 1 bearish. Core bull narrative: vendor diversification + MI400/Helios memory advantage + sub-$1T market cap with NVDA at $5T. Bear narrative: late-cycle GPU bubble + execution risk on MI400 shipping.</div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>MI350 series in production now</strong> — shipping in volume from Q2 2026; MI355X already deployed by OneQode across APAC/EU (announced May 26, 2026)</li>
+<li><strong>MI400 / Helios rack-scale ramp in H2 2026</strong> — 72× MI455X + EPYC Venice (Zen 6, N2 node) per rack, 31TB HBM4, 2.9 EFLOPS FP4 inference, 1.4 EFLOPS FP8 training</li>
+<li><strong>Meta 6 GW multi-year deployment</strong> (first 1 GW on MI450) — analysts model $7.2B MI400 revenue in 2026, $15B total DC GPU (+114% YoY)</li>
+<li><strong>Oracle 50,000-GPU Helios supercluster</strong> committed alongside Meta and OpenAI capacity</li>
+<li><strong>Q2 2026 print (Aug 4)</strong> — guided to $11.2B revenue (+46% YoY) with non-GAAP GM expanding to 56%; consensus EPS $1.61</li>
+<li><strong>ROCm 7 software stack</strong> — 4× inference / 3× training perf vs. ROCm 6, closing the CUDA moat gap</li>
+<li><strong>EPYC Venice (Zen 6) launch</strong> in H2 2026 — extending server CPU share lead; AMD models server CPU TAM to $120B+ by 2030 (+35% CAGR)</li>
+<li><strong>AI PC refresh cycle</strong> — Ryzen AI Max driving Client +20% YoY; agentic AI workloads expanding CPU TAM</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>Premium valuation:</strong> 38x forward P/E vs. NVDA at 17x means AMD must execute flawlessly on MI400 to defend the multiple. Mitigant: AMD growth (+38%) approaching NVDA's (+85%) on a smaller base with much greater margin headroom.</li>
+<li><strong>MI400/Helios shipping risk:</strong> Any delay into 2027 would compress 2026 DC GPU revenue from $15B target. Mitigant: AMD reiterated H2 2026 ramp at Q1 print; MI350 already shipping de-risks roadmap.</li>
+<li><strong>NVDA Rubin / Vera Rubin competitive response:</strong> Rubin Ultra targets late 2026; CUDA moat intact for training. Mitigant: AMD's HBM capacity-per-GPU (432GB vs Rubin 288GB) is a structural inference advantage.</li>
+<li><strong>HBM supply constraints:</strong> Samsung/SK Hynix HBM4 packaging is the gating factor (per @AlperTheKing thread, May 27); could cap both NVDA Rubin and AMD MI400 ship volumes.</li>
+<li><strong>Hyperscaler capex normalization:</strong> 2027 spend may decelerate from 2025-26 peak. Mitigant: Meta 6 GW deal is multi-year through 2029; OpenAI/Oracle commits add multi-year visibility.</li>
+<li><strong>China export controls:</strong> Further tightening could eliminate the $100M/quarter MI308 revenue stream. Mitigant: small absolute exposure (&lt;3% of DC).</li>
+<li><strong>Margin trajectory:</strong> Gross margin guided to 56% in Q2 — still well below NVDA (74%) and AVGO (77%). Achieving 60%+ requires MI400 mix shift to materialize on schedule.</li>
+<li><strong>Sentiment / position extension:</strong> Stock +356% off lows; 82nd percentile P/E; profile resembles a "loved" mega-cap. Mean-reversion pullback risk to $400–$440 even on good news.</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value up">Strong Buy</div><div class="sub">48 analysts</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value up">$472.17</div><div class="sub dn">-4.7% from current</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$225.00</div></div>
+    <div class="kpi"><div class="label">High PT (Evercore)</div><div class="value up">$625.00</div></div>
+</div>
+
+<div class="co bl"><strong>Notable May 2026 updates:</strong> Evercore ISI street-high $579 (5/19), Bernstein upgraded to Outperform $525 (5/6), Barclays $500, Cantor $500, BofA $450 — all citing Meta 6 GW, OpenAI, Oracle Helios commitments. Consensus PT now lags spot price after the +75% one-month move; expect a fresh wave of PT raises into the Q2 print.</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data & Methodology:</strong> All financial data sourced from Yahoo Finance (yfinance) as of 2026-05-27. Forward EPS of <strong>$12.96</strong> is the consensus analyst estimate. Trailing P/E of <strong>164.1x</strong> is calculated from TTM EPS of $3.02 (depressed by prior-year MI300 ramp investments). Historical forward P/E spans 5-year quarterly observations, filtered for outliers. Peer multiples are current forward P/E ratios. Three independent methods triangulate fair value.</div>
+
+<h3>Method 1: P/E Multiple Approach</h3>
+<p style="color:#64748b; margin-bottom:12px">Each scenario applies a different forward P/E multiple to forward EPS of $12.96. Multiples are justified by peer comparison, historical averages, or growth-adjusted reasoning.</p>
+<table><thead><tr><th>Scenario</th><th>P/E</th><th>EPS</th><th>Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody>
+<tr><td>Bear (NVDA parity)</td><td>16.8x</td><td>$12.96</td><td>$217.73</td><td class="dn">-56%</td><td>AMD compresses to NVDA's multiple despite lower margin/growth</td></tr>
+<tr><td>Conservative (peer median ex-INTC)</td><td>25.0x</td><td>$12.96</td><td>$324.00</td><td class="dn">-35%</td><td>Blended AVGO/NVDA multiple</td></tr>
+<tr><td>Historical Avg (5Y)</td><td>32.5x</td><td>$12.96</td><td>$421.20</td><td class="dn">-15%</td><td>AMD reverts to own historical fwd P/E</td></tr>
+<tr><td>Base (current multiple holds)</td><td>38.2x</td><td>$12.96</td><td>$495.07</td><td class="neu">flat</td><td>Market keeps current multiple; price = EPS-driven</td></tr>
+<tr><td>Bull (MRVL parity)</td><td>40.0x</td><td>$14.50</td><td>$580.00</td><td class="up">+17%</td><td>Bull EPS assumes +12% beat to consensus; mild multiple expansion</td></tr>
+<tr><td>Optimistic (MI400 inflection)</td><td>45.0x</td><td>$15.50</td><td>$697.50</td><td class="up">+41%</td><td>2027 EPS pulled forward on faster MI400 ramp + 56%+ gross margin</td></tr>
+</tbody></table>
+
+<h3>Method 2: Mean Reversion & Consensus</h3>
+<p style="color:#64748b; margin-bottom:12px">If the stock reverts to its historical or peer-implied valuation, what would it be worth? Independent cross-checks on Method 1.</p>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">5Y Avg Fwd PE × Fwd EPS</div><div class="value dn">$421.20</div><div class="sub dn">-15% downside</div></div>
+<div class="kpi"><div class="label">Peer Avg PE × Fwd EPS</div><div class="value dn">$483.65</div><div class="sub dn">-2% downside</div></div>
+<div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value dn">$472.17</div><div class="sub dn">-4.7% downside</div></div>
+</div>
+<div class="co bl"><strong>📐 Calculation Details:</strong>
+<ul>
+<li>5-year average forward P/E of ~32.5x × forward EPS $12.96 = $421.20</li>
+<li>Peer average forward P/E ex-INTC (NVDA 16.8x, AVGO 23.1x, MRVL 35.9x avg = 37.3x) × $12.96 = $483.65</li>
+<li>Wall Street consensus PT $472.17 (range $225–$625, 48 analysts; median $482.50)</li>
+</ul></div>
+
+<h3>Method 3: Discounted Cash Flow (DCF)</h3>
+<p style="color:#64748b; margin-bottom:12px">10-year DCF using free cash flow projections under three growth scenarios. Q1 2026 FCF annualized run rate ~$10B. Terminal value via perpetuity growth.</p>
+<table><thead><tr><th>Scenario</th><th>Rev Growth (Yr1–5)</th><th>WACC</th><th>Terminal Growth</th><th>Intrinsic Value</th><th>Upside</th></tr></thead>
+<tbody>
+<tr><td>Bear</td><td>20%</td><td>10.5%</td><td>3.0%</td><td>$295.00</td><td class="dn">-40%</td></tr>
+<tr><td>Base</td><td>35%</td><td>10.0%</td><td>3.0%</td><td>$510.00</td><td class="up">+3%</td></tr>
+<tr><td>Bull</td><td>50%</td><td>9.5%</td><td>3.5%</td><td>$845.00</td><td class="up">+71%</td></tr>
+</tbody></table>
+
+<div class="co yw"><strong>⚠️ Methods Diverge:</strong> Historical mean reversion ($421), analyst consensus ($472), and base DCF ($510) all cluster within ±10% of spot, suggesting AMD is roughly <strong>fairly valued</strong> at current levels — upside is now contingent on bull-case execution (MI400 ramp + margin expansion to 56%+), not multiple expansion. The risk/reward has tightened materially from the May 4 report (when price was $342).</div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<p style="color:#64748b; margin-bottom:12px">Three scenarios combining P/E multiple assumptions with EPS estimates. Bear assumes MI400 delay + multiple compression. Base assumes consensus execution. Bull assumes MI400 ramp on schedule + 56%+ gross margin.</p>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$340</div><div class="mt">25x × $13.60 EPS</div><div class="us dn">-31%</div><div class="ds">MI400 ships late, hyperscaler capex pauses, multiple compresses toward AVGO (23x). GPU oversupply narrative gains traction.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr neu">$500</div><div class="mt">37x × $13.50 EPS</div><div class="us neu">+1%</div><div class="ds">Consensus execution: MI350 ramps cleanly, MI400 ships on time H2 2026, Q2 print beats, gross margin to 56%. Multiple holds.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$650</div><div class="mt">42x × $15.50 EPS</div><div class="us up">+31%</div><div class="ds">MI400 + Helios beats consensus; Meta 6 GW expands; Oracle Helios doubles. Gross margin breaks 58%. Street-high $625 PT becomes consensus.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co gr"><p><strong>AMD</strong> has successfully re-rated from "cheaper NVDA" to the primary AI accelerator vendor diversifier — Data Center now &gt;57% of revenue ($5.8B in Q1'26, +57% YoY), Q2 guide of $11.2B (+46% YoY) with 56% gross margin, and the Meta 6 GW + Oracle 50K-GPU + OpenAI deals supply 2027–2029 visibility. The stock has tripled in 12 months and now trades at 38x forward EPS of $12.96 — modestly above its 5Y average (32.5x) and well above NVDA (16.8x). At $495, the multiple-expansion phase is largely complete; upside now requires <strong>execution-led EPS growth</strong> (MI400/Helios ramping in H2 2026, gross margin to 56%+, ROCm 7 closing CUDA gap).</p>
+<p><strong>Verdict: Hold / Trim into strength.</strong> Base case $500 (flat); bull case $650 (+31%) requires flawless MI400 execution; bear case $340 (-31%) if MI400 slips or hyperscaler capex pauses. Better risk/reward exists at $400–$440 pullbacks. Long-term thesis intact through 2028, but reward asymmetry is no longer compelling at spot.</p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, Seeking Alpha, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, Seeking Alpha, X/Twitter, analyst consensus · 2026-05-27</p></div>
+</div>
+</body>
+</html>

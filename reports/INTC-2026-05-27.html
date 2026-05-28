@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>INTC | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.cg { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 16px 0; }
+.cg img { width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, .cg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>INTC — Intel Corporation</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-05-27 · Sources: yfinance, Seeking Alpha, X/Twitter, analyst consensus</p>
+
+<div class="badge">📅 Next Earnings: 2026-07-23 (Q2 '26) — 57 days away</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$121.77</div><div class="sub dn">-8.3% from 52W High</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$612.0B</div><div class="sub">Shares: 5.03B</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value">—</div><div class="sub dn">TTM EPS: $-0.61</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value">79.1x</div><div class="sub">Fwd EPS: $1.54</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">$53.8B</div><div class="sub up">+7.2% YoY</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value up">37.2%</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value up">6.9%</div></div>
+    <div class="kpi"><div class="label">Net Margin</div><div class="value dn">-5.9%</div><div class="sub">ROE: -2.9%</div></div>
+</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter</th><th>Revenue</th><th>Net Income</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th><th>Diluted EPS</th></tr></thead>
+<tbody>
+<tr><td>2026-03-31 (Q1 '26)</td><td>$13.58B <span class="dn">↓</span></td><td>$-3.73B</td><td>39.4%</td><td>6.9%</td><td>-27.5%</td><td>$-0.73</td></tr>
+<tr><td>2025-12-31 (Q4 '25)</td><td>$13.67B <span class="up">↑</span></td><td>$-591M</td><td>36.1%</td><td>4.0%</td><td>-4.3%</td><td>$-0.12</td></tr>
+<tr><td>2025-09-30 (Q3 '25)</td><td>$13.65B <span class="up">↑</span></td><td>$4.06B</td><td>38.2%</td><td>6.3%</td><td>29.8%</td><td>$0.90</td></tr>
+<tr><td>2025-06-30 (Q2 '25)</td><td>$12.86B <span class="up">↑</span></td><td>$-2.92B</td><td>27.5%</td><td>-10.0%</td><td>-22.7%</td><td>$-0.67</td></tr>
+<tr><td>2025-03-31 (Q1 '25)</td><td>$12.67B —</td><td>$-821M</td><td>36.9%</td><td>-1.1%</td><td>-6.5%</td><td>$-0.19</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>🔥 Sixth Straight Revenue Beat:</strong> Q1 '26 revenue of $13.58B beat consensus of $12.36B; adjusted EPS came in at $0.29 vs. $0.01 expected. GAAP loss of $3.73B reflects restructuring charges and foundry start-up costs — operating income still positive at $934M. Q2 '26 guide of $13.8–$14.8B is ahead of $13.03B Street consensus.</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Segment</th><th>Q1 '26 Revenue</th><th>% of Total</th><th>YoY Trend</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td><strong>Client Computing Group (CCG)</strong></td><td>$7.7B</td><td>~57%</td><td class="up">+1% YoY</td><td>Core PC franchise stable; Core Ultra / AI PC ramp; Panther Lake (18A) SKUs landing through 1H</td></tr>
+<tr><td><strong>Data Center & AI (DCAI)</strong></td><td>$5.1B</td><td>~37%</td><td class="up">+22% YoY</td><td>Strongest grower — agentic-AI CPU pull-through (Granite/Sierra Forest Xeon, Gaudi 3 inference)</td></tr>
+<tr><td><strong>Intel Foundry (segment)</strong></td><td>$5.4B</td><td>—</td><td class="up">+16% YoY</td><td>Mostly internal product wafers; external lifetime pipeline now &gt;$15B led by MSFT &amp; AMZN. Op loss $2.4B (improving $72M Q/Q)</td></tr>
+<tr><td><strong>Network &amp; Edge (NEX)</strong></td><td>~$0.4B</td><td>~3%</td><td class="up">Mixed</td><td>Now reported inside CCG/DCAI; small standalone footprint</td></tr>
+<tr><td><strong>Altera / Mobileye / Other</strong></td><td>~$0.4B</td><td>~3%</td><td class="neu">Mixed</td><td>Altera majority-stake sale to Silver Lake closed; Mobileye remains majority-owned</td></tr>
+</tbody></table>
+
+<h2>🌏 Geographic Expansion</h2>
+<table><thead><tr><th>Market</th><th>Rev Mix</th><th>Trend</th><th>Highlights</th></tr></thead>
+<tbody>
+<tr><td>Americas</td><td>~30%</td><td class="up">Tailwind</td><td>$7.86B CHIPS Act direct funding finalized; Ohio New Albany site targets late-2026 completion; Arizona Fab 52 in volume on 18A</td></tr>
+<tr><td>China / Asia-Pac</td><td>~28%</td><td class="neu">Resilient</td><td>Export controls cap data-center upside; client PC demand remains a key cash cow</td></tr>
+<tr><td>Singapore</td><td>~16%</td><td class="up">Steady</td><td>Distribution hub for APAC client &amp; foundry packaging</td></tr>
+<tr><td>Taiwan</td><td>~12%</td><td class="neu">Hedge</td><td>Co-existence with TSMC for advanced nodes; Intel uses TSMC N3 for Lunar Lake GPU tile</td></tr>
+<tr><td>EMEA</td><td>~14%</td><td class="up">Build</td><td>Ireland Fab 34 (Intel 4) anchor; German Magdeburg project paused; Israel Kiryat Gat expansion</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>📊 Strategic Read:</strong> ~30% of revenue is U.S.-domiciled and growing — Intel is the only Western foundry with leading-edge HVM, making it strategically valuable to DoD, hyperscalers and U.S. policy. Export-control overhang on China is contained at the segment level.</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl neu">57.0</div><div class="nt neu">Neutral</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl up">$79.52</div><div class="nt up">Price +53% above</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl up">$48.20</div><div class="nt up">Price +153% above</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl dn">11.65</div><div class="nt dn">Below signal (12.79)</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$132.75</div><div class="nt dn">-8.3%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$18.97</div><div class="nt up">+541.9%</div></div>
+</div>
+
+<div class="co yw"><strong>⚠️ Technical Signal:</strong> RSI has cooled to a neutral 57 from the 80s reading in early May — momentum is digesting the parabolic Mar–May leg. Price trades 53% above SMA-50 and 153% above SMA-200 (deeply extended on a multi-month basis), but MACD has rolled below its signal line — a near-term consolidation/pullback risk inside an intact longer-term uptrend.</div>
+
+<h2>📊 Charts</h2>
+<div class="cg">
+<div style="background:#f8fafc;border:1px dashed #cbd5e1;border-radius:8px;padding:60px 20px;text-align:center;color:#94a3b8">1Y price chart placeholder<br><small>(rendered by aggregate_publish.sh)</small></div>
+<div style="background:#f8fafc;border:1px dashed #cbd5e1;border-radius:8px;padding:60px 20px;text-align:center;color:#94a3b8">Revenue by segment placeholder</div>
+</div>
+
+<h2>📏 Historical Valuation</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Current Fwd P/E</div><div class="value dn">79.1x</div></div>
+    <div class="kpi"><div class="label">5Y Avg P/E*</div><div class="value">~28x</div><div class="sub">*outliers filtered, near-zero EPS periods removed</div></div>
+    <div class="kpi"><div class="label">5Y P/E Range</div><div class="value">9x – 98x</div></div>
+    <div class="kpi"><div class="label">Percentile</div><div class="value dn">~95th</div><div class="sub">Well above average</div></div>
+</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Company</th><th>Price</th><th>MCap</th><th>Trail P/E</th><th>Fwd P/E</th><th>Rev Growth</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th></tr></thead>
+<tbody>
+<tr class="hl"><td><strong>INTC</strong></td><td>$121.77</td><td>$612.0B</td><td>—</td><td>79.1x</td><td>+7.2%</td><td>37.2%</td><td>6.9%</td><td>-5.9%</td></tr>
+<tr><td><strong>AMD</strong></td><td>$495.54</td><td>$808.0B</td><td>164.1x</td><td>38.2x</td><td>+37.8%</td><td>53.1%</td><td>14.4%</td><td>13.4%</td></tr>
+<tr><td><strong>NVDA</strong></td><td>$212.60</td><td>$5,149B</td><td>32.6x</td><td>16.8x</td><td>+85.2%</td><td>74.1%</td><td>65.6%</td><td>63.0%</td></tr>
+<tr><td><strong>TSM</strong></td><td>$422.73</td><td>$2,192B</td><td>36.1x</td><td>21.7x</td><td>+35.1%</td><td>61.9%</td><td>58.1%</td><td>46.5%</td></tr>
+<tr><td><strong>GFS</strong></td><td>$81.11</td><td>$44.5B</td><td>46.1x</td><td>32.3x</td><td>+3.1%</td><td>26.1%</td><td>11.0%</td><td>11.4%</td></tr>
+</tbody></table>
+
+<div class="co rd"><strong>🚩 Peer Read:</strong> INTC now trades at the highest forward multiple in the group despite the lowest growth and the only negative net margin. AMD prints 5x INTC's revenue growth at half the forward multiple; even GFS (a direct foundry comp) at 32x fwd is materially cheaper. The market is paying for the option value of an 18A/14A foundry success story rather than current cash flows.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value up">0.59</div><div class="sub up">Call-skewed</div></div>
+    <div class="kpi"><div class="label">P/C Open Interest</div><div class="value dn">1.19</div><div class="sub dn">Put-heavy OI (hedging)</div></div>
+    <div class="kpi"><div class="label">Avg Call IV</div><div class="value">279%</div></div>
+    <div class="kpi"><div class="label">Avg Put IV</div><div class="value neu">211%</div></div>
+</div>
+
+<div class="co bl"><strong>📊 Options Read:</strong> Volume ratio of 0.59 is firmly call-skewed today, but elevated put OI (1.19) shows long-holders are buying protection after the +541% one-year run. Implied vols north of 200% on both sides imply ~12–15% expected move into the next print — option market is pricing a real binary catalyst at Q2 earnings. Nearest expiry: 2026-05-29.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co yw"><strong>Insider ownership:</strong> 14.7% (very high for a mega-cap; reflects long-time founders/officers). <strong>Institutional ownership:</strong> 64.0% across 3,330 holders.
+<ul>
+<li>April Miller-Boise (Officer) — sold 40,256 shares @ $99.53 on 2026-05-01 — $4.0M proceeds</li>
+<li>April Miller-Boise (Officer) — sold 20,000 shares on 2026-02-02 — $981K</li>
+<li>David Zinsner (CFO) — sold 5,882 shares on 2026-01-26 — $250K (likely 10b5-1)</li>
+<li>Lip-Bu Tan (CEO) — purchased 1,043,406 shares on 2025-03-21 — $25.0M open-market buy (signal trade after taking the helm)</li>
+<li>Recent multi-officer Form 4 cluster on 2026-05-07 — vesting-related deliveries, not opportunistic sells</li>
+</ul>
+Pattern is consistent with planned 10b5-1 sales after a 5x rally rather than a loss-of-confidence signal; CEO's $25M open-market buy at $24 remains the dominant insider data point.</div>
+
+<h2>📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">"Intel: 2026 May Make Or Break The Comeback Story"</span> · Jan 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Argues the comeback hinges on 18A external traction and DCAI execution into 2026–2027; saw the setup as asymmetric at sub-$25.</p></div>
+<div class="tw"><span class="au">"Intel: Big Day"</span> · Apr 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Post-Q1 reaction piece — 24% one-day surge framed as validation of foundry pipeline ($15B lifetime commits) and Tan's execution.</p></div>
+<div class="tw"><span class="au">"Intel: Get Out Before The Hype Ends" (Rating Downgrade)</span> · May 2026 · <span class="st ber">Sell</span><p style="margin-top:8px; color:#475569">Downgrade thesis: an early sign of revenue inflection cannot justify a parabolic rally to 79x forward earnings; multiple compression risk dominates.</p></div>
+<div class="tw"><span class="au">"Intel: Will Higher Bond Yields Burst The AI Bubble?" (Rating Downgrade)</span> · May 2026 · <span class="st ber">Sell</span><p style="margin-top:8px; color:#475569">Macro overlay — rising real yields compress long-duration AI/semis multiples first; INTC most exposed because cash flows are deepest in the future.</p></div>
+<div class="tw"><span class="au">"Intel: Time To Get Out Before 2026"</span> · Dec 2025 · <span class="st ber">Sell</span><p style="margin-top:8px; color:#475569">Pre-rally bearish call that has not aged well — argued comeback wasn't happening; cited as a reminder of how quickly sentiment flipped after the Q4 print.</p></div>
+
+<div class="co yw"><strong>SA Consensus:</strong> Sentiment has FLIPPED in May — 3 of the 5 most recent articles are now downgrades to Sell, all citing valuation rather than fundamentals. Bulls own the operational story; bears own the multiple.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">@labeltrader1122</span> · 2026-05-27 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"$INTC nice dip buyers today going to all time highs this week" — retail momentum crowd still buying into pullbacks.</p></div>
+<div class="tw"><span class="au">@diamhanz (Diamond Hanz, CFA)</span> · 2026-05-27 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Highlights $INTC + $DELL participation in the U.S. Government RAMP-C initiative — strategic-supplier thesis for defense/government compute.</p></div>
+<div class="tw"><span class="au">@PrecipitateAI</span> · 2026-05-27 · <span class="st ber">Bearish</span><p style="margin-top:8px; color:#475569">Whale-flow data: top whale shorting $10.0M of INTC and $6.3M of SNDK against a $12.8M MU long — pair trade explicitly betting against Intel inside the chip complex.</p></div>
+<div class="tw"><span class="au">@marketsday</span> · 2026-05-09 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Lists INTC +13.91% on 2026-05-08 driven by "positive analyst commentary regarding its foundry turnaround and domestic manufacturing progress."</p></div>
+<div class="tw"><span class="au">@plutusprofits</span> · 2026-05-27 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">"insane close today but weak AH" — flags fade in after-hours despite strong cash session, conviction "will delete if wrong" — momentum traders second-guessing the top tick.</p></div>
+
+<div class="co bl"><strong>X Consensus:</strong> Mixed-to-positive with a clear divergence — retail/momentum is still bullish on dips, while institutional whale-flow data shows fresh shorts being layered on. Tone has shifted from "fundamental mispricing" (early 2026) to "trade the volatility" (now).</div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>18A volume ramp at Fab 52 (Arizona)</strong> — yields reportedly improving ~7% per month; Panther Lake compute tiles in early-2026 production with good-die yield targeting 20–25% stable, climbing toward 70% by year-end</li>
+<li><strong>External foundry pipeline now &gt;$15B in lifetime commitments</strong> — anchored by Microsoft (18A AI Fabric) and AWS (18A custom silicon, multi-billion deal); first material external revenue inflection expected late-2026/2027</li>
+<li><strong>Clearwater Forest Xeon launch on 18A</strong> in 2H 2026 — first server CPU on Intel's leading-edge in-house node; key to DCAI margin recovery</li>
+<li><strong>Citi PT raised to $130 (from $95) and Benchmark to $140 (from $105) on 2026-05-18</strong> — both maintaining Buy; suggests sell-side still chasing the move</li>
+<li><strong>Q2 '26 guide $13.8–$14.8B vs. $13.03B Street</strong> — sixth straight beat sets a high bar but momentum is intact</li>
+<li><strong>$7.86B CHIPS Act direct funding finalized</strong> plus up to 25% Treasury Investment Tax Credit on &gt;$100B qualified U.S. capex — multi-year capex offset</li>
+<li><strong>Ohio Fab 1 (New Albany) targeted for late-2026 completion</strong> — second leading-edge U.S. fab brings 14A capacity online</li>
+<li><strong>Altera majority-stake sale closed</strong> — proceeds support balance-sheet repair while keeping a path back to FCF positive in 2027</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>Forward P/E of 79x is the highest in the peer group</strong> — AMD at 38x, NVDA at 17x, TSM at 22x — even modest re-rating to peer average implies ~50% downside. Mitigant: bull case is that 2027–2028 foundry revenue collapses the multiple, not the price.</li>
+<li><strong>External foundry revenue is still small relative to the $15B pipeline</strong> — most foundry-segment revenue is intercompany. Pipeline conversion risk through 2027 is the single biggest fundamental swing factor. Mitigant: AWS and MSFT deals are signed, not just pipeline.</li>
+<li><strong>Gross margin trough not fully passed</strong> — 37% GM is well below the 55%+ Intel historically ran; depends on 18A yield curve. Mitigant: 7% monthly yield improvement cadence holding so far.</li>
+<li><strong>Server CPU market-share loss to AMD continues</strong> — AMD DCAI revenue ($5.8B Q1 '26) just overtook Intel's DCAI ($5.1B) for the first time; EPYC continues to win hyperscaler sockets. Mitigant: Clearwater Forest on 18A in 2H '26 is the architectural response.</li>
+<li><strong>Gaudi 3 AI accelerator has not achieved meaningful training share</strong> — Intel has effectively conceded large-scale training to NVDA/AMD and is positioning Gaudi 3 as an inference-and-openness alternative. Mitigant: roadmap pivot to integrated AI in Xeon and 14A-based "Jaguar Shores" successor.</li>
+<li><strong>Negative free cash flow (-$8.3B TTM)</strong> driven by foundry capex — capital structure depends on continued CHIPS support, Altera sale proceeds, and operating cash flow ($10.0B TTM). Mitigant: CHIPS Act and 25% ITC absorb a meaningful share of greenfield capex.</li>
+<li><strong>Insider sales accelerating after the rally</strong> — small but the optics matter; CEO has not repeated his $25M March-2025 open-market buy. Mitigant: Tan's existing stake remains the largest insider position.</li>
+<li><strong>Macro/AI-bubble overlay</strong> — INTC is the deepest-duration cash flow in semis (most value sits in 2027+ foundry margin). A real-yield shock compresses INTC's multiple before NVDA's. Mitigant: U.S.-strategic-asset bid limits drawdown risk in a sell-off.</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value neu">Hold</div><div class="sub">41 analysts</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value dn">$87.76</div><div class="sub dn">-27.9% from $121.77</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$20.40</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$150.00</div></div>
+</div>
+
+<div class="co yw"><strong>Read:</strong> The street has been chasing — Citi $95→$130, Benchmark $105→$140 on 2026-05-18 — but the <em>average</em> PT of $87.76 still sits 28% BELOW spot. Recommendation mean 2.69 (Hold-leaning-Buy). The dispersion (low $20 / high $150) is one of the widest in mega-cap semis and reflects the genuine bimodal outcome around 18A/foundry execution.</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data &amp; Methodology:</strong> All financials sourced from Yahoo Finance (yfinance) as of 2026-05-27. Forward EPS of <strong>$1.54</strong> is the consensus analyst estimate. Trailing P/E is N/A (TTM EPS $-0.61 from GAAP losses). Peer forward P/Es: AMD 38.2x, NVDA 16.8x, TSM 21.7x, GFS 32.3x → average <strong>27.2x</strong>. Three independent methods are used to triangulate fair value.</div>
+
+<h3>Method 1: P/E Multiple Approach</h3>
+<p style="color:#64748b; margin-bottom:12px">Each scenario applies a different P/E multiple to forward EPS of $1.54. Multiples are justified by peer comps, history, or growth-adjusted reasoning.</p>
+<table><thead><tr><th>Scenario</th><th>P/E</th><th>EPS</th><th>Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody>
+<tr><td>Conservative (current multiple)</td><td>79.1x</td><td>$1.54</td><td>$121.77</td><td class="neu">0%</td><td>Assumes no re-rating; market keeps current multiple</td></tr>
+<tr><td>Base (peer-informed avg)</td><td>27.2x</td><td>$1.54</td><td>$41.95</td><td class="dn">-65.6%</td><td>Avg fwd P/E of AMD/NVDA/TSM/GFS</td></tr>
+<tr><td>AMD Parity (closest comp)</td><td>38.2x</td><td>$1.54</td><td>$58.93</td><td class="dn">-51.6%</td><td>Most comparable in market cap and product overlap</td></tr>
+<tr><td>GFS Parity (foundry-only comp)</td><td>32.3x</td><td>$1.54</td><td>$49.76</td><td class="dn">-59.1%</td><td>Pure foundry multiple — directly relevant to Intel Foundry valuation</td></tr>
+<tr><td>Optimistic (premium multiple on bull EPS)</td><td>50.0x</td><td>$1.77</td><td>$88.55</td><td class="dn">-27.3%</td><td>Bull EPS assumes +15% beat; premium multiple for strategic U.S. asset</td></tr>
+<tr><td>Blue-sky (re-rating + earnings power)</td><td>40.0x</td><td>$3.50</td><td>$140.00</td><td class="up">+15.0%</td><td>Out-year (2028E) earnings power if foundry hits stride; matches Benchmark's high PT</td></tr>
+</tbody></table>
+
+<h3>Method 2: Mean Reversion &amp; Consensus</h3>
+<p style="color:#64748b; margin-bottom:12px">If the stock reverts to its historical or peer-implied valuation, what would it be worth?</p>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">5Y Avg PE × Fwd EPS</div><div class="value dn">$43.12</div><div class="sub dn">-64.6% downside</div></div>
+<div class="kpi"><div class="label">Peer Avg PE × Fwd EPS</div><div class="value dn">$41.95</div><div class="sub dn">-65.6% downside</div></div>
+<div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value dn">$87.76</div><div class="sub dn">-27.9% downside</div></div>
+</div>
+<div class="co bl"><strong>📐 Calculation Details:</strong>
+<ul>
+<li>5-year average forward P/E ~28x (outliers filtered, period dominated by low/negative EPS) × forward EPS $1.54 = <strong>$43.12</strong></li>
+<li>Peer average forward P/E of 27.2x (AMD 38.2, NVDA 16.8, TSM 21.7, GFS 32.3) × $1.54 = <strong>$41.95</strong></li>
+<li>Wall Street consensus PT: $87.76 (range $20.40–$150.00, 41 analysts)</li>
+</ul></div>
+
+<h3>Method 3: Discounted Cash Flow (DCF)</h3>
+<div class="co yw"><strong>⚠️ DCF Skipped:</strong> Trailing 12-month free cash flow is <strong>-$8.3B</strong> driven by foundry capex; operating cash flow is $10.0B. Any DCF would be a hypothetical 2028-2030 normalization exercise — too speculative to anchor a current valuation. The bull case is explicitly that FCF inflects to ~+$8–10B by 2028 if 18A/14A external revenue ramps as guided.</div>
+
+<div class="co rd"><strong>❗ Multiple Methods Diverge from Price:</strong> historical mean reversion ($43.12), peer parity ($41.95), and analyst consensus ($87.76) ALL sit materially below the current $121.77. Only out-year earnings-power scenarios (40x × $3.50 ≈ $140) can frame the current quote as "fair." The convergence to a fundamentally lower fair value strengthens the cautionary case.</div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<p style="color:#64748b; margin-bottom:12px">Bear: 15x × 85% of consensus EPS — multiple compression to AMD-light. Base: 27x × consensus EPS — peer average multiple on current numbers. Bull: 50x × 115% of consensus EPS — premium U.S. strategic-asset multiple on a beat.</p>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$19.62</div><div class="mt">15x × $1.31 EPS</div><div class="us dn">-83.9%</div><div class="ds">Multiple compresses toward historical chip-stock range; bond-yield shock or pipeline-conversion miss triggers de-rating.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr dn">$41.95</div><div class="mt">27.2x × $1.54 EPS</div><div class="us dn">-65.6%</div><div class="ds">Peer-average multiple on consensus EPS — implies a sharp re-rating but no earnings collapse. Convergence to fundamentals.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr dn">$88.55</div><div class="mt">50x × $1.77 EPS</div><div class="us dn">-27.3%</div><div class="ds">Sixth-beat momentum + 18A/foundry option value sustains a premium multiple; still below current spot — current price already prices in execution.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co rd"><p><strong>INTC</strong> is the cleanest example in semis of the market paying for an out-year option that hasn't priced in execution risk. The Q1 '26 print was genuinely good — sixth straight revenue beat, foundry pipeline at $15B+ with MSFT/AMZN signed, 18A yields rising 7%/month, $7.86B of CHIPS Act funding finalized. But at $121.77 and 79.1x forward earnings on a -5.9% net margin, the stock now trades at a multiple richer than AMD (38x at 38% revenue growth) and NVDA (17x at 85% growth), with every independent valuation method — peer parity ($41.95), 5y average ($43.12), Wall Street consensus PT ($87.76) — flagging a fair value well below spot. The bull math only works if you underwrite ~$3.50 of normalized EPS in 2028, which requires the foundry-pipeline-to-revenue conversion AND a 70% 18A yield AND no macro disruption to long-duration cash flows.</p>
+<p><strong>Verdict: Bearish — 12-month base case of $41.95 (-66%), bull case $88.55 (-27%).</strong> Even the bull case sits below current spot. Position sizing matters more than direction here — for holders sitting on a 5–6x gain, this is where the math says trim, not where it says add.</p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, Seeking Alpha, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, Seeking Alpha, X/Twitter, analyst consensus · 2026-05-27</p></div>
+</div>
+</body>
+</html>

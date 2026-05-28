@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>QUBT | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.cg { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 16px 0; }
+.cg img { width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, .cg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>QUBT — Quantum Computing Inc.</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-05-27 · Sources: yfinance, Seeking Alpha, X/Twitter, analyst consensus</p>
+
+<div class="badge">📅 Next Earnings: 2026-08-10 16:00:00 EDT — 75 days away (Q2 2026)</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$11.42</div><div class="sub dn">-55.8% from 52W High</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$2.58B</div><div class="sub">Shares: 225.5M</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value">—</div><div class="sub dn">EPS: $-0.26</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value">-52.7x</div><div class="sub">Fwd EPS: $-0.22</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">$4.33M</div><div class="sub up">+94% YoY</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value dn">-15.4%</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value dn">-557%</div></div>
+    <div class="kpi"><div class="label">Cash / Debt</div><div class="value up">$986M / $5M</div><div class="sub">EV: $1.59B</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/S (TTM)</div><div class="value dn">594x</div></div>
+    <div class="kpi"><div class="label">EV/Sales</div><div class="value dn">368x</div></div>
+    <div class="kpi"><div class="label">Beta</div><div class="value dn">3.70</div><div class="sub">High volatility</div></div>
+    <div class="kpi"><div class="label">Short Float</div><div class="value dn">29.9%</div><div class="sub">Crowded short</div></div>
+</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter</th><th>Revenue</th><th>Net Income</th><th>Gross Margin</th><th>Op Margin</th><th>Diluted EPS</th><th>Note</th></tr></thead>
+<tbody>
+<tr class="hl"><td>2026-03-31</td><td>$3.69M <span class="up">↑↑↑</span></td><td>$-4.1M</td><td>-19.5%</td><td>-557%</td><td>$-0.02</td><td>Luminar + NuCrypt revenue lands</td></tr>
+<tr><td>2025-12-31</td><td>$198K <span class="dn">↓</span></td><td>$-1.6M</td><td>-49.5%</td><td>-11220%</td><td>$-0.01</td><td>Pre-Lumina close</td></tr>
+<tr><td>2025-09-30</td><td>$384K <span class="up">↑↑</span></td><td>$2.4M</td><td>32.8%</td><td>-2709%</td><td>$0.01</td><td>Mark-to-market gain</td></tr>
+<tr><td>2025-06-30</td><td>$61K <span class="up">↑↑</span></td><td>$-36.5M</td><td>42.6%</td><td>-16674%</td><td>$-0.26</td><td>Warrant revaluation hit</td></tr>
+<tr><td>2025-03-31</td><td>$39K —</td><td>$17.0M</td><td>33.3%</td><td>-21246%</td><td>$0.11</td><td>Non-cash gain</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>🚀 Revenue Inflection:</strong> Q1 2026 revenue jumped 18.7x QoQ to $3.69M (vs $198K Q4) and 95x YoY (vs $39K). Driven almost entirely by Luminar Semiconductor (closed Feb 2026) + NuCrypt acquisitions. TTM revenue now $4.33M, +94% YoY per yfinance, but underlying organic photonic foundry contribution is still well under $1M.</div>
+<div class="co rd"><strong>⚠️ Quality:</strong> Gross margin turned NEGATIVE (-19.5%) in Q1'26 as acquired revenue carries cost. Operating loss widened to $20.6M from $8.3M YoY. EPS volatility (+$0.11 → -$0.26 → +$0.01 → -$0.01 → -$0.02) reflects warrant/derivative remeasurement, not operating progress.</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Revenue Stream</th><th>Q1 2026</th><th>% of Total</th><th>YoY Trend</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td><strong>Luminar Semiconductor (acquired Feb 2026)</strong></td><td>~$2.5–3.0M</td><td>~70%</td><td class="up">New</td><td>$110M deal; consensus expects $20–25M annual contribution</td></tr>
+<tr><td><strong>NuCrypt (acquired 2026)</strong></td><td>~$0.4–0.6M</td><td>~15%</td><td class="up">New</td><td>Quantum cryptography / photonic measurement instruments</td></tr>
+<tr><td><strong>TFLN Photonic Foundry (Fab 1, Tempe AZ)</strong></td><td>~$0.2M</td><td>~5%</td><td class="up">Ramping</td><td>5 purchase orders to date; PDK preview on commercial platform</td></tr>
+<tr><td><strong>Government / Research (NIST, NASA)</strong></td><td>~$0.3M</td><td>~8%</td><td class="up">Steady</td><td>NIST TFLN contract; $406K NASA Langley LIDAR subcontract</td></tr>
+<tr><td><strong>Quantum Machines / Other</strong></td><td>~$0.1M</td><td>~2%</td><td class="neu">Flat</td><td>Dirac-3 deployments, NeuraWave PCIe early sales</td></tr>
+</tbody></table>
+
+<div class="co bl"><strong>Mix Read:</strong> ~85% of Q1'26 revenue is bought, not built. The organic photonic story (Fab 1 + Dirac/NeuraWave) is still a sub-$1M annualized business. Watch H2'26 prints for evidence the organic foundry is also inflecting.</div>
+
+<h2>🌏 Geographic Expansion</h2>
+<table><thead><tr><th>Market</th><th>Revenue Share</th><th>Footprint</th><th>Highlights</th></tr></thead>
+<tbody>
+<tr><td>United States</td><td>~92%</td><td>Tempe AZ Fab 1 · HQ Hoboken NJ · NJ Center for Quantum (Stevens)</td><td>NIST, NASA Langley, First Bank cybersecurity; CHIPS Act tailwind</td></tr>
+<tr><td>International (Asia, EU)</td><td>~8%</td><td>R&amp;D partnerships</td><td>Early-stage TFLN foundry sampling; no material contracts yet</td></tr>
+</tbody></table>
+
+<div class="co yw"><strong>🇺🇸 Concentration:</strong> Near-total US revenue concentration is both a moat (CHIPS Act / DOE / DOD eligibility) and a risk (single political cycle). Trump quantum equity program reportedly carves out ~$100M for QUBT — if formalized, this is meaningfully accretive to runway and credibility.</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl neu">54.4</div><div class="nt neu">Neutral</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl up">$8.80</div><div class="nt up">Price above (+30%)</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl dn">$12.18</div><div class="nt dn">Price below (-6%)</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl up">+0.69</div><div class="nt up">Bullish (above signal)</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$25.84</div><div class="nt dn">-55.8%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$6.18</div><div class="nt up">+84.8%</div></div>
+</div>
+
+<div class="co bl"><strong>⚠️ Technical Signal:</strong> Stock bottomed at $6.18 (Apr/May), now in early uptrend after the May 21 quantum-sector ETF surge (+14% on $2B Trump CHIPS quantum equity news). Price reclaimed SMA-50 ($8.80) but still 6% below SMA-200 ($12.18) — a break above $12.50 sets up retest of 52W high. RSI at 54 leaves room before overbought.</div>
+
+<h2>📊 Charts</h2>
+<div class="cg">
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:24px;text-align:center;color:#64748b;font-size:0.9em;">Price chart (1Y): bottomed at $6.18 in mid-April, V-recovery into late May on quantum sector rally and earnings beat (May 11). Close $11.42 on 2026-05-27.</div>
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:24px;text-align:center;color:#64748b;font-size:0.9em;">Volume profile: heavy retail flow, 30-day avg volume ~25M shares. Short interest 29.9% of float creates squeeze potential on positive catalysts.</div>
+</div>
+
+<h2>📏 Historical Valuation</h2>
+<table><thead><tr><th>Metric</th><th>Current</th><th>2024 Avg</th><th>2025 Avg</th><th>Z-Score</th><th>Read</th></tr></thead>
+<tbody>
+<tr><td>Price</td><td>$11.42</td><td>~$2.20</td><td>~$13.50</td><td>—</td><td>Off the highs but still 5x 2024 levels</td></tr>
+<tr><td>P/S (TTM)</td><td>594x</td><td>~150x</td><td>~3,500x</td><td>-0.6σ</td><td>Compressed vs 2025 peak as revenue catches up</td></tr>
+<tr><td>EV/Sales</td><td>368x</td><td>~110x</td><td>~2,200x</td><td>-0.7σ</td><td>$1.4B cash net-of-debt cushions the EV</td></tr>
+<tr><td>Market Cap</td><td>$2.58B</td><td>~$300M</td><td>~$2.9B</td><td>+0.1σ</td><td>Roughly where it was at end-2025</td></tr>
+<tr><td>Cash / Mkt Cap</td><td>38%</td><td>~10%</td><td>~25%</td><td>+1.2σ</td><td>~38% of cap is cash — provides margin of safety</td></tr>
+</tbody></table>
+
+<div class="co yw"><strong>📊 Valuation Read:</strong> Even after Q1'26 revenue inflection, QUBT trades at 594x P/S vs IONQ at 130x and ARQQ at 258x — only RGTI (817x) and QBTS (818x) are richer. The ~38% cash/market-cap ratio is the unusual margin of safety. Strip out the $986M cash and the operating-business EV/Sales is still 368x.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Ticker</th><th>Price</th><th>Mkt Cap</th><th>Rev TTM</th><th>P/S</th><th>EV/Sales</th><th>Gross M%</th><th>Cash</th><th>PT (Mean)</th><th>Short %</th></tr></thead>
+<tbody>
+<tr class="hl"><td><strong>QUBT</strong></td><td>$11.42</td><td>$2.58B</td><td>$4.3M</td><td>594x</td><td>368x</td><td class="dn">-15%</td><td>$986M</td><td>$17.83</td><td class="dn">29.9%</td></tr>
+<tr><td>IONQ</td><td>$65.40</td><td>$24.4B</td><td>$187M</td><td>130x</td><td>116x</td><td class="up">36%</td><td>$2.03B</td><td>$67.64</td><td>22.5%</td></tr>
+<tr><td>RGTI</td><td>$24.62</td><td>$8.2B</td><td>$10M</td><td>817x</td><td>776x</td><td class="up">30%</td><td>$418M</td><td>$29.24</td><td>15.2%</td></tr>
+<tr><td>QBTS</td><td>$27.48</td><td>$10.2B</td><td>$12M</td><td>818x</td><td>773x</td><td class="up">66%</td><td>$588M</td><td>$35.17</td><td>16.1%</td></tr>
+<tr><td>ARQQ</td><td>$16.10</td><td>$280M</td><td>$1.1M</td><td>258x</td><td>229x</td><td class="up">50%</td><td>$29M</td><td>$60.00</td><td>11.2%</td></tr>
+</tbody></table>
+
+<div class="co bl"><strong>Relative Take:</strong> QUBT is the only photonic pure-play in this cohort (others: trapped-ion = IONQ, superconducting = RGTI, annealing = QBTS, encryption = ARQQ). Worst gross margin (-15%) but strongest balance sheet relative to mkt cap (cash = 38% of cap vs IONQ 8%, RGTI 5%, QBTS 6%). Mean PT $17.83 implies +56% upside — middle of the pack.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value up">0.29</div><div class="sub">Bullish skew</div></div>
+    <div class="kpi"><div class="label">P/C Open Interest</div><div class="value up">0.33</div><div class="sub">Call-heavy OI</div></div>
+    <div class="kpi"><div class="label">Avg Call IV</div><div class="value">429%</div></div>
+    <div class="kpi"><div class="label">Avg Put IV</div><div class="value neu">532%</div></div>
+</div>
+
+<div class="co bl"><strong>📊 Options Read:</strong> P/C ratios (0.29 vol / 0.33 OI) show traders still leaning bullish, but elevated put IV (532%) vs call IV (429%) signals hedgers paying up for crash protection. Nearest expiry 2026-05-29 has 12.3K call volume vs 3.5K put volume. With Q2'26 earnings 75 days out, IV crush risk is low near term — vol expansion likely into August print.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co bl"><strong>Total insider shares held:</strong> 26.8M. <strong>Net shares purchased (6m):</strong> +443K (7 buys / 2 sells). <strong>Insider ownership:</strong> 11.9%.<ul>
+<li>Apr 13, 2026 — Directors Turmelle, Fagenson, Weimer, Shabani, Schwartz each received 22,123 shares (~$150K, board grant)</li>
+<li>Mar 11, 2026 — General Counsel C.B. Roberts: +78,262 shares ($614K)</li>
+<li>Mar 10, 2026 — General Counsel C.B. Roberts: +400,000 shares ($2.74M, large grant)</li>
+<li>Jan 7, 2026 — COO Milan Begliarbekov: +2,860 shares ($34K)</li>
+<li>Sep 15, 2025 — Director R.B. Fagenson: +100,000 shares ($1.56M, open-market buy)</li>
+<li>Sep 12, 2025 — CEO Yuping Huang: +400,000 shares (vesting, no cash)</li>
+</ul></div>
+
+<div class="co yw"><strong>⚠️ Insider Read:</strong> Net buying is dominated by stock-based comp grants, not open-market purchases. The Fagenson Sep'25 buy was the only clean conviction buy. No insider sells in the past 6 months is mildly positive, but no Form 4 open-market buying near the recent $6 low — a notable absence.</div>
+
+<h2>📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">"QUBT Stock Jumps As Earnings Beat Fuels Quantum Hype" (StocksToTrade)</span> · May 21, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Q1'26 revenue $3.7M crushed $3.27M consensus; EPS -$0.02 vs -$0.05 expected. Stock +24% intraday on print. Luminar/NuCrypt integration cited as primary driver.</p></div>
+<div class="tw"><span class="au">"Quantum Computing (QUBT) Is Up 9.4% After Acquisition-Driven Revenue Surge" (Simply Wall St)</span> · May 12, 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">Bull case unchanged but cautions that revenue jump is acquisition-driven, not organic — negative gross margin is the tell. $1.4B cash gives 5+ years of runway, mitigating dilution panic.</p></div>
+<div class="tw"><span class="au">"Traders Bet Against IONQ, RGTI, QBTS, QUBT, INFQ" (BanklessTimes)</span> · May 22, 2026 · <span class="st ber">Bearish</span><p style="margin-top:8px; color:#475569">Short interest across the quantum complex hit fresh highs as the May 21 rally drew fade trades; QUBT's 29.9% short float highest in cohort. Squeeze/fade two-way risk elevated.</p></div>
+<div class="tw"><span class="au">"Which Quantum Stock Has the Best 2026 Outlook?" (TipRanks)</span> · May 2026 · <span class="st bul">Moderate Buy</span><p style="margin-top:8px; color:#475569">Comparison frames QUBT as the lowest-revenue / highest-cash-cushion pure-play; mean PT $18.00 implies most-balanced risk/reward. Photonic differentiation cited.</p></div>
+<div class="tw"><span class="au">"Quantum Computing Outperforms Peers on Q1 Beat" (24/7 Wall St)</span> · May 12, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">QUBT +24% on print to $12.61 led the May 12 quantum-sector move; D-Wave, IonQ and Rigetti lagged. Cited Fab 1 ramp + 5th TFLN purchase order as commercial validation.</p></div>
+
+<div class="co gr"><strong>SA Consensus:</strong> 3 of 5 recent articles lean Bullish, 1 Neutral, 1 Bearish — recurring debate is acquisition-driven vs organic growth, with negative gross margin and 29.9% short float as the central tension.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">@TheProfInvestor</span> · 2026-05-21 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"$QBTS +22% / $RGTI +22% / $QUBT +14% / $IONQ +9% on Trump $2B quantum grants. A week ago I said 'they have reset' — today I'm saying 'they can double'."</p></div>
+<div class="tw"><span class="au">@InvestmentGuru_</span> · 2026-05-21 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"$2B Quantum Shock Wave Just Hit. IBM gets $1B anchor, QUBT/RGTI/INFQ each ~$100M with US gov equity stakes (Intel playbook). National security tailwind."</p></div>
+<div class="tw"><span class="au">@InvestorDenis</span> · 2026-05-26 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Frames the Jan'25 Jensen Huang "decades away" comment as a gift — QUBT has since recovered, NASA/Air Force contracts in hand, and CHIPS Act money flowing.</p></div>
+<div class="tw"><span class="au">@_TallGuyTycoon</span> · 2026-05-27 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"$QUBT is one of the few pure-play public quantum companies — the bigger thesis is quantum could become the next major compute layer for AI."</p></div>
+<div class="tw"><span class="au">@CaseyVSilver</span> · 2026-05-21 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Calls $QUBT and $QBTS the "high-beta names" in the AI-derivative quantum trade; tags as high-risk / asymmetric upside, not core position.</p></div>
+<div class="tw"><span class="au">@cantonmeow</span> · 2026-05-26 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">Long-time DCAer notes Elliott Wave count points to a "wave 2 with volume exhaustion" — still underwater but adding on weakness.</p></div>
+
+<div class="co gr"><strong>X Consensus:</strong> Strongly bullish (5 of 6) on the back of the May 21 Trump quantum equity headline and May 11 earnings beat. Theme: photonic differentiation + cash-rich balance sheet + sovereign tailwind. Bear/skeptic voices muted but visible in the 29.9% short interest.</div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>Q2 2026 earnings — Aug 10, 2026:</strong> first clean quarter with full Luminar + NuCrypt baseline. Consensus rev ~$5.4M (range $4.8–$6.8M), EPS -$0.05. Expectations now elevated.</li>
+<li><strong>Trump $2B quantum equity program (announced May 21):</strong> QUBT in line for ~$100M direct US gov equity stake alongside IBM ($1B), RGTI, INFQ, Atom, PsiQuantum, Quantinuum. Formalization expected by EO this summer.</li>
+<li><strong>Fab 1 (Tempe AZ) commercial scale-up:</strong> 5 TFLN purchase orders to date; PDK on commercial platform previewed Q1'26. Path to 10–20 active foundry customers by YE'26.</li>
+<li><strong>NeuraWave PCIe card for edge AI:</strong> photonic reservoir computing accelerator — first commercial shipments expected H2'26 to defense/research customers.</li>
+<li><strong>NIST TFLN contract renewal:</strong> initial contract runs through Apr 15, 2026; renewal/expansion award would validate foundry credentials.</li>
+<li><strong>NASA Langley LIDAR contract delivery:</strong> $406K Dirac-3 subcontract performance period ends May 31, 2026 — completion sets up follow-on awards.</li>
+<li><strong>CHIPS &amp; Science Act allocations:</strong> $2B sector-wide already announced; additional photonics-specific tranches possible if EO formalizes quantum as national security priority.</li>
+<li><strong>Short squeeze potential:</strong> 29.9% short float on a $2.6B mkt cap is the highest of the quantum cohort. Any clean positive surprise can force covers.</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>Organic revenue still tiny:</strong> stripping Luminar/NuCrypt, the photonic foundry + Dirac/NeuraWave is still &lt;$1M annualized. The $3.69M Q1'26 print is 85% bought revenue. Need to see organic foundry print &gt;$1M/qtr by Q4'26 to validate.</li>
+<li><strong>Negative gross margin (-15%):</strong> acquired revenue is dilutive at the GM line — proves the LSI/NuCrypt deals were strategic capability buys, not profit accretive in year one.</li>
+<li><strong>Persistent operating losses:</strong> $20.6M Q1'26 op loss, $40M TTM FCF burn. Cash ($986M) covers ~5 years but each dilutive event raises the bar.</li>
+<li><strong>ATM dilution overhang:</strong> $14M ATM capacity remaining (Apr 2026); company has historically used ATM aggressively (~$1.5B raised 2025). Share count up from 94M (FY24) to 226M now — 140% dilution in 18 months.</li>
+<li><strong>Photonic vs trapped-ion / superconducting:</strong> IONQ ($24B mkt cap, $187M rev), QBTS ($10B, $12M rev) and RGTI ($8B, $10M rev) all have multi-year head starts in customer roadmap maturity. QUBT photonic angle is differentiated but unproven at scale.</li>
+<li><strong>No path to profitability disclosed:</strong> management hasn't guided to even adjusted EBITDA breakeven — implies losses through 2028 minimum.</li>
+<li><strong>Hype-driven valuation:</strong> 594x P/S means price reflects 5–10 year revenue expectations; any sector rotation away from quantum (e.g., Jan 2025 Jensen Huang "decades away" comment crashed QUBT -43% in a day) creates 30–50% drawdown risk.</li>
+<li><strong>Speculative retail base:</strong> X/Stocktwits sentiment is dominated by pump accounts (sample: "$QUBT $EOSE in your portfolio? Follow @Clark_Cap118"). Sentiment can flip violently.</li>
+<li><strong>Beta 3.70 + 29.9% short float:</strong> setup for whipsaw moves in either direction; not a position-size-up name.</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value up">Buy</div><div class="sub">4 Buy / 2 Hold / 0 Sell</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value up">$17.83</div><div class="sub up">+56% upside</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$10.00</div><div class="sub dn">-12% downside</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$27.00</div><div class="sub up">+136% upside</div></div>
+</div>
+
+<div class="co bl"><strong>Analyst Read:</strong> 6 covering analysts, mean rec 1.67 (Buy). At least one analyst raised PT to $27 from $25 post-Q1 print (May 2026). PT median $18 anchors at roughly 4x current TTM revenue — depends entirely on hitting the implied $20–25M run-rate from Luminar by YE'26.</div>
+
+<h2>💎 Valuation Framework</h2>
+<div class="sg">
+    <div class="sc bear">
+        <div class="lb">Bear Case</div>
+        <div class="pr dn">$5.50</div>
+        <div class="mt">-52%</div>
+        <div class="us dn">P/S 80x · 2027E $8M rev</div>
+        <div class="ds">Acquisition revenue plateaus, organic foundry stalls below $2M/yr. Sector rotation out of quantum. ATM resumed → further dilution. Multiple compresses toward IONQ-like 130x on $8–10M run-rate.</div>
+    </div>
+    <div class="sc base">
+        <div class="lb">Base Case</div>
+        <div class="pr">$12.00</div>
+        <div class="mt">+5%</div>
+        <div class="us">P/S 360x · 2027E $14M rev</div>
+        <div class="ds">Luminar hits $20M run-rate by Q4'26, organic foundry adds $2–4M, NIST/NASA renewals. Trump quantum equity formalized at ~$100M. Valuation roughly holds current levels with cash floor.</div>
+    </div>
+    <div class="sc bull">
+        <div class="lb">Bull Case</div>
+        <div class="pr up">$22.00</div>
+        <div class="mt">+93%</div>
+        <div class="us up">P/S 600x · 2027E $25M rev</div>
+        <div class="ds">Foundry ramp accelerates with 15+ active TFLN customers, NeuraWave commercial launch lands, government equity stake closes, short squeeze drives technical break above 52W high. Re-rates toward RGTI/QBTS-like 800x multiple on stronger story.</div>
+    </div>
+</div>
+
+<div class="co yw"><strong>⚖️ Framework Read:</strong> Asymmetric setup with $986M cash backstop. Equity value floor ≈ cash per share ($4.37) before terminal value. Above $10, every $1 of price = $225M of mkt cap = $25M of incremental revenue at 9x P/S — i.e., bull case requires real revenue scale-up, not just sentiment.</div>
+
+<h2>🎯 Investment Thesis</h2>
+
+<div class="co bl"><strong>The Setup:</strong> QUBT is the most speculative pure-play photonic-quantum name with a uniquely cash-rich balance sheet ($986M cash vs $2.58B mkt cap → 38% of market value is cash) and a meaningfully fresh revenue base post-Luminar acquisition. The Q1'26 print ($3.69M vs $39K Q1'25) transitions the company from "story stock with no revenue" to "story stock with small acquired revenue" — that matters for the optionality argument but doesn't make this an investible compounder.</div>
+
+<div class="co gr"><strong>The Bull Case:</strong> (1) Trump $2B CHIPS Act quantum equity program puts a sovereign bid under QUBT with ~$100M expected stake — same playbook used at Intel; (2) photonic TFLN foundry is genuinely differentiated vs trapped-ion (IONQ) and superconducting (RGTI/QBTS) — different customer set in telecom, sensing, edge AI; (3) Fab 1 + Luminar vertical integration is operational, not vaporware; (4) 29.9% short float on a name with rising revenue is the squeeze setup; (5) ~5 years of cash runway removes near-term dilution panic.</div>
+
+<div class="co rd"><strong>The Bear Case:</strong> (1) 594x P/S is indefensible on fundamentals — only sentiment and balance sheet hold it up; (2) gross margin turned negative (-15%) post-acquisition — the revenue print is real but unprofitable; (3) 140% share count growth in 18 months and $14M ATM still open; (4) IONQ has 43x more revenue and trades at 4.5x lower P/S — if quantum sector rerates to fundamentals, QUBT compresses hardest; (5) no path to even adjusted-EBITDA profitability has been guided.</div>
+
+<div class="co yw"><strong>🎯 Position Sizing:</strong> Treat as a high-beta call option on US-funded photonic quantum, NOT a core position. Cash floor ~$4.37/share provides downside support but a sector rotation can still take this to $6 (where it was in April). Size at 0.5–1.5% of speculative book, scale in on $9–10 retests, take profits into $18–22 PT zone. This is the highest-beta name in the quantum cohort with the weakest organic fundamentals — and that's exactly why it has the most upside in a sector squeeze.</div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, Seeking Alpha, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, Seeking Alpha, X/Twitter, analyst consensus · 2026-05-27</p></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TEM | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.cg { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 16px 0; }
+.cg img { width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, .cg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>TEM — Tempus AI, Inc.</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-05-27 · Sources: yfinance, Seeking Alpha, X/Twitter, analyst consensus</p>
+
+<div class="badge">📅 Next Earnings: 2026-08-07 16:00:00 EDT — ~72 days away</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$47.17</div><div class="sub dn">-54.8% from 52W High</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$8.5B</div><div class="sub">Shares: 174.5M</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value">—</div><div class="sub dn">EPS (TTM): $-1.72</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value">-343.1x</div><div class="sub">Fwd EPS: $-0.14</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">$1.36B</div><div class="sub up">+36.1% YoY</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value up">63.4%</div><div class="sub">Expanding</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value dn">-24.3%</div></div>
+    <div class="kpi"><div class="label">Net Margin</div><div class="value dn">-22.2%</div><div class="sub">ROE: -81.6%</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Cash & Securities</div><div class="value">$643.8M</div><div class="sub">As of Mar 31 '26</div></div>
+    <div class="kpi"><div class="label">Total Debt</div><div class="value">$1.32B</div><div class="sub dn">Convert notes</div></div>
+    <div class="kpi"><div class="label">P/S (TTM)</div><div class="value">6.2x</div><div class="sub">vs ~12x peers</div></div>
+    <div class="kpi"><div class="label">Short Interest</div><div class="value dn">27.0%</div><div class="sub">High; squeeze risk</div></div>
+</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter</th><th>Revenue</th><th>YoY</th><th>Net Income</th><th>Gross Margin</th><th>Op Margin</th><th>Diluted EPS</th></tr></thead>
+<tbody>
+<tr class="hl"><td><strong>2026-03-31</strong></td><td>$348.1M <span class="up">↑</span></td><td class="up">+36.1%</td><td>$-125.9M</td><td>63.8%</td><td>-24.3%</td><td>$-0.71</td></tr>
+<tr><td>2025-12-31</td><td>$367.2M <span class="up">↑↑</span></td><td class="up">+58.7%</td><td>$-54.2M</td><td>64.7%</td><td>-16.7%</td><td>—</td></tr>
+<tr><td>2025-09-30</td><td>$334.2M <span class="up">↑</span></td><td class="up">+74.6%</td><td>$-80.0M</td><td>62.8%</td><td>-18.3%</td><td>$-0.46</td></tr>
+<tr><td>2025-06-30</td><td>$314.6M <span class="up">↑↑</span></td><td class="up">+89.6%</td><td>$-42.8M</td><td>62.0%</td><td>-19.6%</td><td>$-0.25</td></tr>
+<tr><td>2025-03-31</td><td>$255.7M —</td><td class="up">+75.4%</td><td>$-68.0M</td><td>60.7%</td><td>-26.9%</td><td>$-0.40</td></tr>
+</tbody></table>
+
+<div class="co yw"><strong>⚠️ Growth Decelerating but Still Strong:</strong> Q1'26 revenue of $348.1M was a sequential dip (-5.2% QoQ from $367.2M Q4'25) and YoY growth normalized to +36.1% as Ambry laps anniversary. Gross margin held at 63.8% (+310bps YoY). Net loss widened to $125.9M largely on stock-based comp and convert interest. EPS beat consensus (-$0.13 vs -$0.20 est, +35% surprise).</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Revenue Stream</th><th>Q1'26 Amount</th><th>% of Total</th><th>YoY Trend</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td><strong>Genomics / Diagnostics</strong></td><td>$261.1M</td><td>75%</td><td class="up">+34.7% YoY</td><td>Oncology volume +28%; Ambry hereditary fully integrated; xT CDx at ~$4,500 ASP</td></tr>
+<tr><td><strong>Data & Services (Apps + Insights)</strong></td><td>$87.0M</td><td>25%</td><td class="up">+40.5% YoY</td><td>Insights (data licensing) +44.1% — high-margin recurring revenue from pharma</td></tr>
+<tr><td><strong>MRD Volume</strong></td><td>~6,500 tests</td><td>—</td><td class="up">+500% YoY</td><td>Breakthrough quarter — early Tempus xM ramp post-Medicare LCD</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>💎 Mix Improving:</strong> Data & Apps now 25% of revenue with 40%+ growth — high-margin recurring stream from $1.1B+ contracted backlog (AZ, Pfizer, Merck, BMS, GSK). MRD launch volumes hint at the next leg of diagnostic growth.</div>
+
+<h2>🌏 Geographic Expansion</h2>
+<table><thead><tr><th>Market</th><th>Mix</th><th>Asset / Activity</th><th>Highlights</th></tr></thead>
+<tbody>
+<tr><td>United States</td><td>~95%</td><td>Core diagnostics + data platform</td><td>Partnerships with Keck Medicine, Mayo, Cleveland Clinic, Northwestern; Medicare LCDs in place for xT/xR/xM</td></tr>
+<tr><td>Japan (SoftBank JV)</td><td>~5%</td><td>Tempus Japan diagnostics + data</td><td>SoftBank-funded JV scaling oncology testing in Asia-Pacific; first commercial revenue 2025</td></tr>
+<tr><td>Europe (Median Tech Partnership)</td><td>—</td><td>AI imaging diagnostics</td><td>Announced May 2026 — French medtech partner brings ISO 13485 + EU pipeline</td></tr>
+</tbody></table>
+
+<div class="co bl"><strong>📊 Geo Read:</strong> Tempus remains a US-centric story (>90% revenue). International expansion via the SoftBank Japan JV and the new Median Technologies tie-up is early-stage but provides multi-year option value, particularly in Europe where reimbursement frameworks for AI diagnostics are crystallizing.</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl dn">28.7</div><div class="nt dn">Oversold</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl dn">$49.03</div><div class="nt dn">Price below</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl dn">$66.17</div><div class="nt dn">Price below</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl dn">-1.383</div><div class="nt dn">Bearish (below signal)</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$104.32</div><div class="nt dn">-54.8%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$41.73</div><div class="nt up">+13.0%</div></div>
+</div>
+
+<div class="co rd"><strong>⚠️ Technical Signal:</strong> Stock in a sustained downtrend — price 55% below 52W high, below both moving averages, MACD bearish, and just $5 above the 52W low. However, RSI at 28.7 is firmly oversold and historically a counter-trend entry signal for high-beta growth names. Short interest at 27% of float adds asymmetric squeeze potential on any positive catalyst.</div>
+
+<h2>📊 Charts</h2>
+<div class="co bl">Price action since IPO (June 2024 at $37) shows a peak above $90 in Feb 2026 and a 50%+ retracement through April-May 2026 on competitive concerns (Guardant earnings, Natera MRD share gains) and CEO Lefkofsky stock-sale optics. Volume has remained elevated through the drawdown.</div>
+
+<h2>📏 Historical Valuation</h2>
+<table><thead><tr><th>Metric</th><th>Current</th><th>1Y Avg</th><th>IPO-to-Date Avg</th><th>Read</th></tr></thead>
+<tbody>
+<tr><td>EV/Sales (TTM)</td><td>6.6x</td><td>~10x</td><td>~12x</td><td class="up">~45% below IPO-era avg</td></tr>
+<tr><td>P/Sales (TTM)</td><td>6.2x</td><td>~9.5x</td><td>~11x</td><td class="up">Cheapest since IPO</td></tr>
+<tr><td>EV / 2026E Sales</td><td>~5.7x</td><td>—</td><td>—</td><td class="up">vs Natera 11.6x, GH 15.7x</td></tr>
+<tr><td>Forward Revenue Growth</td><td>+25-30%</td><td>+60-80%</td><td>~+60%</td><td class="neu">Decelerating but durable</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>📐 Mean-Reversion Setup:</strong> Tempus is trading at the lowest revenue multiple in its public history (~6x P/S) — roughly half its 1Y average and ~45% below the IPO-era average. Even on the decelerated 25% growth guide, the valuation compression is steep.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Company</th><th>Mkt Cap</th><th>P/S (TTM)</th><th>Rev Growth</th><th>Gross Margin</th><th>Op Margin</th><th>Analyst PT</th></tr></thead>
+<tbody>
+<tr class="hl"><td><strong>TEM</strong> (Tempus AI)</td><td>$8.5B</td><td>6.2x</td><td class="up">+36.1%</td><td>63.4%</td><td class="dn">-24.3%</td><td>$67.20 (Buy)</td></tr>
+<tr><td>NTRA (Natera)</td><td>$29.1B</td><td>11.6x</td><td class="up">+38.8%</td><td>65.1%</td><td class="dn">-12.4%</td><td>$260.89 (Strong Buy)</td></tr>
+<tr><td>GH (Guardant Health)</td><td>$16.9B</td><td>15.7x</td><td class="up">+48.3%</td><td>64.9%</td><td class="dn">-40.2%</td><td>$131.00 (Strong Buy)</td></tr>
+<tr><td>VEEV (Veeva Systems)</td><td>$25.9B</td><td>8.1x</td><td>+16.0%</td><td class="up">75.5%</td><td class="up">+29.4%</td><td>$262.68 (Buy)</td></tr>
+<tr><td>ILMN (Illumina)</td><td>$22.7B</td><td>5.2x</td><td>+4.8%</td><td>68.3%</td><td class="up">+18.3%</td><td>$143.63 (Buy)</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>🏆 Cheapest in Cohort:</strong> Tempus trades at 6.2x P/S — roughly half of Natera (11.6x) and well below Guardant Health (15.7x) despite comparable revenue growth (+36% vs +39% and +48%). On EV/Sales, Tempus offers the largest discount relative to peers given its data licensing optionality and EBITDA-positive 2026 guide.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value up">0.37</div><div class="sub">Bullish (call heavy)</div></div>
+    <div class="kpi"><div class="label">P/C Open Interest</div><div class="value up">0.65</div><div class="sub">Mildly bullish</div></div>
+    <div class="kpi"><div class="label">Avg Call IV</div><div class="value">186%</div></div>
+    <div class="kpi"><div class="label">Avg Put IV</div><div class="value neu">160%</div></div>
+</div>
+
+<div class="co bl"><strong>📊 Options Read:</strong> Call-skewed volume (0.37 P/C) and elevated IV (~170-180%) reflect speculative positioning into the post-earnings drawdown. Nearest expiry: 2026-05-29. Call-side IV premium suggests dealers expect upside vol — consistent with the oversold RSI / 27% short interest squeeze setup.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co rd"><strong>⚠️ Heavy Insider Selling:</strong> CEO Eric Lefkofsky has been a consistent seller through 2026:
+<ul>
+<li><strong>Eric Lefkofsky (CEO)</strong> — 22,335 shs @ $44.07 sold May 19, 2026 (tax cover); 166,250 shs @ $51.03-$51.52 sold Apr 28; 166,250 shs @ $45.78-$47.42 sold Mar 26 — recurring 10b5-1 dispositions</li>
+<li><strong>James Rogers (CFO)</strong> — 10,853 shs @ $44.07 sold May 19; 11,414 shs @ $50.69 sold Mar 2</li>
+<li><strong>Ryan Fukushima (Officer)</strong> — 13,550 shs @ $44.07 sold May 19; received 10K RSU grant May 4</li>
+<li><strong>Andrew Polovin, Thomas Schoenherr, Ryan Bartolucci, Thomas Schoenherr</strong> — coordinated tax-cover sales May 19, 2026</li>
+</ul>
+Total insider ownership remains very high at <strong>37.1%</strong> (insiders) with 56.6% institutional. Lefkofsky still holds ~37.8M shares directly plus indirect via Red Sky Ventures (~14.6M).</div>
+
+<h2>📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">"Tempus AI: Taking Advantage Of Investor Myopia"</span> · May 22, 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Share-price decline + profitability controversy compresses valuation to attractive entry; data licensing +70% with foundation models fueling high-margin growth.</p></div>
+<div class="tw"><span class="au">"Tempus AI: My Pick For An Oncoming Boom In Demand For Data-Driven Precision Medicine"</span> · May 8, 2026 · <span class="st bul">Strong Buy</span><p style="margin-top:8px; color:#475569">Despite 50% drawdown and ongoing unprofitability, rising revenue, expanding GM, and robust contract pipeline support long-term Strong Buy.</p></div>
+<div class="tw"><span class="au">"Tempus AI: Another Post-Earnings Dip Worth Buying"</span> · May 7, 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Near-term execution risks + slower growth, but valuation contraction enhances risk/reward — buy reiterated.</p></div>
+<div class="tw"><span class="au">"Tempus AI: An Attractive Entry Point At Current Prices"</span> · Apr 2026 · <span class="st bul">Strong Buy</span><p style="margin-top:8px; color:#475569">Profitability arrives a year early; 2026 guide $1.59B-$1.6B rev / ~$65M adj EBITDA outpaces consensus.</p></div>
+<div class="tw"><span class="au">"Tempus AI: Staying Bullish On Leading Healthcare AI Play"</span> · Mar 2026 · <span class="st bul">Strong Buy</span><p style="margin-top:8px; color:#475569">AI-driven data moat + $1.1B backlog + FDA-cleared ECG-AF = durable high-growth platform.</p></div>
+
+<div class="co gr"><strong>SA Consensus:</strong> All 5 recent articles rate Buy or Strong Buy, citing the disconnect between strong fundamentals (36% growth, $1.1B+ contracted backlog, EBITDA-positive 2026 guide) and the compressed valuation following the Q1'26 post-earnings dip.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">@PSInvestor</span> · May 27, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Cathie Wood's ARK Invest <strong>bought TEM</strong> on 2026-05-27 — listed alongside AMZN and KTOS in daily trades. Reinforces institutional buying of the dip.</p></div>
+<div class="tw"><span class="au">@BioMan14896</span> · May 27, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Biotech longs discussing loading $TEM here as proxy for lagging precision-medicine upside; thread engages multiple oncology-focused PMs.</p></div>
+<div class="tw"><span class="au">@enes1050392</span> · May 27, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Active retail portfolio (+81.5% YTD) includes $TEM alongside TSLA, NBIS, IONQ — confirms TEM as an AI/data-economy play, not just diagnostics.</p></div>
+<div class="tw"><span class="au">@won_another</span> · May 27, 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">Humor takes aside ("HIMS + TEM = THEYS AI"), narrative is that TEM is increasingly seen as a healthcare-AI consolidator candidate.</p></div>
+<div class="tw"><span class="au">@birgaentzlemich</span> · May 27, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">French Median Technologies tweet calls out new Tempus AI partnership + FDA — signals European expansion narrative beginning to gain mindshare.</p></div>
+
+<div class="co bl"><strong>X Consensus:</strong> 4/5 bullish, with the standout being ARK's confirmed dip-buying on the report date. Sentiment has shifted from "broken IPO" earlier in May to "contrarian value at lows" following the constructive 5/22 SA piece and the Median Tech partnership announcement.</div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>Q2 2026 earnings — August 7, 2026:</strong> Critical reaffirmation of $1.59-$1.60B FY26 revenue guide + ~$65M adj EBITDA — first full quarter without Ambry anniversary noise</li>
+<li><strong>AstraZeneca + Pathos $200M expanded deal (signed Jan 2026):</strong> Multi-year licensing + co-development of "largest multimodal foundation model in oncology" — revenue contribution ramps H2'26</li>
+<li><strong>Pfizer multi-year strategic collab:</strong> Tempus AI platform + data library across Pfizer's discovery pipeline; data licensing revenue still being recognized</li>
+<li><strong>$1.1B+ record total contract value:</strong> Multi-year visibility from 70+ pharma data customers (AZ, GSK, BMS, Pfizer, Novartis, Merck, AbbVie, Lilly, Daiichi, Boehringer)</li>
+<li><strong>MRD volume +500% YoY (~6,500 Q1'26 tests):</strong> Tempus xM commercial ramp post-Medicare LCD — likely $50M+ incremental annualized run-rate by year-end</li>
+<li><strong>FDA-cleared ECG-AF algorithm (live):</strong> First FDA clearance in the cardiovascular ML notification category — cardiology TAM expansion beyond oncology</li>
+<li><strong>Profitability inflection — $65M adj EBITDA 2026 (vs prior 2027 guide):</strong> A year early; would derisk the "cash burn" narrative and trigger multiple re-rating</li>
+<li><strong>Median Technologies partnership (May 2026):</strong> European medtech imaging-AI tie-up — opens EU regulatory pathway</li>
+<li><strong>Genomics ASP expansion:</strong> $1,630 → $2,200+; xT CDx priced at $4,500 — operating leverage on existing volume</li>
+<li><strong>Short-squeeze setup:</strong> 27% short interest of float + RSI 28.7 + ARK accumulation — any beat could trigger violent re-rating</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>Persistent net losses / convert debt:</strong> Q1'26 net loss $125.9M, $1.32B total debt (mostly converts). <em>Mitigant: $643.8M cash + $65M EBITDA guide signals self-funding by 2027</em></li>
+<li><strong>Heavy CEO insider selling:</strong> Lefkofsky sold $8.5M (Apr 28) + $7.7M (Mar 26) + tax-cover May 19; CFO and 4 other officers also disposed. <em>Mitigant: Most sales are 10b5-1; Lefkofsky still holds ~37.8M direct + 14.6M indirect = ~30% of company</em></li>
+<li><strong>Competitive pressure on MRD:</strong> Natera Signatera and Guardant Reveal dominate MRD; Tempus xM is late entrant. <em>Mitigant: 500% YoY volume ramp from low base; differentiated multimodal data tie-in</em></li>
+<li><strong>Growth deceleration:</strong> Revenue growth fell from +89% (Q2'25) to +36% (Q1'26); 2026 guide implies ~25% organic growth. <em>Mitigant: Ambry anniversary; core organic growth still ~30%+</em></li>
+<li><strong>Reimbursement risk on premium tests:</strong> $4,500 xT CDx and high-ASP hereditary panels vulnerable to commercial payor pushback. <em>Mitigant: Medicare LCDs in place, oncology indications well covered</em></li>
+<li><strong>Sector rotation / sentiment fragility:</strong> Stock down 55% from highs amid healthcare-services derate. <em>Mitigant: 6.2x P/S is well below historical 11x and peer median</em></li>
+<li><strong>Pharma data customer concentration:</strong> Top 10 customers dominate $1.1B TCV; renewal cadence matters. <em>Mitigant: 70+ active customers; broad foundation-model adoption</em></li>
+<li><strong>Litigation / Hindenburg overhang:</strong> Short-seller report from 2024 still in shareholder lawsuits. <em>Mitigant: Most factual claims have aged poorly given growth trajectory</em></li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value up">Buy</div><div class="sub">15 analysts</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value up">$67.20</div><div class="sub up">+42% upside</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$35.00</div><div class="sub dn">-26% downside</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$100.00</div><div class="sub up">+112% upside</div></div>
+</div>
+
+<div class="co bl"><strong>Analyst Notes:</strong> Distribution skews bullish — ~46% Strong Buy, 23% Buy, 23% Hold, 8% Sell. WallStreetZen consensus aligns at Buy. JPMorgan and Stifel have cut PTs into the $60s on cash-burn/execution concerns while BTIG and SVB stay above $90. The Q1'26 earnings beat (-$0.13 vs -$0.20 est) and increased FY guide remain positive catalysts.</div>
+
+<h2>💎 Valuation Framework</h2>
+<div class="sg">
+    <div class="sc bear">
+        <div class="lb">Bear Case</div>
+        <div class="pr dn">$32</div>
+        <div class="mt">~4x 2026E P/S</div>
+        <div class="us dn">-32% downside</div>
+        <div class="ds">Growth slows below 20%, MRD/data deals miss, convert overhang weighs. Multiple compresses to ILMN-like 4x sales on $1.55B revenue.</div>
+    </div>
+    <div class="sc base">
+        <div class="lb">Base Case</div>
+        <div class="pr">$68</div>
+        <div class="mt">~7.5x 2026E P/S</div>
+        <div class="us up">+44% upside</div>
+        <div class="ds">Hits $1.59B + $65M EBITDA guide. Multiple re-rates to peer-average 7-8x P/S. Aligns with $67.20 sell-side consensus.</div>
+    </div>
+    <div class="sc bull">
+        <div class="lb">Bull Case</div>
+        <div class="pr up">$105</div>
+        <div class="mt">~11x 2026E P/S</div>
+        <div class="us up">+123% upside</div>
+        <div class="ds">EBITDA beats by 20%+, MRD ramps to $100M+ run-rate, AZ/Pathos foundation model commercialized. Multiple re-rates toward Natera's 11.6x.</div>
+    </div>
+</div>
+
+<div class="co gr"><strong>📐 Probability-Weighted Fair Value:</strong> 20% bear · 55% base · 25% bull → blended target ~<strong>$70</strong> (+48% from $47.17). Skewed positive given oversold technicals, 27% short interest, and the gap between fundamentals (36% growth, EBITDA inflection) and the current 6.2x P/S multiple.</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co gr"><p><strong>TEM</strong> is a classic post-IPO-darling drawdown setup: down 55% from its February high to $47, trading at just 6.2x trailing sales — the cheapest multiple in its public history — despite +36% Q1'26 revenue growth, an EBITDA-positive 2026 guide ($1.59-$1.60B revenue / ~$65M adj EBITDA, pulled in a year early), a $1.1B+ contracted data backlog from 70+ pharma customers, and ARK Invest accumulating on the dip (5/27). The market is conflating CEO Lefkofsky's recurring 10b5-1 sales and growth deceleration (Ambry anniversary) with structural issues, while ignoring: (1) 27% short interest + RSI 28.7 oversold technicals creating asymmetric squeeze potential, (2) MRD volume +500% YoY on Tempus xM's commercial ramp, (3) the AstraZeneca/Pathos $200M expanded foundation-model deal, and (4) FDA-cleared ECG-AF opening cardiology TAM. Q2'26 earnings on August 7 are the catalyst.</p><p><strong>Verdict: Buy — 12-month base case $68 (+44% upside) on multiple re-rating toward peer-average 7-8x P/S as the EBITDA inflection lands. Aggressive sizing for bull-case re-rating to $100+ if MRD and data-licensing deals continue ramping.</strong></p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, Seeking Alpha, X/Twitter, SEC filings, and company press releases. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, Seeking Alpha, X/Twitter, analyst consensus · 2026-05-27</p></div>
+</div>
+</body>
+</html>

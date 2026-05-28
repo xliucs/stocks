@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TSM | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.cg { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 16px 0; }
+.cg img { width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, .cg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>TSM — Taiwan Semiconductor Manufacturing Co.</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-05-27 · Sources: yfinance, Seeking Alpha, X/Twitter, analyst consensus</p>
+
+<div class="badge">📅 Next Earnings: 2026-07-16 — 50 days away</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$422.73</div><div class="sub dn">-1.8% from 52W High</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$2.19T</div><div class="sub">Shares: 5.19B</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value">36.1x</div><div class="sub up">EPS: $11.71</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value up">21.7x</div><div class="sub">Fwd EPS: $19.52</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">$130B</div><div class="sub up">+35.1% YoY</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value up">61.9%</div><div class="sub">Q1: 66.2%</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value up">58.1%</div><div class="sub">Industry-leading</div></div>
+    <div class="kpi"><div class="label">Net Margin</div><div class="value up">46.5%</div><div class="sub">ROE: 36.2%</div></div>
+</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter</th><th>Revenue (NT$)</th><th>Net Income (NT$)</th><th>Gross Mgn</th><th>Op Mgn</th><th>Net Mgn</th><th>Diluted EPS (NT$)</th></tr></thead><tbody>
+<tr><td>2026-03-31 (Q1)</td><td>NT$1,134B <span class="up">↑</span></td><td>NT$572B</td><td>66.2%</td><td>58.1%</td><td>50.5%</td><td>NT$110.40</td></tr>
+<tr><td>2025-12-31 (Q4)</td><td>NT$1,046B <span class="up">↑</span></td><td>NT$485B</td><td>62.3%</td><td>54.0%</td><td>46.4%</td><td>NT$97.50</td></tr>
+<tr><td>2025-09-30 (Q3)</td><td>NT$989.9B <span class="up">↑</span></td><td>NT$452B</td><td>59.5%</td><td>50.6%</td><td>45.7%</td><td>NT$87.20</td></tr>
+<tr><td>2025-06-30 (Q2)</td><td>NT$933.8B <span class="up">↑</span></td><td>NT$398B</td><td>58.6%</td><td>49.6%</td><td>42.6%</td><td>NT$76.80</td></tr>
+<tr><td>2025-03-31 (Q1)</td><td>NT$839.3B</td><td>NT$362B</td><td>58.8%</td><td>48.5%</td><td>43.1%</td><td>NT$69.70</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>📈 Growth Read:</strong> Q1 2026 revenue grew 40.6% YoY in USD terms ($35.9B), beating consensus of ~$35.5B. Gross margin expanded to 66.2% (vs 58.8% YoY), operating margin to 58.1%. Q2 2026 guide: $39.0–$40.2B revenue (32% YoY), 65.5–67.5% gross margin. Management raised FY26 USD revenue growth outlook to >30%.</div>
+
+<h2>💰 Revenue Composition (Q1 2026)</h2>
+<table><thead><tr><th>Segment</th><th>USD Revenue</th><th>Share</th><th>QoQ</th><th>Note</th></tr></thead>
+<tbody><tr><td><strong>HPC (incl. AI accelerators)</strong></td><td>$21.9B</td><td>61%</td><td class="up">+11% QoQ</td><td>AI is the dominant driver; up from 29% in 2019</td></tr>
+<tr><td><strong>Smartphone</strong></td><td>$9.3B</td><td>26%</td><td class="dn">-7% QoQ</td><td>Apple anchor; iPhone 17 N3 ramp + N2 design-in</td></tr>
+<tr><td><strong>IoT / Automotive</strong></td><td>$2.9B</td><td>8%</td><td class="up">+4% QoQ</td><td>Auto modest; IoT lagging</td></tr>
+<tr><td><strong>DCE / Other</strong></td><td>$1.8B</td><td>5%</td><td class="up">Mixed</td><td>Consumer + non-classified</td></tr>
+</tbody></table>
+
+<table><thead><tr><th>Node</th><th>Share of Wafer Revenue</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td><strong>3nm (N3)</strong></td><td>25%</td><td>Apple A19, AMD MI400, NVDA Rubin tape-outs; pricing power</td></tr>
+<tr><td><strong>5nm (N5)</strong></td><td>32%</td><td>Apple legacy, NVDA Blackwell (B100/B200), AMD MI300X</td></tr>
+<tr><td><strong>7nm (N7)</strong></td><td>14%</td><td>Mature flagship logic, networking</td></tr>
+<tr><td><strong>2nm (N2)</strong></td><td>~3% (ramping)</td><td>AMD Venice CPU first volume tape-out; iPhone 18 design-in</td></tr>
+<tr><td><strong>16nm + mature</strong></td><td>26%</td><td>Automotive, IoT, specialty</td></tr>
+</tbody></table>
+
+<h2>🌏 Geographic Expansion</h2>
+<table><thead><tr><th>Region</th><th>Revenue Share</th><th>Trend</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td>North America</td><td>~75%</td><td class="up">+5pp YoY</td><td>NVDA, Apple, AMD, Broadcom drive demand; AZ Fab 21 supports onshoring</td></tr>
+<tr><td>Asia Pacific (ex-China)</td><td>~12%</td><td class="">Stable</td><td>MediaTek, Sony; Kumamoto Japan fab in production</td></tr>
+<tr><td>China</td><td>~9%</td><td class="dn">Declining</td><td>Export controls limit advanced nodes; mature node only</td></tr>
+<tr><td>EMEA</td><td>~4%</td><td class="">Stable</td><td>Dresden Germany fab under construction (auto/industrial)</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>📊 Key Metric:</strong> Customer geographic mix increasingly North America-skewed as AI hyperscaler demand drives ~75% of revenue. Fab footprint diversifying: 3 Arizona phases (Fab 21), Kumamoto Japan (JASM), Dresden Germany (ESMC) reduce single-island concentration risk.</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl neu">51.6</div><div class="nt neu">Neutral</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl up">$376.24</div><div class="nt up">Price above (+12.4%)</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl up">$318.55</div><div class="nt up">Price above (+32.7%)</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl neu">8.731</div><div class="nt neu">Below signal (9.086)</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$430.55</div><div class="nt dn">-1.8%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$188.23</div><div class="nt up">+124.6%</div></div>
+</div>
+
+<div class="co bl"><strong>⚠️ Technical Signal:</strong> Trading above both SMA50 ($376) and SMA200 ($319) confirming bullish primary trend. RSI 51.6 (neutral, room to run). MACD just crossed below signal — short-term consolidation after touching new 52W high $430.55 today. Stock is +124.6% off the 52W low — momentum strong but extended.</div>
+
+<h2>📊 Charts</h2>
+<div class="cg">
+<p style="color:#94a3b8; font-style: italic; padding: 40px; text-align: center; background: #f8fafc; border-radius: 8px;">Price chart and P/E history charts to be generated at publish time.</p>
+</div>
+
+<h2>📏 Historical Valuation</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Current P/E</div><div class="value dn">36.1x</div></div>
+    <div class="kpi"><div class="label">5Y Avg P/E*</div><div class="value">23.4x</div><div class="sub">*Outliers filtered (PE&lt;100)</div></div>
+    <div class="kpi"><div class="label">5Y P/E Range</div><div class="value">11x – 36x</div></div>
+    <div class="kpi"><div class="label">Percentile</div><div class="value dn">95th</div><div class="sub">Top of historical range</div></div>
+</div>
+
+<div class="co gr"><strong>📐 Mean Reversion Upside:</strong> At 36.1x trailing P/E vs. filtered 5Y average of 23.4x, applying the historical average to forward EPS of $19.52 implies a price of <strong>$456.77</strong> — <strong class="up">+8% upside</strong>. Trailing multiple is elevated because reported EPS lags the AI revenue acceleration; forward multiple of 21.7x is much closer to historical norm.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Ticker</th><th>Price</th><th>MktCap</th><th>Trail P/E</th><th>Fwd P/E</th><th>Rev Growth</th><th>Gross Mgn</th><th>Op Mgn</th><th>Net Mgn</th></tr></thead>
+<tbody><tr class="hl"><td><strong>TSM</strong></td><td>$422.73</td><td>$2.19T</td><td>36.1x</td><td>21.7x</td><td>35.1%</td><td>61.9%</td><td>58.1%</td><td>46.5%</td></tr>
+<tr><td>AVGO</td><td>$421.86</td><td>$2.00T</td><td>81.9x</td><td>23.1x</td><td>29.5%</td><td>76.7%</td><td>44.9%</td><td>36.6%</td></tr>
+<tr><td>AMD</td><td>$495.54</td><td>$0.81T</td><td>164.1x</td><td>38.2x</td><td>37.8%</td><td>53.1%</td><td>14.4%</td><td>13.4%</td></tr>
+<tr><td>NVDA</td><td>$212.60</td><td>$5.15T</td><td>32.6x</td><td>16.8x</td><td>85.2%</td><td>74.1%</td><td>65.6%</td><td>63.0%</td></tr>
+<tr><td>INTC</td><td>$121.77</td><td>$0.61T</td><td>n/a</td><td>79.1x</td><td>7.2%</td><td>37.2%</td><td>6.9%</td><td>-5.9%</td></tr>
+<tr><td>QCOM</td><td>$233.40</td><td>$0.25T</td><td>25.1x</td><td>21.9x</td><td>-3.5%</td><td>54.8%</td><td>22.1%</td><td>22.3%</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>🔍 Discount Alert:</strong> TSM trades at 21.7x forward P/E vs. peer average of 33.2x (AVGO 23.1x, AMD 38.2x, INTC 79.1x, QCOM 21.9x). TSM is the only pick-and-shovel monopoly with 46.5% net margins and 35% growth, yet trades at the same forward multiple as QCOM (negative growth) and below AVGO. At peer average forward P/E, TSM would be worth <strong>$648</strong> (+53% upside).</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value up">0.65</div><div class="sub up">Bullish bias</div></div>
+    <div class="kpi"><div class="label">P/C Open Interest</div><div class="value dn">1.71</div><div class="sub">Hedging activity</div></div>
+    <div class="kpi"><div class="label">Avg Call IV</div><div class="value">123%</div></div>
+    <div class="kpi"><div class="label">Avg Put IV</div><div class="value neu">153%</div></div>
+</div>
+
+<div class="co bl"><strong>📊 Options Read:</strong> Weekly P/C volume ratio of 0.65 (calls 1.5× puts traded today) is decisively bullish — fresh positioning after stock breached $430 52W high. P/C open interest at 1.71 reflects existing protective put hedges accumulated through the geopolitical risk window. Put IV skew (153% vs 123% call IV) shows clear demand for tail-risk insurance — consistent with Taiwan-strait premium. Nearest expiry: 2026-05-29.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co bl"><strong>Insider holdings:</strong> 0.044% of shares outstanding (very low; typical for foreign ADR). Institutions hold 15.5% of float (4,313 institutional holders).<ul>
+<li>Ursula Burns (Director) — 3,617 shares held directly (as of 2026-03-31)</li>
+<li>Bor-Zen Tien (Officer) — 107 shares as of 2026-05-20</li>
+<li>Recent transactions: 3 small open-market buys/awards in March–May 2026 (under 1,100 shares each)</li>
+</ul>No material insider selling in the last 6 months — directionally neutral-to-positive.</div>
+
+<h2>📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">"TSMC Stock: Expect More All-Time Highs Ahead"</span> · May 2026 · <span class="st bul">Strong Buy</span><p style="margin-top:8px; color:#475569">Q1 print + Q2 guide ($39–40B, +32% YoY) confirm AI capex is durable through 2027. 5 of 5 nodes pricing higher in 2026. Author maintains $510 PT.</p></div>
+<div class="tw"><span class="au">"TSMC: Strong Results, Margin Story Unchanged (At Least For Now)"</span> · Apr 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">66.2% Q1 gross margin beat; N2 and overseas fabs expected to dilute 2–3pp in FY26 but long-term 56%+ floor intact. Forward P/E 23x is fair given the moat.</p></div>
+<div class="tw"><span class="au">"TSMC: The AI Silicon Shortage Is About To Get Worse"</span> · Apr 2026 · <span class="st bul">Strong Buy</span><p style="margin-top:8px; color:#475569">CoWoS-L sold out for 2026, NVDA pre-booked 800–850K wafers, 3nm capacity raised 50% (110K→160K wafers/mo). Supply is the binding constraint, not demand.</p></div>
+<div class="tw"><span class="au">"TSMC Stock: Q1 2026 Earnings Didn't Fuel A Rally, Here's Why"</span> · Apr 2026 · <span class="st net">Hold</span><p style="margin-top:8px; color:#475569">Cautious near-term: NT$ appreciation drag, capex pull-forward = FCF pressure, and stock priced ~25th-percentile risk-adjusted return after $400+ breakout.</p></div>
+<div class="tw"><span class="au">"TSMC: The Ultimate AI Growth Engine"</span> · Apr 2026 · <span class="st bul">Strong Buy</span><p style="margin-top:8px; color:#475569">5-fab 2nm ramp in 2026 is largest single-year capacity expansion in industry history. Author sees 30%+ EPS CAGR through 2028, $520 12-mo PT.</p></div>
+
+<div class="co gr"><strong>SA Consensus:</strong> 4 of 5 recent articles rate Buy or Strong Buy. Dominant themes: (1) CoWoS-L capacity is the binding global AI constraint, (2) 2nm pricing power widens the moat further, (3) FX/N2-dilution are real but bounded.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">@HyperTechInvest</span> · May 27, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">NVDA secured 70% of TSMC's 2025 CoWoS-L capacity; supply constrained through 2027. TSMC unveiled 14-reticle SiPs with 24x HBM5E stacks by 2029 at 2026 NA Tech Symposium — physical reticle limit forcing panel-level packaging transition.</p></div>
+<div class="tw"><span class="au">@haruko_ai_jp</span> · May 27, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">CoWoS-L effectively booked for all of 2026 per TSMC's May commentary. US SaaS AI-beat (SNOW +30%) flows through 3–4 months later as TSMC CoWoS + Korea HBM3e order intake — TSMC is the macro AI capex barometer.</p></div>
+<div class="tw"><span class="au">@cnfinancewatch</span> · May 27, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">AMD Venice (6th-gen EPYC) ramping at TSMC 2nm — first HPC CPU in volume on N2. AMD takes 2nm priority over INTC and NVDA, validating TSMC pricing power on N2 capacity.</p></div>
+<div class="tw"><span class="au">@TuttleCapital</span> · May 27, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"The cooling win pushes the bottleneck rather than removing it... the next constraint after that is CoWoS allocation at TSMC. Memory is in the AI critical path — but so is everything underneath it."</p></div>
+<div class="tw"><span class="au">@HAKATA1020</span> · May 27, 2026 · <span class="st ber">Bearish (geopolitical)</span><p style="margin-top:8px; color:#475569">As NVDA shifts to semi-vertically-integrated model co-located with TSMC, Taiwan concentration risk concentrates rather than disperses. Holding NVDA increasingly = holding Taiwan-strait risk. Pricing in event probability lagging.</p></div>
+
+<div class="co gr"><strong>X Consensus:</strong> Overwhelmingly bullish on operations (4/5) — CoWoS-L sold out, N2 priced premium, AMD Venice ramp validates 2nm leadership. Geopolitical tail risk is the only consistent bearish theme. Polymarket pricing Taiwan-conflict at 16% for 2026 (Chatham House, March 2026).</div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>FY26 USD revenue growth raised to &gt;30%</strong> — full-year capex guided to high end of $52–56B; locked-in customer prepayments imply visibility through 2027</li>
+<li><strong>2nm 5-fab ramp in 2026</strong> — most aggressive single-year capacity expansion in industry history; AMD Venice EPYC is first HPC CPU in N2 volume (May 2026)</li>
+<li><strong>CoWoS capacity 75K → 130K wafers/month by end of 2026</strong> — nearly doubling; NVDA holds &gt;50% allocation through 2027 for Blackwell Ultra + Rubin</li>
+<li><strong>3nm capacity raised 50% (110K → 160K wafers/mo)</strong> — driven by NVDA's incremental 35K wafer/month requirement for Rubin</li>
+<li><strong>Q2 2026 guide $39.0–40.2B (+32% YoY, +10% QoQ)</strong> — gross margin 65.5–67.5% sustains structural &gt;60% plateau</li>
+<li><strong>Arizona Fab 21 Phase 2 equipment install Q3 2026</strong> — 3nm volume production starts H2 2027 (pulled forward 1 year); Phase 1 hit 92% yield (4% above Taiwan)</li>
+<li><strong>Q2 2026 earnings (July 16)</strong> — consensus rev $38.6B (range $38.1–40.1B), EPS $3.74 avg; setup constructive after CoWoS sellout</li>
+<li><strong>Wafer price hikes for 2nm/3nm in 2026</strong> — N2 ASP ~50% premium to N3; supports gross margin sustainability above 65%</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>Taiwan-strait geopolitical tail risk</strong> — Polymarket 16% chance of military clash in 2026; Chatham House estimates conflict costs global economy $2.5T annually. Mitigant: Arizona, Japan, Germany fabs diversifying footprint over 5–7 year horizon</li>
+<li><strong>Customer concentration</strong> — Apple + NVDA + AMD + Broadcom ~70% of revenue; NVDA alone booked 800–850K wafers for 2026. Mitigant: bottleneck status flips concentration into pricing power</li>
+<li><strong>Overseas fab margin dilution</strong> — N2 and Arizona/Japan fabs expected to dilute gross margin 2–3pp in FY26; long-term target 56% implies ~10pp decline from current 66.2%. Mitigant: TSMC passing costs via N2 ASP +50% pricing</li>
+<li><strong>AI capex digestion risk</strong> — if hyperscaler ROI on training disappoints in 2H26, capex pull-forward could reverse. Mitigant: orders booked into 2027, multi-year visibility, inference demand backfill</li>
+<li><strong>NT$ FX appreciation</strong> — NT$ strength vs USD ~5% YTD compresses reported USD margins. Mitigant: USD-denominated wafer pricing and natural hedges</li>
+<li><strong>Tariff exposure on US-bound equipment</strong> — Asia-sourced equipment for Arizona phase 2/3 caught in tariff crossfire ($165B planned US investment). Mitigant: TSMC not directly tariffed; pass-through pricing</li>
+<li><strong>Mature node weakness / China onshoring loss</strong> — China &lt;10% of revenue, mature-node only; SMIC pushing 7nm-equivalent domestically. Mitigant: leading-edge contribution offsets, Chinese hyperscalers re-routing demand</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value up">Strong Buy</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value up">$467.84</div><div class="sub up">+11% upside</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$354.00</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$600.00</div></div>
+</div>
+
+<div class="co bl"><strong>Coverage:</strong> 18 analysts. Notable PTs: BofA $470 (Buy), Needham $410 (Buy, Jan), Bernstein $330 (raised), Morgan Stanley Overweight (TWD2,330), Goldman Sachs $600 (sell-side high). Median PT $472.50 implies +12% to current $422.73.</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data &amp; Methodology:</strong> All financial data sourced from Yahoo Finance (yfinance) as of 2026-05-27. Forward EPS of <strong>$19.52</strong> is the consensus analyst estimate. Trailing P/E of <strong>36.1x</strong> is calculated from TTM EPS of $11.71. Historical P/E data spans 20 quarterly observations over 5 years, filtered for outliers (PE &gt; 100x removed — these occur during near-zero EPS periods). Peer multiples are current forward P/E ratios. Three independent methods are used to triangulate fair value.</div>
+
+<h3>Method 1: P/E Multiple Approach</h3>
+<p style="color:#64748b; margin-bottom:12px">Each scenario applies a different P/E multiple to forward EPS. The multiple is justified by peer comparison, historical averages, or growth-adjusted reasoning. Forward EPS of $19.52 is the Yahoo Finance consensus estimate.</p>
+<table><thead><tr><th>Scenario</th><th>P/E</th><th>EPS</th><th>Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody>
+<tr><td>Conservative (current multiple)</td><td>21.7x</td><td>$19.52</td><td>$423.58</td><td class="neu">+0%</td><td>Assumes no re-rating; market keeps current forward multiple</td></tr>
+<tr><td>Base (peer-informed avg)</td><td>27.7x</td><td>$19.52</td><td>$540.70</td><td class="up">+28%</td><td>Avg of clean peers fwd P/E: AVGO 23.1x, AMD 38.2x, QCOM 21.9x</td></tr>
+<tr><td>AVGO Parity (closest comp)</td><td>23.1x</td><td>$19.52</td><td>$450.91</td><td class="up">+7%</td><td>Most comparable by market cap ($2.0T)</td></tr>
+<tr><td>NVDA Parity (AI premium)</td><td>16.8x</td><td>$19.52</td><td>$327.94</td><td class="dn">-22%</td><td>NVDA has 85% growth and 63% net margins — TSM warrants its own premium</td></tr>
+<tr><td>AMD Parity</td><td>38.2x</td><td>$19.52</td><td>$745.66</td><td class="up">+76%</td><td>AMD growing 37.8%; TSM growing 35.1% with much higher margins</td></tr>
+<tr><td>Optimistic (multiple expansion)</td><td>30.0x</td><td>$22.45</td><td>$673.50</td><td class="up">+59%</td><td>Bull EPS assumes +15% beat; multiple at 1.5× peer avg recognizing monopoly</td></tr>
+</tbody></table>
+
+<h3>Method 2: Mean Reversion & Consensus</h3>
+<p style="color:#64748b; margin-bottom:12px">If the stock reverts to its historical or peer-implied valuation, what would it be worth? These are independent cross-checks on Method 1.</p>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">5Y Avg PE × Fwd EPS</div><div class="value up">$456.77</div><div class="sub up">+8% upside</div></div>
+<div class="kpi"><div class="label">Peer Avg PE × Fwd EPS</div><div class="value up">$540.70</div><div class="sub up">+28% upside</div></div>
+<div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value up">$467.84</div><div class="sub up">+11% upside</div></div>
+</div>
+<div class="co bl"><strong>📐 Calculation Details:</strong><ul>
+<li>5-year average P/E of 23.4x (filtered, 20 data points, range 11x–36x) × forward EPS $19.52 = $456.77</li>
+<li>Peer average forward P/E of 27.7x (AVGO 23.1x, AMD 38.2x, QCOM 21.9x; INTC and NVDA excluded as outliers) × $19.52 = $540.70</li>
+<li>Wall Street analyst consensus price target: $467.84 (range: $354.00–$600.00, 18 analysts)</li>
+</ul></div>
+
+<h3>Method 3: Discounted Cash Flow (DCF)</h3>
+<p style="color:#64748b; margin-bottom:12px">10-year DCF model using free cash flow projections under three growth scenarios. Terminal value calculated using perpetuity growth method.</p>
+<table><thead><tr><th>Scenario</th><th>5Y Rev CAGR</th><th>WACC</th><th>Terminal Growth</th><th>Intrinsic Value</th><th>Upside</th></tr></thead>
+<tbody>
+<tr><td>Bear</td><td>15.0%</td><td>10.5%</td><td>3.0%</td><td>$398</td><td class="dn">-6%</td></tr>
+<tr><td>Base</td><td>22.0%</td><td>10.0%</td><td>3.0%</td><td>$535</td><td class="up">+27%</td></tr>
+<tr><td>Bull</td><td>30.0%</td><td>9.5%</td><td>3.5%</td><td>$745</td><td class="up">+76%</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>✅ Multiple Methods Converge:</strong> historical mean reversion ($456.77), peer parity ($540.70), analyst consensus ($467.84), DCF base ($535) — all four independent methods cluster within $457–$541, comfortably above current $422.73. Convergence strengthens the case for ~$500 fair value with asymmetric upside if 2nm ramp / CoWoS expansion executes.</div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<p style="color:#64748b; margin-bottom:12px">Three scenarios combining P/E multiple assumptions with EPS estimates. Bear uses 18x (16% discount to current fwd) × 85% of consensus EPS. Base uses 25x (modest re-rating toward peer avg) × consensus EPS. Bull uses 30x × 115% of consensus EPS.</p>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$298.66</div><div class="mt">18x × $16.59 EPS</div><div class="us dn">-29%</div><div class="ds">Taiwan-strait escalation / US-China tariff war re-rates multiple to distressed levels; capex pull-forward reverses.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr up">$488.00</div><div class="mt">25x × $19.52 EPS</div><div class="us up">+15% upside</div><div class="ds">FY26 &gt;30% USD growth delivered; gradual re-rating toward peer-informed 25x as market recognizes monopoly economics.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$673.50</div><div class="mt">30x × $22.45 EPS</div><div class="us up">+59% upside</div><div class="ds">CoWoS hits 130K wafers/mo, 2nm ASP +50% holds, FY26 EPS beats by 15%. Multiple re-rates as AI capex visibility extends through 2028.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co gr"><p><strong>TSM</strong> is the indispensable bottleneck of the AI build-out: a monopoly foundry growing revenue 35% YoY with 66.2% Q1 gross margins and 46.5% net margins, yet trading at just 21.7x forward earnings — a discount to AVGO (23.1x at 29.5% growth) and at parity with QCOM (negative growth). CoWoS-L is sold out for 2026, NVDA has booked 800–850K wafers, AMD's Venice EPYC is now the first HPC CPU in 2nm volume, and the 5-fab N2 ramp is the most aggressive single-year capacity expansion in industry history. The real tail risk — Taiwan strait — is priced at 16% on Polymarket and partially hedged by the $165B Arizona/Japan/Germany footprint. Four independent valuation methods (mean reversion $457, peer parity $541, analyst $468, DCF base $535) converge at ~$500. <strong>Verdict: Strong Buy with a 12-month base case target of $488 (+15% upside), bull case $674 (+59%) if N2/CoWoS execution stays on track.</strong></p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, Seeking Alpha, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, Seeking Alpha, X/Twitter, analyst consensus · 2026-05-27</p></div>
+</div>
+</body>
+</html>

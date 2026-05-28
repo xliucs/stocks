@@ -2,41 +2,24 @@
   {
     "ticker": "TIGR",
     "company": "UP Fintech Holding Limited",
-    "date": "2026-05-04",
+    "date": "2026-05-27",
     "rating": "Bullish",
-    "score": 97,
+    "score": 100,
     "category": [
       "Fintech",
       "Emerging"
     ],
     "nextEarnings": null,
-    "price": 6.75,
-    "analystPT": 12.37,
-    "forwardPE": 5.9,
-    "thesis": "APAC fintech compounder at 6x P/E with 56% revenue growth and margin inflection",
-    "url": "reports/TIGR-2026-05-04.html"
-  },
-  {
-    "ticker": "BILI",
-    "company": "Bilibili Inc.",
-    "date": "2026-05-04",
-    "rating": "Bullish",
-    "score": 90,
-    "category": [
-      "Emerging",
-      "Social"
-    ],
-    "nextEarnings": null,
-    "price": 21.66,
-    "analystPT": 31.0,
-    "forwardPE": 15.7,
-    "thesis": "Profitability inflection: ad surge +27%, op income +299%, AI tailwind",
-    "url": "reports/BILI-2026-05-04.html"
+    "price": 5.1,
+    "analystPT": 12.17,
+    "forwardPE": 4.4,
+    "thesis": "Speculative deep-value rebound trade \u2014 TIGR trades at 4.4x forward EPS after a -62% drawdown on the CSRC mainland-brokerage crackdown, despite mainland China contributing only ~0.6% of FY25 revenue; the June 2 earnings print will validate whether the Singapore/HK/ANZ franchise (1.25M funded accounts, $60.8B AUM, +56% revenue growth) is intact and re-rate the stock toward FUTU-parity at ~$12.65.",
+    "url": "reports/TIGR-2026-05-27.html"
   },
   {
     "ticker": "XPEV",
     "company": "XPeng Inc.",
-    "date": "2026-05-04",
+    "date": "2026-05-27",
     "rating": "Bullish",
     "score": 87,
     "category": [
@@ -45,34 +28,51 @@
       "AI"
     ],
     "nextEarnings": null,
-    "price": 16.02,
-    "analystPT": 24.67,
-    "forwardPE": 23.3,
-    "thesis": "Physical AI platform: 600K delivery target, first GAAP profit, IRON humanoid + GX robotaxi",
-    "url": "reports/XPEV-2026-05-04.html"
+    "price": 16.45,
+    "analystPT": 24.44,
+    "forwardPE": 23.7,
+    "thesis": "Set-up for a Q1 2026 earnings catalyst (May 28) with the stock trading 41% below 52W high at 23.7x forward EPS \u2014 well under the 30.4x EV-startup peer average and the $24.44 analyst PT \u2014 while three optionality drivers (first-mover China L4 robotaxi mass production, AeroHT Hong Kong IPO in 2H 2026, and Iron humanoid mass production by Q4 2026) plus the FY26 GAAP-breakeven inflection remain largely unpriced.",
+    "url": "reports/XPEV-2026-05-27.html"
   },
   {
-    "ticker": "META",
-    "company": "Meta Platforms, Inc.",
-    "date": "2026-05-04",
+    "ticker": "BILI",
+    "company": "Bilibili Inc.",
+    "date": "2026-05-27",
     "rating": "Bullish",
     "score": 86,
     "category": [
-      "Mag7",
-      "AI",
+      "Emerging",
       "Social"
     ],
     "nextEarnings": null,
-    "price": 612.08,
-    "analystPT": 832.8,
-    "forwardPE": 16.9,
-    "thesis": "Best-positioned hyperscaler with 33% revenue growth and AI-driven ad gap closing on Google",
-    "url": "reports/META-2026-05-04.html"
+    "price": 17.57,
+    "analystPT": 29.59,
+    "forwardPE": 13.0,
+    "thesis": "Mid-cycle profitability transition with 13 quarters of double-digit ad growth and a 2H26 game-pipeline catalyst stack (NCard July, San Wang Q4, Lumi Master Q4) \u2014 at 13.0x forward EPS and -52% from highs, the market prices in execution risk without paying for any pipeline wins.",
+    "url": "reports/BILI-2026-05-27.html"
+  },
+  {
+    "ticker": "NVDA",
+    "company": "NVIDIA Corporation",
+    "date": "2026-05-27",
+    "rating": "Bullish",
+    "score": 83,
+    "category": [
+      "Mag7",
+      "AI",
+      "Semis"
+    ],
+    "nextEarnings": null,
+    "price": 212.6,
+    "analystPT": 295.69,
+    "forwardPE": 16.8,
+    "thesis": "At 16.8x forward P/E with 85% YoY revenue growth, 75% gross margins, and ~90% share of a $600B+ hyperscaler AI capex cycle, NVDA trades like a cyclical despite the Blackwell-to-Rubin upgrade pipeline locking in multi-year demand.",
+    "url": "reports/NVDA-2026-05-27.html"
   },
   {
     "ticker": "MSFT",
     "company": "Microsoft Corporation",
-    "date": "2026-05-04",
+    "date": "2026-05-27",
     "rating": "Bullish",
     "score": 82,
     "category": [
@@ -81,137 +81,155 @@
       "Cloud"
     ],
     "nextEarnings": null,
-    "price": 413.07,
-    "analystPT": 560.77,
-    "forwardPE": 21.4,
-    "thesis": "Azure +40%, AI run rate $37B (+123%), $630B backlog \u2014 sell-off creates trough-multiple entry",
-    "url": "reports/MSFT-2026-05-04.html"
+    "price": 412.67,
+    "analystPT": 560.63,
+    "forwardPE": 21.3,
+    "thesis": "Cheapest Mag7 hyperscaler at 21.3x fwd EPS with Azure +40% YoY, $37B AI run rate (+123%), $627B commercial backlog, Copilot at 20M paid seats, and a restructured OpenAI deal through 2032 \u2014 analyst consensus PT $560.63 implies +36% upside.",
+    "url": "reports/MSFT-2026-05-27.html"
+  },
+  {
+    "ticker": "META",
+    "company": "Meta Platforms, Inc.",
+    "date": "2026-05-27",
+    "rating": "Bullish",
+    "score": 81,
+    "category": [
+      "Mag7",
+      "AI",
+      "Social"
+    ],
+    "nextEarnings": null,
+    "price": 635.25,
+    "analystPT": 826.6,
+    "forwardPE": 17.6,
+    "thesis": "Cheapest 30%-grower in Mag7 at 17.6x forward P/E with 33% revenue growth and 32.8% net margins; market is pricing zero AI-monetization optionality on top of an ad core where AI-driven ranking already lifted FB clicks +3.5% and IG conversions +3%.",
+    "url": "reports/META-2026-05-27.html"
   },
   {
     "ticker": "LULU",
     "company": "Lululemon Athletica Inc.",
-    "date": "2026-05-04",
+    "date": "2026-05-27",
     "rating": "Bullish",
-    "score": 80,
+    "score": 79,
     "category": [
       "Consumer"
     ],
     "nextEarnings": null,
-    "price": 129.19,
-    "analystPT": 181.08,
-    "forwardPE": 9.8,
-    "thesis": "Activist-pressured premium athleisure at multi-year low PE; China + India offset US weakness",
-    "url": "reports/LULU-2026-05-04.html"
+    "price": 131.04,
+    "analystPT": 176.96,
+    "forwardPE": 9.9,
+    "thesis": "Premium athleisure compounder at trough 9.9x fwd P/E with the May 27 Chip Wilson proxy overhang now resolved, a lowered June 4 earnings bar, insider buying, and September arrival of ex-Nike President Heidi O'Neill as CEO setting up a 30-50% re-rate as China +20% and India H2 2026 keep the international growth pillar intact.",
+    "url": "reports/LULU-2026-05-27.html"
   },
   {
-    "ticker": "GM",
-    "company": "General Motors Company",
-    "date": "2026-05-04",
+    "ticker": "WRD",
+    "company": "WeRide Inc.",
+    "date": "2026-05-27",
     "rating": "Bullish",
     "score": 77,
     "category": [
-      "Auto",
-      "EV",
-      "Value"
-    ],
-    "nextEarnings": null,
-    "price": 75.74,
-    "analystPT": 94.08,
-    "forwardPE": 5.4,
-    "thesis": "Q1 EPS +41% beat, raised FY guide, 6.5x P/E + $6B buyback = deep value",
-    "url": "reports/GM-2026-05-04.html"
-  },
-  {
-    "ticker": "MU",
-    "company": "Micron Technology, Inc.",
-    "date": "2026-05-04",
-    "rating": "Bullish",
-    "score": 76,
-    "category": [
-      "Semis",
-      "AI"
-    ],
-    "nextEarnings": null,
-    "price": 577.7,
-    "analystPT": 551.4,
-    "forwardPE": 5.7,
-    "thesis": "HBM sold out for 2026, 75% gross margin, $1,000 Street-high PT \u2014 AI memory supercycle",
-    "url": "reports/MU-2026-05-04.html"
-  },
-  {
-    "ticker": "TSM",
-    "company": "Taiwan Semiconductor Manufacturing Co.",
-    "date": "2026-05-04",
-    "rating": "Bullish",
-    "score": 73,
-    "category": [
-      "Semis",
-      "AI"
-    ],
-    "nextEarnings": null,
-    "price": 401.1,
-    "analystPT": 463.45,
-    "forwardPE": 20.8,
-    "thesis": "Bottleneck of the AI supercycle: 66% gross margin, FY26 >30% growth, 2nm sold out",
-    "url": "reports/TSM-2026-05-04.html"
-  },
-  {
-    "ticker": "QUBT",
-    "company": "Quantum Computing Inc.",
-    "date": "2026-05-04",
-    "rating": "Bullish",
-    "score": 72,
-    "category": [
-      "Quantum",
-      "Speculative",
+      "Autonomous",
       "Emerging"
     ],
     "nextEarnings": null,
-    "price": 9.44,
-    "analystPT": 17.83,
+    "price": 7.29,
+    "analystPT": 14.26,
     "forwardPE": null,
-    "thesis": "Photonic chip foundry pivot: Lumina deal + Fab 1 transform speculative QC bet",
-    "url": "reports/QUBT-2026-05-04.html"
+    "thesis": "Broadest international L4 autonomous franchise trading at bottom-decile 2.2x forward P/S after a +58% Q1'26 revenue beat, with Uber's $100M and 15-city commitment, $895M cash runway, and 2,000 GXR robotaxi deliveries on deck for EOY 2026.",
+    "url": "reports/WRD-2026-05-27.html"
   },
   {
     "ticker": "BABA",
     "company": "Alibaba Group Holding Limited",
-    "date": "2026-05-04",
+    "date": "2026-05-27",
     "rating": "Bullish",
-    "score": 71,
+    "score": 76,
     "category": [
       "Emerging",
       "AI",
       "Cloud"
     ],
     "nextEarnings": null,
-    "price": 133.97,
-    "analystPT": 189.16,
-    "forwardPE": 18.0,
-    "thesis": "Cloud +36% YoY and Qwen 3.5 making BABA China's clearest AI infra winner.",
-    "url": "reports/BABA-2026-05-04.html"
+    "price": 127.76,
+    "analystPT": 191.73,
+    "forwardPE": 13.9,
+    "thesis": "Cheapest large-cap AI hyperscaler globally \u2014 Q4 FY26 profit collapse masks +38% Cloud growth, Qwen 3.7 frontier credibility, $19B remaining buyback, and forward P/E in 25th percentile of 5Y range, with multiple SOTP/peer-parity frameworks converging on $180-230 vs. spot ~$128.",
+    "url": "reports/BABA-2026-05-27.html"
   },
   {
-    "ticker": "WRD",
-    "company": "WeRide Inc.",
-    "date": "2026-05-04",
+    "ticker": "PONY",
+    "company": "Pony AI Inc.",
+    "date": "2026-05-27",
     "rating": "Bullish",
-    "score": 69,
+    "score": 72,
     "category": [
       "Autonomous",
       "Emerging"
     ],
     "nextEarnings": null,
-    "price": 7.86,
-    "analystPT": 14.09,
+    "price": 9.74,
+    "analystPT": 21.59,
     "forwardPE": null,
-    "thesis": "Global L4 robotaxi pure-play scaling 2,600 fleet via Uber/Grab/Nvidia partnerships",
-    "url": "reports/WRD-2026-05-04.html"
+    "thesis": "L4 robotaxi pure-play just printed Q1 2026 revenue +145% YoY with robotaxi revenue +395%, fleet at 1,700+ and raised year-end target to 3,500 vehicles \u2014 yet stock trades 61% below 52W high with $1.4B liquidity, ~28x EV/S, and Toyota Gen-7 BOM -70% economics that make UE breakeven in 2 cities a generalizable template.",
+    "url": "reports/PONY-2026-05-27.html"
+  },
+  {
+    "ticker": "TSM",
+    "company": "Taiwan Semiconductor Manufacturing Co.",
+    "date": "2026-05-27",
+    "rating": "Bullish",
+    "score": 71,
+    "category": [
+      "Semis",
+      "AI"
+    ],
+    "nextEarnings": null,
+    "price": 422.73,
+    "analystPT": 467.84,
+    "forwardPE": 21.7,
+    "thesis": "Indispensable AI bottleneck growing 35% YoY at 66.2% Q1 gross margin yet trading at 21.7x forward \u2014 below AVGO (23.1x) \u2014 with CoWoS-L sold out for 2026, NVDA pre-booked 800K+ wafers, and 5-fab N2 ramp converging four independent valuation methods to ~$500 fair value.",
+    "url": "reports/TSM-2026-05-27.html"
+  },
+  {
+    "ticker": "GM",
+    "company": "General Motors Company",
+    "date": "2026-05-27",
+    "rating": "Bullish",
+    "score": 70,
+    "category": [
+      "Auto",
+      "EV",
+      "Value"
+    ],
+    "nextEarnings": null,
+    "price": 84.12,
+    "analystPT": 93.92,
+    "forwardPE": 6.0,
+    "thesis": "GM is the cheapest highly-profitable automaker \u2014 6.0x forward earnings, 9.4% operating margin, $9-11B FY26 free cash flow, and a $6B buyback retiring ~7% of shares \u2014 with a Supreme Court tariff tailwind and FY26 EBIT guide raised to $13.5-15.5B already triggering UBS, BofA, and Deutsche Bank PT hikes.",
+    "url": "reports/GM-2026-05-27.html"
+  },
+  {
+    "ticker": "QUBT",
+    "company": "Quantum Computing Inc.",
+    "date": "2026-05-27",
+    "rating": "Bullish",
+    "score": 69,
+    "category": [
+      "Quantum",
+      "Speculative",
+      "Emerging"
+    ],
+    "nextEarnings": null,
+    "price": 11.42,
+    "analystPT": 17.83,
+    "forwardPE": null,
+    "thesis": "Highly speculative photonic-quantum pure-play where Q1'26's $3.69M revenue print is ~85% bought (Luminar/NuCrypt) and gross margin is negative, but a $986M cash hoard (38% of market cap), 29.9% short float, and an expected ~$100M sovereign equity stake under the Trump $2B CHIPS quantum program create asymmetric option-like upside that should be sized as a 0.5\u20131.5% lottery ticket, not a core holding.",
+    "url": "reports/QUBT-2026-05-27.html"
   },
   {
     "ticker": "AVGO",
     "company": "Broadcom Inc.",
-    "date": "2026-05-04",
+    "date": "2026-05-27",
     "rating": "Bullish",
     "score": 68,
     "category": [
@@ -219,138 +237,156 @@
       "AI"
     ],
     "nextEarnings": null,
-    "price": 416.83,
-    "analystPT": 475.49,
-    "forwardPE": 23.0,
-    "thesis": "$73B AI backlog and 140% AI revenue growth make AVGO the cleanest AI infra play.",
-    "url": "reports/AVGO-2026-05-04.html"
-  },
-  {
-    "ticker": "STX",
-    "company": "Seagate Technology Holdings plc",
-    "date": "2026-05-04",
-    "rating": "Neutral",
-    "score": 63,
-    "category": [
-      "Semis",
-      "Storage",
-      "AI"
-    ],
-    "nextEarnings": null,
-    "price": 737.08,
-    "analystPT": 770.43,
-    "forwardPE": 28.1,
-    "thesis": "AI storage supercycle: nearline sold out through 2027, Rosenblatt $1,000 PT",
-    "url": "reports/STX-2026-05-04.html"
+    "price": 421.86,
+    "analystPT": 480.49,
+    "forwardPE": 23.1,
+    "thesis": "Cleanest non-NVDA AI infrastructure compounder at 23.1x fwd P/E (26% discount to AI-peer avg of 31.2x) with $73B backlog, six named custom-XPU customers, and Hock Tan guiding FY27 AI revenue 'significantly over $100B' into the June 3 print.",
+    "url": "reports/AVGO-2026-05-27.html"
   },
   {
     "ticker": "TEM",
     "company": "Tempus AI, Inc.",
-    "date": "2026-05-04",
+    "date": "2026-05-27",
     "rating": "Neutral",
-    "score": 61,
+    "score": 67,
     "category": [
       "Healthcare",
       "AI"
     ],
     "nextEarnings": null,
-    "price": 56.05,
-    "analystPT": 72.4,
+    "price": 47.17,
+    "analystPT": 67.2,
     "forwardPE": null,
-    "thesis": "Healthcare AI flywheel: $1.59B 2026 guide, profitability one year early",
-    "url": "reports/TEM-2026-05-04.html"
+    "thesis": "Cheapest multiple in TEM's public history (6.2x P/S) on a 36%-growth healthcare-AI platform pulling forward EBITDA profitability a year (FY26 guide $1.59-$1.60B / ~$65M adj EBITDA) with 27% short interest, RSI 28.7 oversold, ARK accumulating, and Q2'26 earnings Aug 7 as the re-rating catalyst.",
+    "url": "reports/TEM-2026-05-27.html"
   },
   {
     "ticker": "GOOG",
     "company": "Alphabet Inc.",
-    "date": "2026-05-04",
+    "date": "2026-05-27",
     "rating": "Neutral",
-    "score": 60,
+    "score": 62,
     "category": [
       "Mag7",
       "AI",
       "Cloud"
     ],
     "nextEarnings": null,
-    "price": 380.11,
-    "analystPT": 394.45,
-    "forwardPE": 26.7,
-    "thesis": "Cloud +63%, Gemini taking share, $460B backlog - Mag7 AI leader",
-    "url": "reports/GOOG-2026-05-04.html"
+    "price": 384.83,
+    "analystPT": 417.74,
+    "forwardPE": 26.6,
+    "thesis": "At 26.6x fwd P/E with 22% revenue growth, 37.9% net margins, Cloud +63% YoY on a $462B backlog, and Gemini Enterprise paid MAUs +40% QoQ, GOOG is the highest-quality AI compounder among Mag7 with a 12-month base case of $347 and bull case of $533.",
+    "url": "reports/GOOG-2026-05-27.html"
   },
   {
-    "ticker": "UNH",
-    "company": "UnitedHealth Group Incorporated",
-    "date": "2026-05-04",
+    "ticker": "MU",
+    "company": "Micron Technology, Inc.",
+    "date": "2026-05-27",
     "rating": "Neutral",
-    "score": 59,
+    "score": 62,
     "category": [
-      "Healthcare",
-      "Value"
+      "Semis",
+      "AI"
     ],
     "nextEarnings": null,
-    "price": 369.81,
-    "analystPT": 387.27,
-    "forwardPE": 17.8,
-    "thesis": "Turnaround year: MCR improving, Optum margin inflection, FY26 EPS raised to $18.25+",
-    "url": "reports/UNH-2026-05-04.html"
-  },
-  {
-    "ticker": "AAPL",
-    "company": "Apple Inc.",
-    "date": "2026-05-04",
-    "rating": "Neutral",
-    "score": 58,
-    "category": [
-      "Mag7",
-      "Consumer"
-    ],
-    "nextEarnings": null,
-    "price": 277.25,
-    "analystPT": 300.65,
-    "forwardPE": 29.0,
-    "thesis": "iPhone 17 supercycle plus China rebound and Services records driving record FY26 results.",
-    "url": "reports/AAPL-2026-05-04.html"
+    "price": 928.41,
+    "analystPT": 652.98,
+    "forwardPE": 8.9,
+    "thesis": "HBM3E sold out through 2026 and HBM4 in volume production to NVIDIA Vera Rubin have driven a 10x rally to a $1T market cap and 8.9x forward P/E on $104 forward EPS \u2014 but with peers SK Hynix (53% HBM share) and Samsung trading at 5.9x forward, MU's 18x P/S (5x its 5Y average) prices the bull case in full, leaving symmetric ~60% up / 50% down risk into the June 24 print.",
+    "url": "reports/MU-2026-05-27.html"
   },
   {
     "ticker": "NIO",
     "company": "NIO Inc.",
-    "date": "2026-05-04",
+    "date": "2026-05-27",
     "rating": "Neutral",
-    "score": 56,
+    "score": 60,
     "category": [
       "EV",
       "Emerging",
       "Auto"
     ],
     "nextEarnings": null,
-    "price": 6.09,
-    "analystPT": 6.67,
-    "forwardPE": null,
-    "thesis": "Multi-brand inflection: Q1 +98% YoY, first profitable quarter in sight",
-    "url": "reports/NIO-2026-05-04.html"
+    "price": 5.75,
+    "analystPT": 6.94,
+    "forwardPE": 42.4,
+    "thesis": "Confirmed profitability inflection \u2014 Q1 2026 hit 18.8% vehicle margin and a second consecutive non-GAAP operating profit on +112% YoY revenue, yet the stock still trades at 0.14x P/S with $6.94 analyst PT (+21% upside) ahead of Q2's 110K+ delivery guide.",
+    "url": "reports/NIO-2026-05-27.html"
   },
   {
-    "ticker": "PONY",
-    "company": "Pony AI Inc.",
-    "date": "2026-05-04",
+    "ticker": "LI",
+    "company": "Li Auto Inc.",
+    "date": "2026-05-27",
+    "rating": "Neutral",
+    "score": 59,
+    "category": [
+      "EV",
+      "Emerging",
+      "Auto"
+    ],
+    "nextEarnings": null,
+    "price": 15.78,
+    "analystPT": 21.22,
+    "forwardPE": 18.3,
+    "thesis": "Contested asymmetric value at 0.39x EV/Sales and 18x fwd P/E with a $1B buyback floor, where Q1'26 deliveries (95K) beating guidance and Li i6 BEV scaling to 62% of monthly mix sets up a positive surprise into the May 28 Q1'26 print.",
+    "url": "reports/LI-2026-05-27.html"
+  },
+  {
+    "ticker": "STX",
+    "company": "Seagate Technology Holdings plc",
+    "date": "2026-05-27",
+    "rating": "Neutral",
+    "score": 57,
+    "category": [
+      "Semis",
+      "Storage",
+      "AI"
+    ],
+    "nextEarnings": null,
+    "price": 870.66,
+    "analystPT": 829.05,
+    "forwardPE": 32.9,
+    "thesis": "Hold at $871 after +649% 12-month rally: 44% revenue growth and record 47% non-GAAP gross margins are real, but 32.9x forward P/E has fully priced the AI-storage re-rating with consensus PT ($829) and HDD peer-implied fair value already below spot.",
+    "url": "reports/STX-2026-05-27.html"
+  },
+  {
+    "ticker": "UNH",
+    "company": "UnitedHealth Group Incorporated",
+    "date": "2026-05-27",
     "rating": "Neutral",
     "score": 56,
     "category": [
-      "Autonomous",
-      "Emerging"
+      "Healthcare",
+      "Value"
     ],
     "nextEarnings": null,
-    "price": 10.41,
-    "analystPT": 21.65,
-    "forwardPE": null,
-    "thesis": "Robotaxi UE breakeven achieved; guides 3x revenue and 3,000+ fleet in 2026",
-    "url": "reports/PONY-2026-05-04.html"
+    "price": 384.01,
+    "analystPT": 397.31,
+    "forwardPE": 18.4,
+    "thesis": "UNH is a post-DOJ-crisis turnaround at 18.4x forward EPS vs 24.4x 5Y average, with Q1 2026 MCR improvement to 83.9%, raised FY26 EPS guide to >$18.25, and CMS 2027 +2.48% MA rate finalization confirming the inflection \u2014 base case $459 (+20%), bull $597 (+55%) on Optum Health margin recovery from 3.5% to 5.1%.",
+    "url": "reports/UNH-2026-05-27.html"
+  },
+  {
+    "ticker": "AAPL",
+    "company": "Apple Inc.",
+    "date": "2026-05-27",
+    "rating": "Neutral",
+    "score": 55,
+    "category": [
+      "Mag7",
+      "Consumer"
+    ],
+    "nextEarnings": null,
+    "price": 310.85,
+    "analystPT": 310.51,
+    "forwardPE": 32.4,
+    "thesis": "AAPL at 32.4x fwd P/E \u2014 highest of Mag7 tech peers despite slowest 16.6% revenue growth \u2014 has fully priced the Gemini-powered Siri / agentic-AI WWDC-26 narrative after a +17% 30-day rally and PT hikes to $380 (BofA) / $400 (Wedbush); HOLD with $311 base / $209 bear / $420 bull.",
+    "url": "reports/AAPL-2026-05-27.html"
   },
   {
     "ticker": "COST",
     "company": "Costco Wholesale Corporation",
-    "date": "2026-05-04",
+    "date": "2026-05-27",
     "rating": "Neutral",
     "score": 53,
     "category": [
@@ -358,98 +394,97 @@
       "Value"
     ],
     "nextEarnings": null,
-    "price": 1010.66,
-    "analystPT": 1072.16,
-    "forwardPE": 45.0,
-    "thesis": "Vibecession winner: comps +6.5%, e-com +22%, but ~55x P/E demanding",
-    "url": "reports/COST-2026-05-04.html"
+    "price": 1003.69,
+    "analystPT": 1076.97,
+    "forwardPE": 44.5,
+    "thesis": "Category-defining compounder with 92.1% renewal rate and +21.5% YoY revenue growth trading at a rich 44.5x forward EPS \u2014 Q3 FY26 print on 2026-05-28 is a real-time test of whether the premium multiple is defensible.",
+    "url": "reports/COST-2026-05-27.html"
   },
   {
     "ticker": "LMND",
     "company": "Lemonade, Inc.",
-    "date": "2026-05-04",
+    "date": "2026-05-27",
     "rating": "Neutral",
-    "score": 53,
+    "score": 52,
     "category": [
       "Insurance",
       "AI",
       "Speculative"
     ],
     "nextEarnings": null,
-    "price": 55.25,
-    "analystPT": 60.89,
+    "price": 56.63,
+    "analystPT": 59.56,
     "forwardPE": null,
-    "thesis": "AI-native insurer scaling to EBITDA breakeven with reinsurance flip unlocking margin",
-    "url": "reports/LMND-2026-05-04.html"
-  },
-  {
-    "ticker": "LI",
-    "company": "Li Auto Inc.",
-    "date": "2026-05-04",
-    "rating": "Neutral",
-    "score": 52,
-    "category": [
-      "EV",
-      "Emerging",
-      "Auto"
-    ],
-    "nextEarnings": null,
-    "price": 17.93,
-    "analystPT": 21.1,
-    "forwardPE": 20.2,
-    "thesis": "L9 launch Q2 + i6 ramp = product cycle bottom; $8B cash + $1B buyback",
-    "url": "reports/LI-2026-05-04.html"
+    "thesis": "Inflection-point insurtech: Q1 2026 delivered +71% revenue growth, +159% gross profit, and a 16pp drop in loss ratio to 62% \u2014 the Q4 2026 adjusted EBITDA breakeven and FY27 positive-EBITDA guide are the binary catalysts that re-rate the stock from $57 toward the $70 base case (or $40 if breakeven slips).",
+    "url": "reports/LMND-2026-05-27.html"
   },
   {
     "ticker": "AMD",
     "company": "Advanced Micro Devices, Inc.",
-    "date": "2026-05-04",
+    "date": "2026-05-27",
     "rating": "Neutral",
-    "score": 50,
+    "score": 49,
     "category": [
       "Semis",
       "AI"
     ],
     "nextEarnings": null,
-    "price": 343.43,
-    "analystPT": 307.5,
-    "forwardPE": 30.7,
-    "thesis": "Meta and OpenAI mega-deals validate MI400/Helios as credible NVIDIA challenger.",
-    "url": "reports/AMD-2026-05-04.html"
+    "price": 495.54,
+    "analystPT": 472.17,
+    "forwardPE": 38.2,
+    "thesis": "AMD has re-rated from 'cheaper NVDA' to the primary AI accelerator diversifier \u2014 Data Center is now 57% of revenue ($5.8B in Q1'26, +57% YoY) with Meta 6GW, OpenAI, and Oracle 50K-GPU Helios commitments anchoring 2027\u20132029 visibility; at 38x forward EPS of $12.96 the multiple-expansion phase is done and further upside requires flawless MI400/Helios execution in H2 2026.",
+    "url": "reports/AMD-2026-05-27.html"
   },
   {
     "ticker": "TSLA",
     "company": "Tesla, Inc.",
-    "date": "2026-05-04",
-    "rating": "Neutral",
-    "score": 49,
+    "date": "2026-05-27",
+    "rating": "Bearish",
+    "score": 41,
     "category": [
       "Mag7",
       "EV",
       "AI"
     ],
     "nextEarnings": null,
-    "price": 392.82,
-    "analystPT": 413.19,
-    "forwardPE": 154.9,
-    "thesis": "2026 is the prove-it year: Robotaxi expansion + Optimus ramp vs $25B capex bleed",
-    "url": "reports/TSLA-2026-05-04.html"
+    "price": 440.36,
+    "analystPT": 411.89,
+    "forwardPE": 175.5,
+    "thesis": "At $440 and 175x forward EPS, TSLA is priced as an AI/robotics platform requiring Robotaxi (3 cities now to 12 states by year-end), Optimus (production line live August 2026), and FSD (1.28M subs, +51% YoY) to all execute on aggressive timelines.",
+    "url": "reports/TSLA-2026-05-27.html"
+  },
+  {
+    "ticker": "QCOM",
+    "company": "Qualcomm Incorporated",
+    "date": "2026-05-27",
+    "rating": "Bearish",
+    "score": 38,
+    "category": [
+      "Semis",
+      "AI"
+    ],
+    "nextEarnings": null,
+    "price": 233.4,
+    "analystPT": 177.81,
+    "forwardPE": 21.9,
+    "thesis": "Cheapest quality semi at 21.9x forward P/E with a structural re-rating in motion as automotive (+38% YoY to $1.33B record) and a December-quarter hyperscaler custom-silicon shipment offset the fully-quantified Apple modem cliff into 2027.",
+    "url": "reports/QCOM-2026-05-27.html"
   },
   {
     "ticker": "INTC",
     "company": "Intel Corporation",
-    "date": "2026-05-04",
+    "date": "2026-05-27",
     "rating": "Bearish",
-    "score": 24,
+    "score": 20,
     "category": [
       "Semis",
       "Value"
     ],
     "nextEarnings": null,
-    "price": 96.33,
-    "analystPT": 79.05,
-    "forwardPE": 64.6,
-    "thesis": "Turnaround validated by 22% DC growth and 14A foundry ramp \u2014 but valuation now stretched.",
-    "url": "reports/INTC-2026-05-04.html"
+    "price": 121.77,
+    "analystPT": 87.76,
+    "forwardPE": 79.1,
+    "thesis": "At 79x forward earnings with -5.9% net margin and the highest multiple in the peer group, INTC has priced in foundry-pipeline conversion that won't show in revenue until 2027+ \u2014 peer parity ($41.95), 5y mean ($43.12) and consensus PT ($87.76) all flag 28-66% downside risk.",
+    "url": "reports/INTC-2026-05-27.html"
   }
 ]

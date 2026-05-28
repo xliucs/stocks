@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>GM | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.cg { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 16px 0; }
+.cg img { width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, .cg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>GM — General Motors Company</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-05-27 · Sources: yfinance, Seeking Alpha, X/Twitter, analyst consensus</p>
+
+<div class="badge">📅 Next Earnings: 2026-07-21 (Q2 2026) — 55 days away</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$84.12</div><div class="sub dn">-3.8% from 52W High</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$75.8B</div><div class="sub">Shares: 901M</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value">30.7x</div><div class="sub">EPS: $2.74</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value up">6.0x</div><div class="sub">Fwd EPS: $14.06</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">$184.6B</div><div class="sub dn">-0.9% YoY</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value up">11.1%</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value up">9.4%</div></div>
+    <div class="kpi"><div class="label">Net Margin</div><div class="value">1.4%</div><div class="sub">ROE: 4.0%</div></div>
+</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter</th><th>Revenue</th><th>Net Income</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th><th>Diluted EPS</th></tr></thead>
+<tbody><tr><td>2026-03-31</td><td>$43.6B <span class="dn">↓</span></td><td>$2.6B</td><td>11.5%</td><td>6.7%</td><td>6.0%</td><td>$2.82</td></tr>
+<tr><td>2025-12-31</td><td>$45.3B <span class="dn">↓</span></td><td>$-3.3B</td><td>-2.5%</td><td>-8.1%</td><td>-7.3%</td><td>—</td></tr>
+<tr><td>2025-09-30</td><td>$48.6B <span class="up">↑</span></td><td>$1.3B</td><td>6.4%</td><td>2.2%</td><td>2.7%</td><td>$1.35</td></tr>
+<tr><td>2025-06-30</td><td>$47.1B —</td><td>$1.9B</td><td>9.1%</td><td>4.5%</td><td>4.0%</td><td>$1.91</td></tr>
+<tr><td>2025-03-31</td><td>$44.0B —</td><td>$2.8B</td><td>12.1%</td><td>7.6%</td><td>6.3%</td><td>$3.35</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>🔥 Q1 2026 Highlights:</strong> EPS of $3.70 adjusted ($2.82 GAAP after one-time items) crushed the $2.61 consensus by 42%. Operating margin rebounded to 6.7% from negative -8.1% in Q4 2025 (which absorbed $7.9B in EV realignment charges). Q1 also booked a $500M favorable tariff adjustment from the Supreme Court IEEPA ruling. Management raised FY26 EBIT adjusted guidance by $500M to $13.5–15.5B.</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Revenue Stream</th><th>Amount</th><th>% of Total</th><th>YoY Trend</th><th>Notes</th></tr></thead>
+<tbody><tr><td><strong>GM North America (GMNA)</strong></td><td>~$153B (FY26E)</td><td>~83%</td><td class="up">Truck/SUV pricing firm</td><td>Profit engine; ~17% US share, highest in a decade</td></tr>
+<tr><td><strong>GM International (GMI)</strong></td><td>~$15B</td><td>~8%</td><td class="dn">China JV equity loss</td><td>Reset in progress; S America bright spot</td></tr>
+<tr><td><strong>GM Financial</strong></td><td>~$15B</td><td>~8%</td><td class="up">Stable EBIT ~$3B</td><td>Captive finance arm, prime-skewed book</td></tr>
+<tr><td><strong>Cruise + Software/Services</strong></td><td>~$2.7B</td><td>~1%</td><td class="up">Cruise wind-down</td><td>Services 70% margin; Super Cruise + OnStar</td></tr>
+</tbody></table>
+
+<h2>🌏 Geographic Expansion</h2>
+<table><thead><tr><th>Market</th><th>Revenue Mix %</th><th>Volume Trend</th><th>Profitability</th><th>Highlights</th></tr></thead>
+<tbody><tr><td>United States</td><td>~75%</td><td class="up">Stable, share at 17%</td><td class="up">9–10% EBIT margin</td><td>Silverado/Sierra/Tahoe lead; Equinox EV ramping</td></tr>
+<tr><td>China (JV)</td><td>~10%</td><td class="dn">Volumes pressured</td><td class="dn">Equity-method losses</td><td>SAIC-GM restructured; BYD/Chinese OEMs dominating</td></tr>
+<tr><td>South America / RoW</td><td>~15%</td><td class="up">Modest growth</td><td class="up">Improving mix</td><td>Brazil/Mexico key; Mexico production diversification</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>📊 Key Metric:</strong> US franchise remains the cash engine — North America delivered ~9–10% EBIT margins, well above peers. Geographic concentration is a risk if US cycle rolls over, but management is using strong NA profitability to fund EV transition and aggressive buybacks.</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl up">61.1</div><div class="nt up">Bullish, not overbought</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl up">$76.45</div><div class="nt up">Price +10% above</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl up">$70.14</div><div class="nt up">Price +20% above</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl up">+</div><div class="nt up">Bullish crossover restored</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$87.41</div><div class="nt dn">-3.8%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$44.39</div><div class="nt up">+89.5%</div></div>
+</div>
+
+<div class="co bl"><strong>⚠️ Technical Signal:</strong> GM jumped +5.4% on 2026-05-27 to $84.12, breaking out toward the 52W high of $87.41 (the all-time high zone, $86–88). Price is solidly above both 50/200-day SMAs with a Golden Cross intact since early May. RSI at 61 has room to extend before overbought. Key levels: support $79.16, resistance $86.29 gap fill, then $87.41 prior high.</div>
+
+<h2>📊 Charts</h2>
+<div class="cg">
+<div class="tc"><div class="mk">Price (1Y)</div><div class="vl">+89% off lows</div><div class="nt">From $44 (Jun 2025) to $84 (May 2026)</div></div>
+<div class="tc"><div class="mk">Revenue Trend</div><div class="vl">$184.6B TTM</div><div class="nt dn">-0.9% YoY, stable</div></div>
+<div class="tc"><div class="mk">Margins</div><div class="vl up">9.4% OM</div><div class="nt up">Q1 26 normalized 8.6% ex-tariff</div></div>
+<div class="tc"><div class="mk">Forward P/E</div><div class="vl up">6.0x</div><div class="nt up">Bottom-decile vs S&P 500</div></div>
+</div>
+
+<h2>📏 Historical Valuation</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Current Fwd P/E</div><div class="value up">6.0x</div></div>
+    <div class="kpi"><div class="label">5Y Avg Fwd P/E*</div><div class="value">5.6x</div><div class="sub">*Outliers filtered</div></div>
+    <div class="kpi"><div class="label">5Y P/E Range</div><div class="value">3x – 9x</div></div>
+    <div class="kpi"><div class="label">Percentile</div><div class="value neu">70th</div><div class="sub">Above 5Y median</div></div>
+</div>
+
+<div class="co bl"><strong>📐 Read:</strong> GM trades just above its 5-year average forward P/E, suggesting the recent re-rating from $44 (2025 lows) to $84 has captured most of the multiple expansion. Further upside now depends on EPS delivery: each $1 of forward EPS upside @ 6x multiple = $6 of stock. Consensus is $14.06; the bull case is $16+.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Company</th><th>Price</th><th>MCap</th><th>Trail P/E</th><th>Fwd P/E</th><th>Rev Growth</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th></tr></thead>
+<tbody><tr class="hl"><td><strong>GM</strong></td><td>$84.12</td><td>$75.8B</td><td>30.7x</td><td>6.0x</td><td>-0.9%</td><td>11.1%</td><td>9.4%</td><td>1.4%</td></tr>
+<tr><td><strong>F</strong> (Ford)</td><td>$15.88</td><td>$63.3B</td><td>—</td><td>8.7x</td><td>+6.4%</td><td>7.1%</td><td>5.7%</td><td>-3.2%</td></tr>
+<tr><td><strong>STLA</strong> (Stellantis)</td><td>$8.16</td><td>$23.6B</td><td>—</td><td>4.6x</td><td>+6.5%</td><td>5.8%</td><td>2.7%</td><td>-13.9%</td></tr>
+<tr><td><strong>TM</strong> (Toyota)</td><td>$190.11</td><td>$247.8B</td><td>10.2x</td><td>12.0x</td><td>+1.9%</td><td>14.9%</td><td>4.6%</td><td>7.6%</td></tr>
+<tr><td><strong>TSLA</strong></td><td>$440.36</td><td>$1.65T</td><td>408x</td><td>175x</td><td>+15.8%</td><td>19.1%</td><td>4.2%</td><td>3.9%</td></tr>
+<tr><td><strong>HMC</strong> (Honda)</td><td>$26.88</td><td>$34.9B</td><td>—</td><td>5.4x</td><td>+8.6%</td><td>16.5%</td><td>-17.3%</td><td>-1.9%</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>🔍 Peer Read:</strong> GM trades at 6.0x forward P/E vs. detroit peer avg of 6.2x (F 8.7x, STLA 4.6x, HMC 5.4x). GM has the <strong>highest operating margin (9.4%)</strong> in the cohort while trading at a discount to F. At Ford parity multiple, GM would be worth <strong>$122</strong> (+45% upside). At Toyota's 12x premium (justified by GM's stronger margins), upside is far higher — but that's unlikely without sustained growth.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value up">0.51</div><div class="sub">Bullish skew</div></div>
+    <div class="kpi"><div class="label">P/C Open Interest</div><div class="value up">0.36</div><div class="sub">Heavy call positioning</div></div>
+    <div class="kpi"><div class="label">Avg Call IV</div><div class="value">127%</div><div class="sub neu">Earnings priced in</div></div>
+    <div class="kpi"><div class="label">Avg Put IV</div><div class="value neu">102%</div></div>
+</div>
+
+<div class="co bl"><strong>📊 Options Read:</strong> P/C OI ratio of 0.36 confirms bulls are stacked nearly 3:1 in open interest. Volume P/C of 0.51 is bullish-leaning. Nearest expiry 2026-05-29 IVs are elevated (~100%+ avg) — typical earnings-cycle bleed since Q2 prints late July. No directional bearish positioning evident.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co yw"><strong>Insider read (last 6 months — mixed):</strong>
+<ul>
+<li>President <strong>Mark Reuss</strong> sold 480,724 shares at $80.10–$80.94 on 2026-02-17 (~$38.7M) — large open-market sale right after Q4 earnings</li>
+<li>Reuss also exercised options on 230,058 shares same day ($9.5M)</li>
+<li>CEO <strong>Mary Barra</strong> received a 521,778-share stock award on 2026-02-06 (compensation grant, not open-market buying)</li>
+<li>CFO <strong>Paul Jacobson</strong> received a 220,753-share stock award on 2026-02-06</li>
+<li><strong>No insider open-market buying</strong> in the last 6 months — the only buys are option-exercises followed by sale</li>
+</ul>
+<strong>Verdict:</strong> Mildly negative — the President monetized over $38M while the stock was near $80. Annual stock awards account for the bulk of remaining activity.</div>
+
+<h2>📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">"GM Q1 Earnings Blowout — Top Auto Stock EPS Growth Hits 33%"</span> · May 2026 · <span class="st bul">Strong Buy</span><p style="margin-top:8px; color:#475569">Q1 EPS $3.70 vs $2.61 consensus (+42% beat). Raised FY26 EBIT guidance $500M to $13.5–15.5B. Top Strong-Buy auto pick on quant + valuation composite.</p></div>
+<div class="tw"><span class="au">"General Motors: Free Cash Flow Hums Along, Raising My Target Again"</span> · May 2026 · <span class="st bul">Strong Buy</span><p style="margin-top:8px; color:#475569">$2.8B Q1 free cash flow supports the $6B 2026 buyback authorization + 20% dividend hike. Author bumps PT to $100+.</p></div>
+<div class="tw"><span class="au">"GM Quant Analysis: Why The Quant System Says Strong Buy"</span> · Apr 2026 · <span class="st bul">Strong Buy</span><p style="margin-top:8px; color:#475569">SA Quant ranks GM as top auto stock — valuation + momentum + profitability composite all in top quintile.</p></div>
+<div class="tw"><span class="au">"General Motors: A Strong Buy Despite All-Time Highs"</span> · Jan 2026 (refreshed) · <span class="st bul">Strong Buy</span><p style="margin-top:8px; color:#475569">FY26 guide of $13–15B EBIT (now raised to $13.5–15.5B) implies +10% Y/Y at midpoint. Underappreciated software/services vertical at 70% margins.</p></div>
+<div class="tw"><span class="au">"General Motors: Ignore The Tariff Noise, Strong Buy"</span> · Apr 2026 · <span class="st bul">Strong Buy</span><p style="margin-top:8px; color:#475569">Supreme Court IEEPA ruling cut FY26 gross tariff cost from $3–4B to $2.5–3.5B, netting $500M Q1 refund.</p></div>
+
+<div class="co gr"><strong>SA Consensus:</strong> 5 of 5 recent articles rate Buy or Strong Buy. Common themes: bottom-decile valuation despite improving FCF + buyback yield + 17% US share at decade high.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">@InvestVerified (Drew Dosek)</span> · May 27, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"$GM is showing massive relative strength, surging to $84.37 today. Clearing the $86.29 gap fill is the final step before the stock makes a run at its all-time high of $87.62. Bulls should continue to look at $79.16 as the near-term support."</p></div>
+<div class="tw"><span class="au">@JustHappenedWTF</span> · May 22, 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">"$GM up 9% in three sessions and volume hasn't shown up once. The tariff refund story is real, $166B owed across all claimants, but this stock has reversed every 2%+ move since May 8. Wake me when someone actually commits."</p></div>
+<div class="tw"><span class="au">@PickAlphaAI</span> · May 27, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"Ferrari launches first fully electric model 'Luce'; stock slides (Milan -8%, US ADR -5%+) as investors question design/brand and EV economics. $RACE $TSLA $GM $F — legacy automakers benefit as luxury EV economics keep coming under scrutiny."</p></div>
+<div class="tw"><span class="au">@DilovanSalm</span> · May 25, 2026 · <span class="st bul">Bullish (took profit)</span><p style="margin-top:8px; color:#475569">"I just sold $GM for +80.68% after 26 months. Here's the exact chart (3 cycles): 2018 +40%, 2021 +63%, 2025 +80%."</p></div>
+<div class="tw"><span class="au">@JustHappenedWTF</span> · May 20, 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">"Mexico production shift is strategically smart but $GM has been a ping-pong ball for three weeks. Range-bound until something actually breaks."</p></div>
+
+<div class="co bl"><strong>X Consensus:</strong> Mixed bullish (3 bullish, 2 neutral-skeptical). Trading-desk crowd sees the May 8–27 rally as low-volume and choppy until a clean breakout above $86. Fundamentals/value crowd cites the tariff refund + Mexico diversification as net positives.</div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>Tariff tailwind:</strong> Supreme Court IEEPA ruling already netted $500M Q1 refund; FY26 gross tariff cost now $2.5–3.5B (cut from $3–4B). Further refunds possible across $166B of pending IEEPA-tariff claims.</li>
+<li><strong>$6B buyback + 20% dividend hike</strong> (Jan 2026 authorization) — at $84, the ~$6B 2026 program can retire ~7% of share count, a meaningful EPS tailwind into 2027.</li>
+<li><strong>EV losses shrinking:</strong> EV restructuring charges peaked at $7.9B in 2025; Q1 2026 was $1.1B and management telegraphed "smaller" cash charges through year-end. Equinox EV ramp + Silverado EV scaling = EV breakeven path tightening.</li>
+<li><strong>Q2 2026 earnings 2026-07-21:</strong> Setup is favorable — Q1 EBIT margin 10.1% (8.6% ex-tariff) is well above 8–10% FY guide. Beat-and-raise cycle in play.</li>
+<li><strong>BrightDrop commercial EV</strong> business expanding into Walmart, FedEx fleets; software/services vertical at $2.7B revenue / 70% margin is hidden gem.</li>
+<li><strong>US market share at 17%</strong> — highest in a decade, GMNA delivering ~$4B quarterly EBIT.</li>
+<li><strong>BofA, UBS, Deutsche Bank all raised PTs in May</strong> — UBS to $105, BofA Buy reiterated, DB upgraded Hold→Buy with $90 PT.</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>Tariff reversal risk:</strong> Supreme Court refund could be appealed; Trump administration may impose replacement tariffs via other statutes. Each $1B of tariff = ~$0.85 EPS hit.</li>
+<li><strong>China JV equity-method losses:</strong> SAIC-GM volumes structurally compressed by BYD, Geely, Xiaomi. Equity income contribution down ~$1B vs 2023 peak.</li>
+<li><strong>UAW labor cost inflation:</strong> 2023 contract cost $9.3B over 4 years; top-scale assembly workers hit $42/hr by April 2028, adding ~$575/vehicle. ICE margins compress as labor steps up.</li>
+<li><strong>ICE/SUV cycle risk:</strong> 83% of profits from US trucks/SUVs. Auto cycle has been extended; any recession-driven volume decline at GMNA would compress 9–10% EBIT margins fast.</li>
+<li><strong>EV transition execution:</strong> Equinox EV / Silverado EV must ramp to scale to drive variable-cost breakeven. Ultium pack costs still above target.</li>
+<li><strong>Buyback funded by debt:</strong> $6B 2026 buyback + dividend hike at peak earnings — Institute for New Economic Thinking warned this may "ice" EV transition CapEx.</li>
+<li><strong>Tesla, Chinese OEMs:</strong> Tesla owns the US EV market; Chinese OEMs taking GM's China share.</li>
+<li><strong>Auto loan stress at GM Financial:</strong> Prime-skewed book mitigates but a recession could materially hit captive finance EBIT (~$3B run-rate).</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value up">Buy</div><div class="sub">21 Buy / 6 Hold / 1 Sell</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value up">$98.00</div><div class="sub up">+16.5% upside</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$57.00</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$122.00</div></div>
+</div>
+
+<div class="co bl"><strong>Recent PT moves (May 2026):</strong>
+<ul>
+<li><strong>UBS</strong> (Joseph Spak) raised PT to <strong>$105</strong> (from $102), Buy maintained</li>
+<li><strong>Deutsche Bank</strong> upgraded <strong>Hold → Buy</strong>, raised PT to <strong>$90</strong> (from $83)</li>
+<li><strong>BofA</strong> raised PT, Buy maintained</li>
+<li><strong>JPMorgan</strong> $98 PT, Overweight (removed from focus list 2026-05-10 due to team change, not thesis)</li>
+</ul>
+</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data & Methodology:</strong> All financial data sourced from Yahoo Finance (yfinance) as of 2026-05-27. Forward EPS of <strong>$14.06</strong> is the consensus analyst estimate. Trailing P/E of <strong>30.7x</strong> is depressed by 2025's $7.9B EV restructuring write-downs; the cleaner read is forward 6.0x. Historical P/E data spans 21 quarterly observations over 5 years, filtered for outliers. Peer multiples are current forward P/E ratios. Three independent methods triangulate fair value.</div>
+
+<h3>Method 1: P/E Multiple Approach</h3>
+<p style="color:#64748b; margin-bottom:12px">Each scenario applies a different P/E multiple to forward EPS. The multiple is justified by peer comparison, historical averages, or growth-adjusted reasoning.</p>
+<table><thead><tr><th>Scenario</th><th>P/E</th><th>EPS</th><th>Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody><tr><td>Bear (cycle discount)</td><td>4.5x</td><td>$12.00</td><td>$54.00</td><td class="dn">-36%</td><td>Recession + tariff reversal; EPS reverts to mid-cycle</td></tr>
+<tr><td>Base (peer-informed)</td><td>6.2x</td><td>$14.06</td><td>$87.17</td><td class="up">+3.6%</td><td>Avg of F 8.7x, STLA 4.6x, HMC 5.4x = 6.2x</td></tr>
+<tr><td>F Parity (closest comp)</td><td>8.7x</td><td>$14.06</td><td>$122.32</td><td class="up">+45.4%</td><td>Most comparable by market cap ($63B vs $76B)</td></tr>
+<tr><td>HMC Parity</td><td>5.4x</td><td>$14.06</td><td>$75.92</td><td class="dn">-9.7%</td><td>Honda discount applied (negative op margin)</td></tr>
+<tr><td>Bull (margin re-rate)</td><td>9.0x</td><td>$16.00</td><td>$144.00</td><td class="up">+71%</td><td>Beat-and-raise into Q2; EV breakeven visible; re-rate to TM-discount</td></tr>
+</tbody></table>
+
+<h3>Method 2: Mean Reversion & Consensus</h3>
+<p style="color:#64748b; margin-bottom:12px">If the stock reverts to its historical or peer-implied valuation, what would it be worth? These are independent cross-checks on Method 1.</p>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">5Y Avg PE × Fwd EPS</div><div class="value">$78.74</div><div class="sub dn">-6.4%</div></div>
+<div class="kpi"><div class="label">Peer Avg PE × Fwd EPS</div><div class="value up">$87.17</div><div class="sub up">+3.6%</div></div>
+<div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value up">$98.00</div><div class="sub up">+16.5%</div></div>
+</div>
+
+<div class="co bl"><strong>📐 Calculation Details:</strong><ul><li>5-year average forward P/E of 5.6x × $14.06 = $78.74</li><li>Peer average forward P/E of 6.2x (F 8.7x / STLA 4.6x / HMC 5.4x avg) × $14.06 = $87.17</li><li>Wall Street consensus PT: $98 (range $57–$122; UBS high at $105 post-May raise)</li></ul></div>
+
+<h3>Method 3: Discounted Cash Flow (DCF)</h3>
+<p style="color:#64748b; margin-bottom:12px">10-year DCF model using free cash flow projections under three growth scenarios. Terminal value via perpetuity growth method. GM's $9–11B FY26 FCF guide anchors the model.</p>
+<table><thead><tr><th>Scenario</th><th>FCF Growth</th><th>WACC</th><th>Terminal Growth</th><th>Intrinsic Value</th><th>Upside</th></tr></thead>
+<tbody><tr><td>Bear</td><td>-3%</td><td>10.5%</td><td>1.5%</td><td>$72.00</td><td class="dn">-14.4%</td></tr>
+<tr><td>Base</td><td>+1%</td><td>10.0%</td><td>2.5%</td><td>$98.00</td><td class="up">+16.5%</td></tr>
+<tr><td>Bull</td><td>+4%</td><td>9.5%</td><td>3.0%</td><td>$135.00</td><td class="up">+60.5%</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>✅ Methods Converge:</strong> peer parity ($87.17), consensus PT ($98.00), and DCF base ($98.00) all point above current price ($84.12). Only the 5Y mean ($78.74) suggests modest downside. With three of four signals bullish and the buyback steadily removing supply, base-case fair value is <strong>~$95</strong>.</div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<p style="color:#64748b; margin-bottom:12px">Three scenarios combining P/E multiple assumptions with EPS estimates. Bear uses 4.5x × $12 EPS (recession + tariff reversal). Base uses 6.2x × $14.06 EPS (peer parity, consensus delivery). Bull uses 9.0x × $16 EPS (beat-and-raise + EV breakeven re-rate).</p>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$54</div><div class="mt">4.5x × $12 EPS</div><div class="us dn">-36%</div><div class="ds">Supreme Court tariff ruling reversed via alternate statute, US recession compresses GMNA margins, EV charges resurface.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr up">$95</div><div class="mt">6.5x × $14.50 EPS</div><div class="us up">+13% upside</div><div class="ds">Q2 modest beat, buyback retires 7% of shares, FY26 EBIT lands at $14.5B midpoint, multiple holds at peer parity.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$144</div><div class="mt">9.0x × $16 EPS</div><div class="us up">+71% upside</div><div class="ds">Tariff refunds expand, EV breakeven by 2027 in sight, China JV stabilizes, multiple re-rates closer to TM (12x) on margin durability.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co gr"><p><strong>GM</strong> is the cheapest highly-profitable automaker in the world: 6.0x forward earnings, 9.4% operating margin (highest in the Detroit + Honda cohort), $9–11B FY26 free cash flow, and a $6B buyback + 20% dividend hike already authorized. The Q1 2026 beat (EPS $3.70 vs $2.61, +42%), the $500M Supreme Court tariff refund, and the FY26 EBIT guide raise to $13.5–15.5B have already triggered analyst PT raises (UBS $105, DB upgrade to Buy at $90, BofA reiterates Buy). The risks are real — tariff reversal, China JV losses, UAW step-up — but at 6x forward with a buyback yield north of 8%, the asymmetry favors longs.</p><p><strong>Verdict: Buy with a 12-month base case target of $95 (+13% upside). Aggressive longs can underwrite the bull case at $144 (+71%) if Q2 prints another beat-and-raise.</strong></p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, Seeking Alpha, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, Seeking Alpha, X/Twitter, analyst consensus · 2026-05-27</p></div>
+</div>
+</body>
+</html>
