@@ -1,6 +1,14 @@
 #!/usr/bin/env python3
 """Pull verified live data for a ticker and compute a normalized score (0-100).
 
+Forward P/E convention (Wall Street standard):
+- Uses current fiscal year (FY+0) consensus EPS from yfinance's earnings_estimate
+- Falls back to yfinance's info.forwardPE (which is FY+1) when:
+  • the ticker reports in a currency different from its quote currency (ADRs), or
+  • earnings_estimate is unavailable, or
+  • current-FY EPS is non-positive
+- This is what Bloomberg / FactSet / most sell-side desks default to.
+
 Score methodology (v2 — calibrated for realistic distribution):
 - Starts at 50
 - Analyst upside:     max ±15 pts (dampened — analysts skew bullish)
@@ -16,6 +24,34 @@ Rating thresholds: >=68 Bullish, 45-67 Neutral, <45 Bearish
 import sys
 import json
 import yfinance as yf
+
+
+def compute_forward_pe(t, info):
+    """Return Wall Street-standard forward P/E (FY+0) or fall back to yfinance's FY+1.
+
+    See module docstring for convention details.
+    """
+    price = info.get("currentPrice") or info.get("regularMarketPrice")
+    if not price or price <= 0:
+        return None
+
+    yf_fpe = info.get("forwardPE")  # FY+1 based; in quote currency — always safe fallback
+    quote_ccy = info.get("currency", "USD")
+    fin_ccy = info.get("financialCurrency", quote_ccy)
+
+    # Only trust earnings_estimate when reporting currency == quote currency
+    # (otherwise yfinance returns native-currency estimates against USD ADR price)
+    if fin_ccy == quote_ccy:
+        try:
+            est = t.earnings_estimate
+            if est is not None and "0y" in est.index:
+                fy0_eps = est.loc["0y", "avg"]
+                if fy0_eps and fy0_eps > 0:
+                    return price / fy0_eps
+        except Exception:
+            pass
+
+    return yf_fpe
 
 def compute_score(info):
     score = 50
@@ -105,10 +141,14 @@ def derive_rating(score):
 
 def main():
     ticker = sys.argv[1]
-    info = yf.Ticker(ticker).info
-    
+    t = yf.Ticker(ticker)
+    info = t.info
+
     price = info.get("currentPrice") or info.get("regularMarketPrice")
-    fpe = info.get("forwardPE")
+    fpe = compute_forward_pe(t, info)
+    # Inject the computed fpe back into info so compute_score uses the same convention
+    if fpe is not None:
+        info["forwardPE"] = fpe
     pt = info.get("targetMeanPrice")
     score = compute_score(info)
     rating = derive_rating(score)
