@@ -9,7 +9,7 @@ Forward P/E convention (Wall Street standard):
   • current-FY EPS is non-positive
 - This is what Bloomberg / FactSet / most sell-side desks default to.
 
-Score methodology (v2 — calibrated for realistic distribution):
+Score methodology (v3 — adds momentum + policy/regulatory risk):
 - Starts at 50
 - Analyst upside:     max ±15 pts (dampened — analysts skew bullish)
 - Analyst rec:        max ±8  pts
@@ -18,12 +18,24 @@ Score methodology (v2 — calibrated for realistic distribution):
 - Profit margins:     max ±5  pts
 - FCF yield:          max ±5  pts
 - 52-week position:   max ±7  pts (buying near lows = good, near highs = caution)
+- Recent momentum:    max ±8  pts (1-month return; a sharp drop flags a shock that
+                                   stale analyst targets haven't repriced yet — so a
+                                   crash no longer reads as pure "cheap = buy")
+- Policy/regulatory:  0 to -20 (qualitative overlay passed per ticker; captures
+                                 active regulatory actions/overhangs that the
+                                 quantitative fields are blind to, e.g. the CSRC
+                                 mainland-brokerage crackdown that gutted TIGR)
+
+Policy levels (argv[2], default "none"): severe=-20, elevated=-10, moderate=-6, none=0
 
 Rating thresholds: >=68 Bullish, 45-67 Neutral, <45 Bearish
 """
 import sys
 import json
 import yfinance as yf
+
+
+POLICY_PENALTY = {"severe": -25, "elevated": -12, "moderate": -6, "none": 0}
 
 
 def compute_forward_pe(t, info):
@@ -53,9 +65,32 @@ def compute_forward_pe(t, info):
 
     return yf_fpe
 
-def compute_score(info):
+def compute_momentum(t, info):
+    """Return 1-month price return (e.g. -0.25 = down 25%), or None if unavailable.
+
+    A sharp recent drop is a market-priced proxy for a shock (policy, earnings miss,
+    fraud flag) that lagging analyst targets haven't caught up to yet — so it should
+    temper, not amplify, the "cheap valuation = buy" signal.
+    """
+    try:
+        hist = t.history(period="1mo")
+        if hist is None or hist.empty or "Close" not in hist:
+            return None
+        closes = hist["Close"].dropna()
+        if len(closes) < 2:
+            return None
+        start = float(closes.iloc[0])
+        price = info.get("currentPrice") or info.get("regularMarketPrice") or float(closes.iloc[-1])
+        if not start or start <= 0:
+            return None
+        return (price - start) / start
+    except Exception:
+        return None
+
+
+def compute_score(info, momentum=None, policy_risk="none"):
     score = 50
-    
+
     price = info.get("currentPrice") or info.get("regularMarketPrice") or 0
     
     # 1. Analyst upside (max ±15, dampened)
@@ -64,7 +99,12 @@ def compute_score(info):
         upside = (pt - price) / price
         # Dampen: 30% upside = +10, 50%+ caps at +15, negative = penalize harder
         if upside >= 0:
-            score += min(upside * 30, 15)
+            contrib = min(upside * 30, 15)
+            # Stale-target guard: after a sharp drop the analyst target predates the
+            # shock, so its "upside" is illusory — cap the reward (TIGR failure mode).
+            if momentum is not None and momentum <= -0.20:
+                contrib = min(contrib, 5)
+            score += contrib
         else:
             score += max(upside * 40, -15)
     
@@ -131,7 +171,22 @@ def compute_score(info):
         elif pos < 0.6:  score += 1
         elif pos < 0.8:  score -= 2
         else:            score -= 5   # near highs — stretched
-    
+
+    # 8. Recent momentum / drawdown (max ±8) — a sharp 1-month drop signals a shock
+    # that stale analyst targets haven't repriced; stops a crash from reading as
+    # pure "cheap = buy" (this is what made TIGR score 100 after the CSRC crackdown).
+    if momentum is not None:
+        if momentum <= -0.30:   score -= 8
+        elif momentum <= -0.20: score -= 6
+        elif momentum <= -0.10: score -= 3
+        elif momentum <= 0.10:  score += 0
+        elif momentum <= 0.25:  score += 2
+        else:                   score += 3   # strong positive momentum
+
+    # 9. Policy / regulatory overlay (0 to -20) — qualitative flag for active
+    # regulatory actions or overhangs the quantitative fields can't see.
+    score += POLICY_PENALTY.get((policy_risk or "none").lower(), 0)
+
     return max(0, min(100, round(score)))
 
 def derive_rating(score):
@@ -141,6 +196,7 @@ def derive_rating(score):
 
 def main():
     ticker = sys.argv[1]
+    policy_risk = sys.argv[2] if len(sys.argv) > 2 else "none"
     t = yf.Ticker(ticker)
     info = t.info
 
@@ -150,20 +206,23 @@ def main():
     if fpe is not None:
         info["forwardPE"] = fpe
     pt = info.get("targetMeanPrice")
-    score = compute_score(info)
+    momentum = compute_momentum(t, info)
+    score = compute_score(info, momentum=momentum, policy_risk=policy_risk)
     rating = derive_rating(score)
-    
+
     result = {
         "price": round(price, 2) if price else None,
         "forwardPE": round(fpe, 1) if fpe and fpe > 0 else None,
         "analystPT": round(pt, 2) if pt else None,
         "score": score,
         "rating": rating,
+        "momentum1m": round(momentum, 3) if momentum is not None else None,
+        "policyRisk": (policy_risk or "none").lower(),
         "recommendation": info.get("recommendationKey"),
         "revenueGrowth": info.get("revenueGrowth"),
         "operatingMargins": info.get("operatingMargins"),
     }
-    
+
     print(json.dumps(result))
 
 if __name__ == "__main__":

@@ -60,12 +60,17 @@ for ticker in PUBLISHED:
     with open(manifest_path) as f:
         m = json.load(f)
 
+    # Policy/regulatory risk overlay: research agents set "policyRisk" in the manifest
+    # (severe/elevated/moderate/none) for active regulatory actions or overhangs the
+    # quantitative fields can't see. Defaults to "none".
+    policy_risk = m.get("policyRisk", "none")
+
     # Pull verified live data from yfinance
     try:
         out = subprocess.check_output(
-            ["uv", "run", "--with", "yfinance", "python3", "scripts/enrich.py", ticker],
+            ["uv", "run", "--with", "yfinance", "python3", "scripts/enrich.py", ticker, policy_risk],
             text=True,
-            timeout=60,
+            timeout=90,
         )
         live = json.loads(out.strip())
     except Exception as e:
@@ -100,6 +105,8 @@ for ticker in PUBLISHED:
         "price": live["price"],
         "analystPT": live["analystPT"],
         "forwardPE": live["forwardPE"],
+        "policyRisk": live["policyRisk"],
+        "momentum1m": live["momentum1m"],
         "thesis": m["thesis"],
         "url": f"reports/{ticker}-{DATE}.html",
     })
