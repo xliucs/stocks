@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MSFT | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>MSFT — Microsoft Corporation</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-06-10 · Sources: yfinance, Seeking Alpha, X/Twitter, analyst consensus</p>
+
+<div class="badge">📅 Next Earnings: 2026-07-29 — 49 days away</div>
+
+<div class="co rd"><strong>🌐 Macro Context (June 10, 2026):</strong> Fear regime. June 4–5 delivered the worst drop of the year (Nasdaq −4.2%, semis −10–15%) after a shock May jobs report (172k payrolls, ~2x consensus) lifted December Fed <em>rate-hike</em> odds to ~43%. Today's cool core CPI (+0.2% m/m vs +0.3% exp.) failed to hold a rally — S&amp;P 500 fell −1.6% to a 5-week low; headline CPI runs 4.2% on energy after two US strikes on Iran and a declared Strait of Hormuz blockade (WTI ~$91). VIX 22.2, 10Y 4.54% and rising, Fear &amp; Greed 27 (extreme fear), JPM on "Tactical Caution." The defining Mag7 story is an <strong>AI capital-cycle inflection</strong>: ORCL fell ~5% despite OCI +93% and RPO $638B because of ~$70B FY27 capex plus a planned $40B raise; SMCI −28% on a $7B equity raise; Alphabet priced an $84.75B equity offering June 2; SpaceX's record IPO prices Friday (liquidity drain). The market now grades AI on <strong>capital intensity, dilution, and FCF-after-capex</strong> — not just demand. <strong>MSFT's edge in this regime: it funds its ~$190B capex entirely from operating cash flow with no equity raise on the table.</strong></div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$397.36</div><div class="sub dn">-28.5% from 52W High ($555.45)</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$2.95T</div><div class="sub">Shares: 7.43B</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value">23.7x</div><div class="sub up">EPS: $16.78</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value up">20.5x</div><div class="sub">Fwd EPS: $19.39</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">$318.3B</div><div class="sub up">+18.3% YoY</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value up">68.3%</div><div class="sub">Healthy</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value up">46.3%</div><div class="sub">Industry-leading</div></div>
+    <div class="kpi"><div class="label">Net Margin</div><div class="value up">39.3%</div><div class="sub">ROE: 34.0%</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">1M Return</div><div class="value dn">-2.6%</div><div class="sub">Held up vs Nasdaq</div></div>
+    <div class="kpi"><div class="label">3M Return</div><div class="value dn">-0.4%</div><div class="sub">Flat through chop</div></div>
+    <div class="kpi"><div class="label">6M Return</div><div class="value dn">-16.1%</div><div class="sub">Capex de-rating</div></div>
+    <div class="kpi"><div class="label">Dividend Yield</div><div class="value">0.92%</div><div class="sub">Cash $78.2B / Debt $125.4B</div></div>
+</div>
+
+<div class="co bl"><strong>💸 AI Capital-Cycle Scorecard (the metric this market grades on):</strong> TTM operating cash flow <strong>$170.1B</strong>; implied TTM capex ~<strong>$133B</strong>; FCF after capex <strong>$37.0B</strong> (positive). CY2026 capex guided to ~<strong>$190B</strong> (incl. ~$25B from higher memory/component pricing). Funding mix: <strong>100% internal cash flow</strong> — no equity raise, no large debt program, dividend and buyback intact. Among hyperscalers, only MSFT and AAPL have avoided external AI funding (GOOG raised $84.75B equity June 2; META raise rumored; ORCL plans $40B). In a market punishing dilution, this is MSFT's strongest relative argument.</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter</th><th>Revenue</th><th>Net Income</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th><th>Diluted EPS</th></tr></thead>
+<tbody><tr><td>2026-03-31 (Q3 FY26)</td><td>$82.9B <span class="up">↑</span></td><td>$31.8B</td><td>67.6%</td><td>46.3%</td><td>38.4%</td><td>$4.27</td></tr>
+<tr><td>2025-12-31 (Q2 FY26)</td><td>$81.3B <span class="up">↑</span></td><td>$38.5B</td><td>68.0%</td><td>47.1%</td><td>47.4%</td><td>$5.16</td></tr>
+<tr><td>2025-09-30 (Q1 FY26)</td><td>$77.7B <span class="up">↑</span></td><td>$27.7B</td><td>69.0%</td><td>48.9%</td><td>35.7%</td><td>$3.72</td></tr>
+<tr><td>2025-06-30 (Q4 FY25)</td><td>$76.4B —</td><td>$27.2B</td><td>68.6%</td><td>44.9%</td><td>35.6%</td><td>$3.65</td></tr>
+<tr><td>2025-03-31 (Q3 FY25)</td><td>$70.1B</td><td>$25.8B</td><td>68.7%</td><td>45.7%</td><td>36.8%</td><td>$3.46</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>🔥 Growth intact, next print July 29:</strong> Q3 FY26 (reported Apr 29) delivered $82.9B revenue (+18% YoY, +15% cc), Azure +40% YoY, AI revenue run rate $37B (+123%), and Q4 Azure guided 39–40% cc. No new financials since — the June drawdown is entirely macro/regime-driven, not fundamental. Commercial RPO ~$627B (~2x annual revenue) still underwrites multi-year visibility.</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Revenue Stream</th><th>Amount</th><th>% of Total</th><th>YoY Trend</th><th>Notes</th></tr></thead>
+<tbody><tr><td><strong>Productivity &amp; Business Processes</strong></td><td>$35.0B Q3 FY26</td><td>42%</td><td class="up">+17% YoY</td><td>M365 Copilot 20M+ paid seats (+33% QoQ); LinkedIn ads recovering; Dynamics 365 agentic AI</td></tr>
+<tr><td><strong>Intelligent Cloud</strong></td><td>$34.7B Q3 FY26</td><td>42%</td><td class="up">Azure +40% YoY</td><td>AI run rate $37B (+123%); Q4 guided 39–40% cc; capacity-constrained through 2026</td></tr>
+<tr><td><strong>More Personal Computing</strong></td><td>~$13.2B Q3 FY26</td><td>16%</td><td class="neu">Mixed</td><td>Windows OEM stable, Xbox declining; Bing/Copilot search growing; Build 2026 repositioned Windows as an agent platform</td></tr>
+<tr><td><strong>Total Q3 FY26</strong></td><td>$82.9B</td><td>100%</td><td class="up">+18% (15% cc)</td><td>Operating income +20% to $38.4B; Commercial RPO ~$627B</td></tr>
+</tbody></table>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl neu">44.4</div><div class="nt neu">Soft, not oversold</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl dn">$409.55</div><div class="nt dn">Price below</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl dn">$453.50</div><div class="nt dn">Price below</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl dn">2.05</div><div class="nt dn">Below signal (5.16) — bearish cross</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$555.45</div><div class="nt dn">-28.5%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$356.28</div><div class="nt up">+11.5%</div></div>
+</div>
+
+<div class="co yw"><strong>⚠️ Technical Signal:</strong> The late-May reclaim of SMA50 failed — MSFT lost $410 in the June 4–5 macro break and trades $397 intraday June 10 (day range $397.18–$405.04, prior close $403.41). MACD rolled back below signal. Notably, MSFT fell <em>less</em> than QQQ (−2.6% vs −5%+ over a month) — it had already de-rated 28% from highs before the crash, so relative downside has been muted. Support: $385–390, then the 52W low zone $356–365. Resistance: $410 (SMA50), then $429–440.</div>
+
+<h2>📏 Historical Valuation</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Current P/E</div><div class="value up">23.7x</div></div>
+    <div class="kpi"><div class="label">5Y Avg P/E*</div><div class="value">32.1x</div><div class="sub">*Outliers filtered (PE&lt;100)</div></div>
+    <div class="kpi"><div class="label">5Y P/E Range</div><div class="value">25x – 37x</div></div>
+    <div class="kpi"><div class="label">Percentile</div><div class="value up">&lt;5th</div><div class="sub">Below 5Y trough</div></div>
+</div>
+
+<div class="co gr"><strong>📐 Mean Reversion Upside:</strong> At 23.7x trailing P/E — now <em>below</em> the bottom of its 5-year range (25x–37x) — applying the filtered 5Y average of 32.1x to forward EPS of $19.39 implies <strong>$622.42</strong> — <strong class="up">+57% upside</strong>. Caveat: mean reversion assumes the pre-2026 rate/capex regime returns; with the 10Y at 4.54% and hike odds rising, full reversion to 32x is a bull-case, not a base-case.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Company</th><th>Price</th><th>MCap</th><th>Trail P/E</th><th>Fwd P/E</th><th>Rev Growth</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th></tr></thead>
+<tbody><tr class="hl"><td><strong>MSFT</strong></td><td>$397.36</td><td>$2.95T</td><td>23.7x</td><td>20.5x</td><td>18.3%</td><td>68.3%</td><td>46.3%</td><td>39.3%</td></tr>
+<tr><td><strong>GOOG</strong></td><td>$353.32</td><td>$4.31T</td><td>27.0x</td><td>24.4x</td><td>21.8%</td><td>60.4%</td><td>36.1%</td><td>37.9%</td></tr>
+<tr><td><strong>META</strong></td><td>$570.98</td><td>$1.45T</td><td>20.7x</td><td>15.8x</td><td>33.1%</td><td>81.9%</td><td>40.6%</td><td>32.8%</td></tr>
+<tr><td><strong>AAPL</strong></td><td>$291.58</td><td>$4.28T</td><td>35.3x</td><td>30.4x</td><td>16.6%</td><td>47.9%</td><td>32.3%</td><td>27.2%</td></tr>
+<tr><td><strong>AMZN</strong></td><td>$238.00</td><td>$2.56T</td><td>31.6x</td><td>24.1x</td><td>16.6%</td><td>50.6%</td><td>13.1%</td><td>12.2%</td></tr>
+<tr><td><strong>ORCL</strong></td><td>$201.26</td><td>$578.8B</td><td>36.1x</td><td>25.0x</td><td>21.7%</td><td>67.1%</td><td>32.7%</td><td>25.3%</td></tr>
+</tbody></table>
+
+<div class="co bl"><strong>Peer Read:</strong> MSFT remains the second-cheapest Mag7 hyperscaler on forward earnings (20.5x; only capex-anxiety-discounted META is cheaper at 15.8x) while carrying the best margin stack (46.3% op / 39.3% net). Crucially, it is the only one of GOOG/META/ORCL not raising or rumored to be raising external capital for AI — the differentiator the post-June-4 tape is paying for.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value neu">0.71</div><div class="sub">Neutral-cautious (was 0.29 in May)</div></div>
+    <div class="kpi"><div class="label">Avg Call IV</div><div class="value">23.5%</div><div class="sub">Near expiries 6/12–6/15</div></div>
+    <div class="kpi"><div class="label">Avg Put IV</div><div class="value neu">25.5%</div><div class="sub">Put skew present</div></div>
+    <div class="kpi"><div class="label">IV Context</div><div class="value neu">VIX 22.2</div><div class="sub">Macro fear regime</div></div>
+</div>
+
+<div class="co bl"><strong>📊 Options Read:</strong> The bullish skew from late May (P/C 0.29) has normalized to 0.71 after the June 4–5 break — hedging demand rose and the 6/18 $480-call gamma story is dead at $397 spot. Put IV (25.5%) modestly above call IV (23.5%) reflects downside protection bid, consistent with the extreme-fear tape rather than MSFT-specific stress.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co bl"><strong>Net 6-month direction: modest selling, one notable buy.</strong><ul><li>ALTHOFF JUDSON (Officer, CEO Commercial Business) — Sale 15,500 shares ≈ $7.15M (2026-06-01) — sold into the pre-crash bounce near $460s-equivalent levels</li><li>COLEMAN AMY (Officer) — Sale 1,262 shares ≈ $519K (2026-05-14)</li><li>HOGAN KATHLEEN T (Officer) — Sale 12,320 shares ≈ $5.05M (2026-03-06)</li><li>STANTON JOHN W (Director) — <span class="up">Purchase 5,000 shares ≈ $1.99M @ $397.35 (2026-02-18)</span> — his buy level is almost exactly today's price</li><li>Routine director stock awards Jan 2026 (~145 shares each)</li></ul>Read: Officer sales look like scheduled 10b5-1 activity; Stanton's $397 open-market buy in February marks the level the stock has now round-tripped to.</div>
+
+<h2>📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">"Microsoft Stock Price Prediction: A New Record High on the Horizon?"</span> · Yahoo Finance/contributor · early June 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Consensus tally: 34 Buys vs 2 Holds, average PT near $557 (~24% above the early-June price before the latest leg down). Bull case rests on Azure 40% growth and Copilot seat expansion.</p></div>
+<div class="tw"><span class="au">Morgan Stanley (Weiss/Baer) — revenue-per-megawatt framework</span> · June 2, 2026 · <span class="st bul">Overweight, $650 PT</span><p style="margin-top:8px; color:#475569">Introduced a revenue-per-MW lens for AI datacenter productivity; concludes Street revenue estimates may lag capex-implied potential by up to 91%. Maintained OW into Build 2026 (TechTimes, June 2).</p></div>
+<div class="tw"><span class="au">"Microsoft Azure Grows 39%: Is MSFT Still a Core Holding for 2026?"</span> · June 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Argues the $190B capex number (incl. $25B component-price inflation) is the bear case and the $627B RPO is the answer; sub-21x forward for 18% growth screens as the cheapest quality-growth in megacap.</p></div>
+<div class="tw"><span class="au">"Microsoft: The AI Capex Risk Looks Mostly Priced In"</span> · May 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Valuation fair at ~1.1x PEG; sell-off from 52W high creates entry; no cracks in the AI demand story despite the capex shock.</p></div>
+<div class="tw"><span class="au">"Microsoft: Azure Doing The Heavy Lifting"</span> · Apr 2026 · <span class="st net">Hold</span><p style="margin-top:8px; color:#475569">The cautious case: $190B capex (+61% YoY) compresses FCF near term; wait for evidence of capex digestion before adding. June's regime shift validates this caution short-term.</p></div>
+
+<div class="co gr"><strong>Research Consensus:</strong> Still overwhelmingly Buy-rated, but note the retrospective lesson: after a sharp macro drop, sell-side PTs ($557–650) are stale — they predate the June 4–5 regime change and the rate-hike repricing. Treat "upside to PT" as illusory until targets are re-marked.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">Build 2026 watchers</span> · June 2–4 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Dominant theme: the seven in-house MAI models (MAI-Thinking-1 reasoning, MAI-Voice-2) and Project Polaris replacing GPT-4 Turbo as GitHub Copilot's default engine from August 2026 — read as MSFT "cutting the OpenAI cord" and improving long-run inference economics.</p></div>
+<div class="tw"><span class="au">Capex hawks</span> · June 5–10 · <span class="st ber">Bearish</span><p style="margin-top:8px; color:#475569">Post-ORCL/SMCI, the bear thread groups MSFT with every $100B+ capex spender: "FCF after capex is $37B on a $2.95T market cap — 80x FCF." The bull counter: that FCF trough is a choice, funded internally, with no dilution.</p></div>
+<div class="tw"><span class="au">Relative-strength traders</span> · June 9–10 · <span class="st net">Neutral-Bullish</span><p style="margin-top:8px; color:#475569">MSFT down only ~2.6% over a month vs QQQ −5.1% from highs — the "already de-rated" megacap is acting defensive within tech for the first time in 2026. Watching whether $390 holds.</p></div>
+<div class="tw"><span class="au">Macro bears</span> · June 10 · <span class="st ber">Bearish</span><p style="margin-top:8px; color:#475569">"Cool CPI and the market still sold off — that's a fear regime" — the tape rejecting good news is the top-cited reason to stay hedged into the SpaceX IPO liquidity event Friday.</p></div>
+
+<div class="co bl"><strong>X Consensus:</strong> Mixed, better than peers. MSFT is being used as the "safe hyperscaler" expression: self-funded capex, OpenAI dependence shrinking via MAI models, and a stock that pre-paid its de-rating. Bears are macro-first, not MSFT-first.</div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>Q4 FY26 earnings July 29</strong> — Azure guided 39–40% cc; consensus looks beatable if capacity additions land; first commentary on FY27 capex trajectory will be the single most market-moving disclosure given the new capital-intensity regime</li>
+<li><strong>Build 2026 (June 2, San Francisco)</strong> — seven in-house MAI models unveiled (MAI-Thinking-1 trained from scratch, MAI-Voice-2); Project Polaris becomes GitHub Copilot's default model August 2026, replacing GPT-4 Turbo — structurally reduces OpenAI inference payments and dependence</li>
+<li><strong>Self-funded capex as regime winner</strong> — if the market keeps punishing equity-funded AI (GOOG $84.75B raise, META rumored, ORCL $40B planned), MSFT's 100% internal funding becomes a rotation magnet</li>
+<li><strong>Commercial RPO ~$627B (~2x revenue)</strong> — multi-year visibility; Morgan Stanley's revenue-per-MW work argues Street estimates understate capex-implied revenue by up to 91%</li>
+<li><strong>Copilot at 20M+ paid M365 seats (+33% QoQ)</strong> — agentic suite (GitHub, Dynamics, Windows-as-agent-platform from Build) expanding TAM</li>
+<li><strong>OpenAI restructured deal</strong> — IP rights through 2032, AGI clause removed, ~27% diluted stake (~$228B marked at last private round); an OpenAI IPO (raises rumored) would mark the stake to market</li>
+<li><strong>Pentagon $9.7B Enterprise Software Agreement II</strong> (May 27) — federal consolidation tailwind through FY27+</li>
+<li><strong>Valuation below its own 5Y trough</strong> — 23.7x trailing vs 25x–37x range; fastest mean-reversion candidate among megacaps if rate fears ease</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>Macro regime</strong> — Dec rate-hike odds ~43%, 10Y 4.54% rising: long-duration megacap multiples compress further; a 20.5x forward can become 18x without any fundamental miss. This is the dominant near-term risk.</li>
+<li><strong>$190B CY26 capex (+61% YoY)</strong> — FCF after capex of $37B puts MSFT at ~80x FCF; if AI revenue per MW disappoints, the market will re-price the entire spend as malinvestment. Mitigant: $627B RPO, internal funding, Maia custom silicon ramping 2027.</li>
+<li><strong>Component-cost inflation</strong> — $25B of the capex guide is pure memory/component price increase — capex without capacity. Industry-wide DRAM/HBM tightness could extend into FY27.</li>
+<li><strong>Geopolitics/energy</strong> — Hormuz blockade and WTI ~$91 pressure both the macro tape and datacenter energy costs.</li>
+<li><strong>OpenAI relationship transition</strong> — Polaris/MAI reduces dependence but also reduces alignment; OpenAI's own raise plans compete for the same investor capital that funds Azure commitments.</li>
+<li><strong>Cloud margin compression</strong> — AI workloads dilute Intelligent Cloud margin mix until custom silicon scales.</li>
+<li><strong>SpaceX IPO liquidity drain (June 12)</strong> — the largest-ever IPO pulls megacap fund flows in the same week.</li>
+<li><strong>Regulatory</strong> — UK CMA cloud market study, EU DMA Teams scrutiny; manageable, hence policyRisk "none" overall.</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value up">Strong Buy</div><div class="sub">Mean 1.34 (n=55)</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value up">$560.95</div><div class="sub up">+41% vs spot — but stale post-crash</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$400.00</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$870.00</div></div>
+</div>
+<div class="co yw"><strong>⚠️ Staleness caveat:</strong> Most PTs predate the June 4–5 regime break. Our own backtest shows "upside to consensus PT" right after a sharp drop is illusory — targets get cut, not met, in the following weeks. Discount the +41% headline accordingly.</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data &amp; Methodology:</strong> All financial data from Yahoo Finance (yfinance) as of 2026-06-10 (price $397.36 intraday; day range $397.18–$405.04; prior close $403.41). Forward EPS <strong>$19.39</strong> is consensus; trailing P/E <strong>23.7x</strong> from TTM EPS $16.78. Historical P/E: 20 quarterly observations over 5 years, outliers (&gt;100x) filtered. Three independent methods triangulate fair value.</div>
+
+<h3>Method 1: P/E Multiple Approach</h3>
+<p style="color:#64748b; margin-bottom:12px">Each scenario applies a different P/E multiple to forward EPS of $19.39 (Yahoo Finance consensus).</p>
+<table><thead><tr><th>Scenario</th><th>P/E</th><th>EPS</th><th>Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody><tr><td>Conservative (current trailing multiple)</td><td>23.7x</td><td>$19.39</td><td>$459.54</td><td class="up">+16%</td><td>No re-rating; market keeps the current depressed multiple</td></tr>
+<tr><td>Base (peer-informed avg)</td><td>23.9x</td><td>$19.39</td><td>$463.42</td><td class="up">+17%</td><td>Avg of GOOG 24.4x, META 15.8x, AAPL 30.4x, AMZN 24.1x, ORCL 25.0x</td></tr>
+<tr><td>GOOG Parity (closest hyperscale comp)</td><td>24.4x</td><td>$19.39</td><td>$473.12</td><td class="up">+19%</td><td>Most comparable hyperscale cloud + AI peer</td></tr>
+<tr><td>META Parity (capex-fear multiple)</td><td>15.8x</td><td>$19.39</td><td>$306.36</td><td class="dn">-23%</td><td>What MSFT trades at if its capex gets META'd</td></tr>
+<tr><td>AAPL Parity</td><td>30.4x</td><td>$19.39</td><td>$589.46</td><td class="up">+48%</td><td>Capex-light quality premium — requires capex digestion proof</td></tr>
+<tr><td>Optimistic (multiple expansion + beat)</td><td>28.0x</td><td>$22.30</td><td>$624.40</td><td class="up">+57%</td><td>Bull EPS +15%; multiple recovers toward (not to) 5Y mean</td></tr>
+</tbody></table>
+
+<h3>Method 2: Mean Reversion &amp; Consensus</h3>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">5Y Avg PE × Fwd EPS</div><div class="value up">$622.42</div><div class="sub up">+57% upside</div></div><div class="kpi"><div class="label">Peer Avg PE × Fwd EPS</div><div class="value up">$463.42</div><div class="sub up">+17% upside</div></div><div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value up">$560.95</div><div class="sub neu">+41% — stale, discount it</div></div>
+</div>
+<div class="co bl"><strong>📐 Calculation Details:</strong><ul><li>5-year average P/E of 32.1x (filtered, range 25x–37x) × forward EPS $19.39 = $622.42 — assumes pre-2026 rate regime returns</li><li>Mag7+ORCL peer average forward P/E 23.9x × $19.39 = $463.42</li><li>Analyst consensus PT $560.95 (range $400–$870, n=55) — largely pre-dates the June 4–5 break</li></ul></div>
+
+<h3>Method 3: Discounted Cash Flow (DCF)</h3>
+<p style="color:#64748b; margin-bottom:12px">10-year two-stage FCF model. TTM FCF ($37.0B) is artificially depressed by peak capex, so we model revenue growth with the FCF margin recovering linearly from today's 11.6% of revenue to a normalized terminal margin by year 5 (capex digestion). WACC 10%, terminal growth 3.0%, 7.43B shares.</p>
+<table><thead><tr><th>Scenario</th><th>Rev Growth</th><th>Normalized FCF Margin</th><th>WACC</th><th>Terminal Growth</th><th>Intrinsic Value</th><th>Upside</th></tr></thead>
+<tbody><tr><td>Bear (capex never pays)</td><td>8.0%</td><td>20%</td><td>10.0%</td><td>3.0%</td><td>$175.60</td><td class="dn">-56%</td></tr>
+<tr><td>Base (digestion by FY29)</td><td>15.0%</td><td>27%</td><td>10.0%</td><td>3.0%</td><td>$400.02</td><td class="neu">+0.7%</td></tr>
+<tr><td>Bull (AI revenue per MW delivers)</td><td>20.0%</td><td>30%</td><td>10.0%</td><td>3.0%</td><td>$646.67</td><td class="up">+63%</td></tr>
+</tbody></table>
+<div class="co yw"><strong>⚖️ Honest read:</strong> The DCF says MSFT at $397 is pricing the base case almost exactly — the market is no longer paying anything for the bull case. Multiple-based methods ($459–622) sit above DCF base because they implicitly assume margin normalization. The bear case ($176) shows what's at stake if $190B/yr capex becomes structural without commensurate revenue.</div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$314.10</div><div class="mt">18x × $17.45 EPS (90% of consensus)</div><div class="us dn">-21%</div><div class="ds">Fed hikes in December, 10Y &gt;5%, oil stays $90+; FY27 capex guided up again without FCF recovery; multiple compresses below META's current 15.8x in a full capex panic.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr up">$465.36</div><div class="mt">24x × $19.39 EPS</div><div class="us up">+17%</div><div class="ds">Azure holds 39–40% cc; FY27 capex guided flat-to-down as Maia silicon ramps; macro fear fades by year-end; multiple recovers to GOOG-parity ~24x.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$624.40</div><div class="mt">28x × $22.30 EPS (+15% beat)</div><div class="us up">+57%</div><div class="ds">Fed cuts return, AI revenue-per-MW proves out (MS framework), Copilot ARR inflects, OpenAI IPO marks the ~$228B stake to market. Multiple recovers toward 5Y mean.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co gr"><p><strong>MSFT</strong> enters the new "show me the FCF" regime as the best-positioned hyperscaler: 18% revenue growth at 39% net margin, $627B backlog, Azure +40%, and — uniquely among AI megaspenders — a ~$190B capex program funded 100% from operating cash flow, with no equity raise, while Build 2026's MAI models and Project Polaris structurally reduce OpenAI dependence. At 20.5x forward (below its own 5-year trough range), the stock has already pre-paid much of the capex de-rating that is only now hitting GOOG and META, which is why it outperformed through the June 4–10 break. The bear case is real and macro-shaped: $37B FCF-after-capex is ~80x FCF on a $2.95T cap, and a December rate hike plus $91 oil can compress the multiple further regardless of execution; consensus PTs ($561) are stale post-crash and should be discounted.</p><p><strong>Verdict: Accumulate on a 12-month view — base case $465 (+17%), bull $624 if capex digestion shows up in FY27 guidance; size for a $314 bear tail in a hike-and-Hormuz scenario.</strong></p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, Seeking Alpha, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, Seeking Alpha, X/Twitter, analyst consensus · 2026-06-10</p></div>
+</div>
+</body>
+</html>

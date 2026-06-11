@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BILI | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>BILI — Bilibili Inc.</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-06-10 · Sources: yfinance, SEC filings, Seeking Alpha, X/Twitter, analyst consensus</p>
+
+<div class="badge">📅 Next Earnings: 2026-08-20 (Q2 2026) — ~71 days away · Q1 2026 reported May 19</div>
+
+<div class="co rd"><strong>🌍 Macro Context (June 10, 2026):</strong> Fear regime. June 4–5 produced the worst US drop of the year (Nasdaq -4.2%) on a shock jobs report that lifted Fed December <em>rate-hike</em> odds to ~43%; today's benign core CPI still saw the S&P fall -1.6% to a 5-week low. VIX 22.2, 10Y 4.54%, Fear & Greed 27 (extreme fear). US-Iran strikes and a declared Hormuz blockade have WTI near $91 — a cost shock for oil-importing China. Rising US rates + risk-off is historically toxic for China ADR flows, and Friday's record SpaceX IPO is soaking up liquidity. Notably, BILI is GREEN today (+2.7% to $18.08) — one of the few China names bouncing off last week's lows.</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$18.08</div><div class="sub dn">-50.3% from 52W High ($36.40)</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$7.5B</div><div class="sub">Day range $18.03–18.64</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value">35.5x</div><div class="sub">EPS: $0.51</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value up">13.4x</div><div class="sub">Fwd EPS: $1.35</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">RMB 30.8B</div><div class="sub up">+6.7% YoY</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value up">36.8%</div><div class="sub">15 quarters of expansion</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value neu">2.2%</div><div class="sub">GAAP, Q1 seasonal + AI capex</div></div>
+    <div class="kpi"><div class="label">Net Cash</div><div class="value up">RMB 14.6B</div><div class="sub">Cash 24.2B / Debt 9.6B</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">1-Month Return</div><div class="value dn">-18.1%</div></div>
+    <div class="kpi"><div class="label">3-Month Return</div><div class="value dn">-31.9%</div></div>
+    <div class="kpi"><div class="label">6-Month Return</div><div class="value dn">-29.9%</div></div>
+    <div class="kpi"><div class="label">Short % of Float</div><div class="value">5.7%</div><div class="sub">Moderate</div></div>
+</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter (RMB)</th><th>Revenue</th><th>Net Income</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th><th>Diluted EPS</th></tr></thead>
+<tbody><tr><td>2026-03-31 (Q1)</td><td>7.47B <span class="dn">↓ QoQ</span></td><td>209.8M</td><td>37.1%</td><td>2.2%</td><td>2.8%</td><td>0.48</td></tr>
+<tr><td>2025-12-31</td><td>8.32B <span class="up">↑</span></td><td>513.4M</td><td>37.0%</td><td>6.1%</td><td>6.2%</td><td>1.14</td></tr>
+<tr><td>2025-09-30</td><td>7.69B <span class="up">↑</span></td><td>470.2M</td><td>36.7%</td><td>4.6%</td><td>6.1%</td><td>1.05</td></tr>
+<tr><td>2025-06-30</td><td>7.34B <span class="up">↑</span></td><td>219.0M</td><td>36.5%</td><td>3.4%</td><td>3.0%</td><td>0.51</td></tr>
+<tr><td>2025-03-31</td><td>7.00B —</td><td>-9.1M</td><td>36.3%</td><td>0.2%</td><td>-0.1%</td><td>-0.02</td></tr>
+</tbody></table>
+<div class="co yw"><strong>📊 Q1 2026 Read (reported May 19):</strong> Beat-but-decelerate. Adjusted net profit +60%+ YoY on RMB7.47B revenue (+7%); advertising +30% for the 13th straight double-digit quarter as AI tools lifted ad-user matching (Investing.com, Yahoo Finance, May–June 2026). GAAP op margin slipped to 2.2% from Q4's 6.1% on Q1 seasonality plus the RMB500M P&L impact of the FY26 AI capex ramp. Gross margin expanded for the 15th consecutive quarter. DAU 115.2M (+8% YoY), daily time spent a record 119 minutes (+11 min YoY) per the May 19 6-K.</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Revenue Stream</th><th>Q1 2026 (RMB)</th><th>% of Total</th><th>YoY Trend</th><th>Notes</th></tr></thead>
+<tbody><tr><td><strong>Advertising</strong></td><td>2.59B</td><td>~35%</td><td class="up">+30% YoY</td><td>13th consecutive double-digit quarter; AI targeting + CPM lift (6-K, May 19)</td></tr>
+<tr><td><strong>Value-Added Services (Live + Premium)</strong></td><td>2.91B</td><td>~39%</td><td class="up">+4% YoY</td><td>Maturing; live streaming + Big Membership</td></tr>
+<tr><td><strong>Mobile Games</strong></td><td>1.52B</td><td>~20%</td><td class="dn">-12% YoY</td><td>San Mou downcycle; pipeline (NCard July, San Wang Q4, Lumi Master Q4) is the swing factor</td></tr>
+<tr><td><strong>IP Derivatives & Other</strong></td><td>0.45B</td><td>~6%</td><td class="dn">-4% YoY</td><td>Merchandise + comics; lumpy</td></tr>
+</tbody></table>
+<div class="co bl"><strong>Mix shift:</strong> Ads carry the entire incremental growth (+RMB600M YoY) while gaming is a headwind until 2H26 launches. NCard's April soft launch met expectations with official launch planned for July; San Wang (Romance of the Three Kingdoms: Wangdaotianxia) targets Q4 with Morgan Stanley projecting RMB1.7B annualized grossing; Lumi Master global launch Q4 after positive worldwide testing (Investing.com, Insider Monkey, May–June 2026).</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl neu">34</div><div class="nt neu">Near-oversold, turning up</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl dn">$21.21</div><div class="nt dn">Price -15% below</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl dn">$25.85</div><div class="nt dn">Price -30% below</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl neu">-1.10</div><div class="nt up">Crossed above signal (-1.20)</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$36.40</div><div class="nt dn">-50.3%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$16.92</div><div class="nt up">+6.9%</div></div>
+</div>
+<div class="co yw"><strong>⚠️ Technical Signal:</strong> Still a defined downtrend (price well below both SMAs), but the first constructive signs since April: the stock defended the $16.92 52W low on last week's macro purge, MACD has crossed above its signal line, and today BILI is green against a -1.6% S&P tape. Relative strength on a red day is how bottoms start — but one day is not a trend.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Company</th><th>Price</th><th>MCap</th><th>Trail P/E</th><th>Fwd P/E</th><th>Rev Growth</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th></tr></thead>
+<tbody><tr class="hl"><td><strong>BILI</strong></td><td>$18.08</td><td>$7.5B</td><td>35.5x</td><td>13.4x</td><td>+6.7%</td><td>36.8%</td><td>2.2%</td><td>4.6%</td></tr>
+<tr><td><strong>BABA</strong></td><td>$115.38</td><td>$276.8B</td><td>17.7x</td><td>12.5x</td><td>+2.9%</td><td>39.8%</td><td>1.0%</td><td>10.1%</td></tr>
+<tr><td><strong>TME</strong></td><td>$9.21</td><td>$15.1B</td><td>11.0x</td><td>8.7x</td><td>+7.3%</td><td>44.4%</td><td>30.4%</td><td>26.5%</td></tr>
+<tr><td><strong>IQ</strong></td><td>$1.03</td><td>$1.0B</td><td>—</td><td>12.4x</td><td>-13.4%</td><td>18.8%</td><td>-3.7%</td><td>-2.6%</td></tr>
+<tr><td><strong>HUYA</strong></td><td>$2.47</td><td>$0.57B</td><td>—</td><td>12.9x</td><td>+16.2%</td><td>13.4%</td><td>-3.7%</td><td>-1.7%</td></tr>
+</tbody></table>
+<div class="co bl"><strong>Peer read:</strong> At 13.4x forward, BILI is priced inline with the China media cohort and above margin-leader TME (8.7x, 30% op margin). The multiple no longer offers a discount; the upside has to come from gaming EPS that isn't in numbers yet. Morgan Stanley models 2027 game revenue of RMB7.8B vs consensus RMB6.8B — that gap IS the bull case (Investing.com, May 2026).</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value up">0.23</div><div class="sub">Front expiry 6/12 · heavy call bias</div></div>
+    <div class="kpi"><div class="label">Avg Call IV (front)</div><div class="value neu">~57%</div><div class="sub">Elevated single-name premium</div></div>
+    <div class="kpi"><div class="label">Short % of Float</div><div class="value">5.7%</div><div class="sub">Moderate</div></div>
+    <div class="kpi"><div class="label">Beta</div><div class="value">0.70</div><div class="sub">5Y vs SPX</div></div>
+</div>
+<div class="co bl"><strong>📊 Options Read:</strong> Front-week flow is 4:1 call-tilted (P/C 0.23) — speculative bottom-fishing into the bounce. No earnings event for ~10 weeks, so IV is macro/ADR premium rather than catalyst pricing. Front-weekly open interest is thin; read flow, not OI.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co bl"><strong>Insider Holdings:</strong> Reported insider stake remains negligible (~0.01% per yfinance; founder economics sit in the HK-listed dual-class structure). No open-market insider buys or sells disclosed during the 50% drawdown — management is holding, not signaling. Neutral.</div>
+
+<h2 class="pb">📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">"Bilibili Q1 Earnings: Reflecting On The 'Sell' Quant Rating"</span> · May 21, 2026 · <span class="st net">Hold</span><p style="margin-top:8px; color:#475569">PT cut from $28 to $24: advertising impressive but headline growth subdued at 7%; quant momentum negative.</p></div>
+<div class="tw"><span class="au">"Bilibili Stock: Focus On User Additions And Margin Expansion"</span> · May 21, 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Creator flywheel intact: creators with >1M followers +20% YoY; supply-side moat compounding into ad inventory.</p></div>
+<div class="tw"><span class="au">"New Game Pipeline Could Transform Bilibili — The Bull Case"</span> · June 2026 (Yahoo/Insider Monkey syndication) · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Three 2H26 titles (San Wang, NCard, Lumi Master) could re-accelerate the lagging games segment; MS models RMB1.7B annualized grossing for San Wang alone.</p></div>
+<div class="tw"><span class="au">"Bilibili: Still A 'Buy' Amid DAU Growth And Ad Surge"</span> · April 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">DAU 115M (+8%), ads +30%, record 119-minute daily time spent — engagement KPIs at all-time highs.</p></div>
+<div class="co yw"><strong>SA Consensus:</strong> 3 Buy / 1 Hold in recent coverage. Bull case (engagement + ads + pipeline) unchanged since May; the stock fell anyway — the disagreement is about WHEN gaming EPS shows up, not whether the franchise works.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">Operating-leverage bulls (aggregate)</span> · mid-May 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Most-shared stat from the Q1 print: EPS growth ~436% YoY on +7.6% revenue — "an operating leverage story, not a demand story."</p></div>
+<div class="tw"><span class="au">China-ADR skeptics</span> · late May–June 2026 · <span class="st ber">Bearish</span><p style="margin-top:8px; color:#475569">"Never buy anything with ADR in its name" sentiment intensified through the June 4–5 purge; BILI cited as exhibit A of a clean beat that still got sold.</p></div>
+<div class="tw"><span class="au">Gaming-sector watchers</span> · June 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">Focus shifting to NCard's July launch as the first hard pipeline checkpoint; banhao (approval) timing chatter around San Wang's Q4 window.</p></div>
+<div class="co bl"><strong>X Consensus:</strong> Fundamentals-bullish, flows-bearish. Today's +2.7% bounce against a red tape is the first sign sellers may be exhausted near the 52W low.</div>
+
+<h2>🚀 Catalysts</h2>
+<ul>
+<li><strong>NCard official launch — July 2026:</strong> first pipeline checkpoint; April soft launch met expectations (Investing.com, May 2026). A charting launch flips the gaming narrative ahead of Q2 earnings</li>
+<li><strong>Q2 2026 earnings — August 20:</strong> consensus looks for ~RMB7.9B revenue; 14th straight double-digit ad quarter would confirm the AI-monetization engine</li>
+<li><strong>San Wang (Q4 2026):</strong> the single largest pipeline asset; MS models RMB1.7B annualized grossing with manageable San Mou cannibalization; basis for MS's OW upgrade to PT $31</li>
+<li><strong>Lumi Master global launch (Q4 2026):</strong> first true global title; positive worldwide test feedback</li>
+<li><strong>Margin path:</strong> management mid-term targets of 40–45% gross / 15–20% adj. op margin vs 37.1% / ~7% today — every quarter of progress compounds the EPS estimate</li>
+<li><strong>Sell-side support stacking:</strong> MS OW $31, JPM OW $35, Citi Buy $27, Goldman PT $32.30 maintained post-Q1 (Investing.com, May 2026); consensus 30 Buy / 1 Hold</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>Pipeline execution — the thesis IS the pipeline:</strong> gaming already -12% YoY; any NCard stumble in July or San Wang banhao slip pushes the EPS ramp into 2027 and invites another derate</li>
+<li><strong>Our own track record check:</strong> we scored BILI 90/Bullish on May 4 and it fell ~19% in a month, underperforming QQQ by ~42pts since April 9 — the lesson is that back-end-loaded catalysts provide no defense in a risk-off tape; sizing and timing matter more than the (intact) story</li>
+<li><strong>AI capex drag:</strong> RMB1B FY26 AI capex with RMB500M P&L impact keeps GAAP margins suppressed all year; bears will keep pointing at 2.2% GAAP op margin</li>
+<li><strong>ADR/HFCAA overhang:</strong> renewed US enforcement noise structurally discounts the cohort; HK listing (9626.HK) is a fallback with conversion friction</li>
+<li><strong>Consumption weakness:</strong> VAS +4% and IP -4% show the discretionary squeeze; if ad CPMs roll over the only growth lever rolls with them — and $91 oil worsens China's terms of trade</li>
+<li><strong>Competition for time spent:</strong> Douyin/Kuaishou short-form pressure on total video minutes is permanent; BILI's defense is the long-form ACG community</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value up">Strong Buy</div><div class="sub">31 analysts · mean 1.26</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value up">$29.56</div><div class="sub up">+63% upside</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$21.09</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$36.15</div></div>
+</div>
+<div class="co yw"><strong>Note:</strong> PTs have NOT been cut materially post-drawdown (mean $29.56 vs $29.59 in late May) — unlike TIGR, the sell-side still endorses the fundamental story here; even the LOW PT ($21.09) is +17% above spot. Still, treat the +63% headline upside as partially stale in this tape.</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data & Methodology:</strong> Market data from Yahoo Finance (yfinance) as of 2026-06-10. Forward EPS $1.35 is the consensus NTM estimate (USD/ADS). Peer multiples current as of today. Three independent methods triangulated.</div>
+
+<h3>Method 1: P/E Multiple Approach</h3>
+<table><thead><tr><th>Scenario</th><th>P/E</th><th>EPS</th><th>Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody><tr><td>Bear (TME parity)</td><td>8.7x</td><td>$1.20</td><td>$10.44</td><td class="dn">-42%</td><td>Pipeline slips, market pays margin-leader multiple on trimmed EPS</td></tr>
+<tr><td>Base (peer-informed)</td><td>15.0x</td><td>$1.35</td><td>$20.25</td><td class="up">+12%</td><td>Modest growth premium to the 12.6x peer average as ads compound</td></tr>
+<tr><td>Peer average</td><td>12.6x</td><td>$1.35</td><td>$17.01</td><td class="dn">-6%</td><td>Avg of BABA 12.5x, TME 8.7x, IQ 12.4x, HUYA 12.9x — roughly spot</td></tr>
+<tr><td>Bull (pipeline lands)</td><td>20.0x</td><td>$1.55</td><td>$31.00</td><td class="up">+71%</td><td>San Wang + NCard hit, +15% EPS beat, growth multiple restored</td></tr>
+</tbody></table>
+
+<h3>Method 2: Mean Reversion & Consensus</h3>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">Peer Avg PE × Fwd EPS</div><div class="value">$17.01</div><div class="sub dn">-6%</div></div>
+<div class="kpi"><div class="label">SA Author PT Midpoint</div><div class="value up">$25.50</div><div class="sub up">+41%</div></div>
+<div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value up">$29.56</div><div class="sub up">+63%</div></div>
+<div class="kpi"><div class="label">JPMorgan PT (high-profile)</div><div class="value up">$35.00</div><div class="sub up">+94%</div></div>
+</div>
+<div class="co bl"><strong>📐 Calculation Details:</strong><ul><li>Peer average forward P/E 12.6x (BABA 12.5x, TME 8.7x, IQ 12.4x, HUYA 12.9x) × $1.35 = $17.01</li><li>Recent SA author PTs $24–$27, midpoint ~$25.50</li><li>Street consensus $29.56 (range $21.09–$36.15, n=31), essentially unchanged through the drawdown</li></ul></div>
+
+<h3>Method 3: Discounted Cash Flow (DCF)</h3>
+<table><thead><tr><th>Scenario</th><th>Rev Growth</th><th>Terminal Op Margin</th><th>WACC</th><th>Terminal Growth</th><th>Intrinsic Value</th><th>Upside</th></tr></thead>
+<tbody><tr><td>Bear</td><td>4%</td><td>5%</td><td>11.0%</td><td>2.5%</td><td>$13.00</td><td class="dn">-28%</td></tr>
+<tr><td>Base</td><td>7%</td><td>12%</td><td>10.5%</td><td>2.5%</td><td>$22.50</td><td class="up">+24%</td></tr>
+<tr><td>Bull</td><td>10%</td><td>18%</td><td>10.0%</td><td>3.0%</td><td>$34.00</td><td class="up">+88%</td></tr>
+</tbody></table>
+<div class="co bl"><strong>✅ Triangulation:</strong> Peer math says fairly valued (~$17), DCF base says $22.50, the Street says $29.56. The spread is entirely a bet on the margin path (7% → 15–20% adj. op margin) and on at least one of three games landing. Net cash of RMB14.6B (~26% of market cap) limits fundamental downside but did nothing to stop the flow-driven drawdown.</div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$11.50</div><div class="mt">~9x × $1.25 EPS</div><div class="us dn">-36%</div><div class="ds">San Wang slips to 2027, NCard flops, AI capex absorbs all leverage, ADR purge continues. Multiple compresses toward TME parity.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr up">$22.50</div><div class="mt">~16.7x × $1.35 EPS</div><div class="us up">+24%</div><div class="ds">NCard ships July, ads sustain 25%+ growth through Q2/Q3, San Wang stays on Q4 track. Gradual re-rate as the pipeline de-risks checkpoint by checkpoint.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$31.00</div><div class="mt">~20x × $1.55 EPS</div><div class="us up">+71%</div><div class="ds">San Wang launches on time and charts, ad growth holds 30%+, adj. op margin tracks to 15%; stock re-rates toward MS/JPM territory ($31–35).</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co gr"><p><strong>BILI</strong> remains a profitable-transition story with the receipts to prove it — 13 straight double-digit ad quarters, 15 quarters of gross-margin expansion, record 119-minute engagement — but our May Bullish call (90 score) was a timing error we own: a back-end-loaded 2H26 catalyst calendar offered zero defense against the worst China-ADR flow regime of the year, and the stock lost ~19% anyway. At $18.08 (13.4x forward, ~26% of market cap in net cash, hugging the 52W low), the market now pays nothing for the game pipeline; the difference vs May is that the first checkpoint is finally close — NCard's official launch in July, then Q2 earnings August 20, then San Wang/Lumi Master in Q4. Each checkpoint either adds EPS or kills the thesis cleanly. Bear case (pipeline slips + ADR purge) is ~$11.50; base case $22.50. <strong>Verdict: fundamentally intact but flow-hostage — accumulate only with July's NCard launch as the explicit validation gate, 12-month base case $22.50 (+24%).</strong></p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, SEC filings, Seeking Alpha, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, SEC filings, Seeking Alpha, X/Twitter, analyst consensus · 2026-06-10</p></div>
+</div>
+</body>
+</html>

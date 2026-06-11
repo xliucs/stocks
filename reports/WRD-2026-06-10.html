@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WRD | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>WRD — WeRide Inc.</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-06-10 · Sources: yfinance, SEC filings, Seeking Alpha, X/Twitter, analyst consensus</p>
+
+<div class="badge">📅 Q1 2026 Reported 2026-05 — Revenue +57.6% YoY · AGM June 26, 2026 · Stock at all-time-low territory</div>
+
+<div class="co rd"><strong>🌪️ Macro Context (June 10, 2026):</strong> The market just printed its worst drop of the year (Nasdaq -4.2% June 4-5) after a shock jobs report flipped Fed December <em>rate-hike</em> odds to ~43% from near zero; the 10Y sits at 4.54%. Even a benign core CPI today couldn't hold the tape — S&P -1.6% to a 5-week low, Fear &amp; Greed at 27 (extreme fear), VIX 22.2. WTI is ~$91 after US strikes on Iran and a Hormuz blockade, and Friday's record SpaceX IPO is absorbing the marginal speculative-growth dollar. WRD is exactly the profile this regime punishes: a long-duration, pre-profit, cash-burning China ADR. SMCI's -28% on a $7B raise shows how brutally dilution is being repriced — WRD's ~$895M liquidity buffer is its main defense.</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$6.10</div><div class="sub dn">-51% from 52W high · 1.6% above 52W low ($6.005)</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$2.01B</div><div class="sub">~330M ADS (1 ADS = 3 ordinary)</div></div>
+    <div class="kpi"><div class="label">P/S (TTM, USD)</div><div class="value">~20x</div><div class="sub">EV/S ~11x net of cash</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value">-13.1x</div><div class="sub dn">Loss-making through 2028E</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">~$102M</div><div class="sub up">Q1'26: RMB114.1M ($16.5M), +57.6% YoY</div></div>
+    <div class="kpi"><div class="label">Gross Margin (Q1)</div><div class="value up">34.7%</div><div class="sub">TTM ~30%</div></div>
+    <div class="kpi"><div class="label">Operating Margin (Q1)</div><div class="value dn">-376%</div><div class="sub up">vs -605% Q1'25</div></div>
+    <div class="kpi"><div class="label">Cash &amp; ST Inv.</div><div class="value up">~$895M</div><div class="sub">$750.9M cash + ~$144M ST inv (3/31/26) · ~44% of mkt cap</div></div>
+</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<p style="color:#64748b;font-size:0.85em">Reported in RMB (Q1'26: RMB114.1M = US$16.5M). Margins are currency-neutral.</p>
+<table><thead><tr><th>Quarter</th><th>Revenue (RMB)</th><th>Net Income (RMB)</th><th>Gross Margin</th><th>Op Margin</th><th>EPS (RMB)</th></tr></thead>
+<tbody><tr class="hl"><td>2026-03-31</td><td>114.1M <span class="dn">↓ seq</span></td><td>-389.1M</td><td>34.7%</td><td>-376%</td><td>-1.14</td></tr>
+<tr><td>2025-12-31</td><td>314.0M <span class="up">↑↑</span></td><td>-556.1M</td><td>28.5%</td><td>-176%</td><td>-1.71</td></tr>
+<tr><td>2025-09-30</td><td>171.0M <span class="up">↑</span></td><td>-307.3M</td><td>32.9%</td><td>-222%</td><td>-1.02</td></tr>
+<tr><td>2025-06-30</td><td>127.2M <span class="up">↑</span></td><td>-406.4M</td><td>28.1%</td><td>-355%</td><td>-1.35</td></tr>
+<tr><td>2025-03-31</td><td>72.4M —</td><td>-385.1M</td><td>35.0%</td><td>-605%</td><td>-1.38</td></tr>
+</tbody></table>
+
+<div class="co yw"><strong>📊 Read:</strong> Q1'26 revenue of RMB114.1M (+57.6% YoY) was a record first quarter, with product revenue +115.8% (robotaxi/L4 vehicle sales) and service revenue +49%. But the sequential drop from Q4'25's RMB314M (which included lumpy year-end vehicle deliveries) and a net loss of RMB389M (~US$55M) with nothing on the call quantifying the path to breakeven disappointed the market — the stock fell ~15% on the print and has since ground to all-time-low territory. Burn is running roughly US$200M+/yr, giving ~4 years of runway on ~$895M liquidity. (Sources: WeRide 6-K Q1'26 results, SEC; Q1'26 earnings call transcript, Motley Fool/Globe and Mail, May 2026.)</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Revenue Stream</th><th>Q1'26 (RMB)</th><th>% of Total</th><th>YoY</th><th>Notes</th></tr></thead>
+<tbody><tr><td><strong>Product (robotaxi &amp; L4 vehicle sales)</strong></td><td>20.5M</td><td>~18%</td><td class="up">+115.8%</td><td>GXR robotaxi, Robobus, Robovan, Robosweeper deliveries; 2,000 GXR target for EOY 2026</td></tr>
+<tr><td><strong>Service (operations, ADAS R&amp;D, support)</strong></td><td>93.6M</td><td>~82%</td><td class="up">+49.0%</td><td>Robotaxi operations (UAE, Singapore, Europe), Bosch ADAS program, fleet O&amp;M</td></tr>
+</tbody></table>
+<div class="co bl"><strong>Footprint:</strong> ~2,800 autonomous vehicles across 40+ cities in 12 countries, including ~1,300 robotaxis — the broadest international L4 franchise of any listed player. Roadmap: 2,600 robotaxis globally by end-2026, tens of thousands by 2030 (StockTitan/company filings, June 2026).</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl neu">~43</div><div class="nt">47.2 at 6/9 close; pressing lower at today's new low</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl dn">$7.58</div><div class="nt dn">Price 19.5% below</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl dn">$8.51</div><div class="nt dn">Price 28.3% below</div></div>
+</div>
+<div class="tg">
+    <div class="tc"><div class="mk">1-Week Return</div><div class="vl dn">-16.5%</div><div class="nt dn">Crushed in the June 4-5 risk-off</div></div>
+    <div class="tc"><div class="mk">1M / 3M / 6M</div><div class="vl dn">-14% / -4% / -32%</div><div class="nt dn">Persistent downtrend</div></div>
+    <div class="tc"><div class="mk">Avg Volume (3M)</div><div class="vl">4.1M</div><div class="nt">No capitulation spike yet</div></div>
+</div>
+<div class="co rd"><strong>📊 Technical Read:</strong> WRD printed $6.08 intraday on June 10 — essentially the all-time/52-week low ($6.005) for the 4th time in 12 months. Price is below every major moving average with no support below other than the cash floor (~$2.70/ADS in net cash). Until the tape exits extreme-fear regime, rallies into $7.50-8.50 (SMA50/SMA200) are likely to be sold. A break of $6.00 opens price discovery.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Ticker</th><th>Mkt Cap</th><th>P/S (TTM)</th><th>Rev Growth</th><th>Gross Margin</th><th>Op Margin</th><th>Notes</th></tr></thead>
+<tbody><tr class="hl"><td><strong>WRD</strong></td><td>$2.0B</td><td>~20x (USD)</td><td class="up">+57.6%</td><td>30.4%</td><td>-376%</td><td>Broadest international L4 footprint; ~1,300 robotaxis; Uber partner in 4 EU launches</td></tr>
+<tr><td>PONY (Pony AI)</td><td>$3.5B</td><td>~32x</td><td class="up">+145%</td><td>15.8%</td><td>-170%</td><td>China Tier-1 driverless permits; 1,700+ fleet; also at 52W lows</td></tr>
+<tr><td>TSLA</td><td>$1.43T</td><td>14.6x</td><td>+15.8%</td><td>19.1%</td><td>4.2%</td><td>Robotaxi optionality + FSD data flywheel</td></tr>
+<tr><td>GOOG (Waymo)</td><td>$4.31T</td><td>10.2x</td><td>+21.8%</td><td>60.4%</td><td>36.1%</td><td>Waymo is the scale benchmark; CEO Tony Han claims WRD "40x undervalued vs Waymo"</td></tr>
+<tr><td>MBLY</td><td>$7.7B</td><td>3.8x</td><td>+27.4%</td><td>48.3%</td><td>-19.4%</td><td>ADAS supplier, not robotaxi operator</td></tr>
+<tr><td>BIDU (Apollo Go)</td><td>$40B</td><td>0.3x</td><td>-1.2%</td><td>42.1%</td><td>+10.0%</td><td>Largest China robotaxi fleet; London trials 2026</td></tr>
+</tbody></table>
+<div class="co yw"><strong>Peer Read (currency-corrected):</strong> Note: screen tools showing WRD at "2.8x P/S" mix a USD market cap with RMB revenue. In USD, WRD trades ~20x TTM sales / ~11x EV/S — cheaper than PONY (~32x / ~23x EV/S) with 2x PONY's gross margin, but no longer "bottom-decile cheap" in absolute terms for a company burning >$200M/yr.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value up">0.08</div><div class="sub">1,854 calls vs 147 puts (Jun/Jul expiries)</div></div>
+    <div class="kpi"><div class="label">P/C Open Interest</div><div class="value dn">Put-heavy</div><div class="sub">Legacy downside hedges dominate OI</div></div>
+    <div class="kpi"><div class="label">Implied Vol</div><div class="value neu">Elevated</div><div class="sub">VIX 22.2 regime; single-name IV high</div></div>
+    <div class="kpi"><div class="label">Short Interest</div><div class="value">3.8%</div><div class="sub">11.4M shares — modest</div></div>
+</div>
+<div class="co bl"><strong>📊 Options Read:</strong> Flow is barbelled: existing open interest is put-heavy (hedges/insurance against delisting tail risk), but fresh volume is overwhelmingly calls — bottom-fishing via long-dated cheap calls (e.g., Jan-2028 $10 calls cited on X, @upand_right 6/10). Low absolute liquidity; treat signals as weak.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co yw"><strong>Recent activity:</strong>
+<ul>
+<li><strong>Company buyback active</strong> — WeRide disclosed continued Nasdaq share repurchases and treasury stock increases through May-June 2026 (TipRanks, June 2026); CEO Tony Han launched the buyback after telling Bloomberg the stock is "40x undervalued vs Waymo"</li>
+<li>No major insider Form 144/cluster selling flagged in recent filings; founder/management retain super-voting control via Class B shares</li>
+<li>Institutions hold only ~24% — thin institutional sponsorship amplifies volatility</li>
+</ul>
+</div>
+
+<h2>📝 Seeking Alpha / Street Research</h2>
+<div class="tw"><span class="au">"WeRide, Uber plan Spain's first robotaxi pilot in Madrid"</span> · StockTitan · Jun 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">WRD + Uber + AVOMO to launch Spain's first commercial robotaxi pilot in Madrid — first joint Uber-WeRide entry into continental Spain; fleet to scale to "hundreds" as milestones are met.</p></div>
+<div class="tw"><span class="au">"Can WeRide Turn Its Madrid Robotaxi Pilot Into a Scalable European Platform Strategy?"</span> · Simply Wall St · Jun 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">Europe is now the strategic differentiator (France, Switzerland, Belgium, Spain, Slovakia), but monetization timelines remain long and the stock is -23% YTD.</p></div>
+<div class="tw"><span class="au">"WeRide (Nasdaq: WRD) Q1 2026 revenue jumps 58% while net loss hits RMB389m"</span> · StockTitan/SEC 6-K · May 2026 · <span class="st net">Mixed</span><p style="margin-top:8px; color:#475569">Record Q1 revenue, but loss quantum and absence of profitability guidance drove the post-print selloff.</p></div>
+<div class="tw"><span class="au">"WeRide outlines heavy R&amp;D spend and PRC, HFCAA risks" (2025 20-F)</span> · StockTitan/SEC · Jun 2026 · <span class="st ber">Bearish</span><p style="margin-top:8px; color:#475569">Annual report filed ahead of the June 26 AGM re-flags HFCAA delisting risk if PCAOB inspection access degrades, plus PRC data-security and export-control exposure.</p></div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">@CHItrader</span> · 2026-06-10 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"WERIDE LANDS SLOVAK GOVERNMENT BACKING — official Slovak government support for deploying multi-product L4 autonomous vehicles, first units rolling this month."</p></div>
+<div class="tw"><span class="au">@WallStDiaries</span> · 2026-06-10 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Slovakia becomes WeRide's 5th European base (after France, Switzerland, Belgium, Spain): PM Fico meeting, Bratislava field tests first, Kosice + High Tatras later, full driverless commercial service targeted within 2026 pending permits.</p></div>
+<div class="tw"><span class="au">@jmllubber</span> · 2026-06-10 · <span class="st ber">Bearish</span><p style="margin-top:8px; color:#475569">"$WRD near its ATL for the 4th time in 12 months... Tony Han said he wants the beauty of the market to decide $WRD and it did. Almost another all-time low." Retail frustration with management's refusal to guide.</p></div>
+<div class="tw"><span class="au">@upand_right</span> · 2026-06-11 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Positioning via Jan-2028 $10 calls — long-dated optionality rather than stock.</p></div>
+<div class="co yw"><strong>X Consensus:</strong> Split. News-flow accounts are bullish on the European expansion cadence (Madrid, Slovakia); holders are bearish/frustrated at the relentless price action and management's no-guidance posture. Net: sentiment follows price, and price is at the lows.</div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>Madrid commercial robotaxi pilot with Uber + AVOMO</strong> — Spain's first; fleet scales to "hundreds" on milestones (June 2026)</li>
+<li><strong>Slovakia national AV program</strong> — government backing announced June 10; first vehicle deliveries this month, full driverless commercial targeted within 2026</li>
+<li><strong>2,600 robotaxis globally by EOY 2026</strong> (from ~1,300) — the single most verifiable execution metric</li>
+<li><strong>Hong Kong Stock Connect inclusion (effective June 4, 2026)</strong> — mainland Chinese investors can now buy the HK line; potential southbound bid and partial delisting-risk mitigation</li>
+<li><strong>EU 17-state cross-border AV framework (June 8)</strong> — common permitting principles directly benefit WRD's 5-country European footprint</li>
+<li><strong>Uber partnership expansion</strong> — $100M investment and 15-city commitment continue to roll out</li>
+<li><strong>Ongoing buyback</strong> — management repurchasing at all-time lows</li>
+<li><strong>Q2 2026 print (~Aug)</strong> — watch robotaxi fleet adds and any first-ever margin/breakeven framework</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>Delisting/HFCAA overhang is persistent, not transient</strong> — US lawmakers have urged the SEC to delist 25 Chinese companies; WRD's own 20-F flags PCAOB-access risk. Our backtests show US-listed Chinese AV names underperformed QQQ in every window — the discount has not mean-reverted</li>
+<li><strong>Macro regime</strong> — highest-duration speculative names are most rate-sensitive; Fed hike odds rising, 10Y 4.54%, extreme-fear tape</li>
+<li><strong>Cash burn ~US$200M+/yr</strong> vs ~$895M liquidity → ~4-yr runway; in the current SMCI-style dilution-punishment regime, any equity raise would be severely penalized</li>
+<li><strong>No profitability guidance</strong> — management declined to frame a breakeven path on the Q1 call; the market is no longer paying for open-ended stories</li>
+<li><strong>Sequential revenue decline</strong> (Q4 RMB314M → Q1 RMB114M) shows lumpy, product-sale-dependent revenue, not yet recurring robotaxi economics</li>
+<li><strong>Competition</strong> — Baidu Apollo Go (larger fleet, London trials), Waymo, Tesla, and a better-capitalized PONY contesting the same international tenders</li>
+<li><strong>Data-security / export-control scrutiny</strong> of Chinese AV operators in Western markets could cap the very European expansion that anchors the bull case</li>
+<li><strong>Analyst PTs are stale post-drop</strong> — the $14.19 mean implies +133% "upside" that should be heavily discounted</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value up">Strong Buy</div><div class="sub">Mean 1.31 · 12 analysts</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value">$14.19</div><div class="sub neu">+133% — stale post-drop, discount it</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$10.99</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$20.00</div></div>
+</div>
+<div class="co yw"><strong>Note:</strong> Even the lowest Street target sits 80% above spot — a textbook stale-PT setup after a sharp decline. Treat "upside to PT" as illusory until targets are re-marked post-Q2.</div>
+
+<h2>💎 Valuation Framework</h2>
+<table><thead><tr><th>Method</th><th>Inputs</th><th>Implied Value</th><th>Comment</th></tr></thead>
+<tbody>
+<tr><td>Cash floor</td><td>~$895M liquidity − debt, ÷ 330M ADS</td><td>~$2.70</td><td>Hard-ish floor; assumes no value for the business</td></tr>
+<tr><td>EV/S multiple (FY27E)</td><td>~$210M USD rev @ 6-12x EV/S + net cash</td><td>$6.50–$10.30</td><td>Core range; growth deserves a premium, China ADR status a discount</td></tr>
+<tr><td>Mean reversion</td><td>SMA200 $8.51; 6-mo VWAP ~$8.5-9</td><td>~$8.50</td><td>Requires regime change from extreme fear</td></tr>
+<tr><td>DCF (sanity check)</td><td>Rev to ~$1B by 2031, 35% GM, 12% WACC, breakeven 2029</td><td>~$8–$11</td><td>Highly assumption-sensitive; burn-adjusted</td></tr>
+</tbody></table>
+<div class="sg">
+    <div class="sc bear"><div class="lb">Bear Case</div><div class="pr dn">$4.20</div><div class="mt">~4x FY27E EV/S + cash</div><div class="us dn">-31%</div><div class="ds">Delisting momentum builds, EU rollouts stay pilot-scale, burn unabated, fear regime persists into 2027. Stock drifts toward cash.</div></div>
+    <div class="sc base"><div class="lb">Base Case (12M)</div><div class="pr">$9.50</div><div class="mt">~10x FY27E EV/S + net cash</div><div class="us">+56%</div><div class="ds">2,600-robotaxi target hit, Madrid/Slovakia turn commercial, Stock Connect adds a southbound bid, macro normalizes. No new equity raise.</div></div>
+    <div class="sc bull"><div class="lb">Bull Case</div><div class="pr up">$15.00</div><div class="mt">~16x FY27E EV/S + cash</div><div class="us up">+146%</div><div class="ds">EU 17-state framework accelerates approvals; Uber deepens commitment; first credible breakeven roadmap; delisting fears recede via HK line.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co yw"><p><strong>WRD</strong> is the broadest international L4 autonomous franchise — ~2,800 vehicles, 40+ cities, 12 countries, with Uber-partnered launches in Madrid and fresh Slovak government backing (June 10) — trading at all-time-low territory ($6.10, 1.6% above the $6.005 floor) with ~44% of its market cap in cash and an active buyback. The European cadence is genuinely accelerating, and the June 8 EU cross-border AV framework is a structural tailwind no US peer enjoys.</p>
+<p>But the bear case is equally concrete and currently winning: this is a long-duration, pre-profit China ADR in a rate-hike-odds-rising, extreme-fear tape; the delisting/data-security overhang has proven persistent (Chinese AV ADRs underperformed QQQ in all our backtest windows); revenue is lumpy (Q1 fell sequentially); burn is >$200M/yr with no breakeven framework offered; and the correctly-measured valuation (~20x USD P/S, ~11x EV/S) is no longer screen-cheap. The $14 analyst mean PT is stale.</p>
+<p><strong>Verdict: Hold / speculative accumulate only in small size below $6.50. 12-month base case $9.50 (+56%), bear $4.20 (-31%), bull $15 (+146%). The cash floor limits ultimate downside, but there is no urgency to be early while the macro regime and ADR overhang both lean against the name. Re-assess at Q2 earnings (~Aug) on fleet adds and any breakeven framework.</strong></p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, SEC filings (6-K May 2026, 20-F June 2026), StockTitan, Simply Wall St, TipRanks, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, SEC filings, web research, X/Twitter, analyst consensus · 2026-06-10</p></div>
+</div>
+</body>
+</html>

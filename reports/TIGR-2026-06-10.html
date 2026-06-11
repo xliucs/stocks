@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TIGR | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>TIGR — UP Fintech Holding Limited (Tiger Brokers)</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-06-10 · Sources: yfinance, SEC filings, Bloomberg, CSRC/SCIO, Seeking Alpha, analyst consensus</p>
+
+<div class="badge">⚠️ CSRC crackdown ACTIVE · RMB411M penalty booked in Q1 (reported June 2) · Mainland accounts in 2-year sell-only wind-down</div>
+
+<div class="co rd"><strong>🌍 Macro Context (June 10, 2026):</strong> Fear regime. June 4–5 produced the worst US drop of the year (Nasdaq -4.2%) after a shock jobs report lifted Fed December <em>rate-hike</em> odds to ~43%; today's good core CPI still saw the S&P fall -1.6% to a 5-week low. VIX 22.2, 10Y 4.54%, Fear & Greed 27 (extreme fear); US-Iran strikes and a Hormuz blockade have WTI at ~$91. For a retail brokerage, this cuts both ways: volatility lifts trading commissions, but falling asset prices shrink client AUM (Q1 already took $4.9B of mark-to-market losses) and risk-off crushes the very China-ADR cohort TIGR belongs to. Friday's record SpaceX IPO is one bright spot — TIGR's IPO-distribution franchise monetizes exactly this kind of event.</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$4.83</div><div class="sub dn">-64.4% from 52W High ($13.55)</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$863M</div><div class="sub">Day range $4.63–5.05 · +2.3% today</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value">7.9x</div><div class="sub">EPS: $0.61 (penalty-depressed)</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value neu">4.9x</div><div class="sub dn">Fwd EPS $0.98 — likely stale pre-crackdown</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">$567.9M</div><div class="sub up">Q1: +26.3% YoY</div></div>
+    <div class="kpi"><div class="label">Q1 Op Profit</div><div class="value up">$47.6M</div><div class="sub up">+17.5% YoY · 30.7% op margin</div></div>
+    <div class="kpi"><div class="label">Q1 GAAP Net</div><div class="value dn">-$26.9M</div><div class="sub dn">Incl. ~$60M CSRC penalty</div></div>
+    <div class="kpi"><div class="label">Cash Position</div><div class="value">$4.5B</div><div class="sub">Incl. segregated client funds</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">1-Month Return</div><div class="value dn">-25.2%</div></div>
+    <div class="kpi"><div class="label">3-Month Return</div><div class="value dn">-37.9%</div></div>
+    <div class="kpi"><div class="label">6-Month Return</div><div class="value dn">-47.7%</div></div>
+    <div class="kpi"><div class="label">P/B</div><div class="value">0.99x</div><div class="sub">Book value $4.87/ADS</div></div>
+</div>
+
+<h2>🚨 The CSRC Crackdown — What Is Actually Affected</h2>
+<div class="co rd"><strong>Facts as of June 10, 2026 (all sourced):</strong>
+<ul>
+<li><strong>May 22:</strong> CSRC Beijing Bureau notified UP Fintech subsidiaries of penalties for unlicensed cross-border securities/fund/futures business in mainland China: fine of <strong>RMB308.1M (~$45M)</strong> plus confiscation of <strong>RMB103.1M (~$15M)</strong> "illegal income" — ~$60M total; CEO Tianhua Wu personally warned and fined RMB1.25M (TIGR 6-K via StockTitan; FX News Group; Bloomberg, May 22). Stock fell ~23–29% on the news (Seeking Alpha; Simply Wall St).</li>
+<li><strong>Scope:</strong> The same campaign penalized Futu and Longbridge. Regulators vow to "fully eradicate" non-compliant cross-border brokerage within <strong>two years</strong> (SCIO, May 25; LeapRate).</li>
+<li><strong>Exposure quantified:</strong> Mainland-China retail client assets ≈ <strong>10% of total client assets</strong> as of end-2025 (company disclosure in 6-K) — i.e., ~$5.9B of the $58.9B. 36Kr reports ~1M mainland accounts across the affected brokers entering a "two-year countdown."</li>
+<li><strong>Transition rules:</strong> existing mainland accounts may ONLY sell and withdraw — no new purchases, no new deposits, no new mainland account openings. Attrition of this book is mandated, not hypothetical.</li>
+<li><strong>Our May 27 report understated this:</strong> we cited "mainland ~0.6% of FY25 revenue" — the relevant disclosed metric is now ~10% of client assets, and the second-order effects (growth-rate hit, compliance costs, headline risk to overseas-Chinese clients) are larger than the direct revenue loss.</li>
+</ul></div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter (USD)</th><th>Revenue</th><th>Op Income</th><th>Net Income</th><th>Op Margin</th><th>Diluted EPS</th></tr></thead>
+<tbody><tr><td>2026-03-31 (Q1)</td><td>$154.9M <span class="dn">-12% QoQ / +26% YoY</span></td><td>$65.7M*</td><td class="dn">-$26.9M</td><td>30.7%**</td><td class="dn">-0.15</td></tr>
+<tr><td>2025-12-31</td><td>$175.6M <span class="up">↑</span></td><td>$72.7M</td><td>$45.2M</td><td>41.4%</td><td>0.24</td></tr>
+<tr><td>2025-09-30</td><td>$175.2M <span class="up">↑</span></td><td>$85.7M</td><td>$53.8M</td><td>48.9%</td><td>0.285</td></tr>
+<tr><td>2025-06-30</td><td>$138.7M <span class="up">↑</span></td><td>$67.8M</td><td>$41.4M</td><td>48.9%</td><td>0.225</td></tr>
+<tr><td>2025-03-31</td><td>$122.6M</td><td>$55.5M</td><td>$30.4M</td><td>45.3%</td><td>0.165</td></tr>
+</tbody></table>
+<div class="co yw"><strong>📊 Q1 2026 Read (reported June 2):</strong> Two stories in one print. Operationally strong: revenue $155M (+26.3% YoY), operating profit $47.6M (+17.5% YoY per company definition; yfinance line $65.7M* uses a broader bucket), 28,900 new funded accounts (Singapore and Hong Kong each ~half of increments), total funded accounts 1.28M (+11.3% YoY), client assets $58.9B (+28.4% YoY, -3.2% QoQ on $4.9B mark-to-market losses). Financially scarred: the ~$60M penalty produced a GAAP net loss of $26.9M — ex-penalty, net income would have been roughly $30M+, in line with recent quarters (Motley Fool transcript, June 2; Quiver). Board approved a <strong>$50M buyback</strong> (≈5.8% of market cap) running June 2026–June 2027. **Margins computed on the broader yfinance operating line.</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Stream</th><th>Driver</th><th>Q1 2026 Trend</th><th>Notes</th></tr></thead>
+<tbody><tr><td><strong>Commissions</strong></td><td>Trading volume / take rate</td><td class="up">Up YoY on volatility</td><td>US equities + options + HK; volatility-geared</td></tr>
+<tr><td><strong>Interest-related income</strong></td><td>Margin financing + idle-cash spread</td><td class="up">Largest bucket; rate-sensitive (UP if Fed hikes)</td><td>A December Fed hike would be a tailwind here — rare in our coverage</td></tr>
+<tr><td><strong>Other (IPO distribution, IR services, FX)</strong></td><td>Deal calendar</td><td class="neu">Lumpy</td><td>ESOP/IR franchise for US/HK-listed Chinese issuers; SpaceX-type IPO weeks help</td></tr>
+</tbody></table>
+<div class="co bl"><strong>Geography is the thesis now:</strong> Singapore + Hong Kong drive ~all new funded accounts; ANZ and US add diversification. The growth franchise (90% of client assets) is intact and compounding at +28% YoY — the question is whether a regulator that just fined the company ~$60M and personally penalized the CEO allows that growth to remain untouched for overseas-Chinese client acquisition channels.</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl neu">~36</div><div class="nt neu">Weak, off the lows</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl dn">$6.16</div><div class="nt dn">Price -22% below</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl dn">$8.57</div><div class="nt dn">Price -44% below</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl dn">-0.49</div><div class="nt dn">Below signal, flattening</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$13.55</div><div class="nt dn">-64.4%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$4.00</div><div class="nt up">+20.8%</div></div>
+</div>
+<div class="co yw"><strong>⚠️ Technical Signal:</strong> Crash-then-base pattern: the May 22 gap-down to $4.00, a feeble bounce, and two weeks of churn in the $4.40–5.10 range. Today +2.3% with the buyback now active beneath the market. Until the stock reclaims the post-crash gap (~$6), this is a base-building exercise at best; a break of $4.00 signals the wind-down is metastasizing beyond the disclosed 10%.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Company</th><th>Price</th><th>MCap</th><th>Trail P/E</th><th>Fwd P/E</th><th>Rev Growth</th><th>Op Margin</th><th>Net Margin</th></tr></thead>
+<tbody><tr class="hl"><td><strong>TIGR</strong></td><td>$4.83</td><td>$0.86B</td><td>7.9x</td><td>4.9x</td><td>+27.1%</td><td>34.8%</td><td>20.0%</td></tr>
+<tr><td><strong>FUTU</strong></td><td>$92.93</td><td>$13.0B</td><td>10.3x</td><td>7.6x</td><td>+28.8%</td><td>64.9%</td><td>45.0%</td></tr>
+<tr><td><strong>HOOD</strong></td><td>$86.36</td><td>$77.8B</td><td>41.9x</td><td>30.8x</td><td>+15.1%</td><td>38.5%</td><td>41.1%</td></tr>
+<tr><td><strong>IBKR</strong></td><td>$85.42</td><td>$144.9B</td><td>36.7x</td><td>29.7x</td><td>+16.8%</td><td>76.8%</td><td>16.1%</td></tr>
+</tbody></table>
+<div class="co yw"><strong>Peer read — the FUTU-parity trap:</strong> Our May report's anchor ("re-rate toward FUTU-parity ~$12.65") was wrong in kind, not just degree: FUTU was penalized in the SAME crackdown, so "parity" with a fellow defendant is not a recovery thesis. The honest comp: TIGR at 4.9x (stale-E) vs FUTU at 7.6x reflects FUTU's superior margins (65% vs 35% op) and scale; some discount is deserved. The crackdown took the whole cross-border cohort's multiple down — and that's a regime change, not a dislocation.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value up">0.20</div><div class="sub">Front expiry 6/12 · call-dominated</div></div>
+    <div class="kpi"><div class="label">Front IV (calls)</div><div class="value neu">~27%</div><div class="sub">Post-crash IV crush</div></div>
+    <div class="kpi"><div class="label">Short % of Float</div><div class="value neu">7.1%</div><div class="sub">Elevated</div></div>
+    <div class="kpi"><div class="label">Insider Holdings</div><div class="value up">24.6%</div><div class="sub">Founder-aligned</div></div>
+</div>
+<div class="co bl"><strong>📊 Options Read:</strong> Calls 5:1 over puts on the front weekly — classic post-crash bounce speculation, with the $50M buyback as the known bid. IV has crushed from the May spike, implying the market believes the news is out. Thin chains; flow over OI.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co bl"><strong>Insider Holdings:</strong> Insiders hold ~24.6% — by far the highest in our coverage — led by founder/CEO Tianhua Wu, who was personally fined RMB1.25M and warned by the CSRC. No insider sales disclosed post-crackdown; the company-level $50M buyback (~5.8% of market cap) is the active signal. Founder alignment cuts both ways here: maximal skin in the game, but the controlling person is now personally on the regulator's record.</div>
+
+<h2 class="pb">📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">"UP Fintech stock loses 23% after Chinese investigation notice, penalties"</span> · May 22, 2026 · <span class="st ber">News</span><p style="margin-top:8px; color:#475569">Crackdown coverage: unlicensed cross-border securities, fund and futures business; cohort-wide enforcement with Futu and Longbridge.</p></div>
+<div class="tw"><span class="au">"UP Fintech Holding (TIGR) Q1 2026 Earnings Call Transcript"</span> · June 2, 2026 · <span class="st net">Transcript</span><p style="margin-top:8px; color:#475569">Management emphasized Singapore/HK growth engines, the one-time nature of the penalty, and the $50M buyback; declined to guide on mainland-account attrition pace.</p></div>
+<div class="tw"><span class="au">"UP Fintech: The Market Still Misprices This Higher-Quality Fintech"</span> · pre-crackdown 2026 · <span class="st bul">Buy (dated)</span><p style="margin-top:8px; color:#475569">The pre-crackdown bull framing — structural growth at a discount — now requires explicit regulatory hair-cutting before reuse.</p></div>
+<div class="co yw"><strong>SA Consensus:</strong> Coverage has shifted from "mispriced growth" to event-driven wait-and-see. Nobody credible is calling the regulatory episode closed; the two-year rectification window means this stays a live overhang through 2028.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">China fintech watchers (aggregate)</span> · late May 2026 · <span class="st ber">Bearish</span><p style="margin-top:8px; color:#475569">36Kr's "1 million mainland elites' US-stock accounts enter two-year countdown" framing dominated; consensus that the CSRC means it this time — this is eradication, not a fine-and-move-on.</p></div>
+<div class="tw"><span class="au">Deep-value bottom fishers</span> · June 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">P/B ~1.0x, ex-penalty profitability intact, 90% of assets unaffected, $50M buyback = the "kitchen-sink quarter" trade. Today's +2.3% bounce fits the pattern.</p></div>
+<div class="tw"><span class="au">Risk managers</span> · June 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">Open question repeatedly raised: how much of the "Singapore/HK" growth is mainland-Chinese money that arrived via channels the CSRC is now policing? Disclosure doesn't fully answer it.</p></div>
+<div class="co bl"><strong>X Consensus:</strong> Bearish on the regime, tactically bullish on the bounce. The unanswerable question — how much overseas growth is really mainland-adjacent — is why the multiple stays broken.</div>
+
+<h2>🚀 Catalysts</h2>
+<ul>
+<li><strong>$50M buyback executing (June 2026–June 2027):</strong> ~5.8% of market cap, a real bid under a $863M stock</li>
+<li><strong>Q2 print (~September):</strong> first clean post-penalty quarter; ex-penalty run-rate (~$30M+/qtr net) would screen at ~6.5x annualized earnings</li>
+<li><strong>Volatility tailwind:</strong> VIX 22 and event-heavy markets lift commissions; a December Fed hike would RAISE interest income — TIGR is one of the few names in our coverage that benefits from higher rates</li>
+<li><strong>SpaceX-class IPO calendar:</strong> IPO distribution/ESOP franchise monetizes mega-listings</li>
+<li><strong>Singapore/HK account compounding:</strong> 28.9K adds in Q1 despite the headlines; +28% YoY client assets</li>
+<li><strong>Any CSRC clarification narrowing scope:</strong> a defined, final settlement (vs open-ended campaign) would be the true re-rating event — none exists today</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>The crackdown is ACTIVE, not resolved:</strong> two-year "full eradication" campaign (SCIO, May 25); phased rectification could widen — marketing restrictions, data rules, or pressure on overseas entities serving mainland-passport holders would hit far more than 10% of assets</li>
+<li><strong>Stale estimates = illusory cheapness:</strong> the 4.9x forward P/E uses pre-crackdown estimates; our TIGR 100/Bullish call in April — made on exactly this kind of stale math right before the -30% crash — is the single worst call in our backtest history. We will not re-anchor on broken numbers</li>
+<li><strong>Mainland wind-down drag:</strong> ~10% of client assets in mandated sell-only attrition; growth optics worsen every quarter as that book bleeds out</li>
+<li><strong>CEO personally penalized:</strong> regulatory relationships are now adversarial; license aspirations in any CSRC-adjacent domain are dead for years</li>
+<li><strong>AUM mark-to-market:</strong> $4.9B of Q1 client-asset losses repeat in every risk-off quarter like this one</li>
+<li><strong>Small-cap ADR liquidity:</strong> $863M market cap China-linked ADR in a delisting-noise regime — the exact profile that gaps down hardest on macro shocks</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value neu">Strong Buy (n=10)</div><div class="sub">Mean 1.5 — thin coverage</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value neu">$8.58</div><div class="sub">+78% — but cut from $12.17 in May</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$4.16</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$14.50</div></div>
+</div>
+<div class="co rd"><strong>⚠️ Stale-PT warning (we learned this the hard way):</strong> The mean PT has been slashed from $12.17 to $8.58 in two weeks and is still falling; the $14.50 high PT is plainly pre-crackdown. The $4.16 low PT — set post-crackdown — is the only target we'd weight. Do not treat the +78% "upside" as real.</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data & Methodology:</strong> Market data from Yahoo Finance (yfinance) as of 2026-06-10. We REJECT the consensus forward EPS ($0.98, pre-crackdown) and build on an ex-penalty normalized run-rate: Q1 ex-penalty net ≈ $33M → ~$0.72–0.75/yr, hair-cut for mainland attrition and compliance drag to ~$0.65 normalized.</div>
+
+<h3>Method 1: P/E Multiple Approach (normalized EPS)</h3>
+<table><thead><tr><th>Scenario</th><th>P/E</th><th>Norm. EPS</th><th>Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody><tr><td>Bear (campaign widens)</td><td>6x</td><td>$0.50</td><td>$3.00</td><td class="dn">-38%</td><td>Overseas-Chinese channels restricted; growth stalls; permanent regulatory discount</td></tr>
+<tr><td>Base (contained at 10%)</td><td>9x</td><td>$0.65</td><td>$5.85</td><td class="up">+21%</td><td>Wind-down proceeds as disclosed; SG/HK growth offsets attrition; discount persists</td></tr>
+<tr><td>Bull (clean resolution)</td><td>11x</td><td>$0.80</td><td>$8.80</td><td class="up">+82%</td><td>Defined settlement, no follow-on; FUTU-discount narrows; rate/volatility tailwinds</td></tr>
+</tbody></table>
+
+<h3>Method 2: Mean Reversion & Consensus</h3>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">Book Value / ADS</div><div class="value">$4.87</div><div class="sub">P/B 0.99x — at book</div></div>
+<div class="kpi"><div class="label">Post-crash Street Low</div><div class="value">$4.16</div><div class="sub dn">-14% · only fresh PT</div></div>
+<div class="kpi"><div class="label">Consensus PT</div><div class="value neu">$8.58</div><div class="sub">Falling; partially stale</div></div>
+<div class="kpi"><div class="label">FUTU-relative (30% disc.)</div><div class="value">$6.40</div><div class="sub up">7.6x FUTU fwd × 0.7 × norm EPS… ≈ $3.45–6.40 band</div></div>
+</div>
+<div class="co bl"><strong>📐 Calculation Details:</strong><ul><li>Book value $4.87/ADS puts the stock at 0.99x book — a brokerage earning a ~15–20% normalized ROE at book is cheap IF the franchise is stable; that "if" is the whole debate</li><li>FUTU trades 7.6x forward; applying a 30% quality/scale discount to TIGR's $0.65 normalized EPS ≈ $3.45–5.20; at parity ≈ $4.95–6.10 — i.e., today's price already embeds a near-FUTU-parity outcome on hair-cut earnings</li><li>Consensus $8.58 (n=10) is mid-revision; weight the $4.16 post-crackdown low</li></ul></div>
+
+<h3>Method 3: Discounted Cash Flow (DCF)</h3>
+<table><thead><tr><th>Scenario</th><th>Rev Growth (10Y)</th><th>Terminal Net Margin</th><th>WACC</th><th>Terminal Growth</th><th>Intrinsic Value</th><th>Upside</th></tr></thead>
+<tbody><tr><td>Bear</td><td>2%</td><td>15%</td><td>14.0%</td><td>2.0%</td><td>$3.20</td><td class="dn">-34%</td></tr>
+<tr><td>Base</td><td>10%</td><td>22%</td><td>12.5%</td><td>2.5%</td><td>$6.00</td><td class="up">+24%</td></tr>
+<tr><td>Bull</td><td>16%</td><td>27%</td><td>11.5%</td><td>3.0%</td><td>$9.50</td><td class="up">+97%</td></tr>
+</tbody></table>
+<div class="co bl"><strong>✅ Triangulation:</strong> Normalized methods cluster at $5.85–6.00 base (+20–24%) with a hard-ish floor near book ($4.87) and a live $3.00–3.20 bear case if the campaign widens. The distribution is honest about what we cannot know: the CSRC's two-year campaign sets the left tail, and no valuation method prices an open-ended regulator.</div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$3.10</div><div class="mt">~6x × $0.50 norm EPS</div><div class="us dn">-36%</div><div class="ds">Campaign widens to overseas-Chinese acquisition channels; growth stalls; mainland attrition exceeds 10% economics; risk-off AUM marks compound.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr up">$5.90</div><div class="mt">~9x × $0.65 norm EPS</div><div class="us up">+22%</div><div class="ds">Wind-down contained as disclosed; SG/HK adds offset attrition; buyback executes; two clean quarters rebuild the earnings record at a permanent discount.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$8.80</div><div class="mt">~11x × $0.80 norm EPS</div><div class="us up">+82%</div><div class="ds">Defined final settlement; volatility + higher-rate interest income drive beats; FUTU-discount narrows; small-cap squeeze on 7.1% short interest.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co gr"><p><strong>TIGR</strong> is our most humbling name — we scored it 100/Bullish in April, days before the CSRC crackdown took it down ~30%, and we will not repeat the error of valuing it on stale numbers. The facts today: the penalty (~$60M, booked in Q1's $26.9M GAAP loss; CEO personally fined) is paid, but the campaign is not over — regulators have a declared two-year mandate to "fully eradicate" non-compliant cross-border brokerage, and TIGR's mainland book (~10% of $58.9B client assets, ~1M accounts cohort-wide) is in mandated sell-only attrition. Against that: the other 90% is genuinely compounding (Q1 revenue +26.3%, client assets +28.4% YoY, 28.9K new SG/HK-led accounts), ex-penalty profitability is intact (~$30M+/qtr), the stock sits at 0.99x book, insiders own 24.6%, and a $50M buyback (~5.8% of cap) is live — with the rare twist that a December Fed hike would <em>raise</em> TIGR's interest income. <strong>Verdict: post-kitchen-sink value with an unpriceable left tail — base case $5.90 (+22%) on normalized earnings, but policyRisk stays SEVERE until the CSRC campaign has a defined, final boundary, and position sizing must respect a live $3 bear case.</strong></p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, SEC filings, Bloomberg, SCIO/CSRC statements, Seeking Alpha, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, SEC filings, Bloomberg, Seeking Alpha, analyst consensus · 2026-06-10</p></div>
+</div>
+</body>
+</html>

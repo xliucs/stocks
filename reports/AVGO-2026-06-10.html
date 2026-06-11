@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AVGO | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #16a34a, #15803d); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(22,163,74,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.cg { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 16px 0; }
+.cg img { width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, .cg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>AVGO — Broadcom Inc.</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-06-10 · Sources: yfinance, CNBC, TheStreet, Motley Fool, Yahoo Finance, analyst consensus</p>
+
+<div class="badge">📅 Next Earnings: 2026-09-03 (Q3 FY26) — ~85 days away · Q2 FY26 reported June 3: $22.19B rev, +48% YoY</div>
+
+<div class="co rd"><strong>🌐 Macro Context (regime check):</strong> AVGO was the <strong>primary catalyst</strong> of 2026's worst drawdown: its June 3 after-hours print triggered a -14% intraday / -12.6% closing drop on June 4 (~$280B of market value), dragging Nasdaq -4.2% over June 4–5 with MU -13.3%, INTC -11.3%, AMD -10.9%, NVDA -6%. The macro accelerant: a shock May jobs report (172k payrolls, ~2x consensus) pushed December rate-<em>hike</em> odds to ~43%. June 10: cool core CPI (+0.2% vs +0.3% exp) yet the S&amp;P fell -1.6% to a 5-week low — good news can't get bought (headline CPI 4.2%, gasoline +40% y/y, WTI ~$91 on Iran strikes and a declared Hormuz blockade). The AI capital cycle has inflected: ORCL -5% AH on a ~$70B FY27 capex guide + $40B raise, SMCI -28% on a $7B raise. The market's new grading standard is capital intensity and dilution — AVGO is the test case that even a 48%-growth print gets sold when guidance merely meets the plan. VIX 22.2, 10Y 4.54%, Fear &amp; Greed 27, JPM "Tactical Caution."</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$372.10</div><div class="sub dn">-24.8% from 52W High · -5.1% today</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$1.77T</div><div class="sub">Shares: 4.76B</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value">61.7x</div><div class="sub">GAAP EPS $6.03 (VMware amort. drag)</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value up">19.2x</div><div class="sub">Fwd EPS: $19.35</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">$75.5B</div><div class="sub up">+47.9% YoY (latest qtr)</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value up">76.3%</div><div class="sub">Highest in semis</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value up">49.0%</div><div class="sub">Expanding</div></div>
+    <div class="kpi"><div class="label">Net Margin</div><div class="value up">38.8%</div><div class="sub">FCF TTM: $27.2B</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">1-Week Return</div><div class="value dn">-22.4%</div><div class="sub">Post-earnings crash</div></div>
+    <div class="kpi"><div class="label">1-Month Return</div><div class="value dn">-13.1%</div><div class="sub">3M: +9.2%</div></div>
+    <div class="kpi"><div class="label">12-Month Return</div><div class="value up">+53.6%</div><div class="sub">6M: -6.9%</div></div>
+    <div class="kpi"><div class="label">Net Debt</div><div class="value neu">~$45B</div><div class="sub">$19.6B cash / $64.9B debt</div></div>
+</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter</th><th>Revenue</th><th>Net Income</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th><th>Diluted EPS (GAAP)</th></tr></thead>
+<tbody>
+<tr class="hl"><td>2026-04-30 (Q2 FY26)</td><td>$22.19B <span class="up">↑↑</span></td><td>$9.31B</td><td>69.5%</td><td>48.9%</td><td>42.0%</td><td>$1.91 (adj $2.44)</td></tr>
+<tr><td>2026-01-31 (Q1 FY26)</td><td>$19.31B <span class="up">↑</span></td><td>$7.35B</td><td>68.1%</td><td>44.9%</td><td>38.1%</td><td>$1.50</td></tr>
+<tr><td>2025-10-31 (Q4 FY25)</td><td>$18.02B <span class="up">↑</span></td><td>$8.52B</td><td>68.0%</td><td>42.5%</td><td>47.3%</td><td>$1.74</td></tr>
+<tr><td>2025-07-31 (Q3 FY25)</td><td>$15.95B <span class="up">↑</span></td><td>$4.14B</td><td>67.1%</td><td>38.1%</td><td>26.0%</td><td>$0.85</td></tr>
+<tr><td>2025-04-30 (Q2 FY25)</td><td>$15.00B</td><td>$4.96B</td><td>68.0%</td><td>39.4%</td><td>33.1%</td><td>$1.03</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>🔥 The June 3 print, on the numbers:</strong> Q2 FY26 revenue $22.19B (+48% YoY, in line with ~$22.2B consensus), adjusted EPS $2.44 vs $2.40 est (+54% YoY). <strong>AI semiconductor revenue $10.8B, +143% YoY</strong>, and — the underappreciated stat — the company booked <strong>over $30B of new AI orders in the quarter</strong>, ~3x what it recognized (CNBC, Jun 3). Operating leverage is visibly compounding: op margin 48.9% vs 39.4% a year ago.</div>
+
+<div class="co rd"><strong>💥 Why -14%, then? Anatomy of the June 4 crash:</strong> (1) Q3 AI semi revenue guidance of ~$16B landed below the ~$17.2B buy-side whisper; (2) Hock Tan <em>reiterated but did not raise</em> the ~$100B AI revenue framework for FY27 — after two straight quarters of raises, a "meet" read as a "miss" (Motley Fool, Jun 4; Yahoo Finance, Jun 4); (3) the stock entered the print at ~24x forward and +13% in a month — positioning was maximal; (4) the macro backdrop (rate-hike odds spiking that same morning) turned a guidance quibble into a -$280B unwind that took the whole sector with it. Crucially: <strong>no orders were cancelled, no backlog was cut, no estimates fell</strong> — BofA raised FY26/27/28 EPS to $11.60/$17.93/$23.56 and its PT to $530 (from $450) <em>after</em> the print (TheStreet, Jun 5).</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Segment</th><th>Q2 FY26 Rev</th><th>% Mix</th><th>YoY Growth</th><th>Commentary</th></tr></thead>
+<tbody>
+<tr><td><strong>AI Semiconductors</strong></td><td>$10.8B</td><td>49%</td><td class="up">+143% YoY</td><td>Custom XPU (Google TPU, Meta, OpenAI, Anthropic, ByteDance, Fujitsu) + Tomahawk/Jericho AI networking; &gt;$30B fresh orders booked in Q2</td></tr>
+<tr><td><strong>Non-AI Semiconductors</strong></td><td>~$4.2B</td><td>19%</td><td class="neu">~Flat YoY</td><td>Wireless, broadband, server storage — cyclical bottom, slow recovery</td></tr>
+<tr><td><strong>Infrastructure Software (incl. VMware)</strong></td><td>~$7.2B</td><td>32%</td><td class="up">~+18% YoY</td><td>VMware Cloud Foundation ARR compounding; sticky, 90%+ gross margin annuity</td></tr>
+</tbody></table>
+<div class="co gr"><strong>📐 Mix Shift:</strong> AI semis crossed ~49% of total revenue (vs 44% in Q1, ~25% two years ago). Q3 guide (~$16B AI) implies AI alone exceeds half of company revenue next quarter. The XPU + Ethernet-networking stack remains the only at-scale alternative to NVDA for hyperscaler accelerator capacity — and unlike GPU resellers, ~all of it is multi-year contracted custom silicon with named customers.</div>
+
+<h2>🌏 Geographic / Customer Concentration</h2>
+<table><thead><tr><th>Exposure</th><th>Approx. Share</th><th>Trend</th><th>Commentary</th></tr></thead>
+<tbody>
+<tr><td>Americas hyperscalers</td><td>~55%</td><td class="up">Rising</td><td>Google (TPU v7 ramp), Meta, OpenAI 10GW program, Anthropic</td></tr>
+<tr><td>China (incl. ByteDance ASIC)</td><td>~20%</td><td class="neu">Watch item</td><td>Networking/storage demand resilient; ByteDance custom-ASIC engagement carries export-policy tail risk</td></tr>
+<tr><td>Asia-Pac ex-China</td><td>~15%</td><td class="up">Growing</td><td>FuriosaAI (Korea) partnership; Fujitsu (Japan) named customer</td></tr>
+<tr><td>EMEA</td><td>~10%</td><td>Stable</td><td>Sovereign cloud + telco infrastructure</td></tr>
+</tbody></table>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl dn">38.7</div><div class="nt dn">Weak, not yet oversold</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl dn">$401.98</div><div class="nt dn">Price below (-7.4%)</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl up">$356.83</div><div class="nt up">Price above (+4.3%)</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl dn">-1.92</div><div class="nt dn">Bearish (below signal 6.97)</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$495.00</div><div class="nt dn">-24.8%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$244.17</div><div class="nt up">+52.4%</div></div>
+</div>
+
+<div class="co yw"><strong>⚠️ Technical Signal:</strong> A textbook gap-and-crap: $481.57 close on June 2 → $372 now, a -22.4% week. Price sliced through the 50-day and is now testing the zone above the still-rising 200-day at $356.83 — the line that defines whether this is a violent correction (held: yes, so far) or a trend break. RSI 38.7 leaves room lower before classic oversold. The $385–$400 area (today's high / 50dma) is now overhead supply. We make no short-term call; for 12-month purposes the relevant fact is that -25% drawdowns in AVGO have historically resolved higher when the backlog was intact.</div>
+
+<h2>📊 Charts</h2>
+<div class="cg"><p style="color:#64748b; padding:20px; text-align:center; grid-column:1/-1">Chart images generated server-side at publish time. Reference: $244 (Jun '25) → $495 high (early Jun '26) → $372; June 4 gap-down of -12.6% on 4x average volume; 200dma rising at ~$357.</p></div>
+
+<h2>📏 Historical Valuation</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Current Fwd P/E</div><div class="value up">19.2x</div></div>
+    <div class="kpi"><div class="label">5Y Avg P/E*</div><div class="value">27.6x</div><div class="sub">*Outliers filtered (PE&lt;100)</div></div>
+    <div class="kpi"><div class="label">5Y P/E Range</div><div class="value">13x – 59x</div></div>
+    <div class="kpi"><div class="label">Fwd P/E Percentile</div><div class="value up">~12th</div><div class="sub">Cheapest since 2023</div></div>
+</div>
+
+<div class="co gr"><strong>📐 Mean Reversion Upside:</strong> The crash compressed AVGO from ~24x to <strong>19.2x forward</strong> — below its filtered 5Y average of 27.6x and the cheapest forward mark since the VMware-deal overhang in 2023. 27.6x × fwd EPS $19.35 = <strong>$534</strong> (+44%). Even BofA's post-print FY27 EPS of $17.93 at a conservative 25x implies <strong>$448</strong> (+20%). Trailing P/E (61.7x) remains optically inflated by ~$5B/yr of non-cash VMware acquisition amortization.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Ticker</th><th>Price</th><th>Mkt Cap</th><th>TTM P/E</th><th>Fwd P/E</th><th>Rev Growth</th><th>Gross M</th><th>Op M</th><th>Net M</th></tr></thead>
+<tbody>
+<tr class="hl"><td><strong>AVGO</strong></td><td>$372.10</td><td>$1.77T</td><td>61.7x</td><td>19.2x</td><td>47.9%</td><td>76.3%</td><td>49.0%</td><td>38.8%</td></tr>
+<tr><td>NVDA</td><td>$200.42</td><td>$4.85T</td><td>31.9x</td><td>15.7x</td><td>85.2%</td><td>74.1%</td><td>65.6%</td><td>63.0%</td></tr>
+<tr><td>AMD</td><td>$452.40</td><td>$738B</td><td>151.3x</td><td>34.6x</td><td>37.8%</td><td>53.1%</td><td>14.4%</td><td>13.4%</td></tr>
+<tr><td>MRVL</td><td>$252.59</td><td>$221B</td><td>87.1x</td><td>40.9x</td><td>27.6%</td><td>51.5%</td><td>14.5%</td><td>29.0%</td></tr>
+<tr><td>TXN</td><td>$282.01</td><td>$257B</td><td>48.3x</td><td>30.0x</td><td>18.6%</td><td>57.3%</td><td>37.8%</td><td>29.1%</td></tr>
+<tr><td>INTC</td><td>$107.04</td><td>$538B</td><td>—</td><td>69.6x</td><td>7.2%</td><td>37.2%</td><td>6.9%</td><td>-5.9%</td></tr>
+</tbody></table>
+<div class="co gr"><strong>🔍 Discount Alert:</strong> AVGO at 19.2x forward now trades at a 39% discount to its AI-peer average of 31.3x (AMD 34.6x, MRVL 40.9x, TXN 30.0x — ex NVDA/INTC) despite the highest gross margin in the set and the second-highest growth. MRVL — the direct custom-ASIC comp with one-fifth the margins — commands 40.9x. The market is pricing AVGO's guidance conservatism as if it were demand weakness.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value up">0.60</div><div class="sub">Calls dominate (Jun 18 exp)</div></div>
+    <div class="kpi"><div class="label">P/C Open Interest</div><div class="value dn">1.12</div><div class="sub">Put OI built up post-crash</div></div>
+    <div class="kpi"><div class="label">Avg Call IV</div><div class="value">~99%</div><div class="sub">Front chain</div></div>
+    <div class="kpi"><div class="label">Avg Put IV</div><div class="value">~92%</div><div class="sub">Slight call skew persists</div></div>
+</div>
+
+<div class="co bl"><strong>📊 Options Read:</strong> A split tape: open interest flipped put-heavy (P/C OI 1.12 vs 0.88 pre-earnings) as the crash minted hedges and trapped longs rolled protection — but fresh <em>volume</em> is running 0.60 puts-per-call, i.e., dip-buyers are reaching for upside. Call IV still slightly above put IV is unusual after a -22% week and suggests the market prices recovery convexity, not continuation. Next earnings (Sep 3) is far outside front expiries.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co bl"><strong>Recent activity (last 60d):</strong> Notably quiet into and after the crash — the only filings since mid-April are routine director RSU grants (864 shares each to Samueli, Low, Page, Bryant, Hao, You on Apr 20–21). No executive open-market sales since the March 17 batch (CFO Spears $19.5M, COO Kawwas $21.0M, GC Brazeal $27.1M @ $318–$329) and Velaga's April sales @ $352–$371 — all 10b5-1. <strong>No insider buying on the -25% drawdown yet</strong>; the first Form 4 buy would be a strong signal given Hock Tan's history of disciplined capital allocation.</div>
+
+<h2>📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">"Broadcom (AVGO) earnings report Q2 2026"</span> · CNBC · Jun 3, 2026 · <span class="st bul">Facts: beat</span><p style="margin-top:8px; color:#475569">Revenue $22.19B (+48%), adj EPS $2.44 vs $2.39–2.40 est, AI semis $10.8B (+143%), &gt;$30B AI orders booked in the quarter — roughly 3x revenue recognized.</p></div>
+<div class="tw"><span class="au">"The Broadcom Sell-Off: A Huge Warning Flag for AI Investors"</span> · Motley Fool · Jun 4, 2026 · <span class="st ber">Bearish (sector read)</span><p style="margin-top:8px; color:#475569">Argues the -14% reaction to an objectively strong quarter shows AI valuations now require continuous guidance raises; Tan holding the ~$100B AI framework steady was treated as a deceleration signal across the whole complex.</p></div>
+<div class="tw"><span class="au">"Bank of America resets Broadcom price target after earnings"</span> · TheStreet · Jun 5, 2026 · <span class="st bul">Buy, PT $530 (from $450)</span><p style="margin-top:8px; color:#475569">Raised FY26/27/28 EPS to $11.60/$17.93/$23.56 on the order book; sees the backlog supporting &gt;$100B AI revenue in 2027 "easily."</p></div>
+<div class="tw"><span class="au">"Will Broadcom Stock Recover After Its Guidance Disappointment?"</span> · Yahoo Finance · Jun 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">Frames the debate: Q3 AI guide ~$16B vs ~$17.2B expectations is a timing question (XPU shipment cadence is lumpy by design), but warns the stock may chop until the next raise or a macro turn.</p></div>
+<div class="tw"><span class="au">"Why we're raising our price target on Broadcom despite the sell-off"</span> · CNBC Investing Club · Jun 3, 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Treats the drop as positioning unwind; order momentum and FY27 pipeline say the AI story accelerated, not decelerated, through the quarter.</p></div>
+
+<div class="co gr"><strong>Research Consensus:</strong> Sell-side almost uniformly defended or raised numbers post-print (BofA, Citi, CNBC club); the bear case is about market psychology and the capital-cycle regime, not Broadcom's book of business.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">Dip-buyer cohort</span> · Jun 5–10, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Theme: "AVGO booked $30B of AI orders and lost $280B of market cap — make it make sense." 19x forward for the only at-scale NVDA alternative with six (going on seven, FuriosaAI) named XPU customers framed as the AI-infra value entry of the year.</p></div>
+<div class="tw"><span class="au">Guidance-cadence bears</span> · Jun 4–9, 2026 · <span class="st ber">Bearish</span><p style="margin-top:8px; color:#475569">Theme: XPU revenue is lumpy and customer-concentrated; if Google digests TPU capacity or OpenAI's financing stalls (its mega-raise is rumored amid the SpaceX IPO liquidity drain), the FY27 "$100B+" becomes back-loaded. The Q3 whisper-miss was the first crack in the beat-raise machine.</p></div>
+<div class="tw"><span class="au">Macro tacticians</span> · Jun 10, 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">Theme: AVGO is now the sentiment barometer for the whole AI-capex complex; reclaiming $400 (the 50dma) would signal the regime stabilizing, losing the 200dma (~$357) would confirm a deeper de-rate.</p></div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>Q3 FY26 earnings (Sep 3, 2026):</strong> The ~$16B AI guide now sets a low bar; the &gt;$30B Q2 order book gives unusual visibility. A beat-and-raise restores the cadence the stock just got punished for breaking.</li>
+<li><strong>FY27 AI revenue &gt;$100B framework:</strong> Backlog (&gt;$100B incl. the $30B Q2 adds) supports it; any formal raise of the framework is the single biggest re-rating trigger.</li>
+<li><strong>Google TPU v7 (Ironwood) volume ramp:</strong> The anchor XPU program scales through H2 2026 — every datapoint of hyperscaler ASIC adoption is AVGO revenue, the flip side of NVDA's substitution risk.</li>
+<li><strong>OpenAI 10GW custom-silicon program:</strong> First racks slated 2027; milestones/financing confirmations de-risk the biggest single backlog component.</li>
+<li><strong>Seventh+ XPU customer announcements:</strong> FuriosaAI partnership (May 27) signals the funnel; each named customer adds multi-year contracted revenue.</li>
+<li><strong>VMware annuity:</strong> ~$29B/yr software at 90%+ gross margin cushions any semi-cycle wobble — the under-discussed reason AVGO's earnings floor is higher than peers'.</li>
+<li><strong>Rate-fear reversal:</strong> Cool core CPI (Jun 10) didn't get bought, but two more cool prints likely unwind the Dec-hike scare — high-multiple AI infra snaps back first.</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>Guidance-cadence regime:</strong> The market just demonstrated it sells a 48%-growth quarter on a flat guide. Until Tan raises the FY27 framework, every print carries asymmetric headline risk.</li>
+<li><strong>Customer concentration &amp; financing:</strong> A handful of hyperscalers + OpenAI/Anthropic = most of the AI backlog. The capital-cycle inflection (ORCL capex scrutiny, dilution-punishing tape, SpaceX IPO liquidity drain) is a direct risk to <em>timing</em> of XPU deployments even if contracts hold.</li>
+<li><strong>XPU lumpiness:</strong> Custom-silicon revenue ships in waves tied to customer datacenter completions; quarter-to-quarter optics will stay noisy. Q3's ~$16B vs $17.2B whisper was exactly this.</li>
+<li><strong>NVDA counterattack:</strong> Rubin's claimed 10x inference token-cost reduction compresses the TCO advantage that justifies custom ASICs; if merchant silicon gets cheap enough, marginal XPU programs get shelved.</li>
+<li><strong>China/ByteDance policy tail:</strong> ~20% China exposure and a named Chinese ASIC customer; export-control expansion to custom AI silicon would convert our "none" policy-risk baseline to material overnight. No such rule is pending as of June 10 — we keep baseline but monitor.</li>
+<li><strong>Leverage:</strong> ~$45B net debt (VMware legacy) in a rising-rate regime; refinancing is manageable on $27B+ FCF but caps buyback aggression.</li>
+<li><strong>Rate regime/beta:</strong> 10Y 4.54% and rising; AVGO just proved it can fall 14% in a day on positioning alone.</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value up">Strong Buy</div><div class="sub">45 analysts · 1.33 mean</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value up">$522.06</div><div class="sub up">+40% vs price</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$215.88</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$650.00</div></div>
+</div>
+<div class="co yw"><strong>⚠️ Stale-PT Warning (TIGR lesson):</strong> Unusually, several marks (BofA $530, Citi) were set <em>after</em> the June 4 crash, making this consensus fresher than typical post-drop. Still, most of the 45 targets predate June 4 and the June 10 macro leg lower — treat the +40% "upside to PT" as directional, not precise.</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data &amp; Methodology:</strong> Market data from Yahoo Finance (yfinance) as of 2026-06-10 intraday ($372.10; day range $371.17–$385.81; cross-check: 4.758B shares × $372.10 = $1.77T ✓). Forward EPS <strong>$19.35</strong> = consensus (45 analysts); BofA's post-print FY27 EPS $17.93 / FY28 $23.56 used as cross-checks. Trailing GAAP P/E distorted by VMware amortization. All methods are 12-month frameworks.</div>
+
+<h3>Method 1: P/E Multiple Approach</h3>
+<table><thead><tr><th>Scenario</th><th>P/E</th><th>EPS</th><th>Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody><tr><td>Conservative (current multiple)</td><td>19.2x</td><td>$19.35</td><td>$371.52</td><td class="neu">~0%</td><td>Fear-regime multiple persists</td></tr>
+<tr><td>Pre-crash multiple restored</td><td>24.0x</td><td>$19.35</td><td>$464.40</td><td class="up">+25%</td><td>Where it traded June 2, on the same estimates</td></tr>
+<tr><td>BofA FY27 EPS, conservative 25x</td><td>25.0x</td><td>$17.93</td><td>$448.25</td><td class="up">+20%</td><td>Post-print sell-side base case</td></tr>
+<tr><td>5Y avg (mean reversion)</td><td>27.6x</td><td>$19.35</td><td>$534.06</td><td class="up">+44%</td><td>Filtered 5Y average multiple</td></tr>
+<tr><td>Peer avg (AMD/MRVL/TXN)</td><td>31.3x</td><td>$19.35</td><td>$605.66</td><td class="up">+63%</td><td>Ceiling, not base — peers lack AVGO's scale discount</td></tr>
+<tr><td>Optimistic (FY28 visibility)</td><td>24.0x</td><td>$23.56</td><td>$565.44</td><td class="up">+52%</td><td>BofA FY28 EPS at pre-crash multiple</td></tr>
+</tbody></table>
+
+<h3>Method 2: Mean Reversion &amp; Consensus</h3>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">5Y Avg PE × Fwd EPS</div><div class="value up">$534.06</div><div class="sub up">+44% upside</div></div><div class="kpi"><div class="label">Pre-crash PE × Fwd EPS</div><div class="value up">$464.40</div><div class="sub up">+25% upside</div></div><div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value up">$522.06</div><div class="sub up">+40% (partly post-crash marks)</div></div>
+</div>
+
+<h3>Method 3: Discounted Cash Flow (DCF)</h3>
+<p style="color:#64748b; margin-bottom:12px">10-year DCF on normalized FCF of ~$38B (TTM FCF $27.2B adjusted for ramping AI mix and restructuring roll-off; FY26 consensus FCF ~$38B), less ~$45B net debt. Growth fades linearly to terminal.</p>
+<table><thead><tr><th>Scenario</th><th>Growth (Yr1 → Yr10)</th><th>WACC</th><th>Terminal Growth</th><th>Intrinsic Value</th><th>Upside</th></tr></thead><tbody>
+<tr><td>Bear (XPU digestion 2027)</td><td>15% → 3%</td><td>10.5%</td><td>2.5%</td><td>$161</td><td class="dn">-57%</td></tr>
+<tr><td>Base (backlog converts on plan)</td><td>26% → 5%</td><td>10.0%</td><td>3.0%</td><td>$302</td><td class="dn">-19%</td></tr>
+<tr><td>Bull ($100B+ AI by FY27)</td><td>36% → 7%</td><td>9.5%</td><td>3.5%</td><td>$548</td><td class="up">+47%</td></tr>
+</tbody></table>
+<div class="co yw"><strong>📐 DCF honesty note:</strong> The DCF is the conservative leg here — at $372 the market already pays for execution between our base and bull FCF paths. AVGO's value case rests on contracted-backlog conversion (earnings-multiple methods), not on current-FCF discounting; the gap between the two is precisely the "capital-cycle trust" the June regime is repricing.</div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$261</div><div class="mt">15x × $17.40 EPS (-10% miss)</div><div class="us dn">-30%</div><div class="ds">Hyperscaler financing stress delays XPU deployments, FY27 framework slips, regime de-rates contracted-backlog stories to cyclical multiples.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr up">$426</div><div class="mt">22x × $19.35 EPS</div><div class="us up">+14% upside</div><div class="ds">Sep 3 beat with AI guide ≥$17B, FY27 &gt;$100B reaffirmed with specifics, multiple recovers most of the June 4 gap as rate fear fades.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$575</div><div class="mt">27x × $21.30 EPS (+10% beat)</div><div class="us up">+55% upside</div><div class="ds">FY27 framework raised above $100B, seventh XPU customer named, OpenAI program milestones confirmed, Fed pivots back toward cuts.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co gr"><p><strong>Broadcom just delivered the strongest quarter in its history and suffered its worst one-day loss since going public — that contradiction is the whole investment question.</strong> Q2 FY26: revenue +48%, AI semis +143% to $10.8B, adjusted EPS +54%, and over $30B of new AI orders booked. The -14% June 4 crash (~$280B) was triggered not by any of that but by a Q3 AI guide of ~$16B versus a $17.2B whisper and Hock Tan declining to raise the FY27 ~$100B AI framework. In the new macro regime — December hike odds ~43%, ORCL punished for capex, SMCI for dilution — "merely meeting the plan" is a sell signal. AVGO was the proof.</p>
+<p>The bull case is that nothing fundamental broke: backlog grew ~3x faster than revenue, BofA <em>raised</em> estimates and its PT to $530 after the print, the customer list (Google, Meta, OpenAI, Anthropic, ByteDance, Fujitsu, FuriosaAI incoming) is multi-year contracted, and the stock now trades at 19.2x forward — a 39% discount to AI peers and below its own 5-year average — with a $29B/yr software annuity under it. The bear case is real but narrower: XPU revenue is lumpy and concentrated in customers whose own financing is the cycle's pressure point; if OpenAI's raise stalls or Google digests TPU capacity, the FY27 framework back-loads and the guidance-cadence punishment repeats.</p>
+<p>We set policy risk at <strong>none</strong> (no pending export action touches the custom-ASIC franchise; ByteDance is a monitored tail, not a base case). Twelve-month skew: bear $261 (-30%) requires actual deployment delays, base $426 (+14%) requires only a normal Sep 3 print, bull $575 (+55%) requires the framework raise the market was prematurely demanding on June 3.</p>
+<p><strong>12-month base case: $426 (+14%), with the range unusually wide for a megacap. Key catalyst: Sep 3 Q3 FY26 print. Key monitor: hyperscaler/OpenAI financing headlines — they move this stock more than its own numbers right now.</strong></p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, CNBC, TheStreet, Motley Fool. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, CNBC, TheStreet, Motley Fool, analyst consensus · 2026-06-10</p></div>
+</div>
+</body>
+</html>

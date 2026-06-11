@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LI | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>LI — Li Auto Inc.</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-06-10 · Sources: yfinance, Li Auto IR, CnEVPost, Seeking Alpha, analyst consensus</p>
+
+<div class="badge">📅 Next Earnings: ~late August 2026 (Q2 2026) · Q1 2026 reported May 28 · All-new L8 launches June 2026</div>
+
+<div class="co rd"><strong>🌍 Macro Context (June 10, 2026):</strong> Fear regime. June 4–5 produced the worst US drop of the year (Nasdaq -4.2%) after a shock jobs report lifted Fed December <em>rate-hike</em> odds to ~43%; today's good core CPI still saw the S&P fall -1.6% to a 5-week low. VIX 22.2, 10Y 4.54%, Fear & Greed 27 (extreme fear). US-Iran strikes and the declared Hormuz blockade put WTI near $91 — a China import-cost shock that nonetheless supports EV/EREV adoption vs gasoline. Rising US rates + risk-off remains historically toxic for China ADR flows; the record SpaceX IPO Friday absorbs liquidity. LI printed a fresh 52-week low today ($13.67) — the worst-positioned chart in our China coverage.</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$13.69</div><div class="sub dn">-57.3% from 52W High ($32.03) · NEW 52W low today</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$13.8B</div><div class="sub">Day range $13.67–14.00</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value">—</div><div class="sub dn">TTM EPS: -$0.26</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value up">13.3x</div><div class="sub">Fwd EPS: $1.03 — cheapest of EV trio</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">RMB 109.4B</div><div class="sub dn">Q1: -11.4% YoY</div></div>
+    <div class="kpi"><div class="label">Q1 Vehicle Margin</div><div class="value dn">6.1%</div><div class="sub dn">vs NIO 18.8% / XPEV 12.1%</div></div>
+    <div class="kpi"><div class="label">Net Cash</div><div class="value up">~RMB 75B</div><div class="sub up">≈$10.4B ≈ 75% of market cap</div></div>
+    <div class="kpi"><div class="label">FCF (TTM)</div><div class="value dn">-RMB 15.6B</div><div class="sub dn">Burning into the transition</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">1-Month Return</div><div class="value dn">-23.9%</div></div>
+    <div class="kpi"><div class="label">3-Month Return</div><div class="value dn">-23.0%</div></div>
+    <div class="kpi"><div class="label">1-Year Return</div><div class="value dn">-52.0%</div></div>
+    <div class="kpi"><div class="label">May Deliveries</div><div class="value">33,350</div><div class="sub dn">-6% YoY</div></div>
+</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter (RMB)</th><th>Revenue</th><th>Gross Profit</th><th>Op Income</th><th>Net Income</th><th>Diluted EPS</th></tr></thead>
+<tbody><tr><td>2026-03-31 (Q1)</td><td>22.98B <span class="dn">-11.4% YoY</span></td><td class="dn">1.81B (7.9%)</td><td class="dn">-3.00B</td><td class="dn">-2.29B</td><td class="dn">-2.26</td></tr>
+<tr><td>2025-12-31</td><td>28.78B <span class="up">↑</span></td><td>5.13B (17.8%)</td><td class="dn">-0.44B</td><td class="neu">+0.01B</td><td>0.00</td></tr>
+<tr><td>2025-09-30</td><td>27.36B <span class="dn">↓</span></td><td>4.47B (16.3%)</td><td class="dn">-1.18B</td><td class="dn">-0.62B</td><td>-0.62</td></tr>
+<tr><td>2025-06-30</td><td>30.25B <span class="up">↑</span></td><td>6.07B (20.1%)</td><td class="up">+0.83B</td><td class="up">+1.09B</td><td class="up">+1.02</td></tr>
+<tr><td>2025-03-31</td><td>25.93B</td><td>5.32B (20.5%)</td><td class="up">+0.27B</td><td class="up">+0.65B</td><td class="up">+0.62</td></tr>
+</tbody></table>
+<div class="co rd"><strong>📊 Q1 2026 Read (reported May 28):</strong> The margin crash quarter. Deliveries actually GREW (+2.5% YoY to 95,142, beating guidance) but vehicle revenue fell -12.7% YoY to RMB21.5B as the cheaper i6 BEV became ~60% of mix — and vehicle margin collapsed to <strong>6.1%</strong> (LI 6-K, May 28; Seeking Alpha). Gross margin 7.9%, operating loss RMB3.0B, net loss RMB2.29B. The bull counterpoint: management guided Q2 gross margin recovery to ~10% with the all-new L9 (launched May 15, 10K+ Livis-trim orders in two weeks) and L8 (June) restoring high-ASP EREV mix; Q2 guide is 95–100K deliveries / RMB24.1–25.4B revenue (Motley Fool transcript, May 29).</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Stream</th><th>Q1 2026 (RMB)</th><th>% of Total</th><th>Trend</th><th>Notes</th></tr></thead>
+<tbody><tr><td><strong>Vehicle Sales</strong></td><td>21.5B</td><td>~94%</td><td class="dn">-12.7% YoY</td><td>i6 BEV ~60% of volume at ~20K/mo (top-3 BEV SUV) — volume up, ASP down</td></tr>
+<tr><td><strong>Services & Other</strong></td><td>~1.5B</td><td>~6%</td><td class="up">Stable</td><td>Charging network, software, merchandise</td></tr>
+</tbody></table>
+<div class="co yw"><strong>The transition problem in one line:</strong> Li converted EREV premium buyers into BEV value buyers faster than it converted costs — i6 success is cannibalizing L-series economics. The entire 12-month story is whether the refreshed L9 (May) and L8 (June) restore the high-margin EREV mix while i6 keeps the volume floor. Li still leads China's RMB200K+ NEV market (Q1 call), and May's 33,350 (-6% YoY) showed stabilization, not recovery (CnEVPost, June 1).</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl dn">~26</div><div class="nt dn">Oversold</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl dn">$17.39</div><div class="nt dn">Price -21% below</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl dn">$19.17</div><div class="nt dn">Price -29% below</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl dn">-0.95</div><div class="nt dn">Below signal, no divergence</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$32.03</div><div class="nt dn">-57.3%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$13.67</div><div class="nt dn">Set TODAY</div></div>
+</div>
+<div class="co rd"><strong>⚠️ Technical Signal:</strong> The weakest tape in our coverage: fresh 52-week low on the day, -52% over a year, RSI 26 oversold with no bullish divergence yet. There is no technical support below until the 2024 price zone; only valuation (net cash $10+/share) provides a fundamental floor argument. Catching this knife requires the June L8 launch and Q2 margin guide to actually deliver.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Company</th><th>Price</th><th>MCap</th><th>Fwd P/E</th><th>Rev Growth (latest Q)</th><th>Gross Margin (Q1)</th><th>Vehicle Margin</th><th>Net Cash</th></tr></thead>
+<tbody><tr class="hl"><td><strong>LI</strong></td><td>$13.69</td><td>$13.8B</td><td>13.3x</td><td class="dn">-11.4%</td><td>7.9%</td><td class="dn">6.1%</td><td class="up">~$10.4B</td></tr>
+<tr><td><strong>NIO</strong></td><td>$5.18</td><td>$13.0B</td><td>34.8x</td><td class="up">+112%</td><td>19.0%</td><td class="up">18.8%</td><td>~$0.7B</td></tr>
+<tr><td><strong>XPEV</strong></td><td>$14.86</td><td>$14.2B</td><td>25.8x</td><td class="dn">-17.6%</td><td>20.6%</td><td>12.1%</td><td>~$1.0B</td></tr>
+<tr><td><strong>TSLA</strong></td><td>$381.59</td><td>$1,433B</td><td>152.6x</td><td class="up">+15.8%</td><td>19.1%</td><td>—</td><td>Large</td></tr>
+<tr><td><strong>GM</strong></td><td>$79.40</td><td>$71.6B</td><td>5.6x</td><td class="dn">-0.9%</td><td>11.1%</td><td>—</td><td>Net debt</td></tr>
+</tbody></table>
+<div class="co bl"><strong>Peer read:</strong> A role reversal is complete: Li — the trio's profit leader for two years — now has the WORST margins (6.1% vehicle vs NIO's 18.8%) while keeping the best balance sheet (~$10.4B net cash, ~75% of market cap). At 13.3x forward Li is the "cheapest" of the trio, but that's the same optical-cheapness trap our backtests punished: LI underperformed QQQ by ~39pts since April 9 — the worst of the three.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value neu">0.64</div><div class="sub">Front expiry 6/12 · most balanced of trio</div></div>
+    <div class="kpi"><div class="label">Front IV</div><div class="value neu">Elevated</div><div class="sub">Thin weekly chain — unreliable</div></div>
+    <div class="kpi"><div class="label">Short % of Float</div><div class="value">4.6%</div><div class="sub">Lowest of EV trio</div></div>
+    <div class="kpi"><div class="label">Beta</div><div class="value">0.51</div><div class="sub">5Y vs SPX</div></div>
+</div>
+<div class="co bl"><strong>📊 Options Read:</strong> P/C 0.64 is the most defensive positioning among the EV trio — call buyers are notably less aggressive here than in NIO/XPEV. Low short interest (4.6%) means less squeeze fuel; the options market treats LI as a value question, not a momentum trade. Front-weekly chain is thin; treat IV stats cautiously.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co bl"><strong>Insider Holdings:</strong> Reported ADR-line insider stake is negligible (founder Li Xiang's control sits in Class B shares). No open-market insider purchases disclosed during the -57% drawdown. The company's $1B buyback authorization (cited in our May report) remains the relevant inside bid — at a $13.8B market cap it covers ~7% of shares, though buyback pace disclosures are limited. Neutral; conviction buying from insiders would be the upgrade signal to watch.</div>
+
+<h2 class="pb">📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">"Li Auto: Margin Plunge (Rating Downgrade)"</span> · June 2026 · <span class="st ber">Hold/Downgrade</span><p style="margin-top:8px; color:#475569">Q1 vehicle margin of 6.1% — far below NIO (18.8%) and XPeng (12.1%) — breaks the quality thesis; downgrade until mix recovers.</p></div>
+<div class="tw"><span class="au">"Li Auto: The Worst Print Is Behind, Not Ahead"</span> · June 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Q1 is the trough: L9 refresh (10K+ Livis orders in 2 weeks), L8 in June, guided ~10% Q2 GM; i6 ramp validates the BEV pivot at 20K/mo.</p></div>
+<div class="tw"><span class="au">"Li Auto expects Q2 2026 deliveries of 95,000–100,000, targets >20% share in RMB500K+ NEV SUVs"</span> · May 2026 · <span class="st net">News</span><p style="margin-top:8px; color:#475569">Guidance implies sequential stabilization; premium L-series refresh is the margin lever.</p></div>
+<div class="co yw"><strong>SA Consensus:</strong> A genuine trough-vs-trap debate. Bears: the EREV moat is gone and BEV is a knife fight. Bulls: 47% one-year drawdown + net cash floor + margin recovery guide = asymmetric entry. Both agree Q2 margin delivery (~10% GM) is the verdict event.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">EV-data accounts (aggregate)</span> · June 1, 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">May 33,350 (-6% YoY) read as "least bad since March"; the trio's rally on delivery day left LI behind — NIO +6.7%, XPEV +6.2%, LI lagged.</p></div>
+<div class="tw"><span class="au">China auto industry watchers</span> · June 2026 · <span class="st ber">Bearish</span><p style="margin-top:8px; color:#475569">36Kr's "Great Transformation" framing widely shared: the trio "yielding to the price war, struggling to be the BBA of EVs" — Li's premium-brand ambition is the most exposed to the down-tiering.</p></div>
+<div class="tw"><span class="au">Deep-value accounts</span> · June 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Net-cash-per-share (~$10+) vs $13.69 price is the most-cited stat; "you're paying ~$3 for the car business" threads circulating at the 52W low.</p></div>
+<div class="co bl"><strong>X Consensus:</strong> Capitulation-flavored. The value math is widely known and hasn't stopped the slide — a reminder that net cash is a floor argument, not a catalyst.</div>
+
+<h2>🚀 Catalysts</h2>
+<ul>
+<li><strong>All-new L8 launch — June 2026:</strong> second leg of the high-margin EREV refresh; strong orders would confirm the L9 signal (10K+ Livis orders in two weeks)</li>
+<li><strong>June AI/software event:</strong> management plans a dedicated software & AI day — autonomous-driving progress is Li's least-priced asset (Q1 call, May 29)</li>
+<li><strong>Q2 gross margin recovery to ~10%:</strong> guided explicitly; hitting it validates the trough thesis, missing it breaks management credibility</li>
+<li><strong>Q2 deliveries 95–100K guide:</strong> June deliveries (~July 1) will show whether L9 orders convert</li>
+<li><strong>i6 momentum:</strong> ~20K/mo, top-3 BEV SUV — the volume floor holds while EREV mix rebuilds</li>
+<li><strong>$1B buyback + net cash:</strong> ~75% of market cap in net cash funds the transition without dilution and supports the floor</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>Margin recovery is a promise, not a print:</strong> management must lift GM from 7.9% to ~10% in one quarter while the price war rages; a miss at the late-August print likely breaks the $13 floor</li>
+<li><strong>Worst-of-trio track record (our own backtests):</strong> LI lagged QQQ by ~39pts since April 9 — every "cheap with a buyback floor" framing we wrote failed; the EREV→BEV transition has repeatedly destroyed margin faster than expected</li>
+<li><strong>Structural ASP erosion:</strong> if Chinese consumers keep down-tiering, the L-series refresh may sell fewer units at lower prices than planned, making 6% vehicle margin the new normal rather than the trough</li>
+<li><strong>Cash burn:</strong> TTM FCF -RMB15.6B; the fortress shrinks each transition quarter — the floor argument decays with time</li>
+<li><strong>Competition concentration:</strong> AITO/Huawei directly targets Li's family-SUV niche; NIO's ONVO L80 and Tesla Model Y refresh attack from below</li>
+<li><strong>ADR/HFCAA + macro:</strong> cohort-wide overhang; fresh 52W lows make LI the path of least resistance for index/flow selling</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value neu">Buy (weak)</div><div class="sub">27 analysts · mean 2.43 — weakest in our China group</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value up">$18.69</div><div class="sub up">+37% upside</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$13.99</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$26.89</div></div>
+</div>
+<div class="co yw"><strong>Staleness check:</strong> Mean PT cut from $21.24 (May 27) to $18.69 in two weeks — the Street is actively downgrading. The LOW PT ($13.99) now sits ABOVE spot, but with a 2.43 recommendation mean this is the least-endorsed name in our China coverage. Treat the +37% headline upside skeptically.</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data & Methodology:</strong> Market data from Yahoo Finance (yfinance) as of 2026-06-10. Forward EPS $1.03 (USD/ADS, consensus NTM) — assumes the guided margin recovery materializes; high revision risk in both directions. Net cash ~RMB75.4B (cash RMB93.1B − debt RMB17.7B) ≈ $10.4B ≈ $10.3/ADS.</div>
+
+<h3>Method 1: P/E Multiple Approach</h3>
+<table><thead><tr><th>Scenario</th><th>P/E</th><th>EPS</th><th>Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody><tr><td>Bear (margin stays broken)</td><td>—</td><td>$0.20</td><td>$10.50</td><td class="dn">-23%</td><td>Approaches net-cash value (~$10.3); market pays ~zero for the auto business</td></tr>
+<tr><td>Base (guide delivered)</td><td>15x</td><td>$1.03</td><td>$15.45</td><td class="up">+13%</td><td>GM recovers to 10%+ in Q2, FY27 normalizes; modest growth multiple</td></tr>
+<tr><td>Bull (mix restored)</td><td>16x</td><td>$1.40</td><td>$22.40</td><td class="up">+64%</td><td>L9/L8 refresh restores EREV mix, FY27 EPS upgrades, multiple holds</td></tr>
+</tbody></table>
+
+<h3>Method 2: Mean Reversion & Consensus</h3>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">Net Cash / ADS</div><div class="value">$10.30</div><div class="sub">Hard-ish floor (decaying with burn)</div></div>
+<div class="kpi"><div class="label">EV/Sales reversion</div><div class="value">$17.00</div><div class="sub up">0.22x → 0.45x fwd EV/S</div></div>
+<div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value up">$18.69</div><div class="sub up">+37% · being cut</div></div>
+<div class="kpi"><div class="label">Street Low PT</div><div class="value">$13.99</div><div class="sub">≈ spot</div></div>
+</div>
+<div class="co bl"><strong>📐 Calculation Details:</strong><ul><li>EV ≈ $13.8B − $10.4B net cash = ~$3.4B against ~RMB110B (~$15.2B) forward revenue → ~0.22x fwd EV/S, among the lowest of any global automaker; reversion to 0.45x ≈ $17</li><li>Street consensus $18.69 (n=27, range $13.99–$26.89), cut from $21.24 two weeks ago</li><li>Net cash $10.3/ADS but FCF -RMB15.6B TTM erodes it ~$2B/year at the current burn</li></ul></div>
+
+<h3>Method 3: Discounted Cash Flow (DCF)</h3>
+<table><thead><tr><th>Scenario</th><th>Rev Growth (10Y)</th><th>Terminal Op Margin</th><th>WACC</th><th>Terminal Growth</th><th>Intrinsic Value</th><th>Upside</th></tr></thead>
+<tbody><tr><td>Bear</td><td>2%</td><td>1%</td><td>12.0%</td><td>2.0%</td><td>$10.50</td><td class="dn">-23%</td></tr>
+<tr><td>Base</td><td>8%</td><td>5%</td><td>11.0%</td><td>2.5%</td><td>$16.50</td><td class="up">+21%</td></tr>
+<tr><td>Bull</td><td>13%</td><td>8%</td><td>10.5%</td><td>3.0%</td><td>$24.00</td><td class="up">+75%</td></tr>
+</tbody></table>
+<div class="co bl"><strong>✅ Triangulation:</strong> Unusual structure: the bear case (~$10.50) is tightly anchored by net cash, while base cases cluster at $15.50–17.00. The asymmetry is genuinely favorable (-23% / +13–21% / +64–75%) BUT it was also "favorable" in May at $15.54 and the stock fell 12% anyway — net cash floors leak when the operating business burns RMB3B a quarter. The Q2 margin print is the only number that matters.</div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$10.50</div><div class="mt">≈ net cash/ADS</div><div class="us dn">-23%</div><div class="ds">Q2 GM misses 10%, L8 launch underwhelms, price war forces i6 price cuts, burn accelerates. Market values the car business at zero.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr up">$16.00</div><div class="mt">~15.5x × $1.03 EPS</div><div class="us up">+17%</div><div class="ds">Q2 GM hits ~10%, L9/L8 orders convert, deliveries stabilize at 95–100K/quarter. Stock recovers above the 50-day; full re-rate waits for FY27 visibility.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$22.50</div><div class="mt">~16x × $1.40 EPS</div><div class="us up">+64%</div><div class="ds">EREV refresh restores 15%+ vehicle margin by Q4, i6 holds 20K/mo, AI day reveals credible autonomy stack, China stimulus lifts premium consumption.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co gr"><p><strong>LI</strong> is our chastened name: the worst EV-trio performer in all three of our backtest windows (-39pts vs QQQ since April 9), now at a fresh 52-week low of $13.69 after Q1 confirmed the bears — vehicle margin collapsed to 6.1% (versus NIO's 18.8%) as the i6 BEV cannibalized premium EREV mix, with a RMB2.29B net loss on -11.4% revenue (6-K, May 28). What's left is a balance-sheet story with a dated catalyst: ~$10.30/ADS of net cash (~75% of market cap) sets a leaky floor, while the refreshed L9 (10K+ orders in two weeks), the June L8 launch, and management's explicit ~10% Q2 gross-margin guide form a falsifiable trough thesis to be graded at the late-August print. We will not repeat the "cheap with a buyback floor" call that failed twice — the Street itself just cut PTs from $21.24 to $18.69 and Li's 2.43 recommendation mean is the weakest in our China group. <strong>Verdict: hold — the $10.50/$16.00/$22.50 scenario tree is asymmetric on paper, but entry before the Q2 margin print is paying for a promise the company has not yet kept.</strong></p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, Li Auto IR, CnEVPost, Seeking Alpha, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, Li Auto IR, CnEVPost, Seeking Alpha, analyst consensus · 2026-06-10</p></div>
+</div>
+</body>
+</html>

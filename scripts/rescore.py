@@ -18,7 +18,6 @@ POLICY = {
     "TIGR": "severe",   # CSRC mainland-brokerage crackdown — the actual cause of the crash
     # elevated: active restriction on a meaningful revenue segment, or acute overhang
     "NVDA": "elevated", # China export controls ban a DC-GPU revenue segment outright
-    "UNH":  "elevated", # active DOJ probe + CMS rate-setting drive the P&L directly
     "WRD":  "elevated", # US-listed Chinese AV: data-security/export scrutiny + delisting overhang
     "PONY": "elevated", # same profile as WRD
     # moderate: real but manageable policy exposure / long-standing overhang

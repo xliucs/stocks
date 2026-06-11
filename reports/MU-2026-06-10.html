@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MU | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>MU — Micron Technology, Inc.</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-06-10 · Sources: yfinance, Seeking Alpha, X/Twitter, analyst consensus, web research</p>
+
+<div class="badge">📅 Next Earnings: 2026-06-24 (Fiscal Q3 FY26) — 14 days away · Guide: $33.5B rev, 81% non-GAAP GM, $19.15 EPS</div>
+
+<div class="co rd"><strong>🌐 Macro Context (June 10, 2026):</strong> MU was the epicenter of the worst drop of the year. June 4–5: Nasdaq -4.2% on a shock May jobs report (172k payrolls, ~2x consensus) that lifted December Fed <em>rate-hike</em> odds to ~43% — MU fell -13.3% on June 5 alone and -20% over two sessions ($1,079.57 → $864.01); a memory-chip ETF sank 15%. Today (June 10), core CPI printed cool (+0.2% vs +0.3% exp) yet the S&P still fell -1.6% and MU dropped -4.7% to $891.88 — selling good news is the fear-regime tell (VIX 22.2, Fear &amp; Greed 27, 10Y 4.54%, WTI ~$91 on the Hormuz blockade). The market's new grading standard punishes capital intensity (ORCL -5% on a $70B capex guide; SMCI -28% on a $7B raise) — directly relevant to MU's $25B+ FY26 capex and $100B Clay NY commitment. Adding to it: IDC now projects 2026 smartphone shipments -13% y/y, a 10-year low, pressuring the consumer-memory leg even as HBM stays sold out.</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$891.88</div><div class="sub dn">-18.1% from 52W High ($1,089) · -4.7% today</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$1.01T</div><div class="sub">Shares: 1.13B · Holding the $1T club</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value neu">42.0x</div><div class="sub">TTM EPS: $21.23</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value up">8.0x</div><div class="sub">Fwd EPS: $111.51 (FY26 consensus, raised again)</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">$58.1B</div><div class="sub up">+196% YoY</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value up">58.4% TTM</div><div class="sub">FQ2 74.4% GAAP · FQ3 guide 81% non-GAAP</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value up">67.6%</div><div class="sub">OCF TTM: $30.7B</div></div>
+    <div class="kpi"><div class="label">Net Margin</div><div class="value up">41.5%</div><div class="sub">ROE: 39.8%</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">1-Week Return</div><div class="value dn">-17.4%</div><div class="sub">Crash epicenter</div></div>
+    <div class="kpi"><div class="label">1-Month Return</div><div class="value up">+12.1%</div><div class="sub">3-mo +113% · 6-mo +262%</div></div>
+    <div class="kpi"><div class="label">P/S (TTM)</div><div class="value dn">17.3x</div><div class="sub">vs ~3.5x 5Y avg</div></div>
+    <div class="kpi"><div class="label">Analyst PT (mean)</div><div class="value">$789</div><div class="sub dn">-12% vs spot · Street-high $1,750</div></div>
+</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter</th><th>Revenue</th><th>Net Income</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th><th>Diluted EPS</th></tr></thead>
+<tbody>
+<tr class="hl"><td>2026-02-28 (FQ2'26)</td><td>$23.9B <span class="up">↑↑</span></td><td>$13.8B</td><td>74.4%</td><td>67.6%</td><td>57.8%</td><td>$12.07</td></tr>
+<tr><td>2025-11-30 (FQ1'26)</td><td>$13.6B <span class="up">↑</span></td><td>$5.2B</td><td>56.0%</td><td>45.0%</td><td>38.4%</td><td>$4.60</td></tr>
+<tr><td>2025-08-31 (FQ4'25)</td><td>$11.3B <span class="up">↑</span></td><td>$3.2B</td><td>44.7%</td><td>32.6%</td><td>28.3%</td><td>$2.83</td></tr>
+<tr><td>2025-05-31 (FQ3'25)</td><td>$9.3B —</td><td>$1.9B</td><td>37.7%</td><td>23.3%</td><td>20.3%</td><td>$1.68</td></tr>
+<tr><td>2025-02-28 (FQ2'25)</td><td>$8.1B</td><td>$1.6B</td><td>36.8%</td><td>22.0%</td><td>19.7%</td><td>$1.41</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>🔥 The steepest earnings inflection in semis since 2017:</strong> FQ2'26 revenue $23.9B (+75% QoQ, +196% YoY) with GAAP GM jumping 56% → 74.4% sequentially on HBM mix. <strong>FQ3 guide: $33.5B ±$750M, 81% non-GAAP GM, $19.15 non-GAAP EPS; Street consensus has crept above guide to ~$19.82 EPS / $34.8B revenue</strong> (TechTimes, Jun 8, 2026). HBM4 (36GB 12-high, 2.8TB/s) began volume shipments in March for NVDA Vera Rubin; management says the entire 2026 HBM slate was booked under binding contracts before the year began, with 3–5 year LTAs being signed. The June 24 print is the single highest-stakes data point in semis this month.</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Revenue Stream</th><th>FQ2'26 $</th><th>% of Total</th><th>YoY Trend</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>DRAM (incl. HBM)</td><td>$18.8B</td><td>79%</td><td class="up">+207% YoY</td><td>HBM3E sold out; HBM4 in volume to NVDA Vera Rubin since March</td></tr>
+<tr><td>NAND / SSD</td><td>$5.0B</td><td>21%</td><td class="up">+169% YoY</td><td>Enterprise SSD pull from AI data pipelines</td></tr>
+<tr><td>HBM (within DRAM)</td><td>~$6–7B</td><td>~25%+ of DRAM</td><td class="up">Sold out thru 2026</td><td>Multi-year LTAs; 2026 capacity contractually booked pre-year</td></tr>
+<tr><td>Data Center (end-market)</td><td>~$15B+</td><td>~60%+</td><td class="up">+150% YoY</td><td>DC &gt;50% of industry bit TAM for the first time</td></tr>
+<tr><td>Mobile / PC / Auto / Embedded</td><td>~$3–4B</td><td>~15%</td><td class="dn">Watch item</td><td><strong>IDC: 2026 smartphone units -13% y/y (10-yr low)</strong> — consumer leg weakening into 2H</td></tr>
+</tbody></table>
+
+<div class="co bl"><strong>The key question into June 24:</strong> Is HBM pricing/contract visibility strong enough to look through a -13% smartphone unit year? The math says mostly yes — consumer/mobile is now ~15% of revenue vs. ~55% two cycles ago, and HBM's wafer intensity (3–4x standard DRAM area per bit) keeps commodity DRAM supply tight even if consumer demand sags. But the memory-ETF -15% crash showed the market will not extend the benefit of the doubt: any FQ3 commentary that consumer weakness is bleeding into blended ASPs would hit the multiple immediately.</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl neu">60.8</div><div class="nt">Cooled from deeply overbought</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl up">$652.21</div><div class="nt up">Price +37% above</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl up">$372.85</div><div class="nt up">Price +139% above</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl dn">86.9</div><div class="nt dn">Below signal (100.9) — momentum broken</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$1,089.29</div><div class="nt dn">-18.1%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$103.38</div><div class="nt up">+763%</div></div>
+</div>
+
+<div class="co yw"><strong>⚠️ Technical Signal:</strong> The parabola broke: June 3 close $1,079.57 → June 4 $996 (-7.7%) → June 5 $864 (-13.3%), the worst two-day move in the entire 12-month run. The bounce to $949 (June 8) failed and price closed $891.88 today on heavy volume (~54M vs 55M 20-day avg). Price remains +37% above the 50DMA — still extended — and the gap zone from the late-May melt-up sits at $750–$800, a magnet on any earnings disappointment. With FQ3 earnings in 14 days and IV elevated, expect a $100+ post-print range. Extension above the 200DMA (+139%) means mean-reversion alone, with no thesis change, could deliver another -25%.</div>
+
+<h2>📏 Historical Valuation</h2>
+<table><thead><tr><th>Metric</th><th>Current</th><th>5Y Avg</th><th>5Y Range</th><th>Interpretation</th></tr></thead>
+<tbody>
+<tr><td>Fwd P/E</td><td class="up">8.0x</td><td>~11x</td><td>5x – 25x</td><td>Cheap on forward EPS — but EPS is at potential cycle peak</td></tr>
+<tr><td>Trailing P/E</td><td class="neu">42.0x</td><td>~17x</td><td>negative – 50x</td><td>TTM EPS still catching up to the supercycle</td></tr>
+<tr><td>P/S</td><td class="dn">17.3x</td><td>~3.5x</td><td>1.5x – 7x</td><td>~5x richer than history — unprecedented</td></tr>
+<tr><td>EV/EBITDA</td><td class="neu">~27x</td><td>~7x</td><td>4x – 15x</td><td>Pricing peak EBITDA as durable</td></tr>
+</tbody></table>
+
+<div class="co yw"><strong>The Cycle vs. Re-Rating Debate, post-crash edition:</strong> At 8.0x forward EPS of $111.51, MU screens cheap — IF those earnings are quasi-recurring. Bears say this is 2018 redux: peak EPS gets a single-digit multiple right before the roll. Bulls counter that 3–5 year binding LTAs covering all of 2026–27 HBM output structurally raise the trough: even a downcycle leaves $40–60 of EPS, supporting $600–800 at 12–15x normalized. The June 4–5 action (memory ETF -15%) is the market stress-testing the bull case for the first time. Our retrospective discipline cuts both ways: we wrongly called MU overvalued at $345 and $923 — but +12% in a month with momentum broken is also not an entry signal.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Ticker</th><th>Mkt Cap</th><th>Fwd P/E</th><th>P/S</th><th>Rev Growth</th><th>Gross Margin</th><th>Op Margin</th><th>Analyst Rec</th></tr></thead>
+<tbody>
+<tr class="hl"><td><strong>MU</strong></td><td>$1.01T</td><td class="up">8.0x</td><td>17.3x</td><td class="up">+196%</td><td>58.4%</td><td>67.6%</td><td>Strong Buy</td></tr>
+<tr><td>SK Hynix (000660.KS)</td><td>~$1.0T</td><td class="up">~6x</td><td>~9x</td><td class="up">~+200%</td><td>~75%</td><td>~85%</td><td>Strong Buy · 53% HBM share</td></tr>
+<tr><td>Samsung (005930.KS)</td><td>~$2.0T</td><td class="up">~6x</td><td>~5x</td><td>+69%</td><td>~48%</td><td>~43%</td><td>Buy · ~36% HBM share</td></tr>
+<tr><td>SanDisk/WDC</td><td>$168.9B</td><td>27.5x</td><td>14.3x</td><td>+45.5%</td><td>45.4%</td><td>37.0%</td><td>Buy</td></tr>
+<tr><td>Seagate (STX)</td><td>$183.0B</td><td>30.5x</td><td>16.6x</td><td>+44.1%</td><td>41.6%</td><td>35.7%</td><td>Buy</td></tr>
+<tr><td>AMD</td><td>$737.7B</td><td>34.6x</td><td>19.7x</td><td>+37.8%</td><td>53.1%</td><td>14.4%</td><td>Strong Buy</td></tr>
+</tbody></table>
+
+<div class="co bl"><strong>Peer Read-Through:</strong> MU still trades ~35% richer than SK Hynix on forward P/E despite holding only ~11% HBM share vs. Hynix's 53% and running lower gross margins. The premium = the only-US-HBM-maker strategic scarcity + CHIPS Act tailwind. JPMorgan now models the global memory market reaching $1.7T by 2028 (Barchart, June 2026) — if true, all three majors are cheap; if 2027 supply converges, all three are peak-multiple traps together. The whole memory cohort de-rated in lockstep on June 4–5 (a memory ETF -15%) — correlation is 1 at the turn.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value up">0.79</div><div class="sub">Call flow dominates into earnings</div></div>
+    <div class="kpi"><div class="label">Earnings IV</div><div class="value dn">Extreme</div><div class="sub">June-dated ATM IV &gt;100% annualized</div></div>
+    <div class="kpi"><div class="label">Nearest Expiry</div><div class="value">06-12</div><div class="sub">Pre-earnings weeklies</div></div>
+    <div class="kpi"><div class="label">Implied Move (Jun 24)</div><div class="value neu">~±12-15%</div><div class="sub">~$110-130 swing priced</div></div>
+</div>
+
+<div class="co bl"><strong>📊 Options Read:</strong> Even after a -20% two-day crash, call volume still outpaces puts (P/C 0.79 across near expiries) — the speculative bid into the June 24 print has not capitulated. Near-dated open-interest data is patchy post-crash (heavy strike turnover), but the structure is clear: longs sitting on multi-bagger gains are paying up for downside protection while momentum traders buy the $1,000+ strikes back. The options market prices the FQ3 print as a true binary.</div>
+
+<h2>👔 Insider Activity</h2>
+<table><thead><tr><th>Date</th><th>Insider</th><th>Title</th><th>Shares</th><th>Value</th></tr></thead>
+<tbody>
+<tr class="hl"><td>2026-05-29</td><td><strong>Sanjay Mehrotra</strong></td><td><strong>CEO</strong></td><td>40,000 (two filings)</td><td>~$38.5M sold at ~$960</td></tr>
+<tr><td>2026-05-11</td><td>Steven J. Gomo</td><td>Director</td><td>2,000</td><td>$1.57M</td></tr>
+<tr><td>2026-05-01</td><td>Sanjay Mehrotra</td><td>CEO</td><td>40,000</td><td>$21.45M (at $512–545)</td></tr>
+<tr><td>2026-05-01</td><td>Michael C. Ray</td><td>Officer</td><td>7,601</td><td>$4.06M</td></tr>
+<tr><td>2026-04-10</td><td>Sumit Sadana</td><td>Officer</td><td>24,000</td><td>$10.11M</td></tr>
+<tr><td>2026-04-01</td><td>April S. Arnzen</td><td>Officer</td><td>40,000</td><td>$13.90M</td></tr>
+</tbody></table>
+<div class="co rd"><strong>🚨 CEO sold ~$60M in May alone:</strong> Mehrotra's selling accelerated as price climbed — $21M at ~$512 on May 1, then another ~$38M at ~$960 on May 29, days before the top. Aggregate C-suite sales now well north of $150M across the rally. Most are 10b5-1, but the velocity-vs-price pattern is the least bullish insider tape in our coverage. The lone insider buy remains Director Mark Liu's January purchase at ~$337.</div>
+
+<h2>📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">"Micron: Just One Announcement Away"</span> · Seeking Alpha · June 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Argues a formal multi-year HBM4E supply pact (or capacity prepayment) with a top-tier hyperscaler is the next leg; sees June 24 guide as the trigger.</p></div>
+<div class="tw"><span class="au">"Micron's Sold-Out HBM Supply Makes the Bull Case Hard to Dismiss"</span> · Investing.com · June 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Entire 2026 HBM output under binding contracts signed before the year began; clients locking 3–5 year supply agreements — visibility unprecedented for memory.</p></div>
+<div class="tw"><span class="au">"Micron Stock Climbs as HBM Sells Out: June 24 Earnings Decides the AI Memory Trade"</span> · TechTimes · June 8, 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">Consensus $19.82 EPS / $34.8B revenue — above the company's own guide. The market has pre-paid for a beat; an in-line print may not be enough.</p></div>
+<div class="tw"><span class="au">"Why 1 Veteran Analyst Doubled Her Micron Stock Price Target"</span> · Barchart · June 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Morgan Stanley doubled its PT to $1,050 (from $520) on sustained DRAM tightness; JPM raised its global memory TAM forecast to $1.7T by 2028.</p></div>
+<div class="tw"><span class="au">"Micron: The Market Still Underestimates The AI Memory Cycle"</span> · May 2026 · <span class="st bul">Strong Buy</span><p style="margin-top:8px; color:#475569">Maintains buy despite valuation; flags post-2027 oversupply as the real risk but argues LTAs make downcycles shallower than history.</p></div>
+
+<div class="co gr"><strong>SA/Street Consensus:</strong> Overwhelmingly bullish on fundamentals (17 buys, no sells per recent tallies) — but the bull articles were all written above $900 pre-crash. The marginal debate has shifted from "how high" to "does the June 24 print validate an above-guide consensus."</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">@itsmichaelluu</span> · Jun 10, 2026 · <span class="st bul">Bullish (lower)</span><p style="margin-top:8px; color:#475569">"When $SPY crashes 10–20% this summer, I'd BUY ONLY bottleneck AI stocks. $MU — Current ~$879 | Buy Zone: $680–$700. HBM demand floor, prior ATH breakout retest." Even the bulls now quote entry zones 20%+ below spot.</p></div>
+<div class="tw"><span class="au">@TradexWhisperer</span> · May 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"$MU at JPM: 'Record FCF in fiscal Q3. Balance sheet strongest in company history. Credit upgrades from all 3 agencies this year. Demand outpacing supply well beyond 2026. HBM4 ramp running at 2x the speed of HBM3E.'"</p></div>
+<div class="tw"><span class="au">@DeepValueReport</span> · May 2026 · <span class="st ber">Bearish</span><p style="margin-top:8px; color:#475569">"If all three HBM suppliers simultaneously solve yield, supply floods the market and pricing power evaporates." The 2027-supply-convergence bear case — now amplified by the memory-ETF -15% crash week.</p></div>
+<div class="tw"><span class="au">@claw_news_</span> · May 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">"'Memflation': HBM consumes 3–4x wafer space, selling out capacity through 2026. WSB warning: 'Cyclicality hasn't been cured, it's just been delayed.' The 2027 oversupply clock is ticking."</p></div>
+
+<div class="co bl"><strong>X Consensus:</strong> The tone flipped from euphoria (late May: $1T club, UBS $1,625) to disciplined accumulation lists post-crash. Bulls have stopped chasing and started posting buy zones; bears are louder but mostly macro-driven rather than MU-specific. Net: constructive 12-month, treacherous 2-week.</div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>FQ3'26 earnings (June 24)</strong> — guide $33.5B / 81% GM / $19.15 EPS; consensus already above at ~$19.82 / $34.8B. The FQ4 guide and any 2027 LTA pricing disclosure matter more than the print itself.</li>
+<li><strong>HBM sold out through 2026 under binding contracts; HBM4 in volume to NVDA Vera Rubin since March</strong> — 36GB 12-high, 2.8TB/s; 3–5 year LTAs being signed (Investing.com, TechTimes, June 2026)</li>
+<li><strong>PT raise wave still rolling:</strong> Morgan Stanley $1,050 (2x raise), Raymond James $1,100 (from $530), UBS $1,625 Street-high cluster; mean PT $789 still below spot and rising (Barchart, June 2026)</li>
+<li><strong>JPM: global memory market to $1.7T by 2028</strong> — structural TAM re-rate if it holds</li>
+<li><strong>FCF inflection:</strong> OCF TTM already $30.7B; FY26 FCF could reach $25–35B as capex peaks relative to cash generation — in the new capital-intensity-aware regime, demonstrating FCF &gt; capex is the catalyst</li>
+<li><strong>Credit upgrades from all three agencies in 2026</strong> — lowers funding cost for Boise/Clay NY buildout</li>
+<li><strong>HBM4E 2027 with TSMC base-die partnership</strong> — first JEDEC HBM4E + customized variants</li>
+<li><strong>Fed pivot optionality</strong> — memory is the highest-beta AI complex; any collapse in December-hike odds snaps the whole cohort back first</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>Macro regime turn — MU is the epicenter:</strong> -13.3% on June 5, the worst of any mega-cap semi; a memory ETF fell 15% on the week. When the market de-grosses AI, MU is the first sale because it has the biggest gain and the most cyclical memory.</li>
+<li><strong>Capital-intensity penalty:</strong> $25B+ FY26 capex stepping up in FY27 plus the $100B Clay NY program — exactly the spending profile (ORCL, SMCI) the market started punishing this week. Mitigant: MU funds it from $30B+ OCF, not equity raises.</li>
+<li><strong>Consumer memory drag:</strong> IDC's -13% 2026 smartphone forecast (10-year low) hits mobile DRAM/NAND bits; ~15% of revenue but a sentiment lever on blended ASP commentary June 24.</li>
+<li><strong>Cycle-peak valuation on backward metrics:</strong> P/S 17.3x (~5x history), EV/EBITDA ~27x (~4x history). Every prior memory peak ended in a 60–80% drawdown; the LTA-floor thesis is unproven through a downturn.</li>
+<li><strong>2027 HBM supply convergence:</strong> SK Hynix, Samsung, and MU are all racing capacity; if yields converge, ASPs collapse into 2027–28. HBM share today: Hynix ~53%, Samsung ~36%, MU ~11%.</li>
+<li><strong>Consensus above guide:</strong> Street at $19.82 EPS vs. $19.15 guide — an in-line quarter is now technically a "miss." Post-crash positioning cuts both ways.</li>
+<li><strong>Policy risk (moderate):</strong> 2023 China CAC ban still excludes MU from PRC critical infrastructure; export-control escalation or China retaliation (rare-earth/equipment) would hit both demand and the supply chain. CXMT scaling pressures commodity DRAM ASPs into 2027.</li>
+<li><strong>CEO sold ~$60M in May, ~$38M of it days before the top.</strong></li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value up">Strong Buy</div><div class="sub">40 analysts · mean 1.48</div></div>
+    <div class="kpi"><div class="label">Mean PT</div><div class="value">$788.73</div><div class="sub dn">-11.6% vs spot · median $612.50 (very stale)</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value up">$1,750</div><div class="sub">Raised from $1,625 (UBS cluster)</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value dn">$249</div><div class="sub">Pre-supercycle relic</div></div>
+</div>
+
+<div class="co bl"><strong>Read:</strong> The mean PT ($789) sits 12% below spot while the freshest marks (Morgan Stanley $1,050, Raymond James $1,100, UBS $1,625–1,750 cluster) sit far above — the widest dispersion in mega-cap semis. Both directions of "PT signal" are unusable right now: stale laggards drag the mean down, and the fresh raises were printed before the June 4–5 crash. We weight the June 24 guide over any of it.</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data &amp; Methodology:</strong> All data from Yahoo Finance (yfinance) as of 2026-06-10 close. Forward EPS <strong>$111.51</strong> (FY26 consensus). The framework's central problem is unchanged: is $111 peak or platform? We triangulate with P/E scenarios on cycle assumptions, mean reversion, and DCF. 12-month horizon only — our backtested short-term calls had ~zero predictive value.</div>
+
+<h3>Method 1: P/E Multiple Approach</h3>
+<table><thead><tr><th>Scenario</th><th>P/E</th><th>EPS basis</th><th>Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody>
+<tr><td>Bear (cycle turns FY27)</td><td>6.0x</td><td>$75 (normalized FY27)</td><td>$450</td><td class="dn">-50%</td><td>Yields converge, ASPs roll, market pays trough multiple on falling EPS</td></tr>
+<tr><td>Conservative (Hynix parity)</td><td>6.0x</td><td>$111.51</td><td>$669</td><td class="dn">-25%</td><td>MU compresses to SK Hynix's multiple — removes the US-scarcity premium</td></tr>
+<tr><td>Base (current multiple holds)</td><td>8.0x</td><td>$111.51</td><td>$892</td><td class="neu">flat</td><td>FQ3 in line; cycle extends through FY27; multiple unchanged</td></tr>
+<tr><td>Bull (modest re-rate)</td><td>10.0x</td><td>$115</td><td>$1,150</td><td class="up">+29%</td><td>June 24 beat-and-raise; LTA pricing disclosed; MS/RJ $1,050–1,100 zone</td></tr>
+<tr><td>Optimistic (utility re-rate)</td><td>12.0x</td><td>$120</td><td>$1,440</td><td class="up">+61%</td><td>Memory re-rated as contracted AI infrastructure; tracks UBS $1,625–1,750</td></tr>
+</tbody></table>
+
+<h3>Method 2: Mean Reversion &amp; Consensus</h3>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">5Y Avg Fwd PE × Fwd EPS</div><div class="value up">$1,227</div><div class="sub up">+38% — but assumes peak EPS persists</div></div>
+<div class="kpi"><div class="label">Hynix-parity PE × Fwd EPS</div><div class="value dn">$669</div><div class="sub dn">-25%</div></div>
+<div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value dn">$788.73</div><div class="sub dn">-11.6% (bimodal/stale)</div></div>
+</div>
+<div class="co yw"><strong>📐 Why mean reversion misleads here:</strong> Applying the 5Y average multiple (~11x) to peak-cycle EPS double-counts the boom; applying it to normalized EPS ($75) gives $825 — close to spot. The honest summary: <strong>$892 today is pricing roughly base-case cycle extension with neither the bear (supply convergence) nor the bull (utility re-rate) scenario dominant.</strong></div>
+
+<h3>Method 3: Discounted Cash Flow (DCF)</h3>
+<p style="color:#64748b; margin-bottom:12px">10-year DCF on FCF. OCF TTM $30.7B; FY26 capex ~$25B+. FCF base ~$15B FY26 building to $25B+ if capex normalizes. WACC reflects 10Y at 4.54% + memory cyclicality.</p>
+<table><thead><tr><th>Scenario</th><th>FCF Path</th><th>WACC</th><th>Terminal Growth</th><th>Intrinsic Value</th><th>Upside</th></tr></thead>
+<tbody>
+<tr><td>Bear</td><td>$15B → $6B by FY28 (cycle rolls)</td><td>11.5%</td><td>2.0%</td><td>$430</td><td class="dn">-52%</td></tr>
+<tr><td>Base</td><td>$15B → $22B plateau (LTA floor holds)</td><td>11.0%</td><td>2.5%</td><td>$870</td><td class="dn">-2%</td></tr>
+<tr><td>Bull</td><td>$15B → $35B by FY28 ($1.7T TAM)</td><td>10.5%</td><td>3.0%</td><td>$1,420</td><td class="up">+59%</td></tr>
+</tbody></table>
+
+<div class="co yw"><strong>⚠️ Probability weighting:</strong> Bear 30% × $440 + Base 45% × $880 + Bull 25% × $1,430 = <strong>~$885 blended</strong> — within 1% of the $892 spot. The market has efficiently priced the scenario tree. What changed since May 27 isn't the math, it's the left tail getting fatter (regime turn) while the stock got 3% cheaper.</div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$450</div><div class="mt">6x × $75 normalized EPS</div><div class="us dn">-50%</div><div class="ds">2027 HBM supply convergence + consumer memory recession + Fed hikes. Peak-cycle multiples on rolling EPS — the historical memory script.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr neu">$900</div><div class="mt">8x × $112 FY26 EPS</div><div class="us neu">+1%</div><div class="ds">June 24 in-line-to-beat; cycle extends through FY27; LTA floor partially credited. Stock consolidates the 10x year in a wide $700–1,100 range.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$1,300</div><div class="mt">11x × $118 EPS</div><div class="us up">+46%</div><div class="ds">Beat-and-raise with 2027 LTA pricing disclosed; memory re-rated as contracted infrastructure; MS/RJ/UBS targets converge $1,050–1,750.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co gr"><strong>Bull:</strong> Micron is printing the steepest earnings inflection in semiconductor history — FQ3 guide of $33.5B revenue at 81% gross margin would have been a full <em>year</em> of revenue three years ago — and the entire 2026 HBM output was sold under binding contracts before the year began, with 3–5 year LTAs extending visibility through the Vera Rubin cycle. At 8x forward earnings with $30B+ operating cash flow, credit upgrades from all three agencies, and the only US-soil HBM fabs (CHIPS-backed Boise/Clay NY), the quasi-utility re-rate case is intact. We fully acknowledge our anchor error: we rated MU Neutral at $345 and $923 while it ripped.</div>
+
+<div class="co rd"><strong>Bear:</strong> MU was the epicenter of both the supercycle AND the June 4–5 crash (-20% in two days; memory ETF -15%) — the market just demonstrated exactly how it will treat this name when the regime turns. P/S is 5x history, capex is $25B+ rising (the precise profile the ORCL/SMCI selloffs punished), IDC's -13% smartphone year erodes the consumer leg, consensus sits <em>above</em> guide into a binary June 24 print, the CEO sold ~$38M days before the top, and every memory cycle in history has ended with a 60–80% drawdown from peak multiples on peak earnings.</div>
+
+<div class="co bl"><strong>Verdict: Hold — do not add before June 24; the print is a coin-flip priced at ±12-15%.</strong> Blended fair value ~$885 vs. $892 spot: efficiently priced, asymmetric only at the tails. For existing holders the discipline is position-sizing, not direction: trim above $1,100, accumulate $680–750 (the gap zone bulls themselves now quote). The HBM supercycle is real and contracted — but at $1T market cap, in a fear regime that punishes capital intensity, it is no longer mispriced. Policy risk: moderate (China CAC ban, export controls, CXMT).</div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, Seeking Alpha, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, Seeking Alpha, X/Twitter, analyst consensus · 2026-06-10</p></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>COST | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.cg { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 16px 0; }
+.cg img { width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, .cg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>COST — Costco Wholesale Corporation</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-06-10 · Sources: yfinance, company filings, web research, X/Twitter, analyst consensus</p>
+
+<div class="badge">📅 Next Earnings: ~2026-09-24 (Q4 FY26, est.) — ~106 days away</div>
+
+<div class="co rd"><strong>🌐 Macro Context (June 10, 2026):</strong> Fear regime. June 4–5 was the worst US drop of the year (Nasdaq -4.2%) after a shock 172k May payrolls print pushed Fed <em>December rate-hike</em> odds to ~43%. Today's cool core CPI (+0.2% m/m) couldn't stop the S&P falling -1.6% to a 5-week low; headline CPI runs 4.2% on energy (gasoline +40% y/y) as US strikes on Iran and a declared Hormuz blockade hold WTI near $91. VIX 22.2, 10Y 4.54%, Fear &amp; Greed 27. <strong>For Costco this cuts both ways:</strong> the defensive rotation is bidding the stock (+1.5% today against a -1.6% tape), record-cheap member gasoline becomes a traffic magnet in an oil shock, and the strong labor market supports member spend — but a 4.54% 10Y and rising hike odds directly pressure a 43.5x forward multiple.</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$983.37</div><div class="sub dn">-10.3% from 52W High ($1,096.50)</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$436.1B</div><div class="sub">Shares: 443.5M</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value neu">48.8x</div><div class="sub">EPS: $20.16</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value neu">43.5x</div><div class="sub">Fwd EPS: $22.63</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">$293.6B</div><div class="sub up">Q3 FY26 +11.6% YoY</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value">12.9%</div><div class="sub">Structurally thin by design</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value">3.7%</div><div class="sub">Membership fees = profit core</div></div>
+    <div class="kpi"><div class="label">Net Margin</div><div class="value">3.0%</div><div class="sub up">ROE: 29.2%</div></div>
+</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter</th><th>Revenue</th><th>Net Income</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th><th>Diluted EPS</th></tr></thead>
+<tbody><tr><td>2026-05-31 (Q3 FY26)</td><td>$70.5B <span class="up">↑ +11.6%</span></td><td>$2.19B</td><td>12.8%</td><td>4.0%</td><td>3.1%</td><td>$4.93</td></tr>
+<tr><td>2026-02-28 (Q2 FY26)</td><td>$69.6B <span class="up">↑</span></td><td>$2.04B</td><td>12.8%</td><td>3.8%</td><td>2.9%</td><td>$4.58</td></tr>
+<tr><td>2025-11-30 (Q1 FY26)</td><td>$67.3B <span class="up">↑</span></td><td>$2.00B</td><td>13.1%</td><td>3.7%</td><td>3.0%</td><td>$4.50</td></tr>
+<tr><td>2025-08-31 (Q4 FY25, 16wk)</td><td>$86.2B <span class="up">↑</span></td><td>$2.61B</td><td>12.9%</td><td>3.9%</td><td>3.0%</td><td>$5.87</td></tr>
+<tr><td>2025-05-31 (Q3 FY25)</td><td>$63.2B —</td><td>$1.90B</td><td>13.0%</td><td>4.0%</td><td>3.0%</td><td>$4.28</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>🔥 Q3 FY26 Highlights (reported 2026-05-28):</strong> Net sales +11.6% to $69.15B (total revenue $70.5B); EPS $4.93, +15.2% YoY. Comparable sales +9.8% (+6.6% ex-gas/FX). Membership fee income $1.37B, +10.7%. US/Canada renewal rate ticked UP to <strong>92.2%</strong> (+10bps sequentially), worldwide 89.7%. Paid members 82.9M (+4.1%); executive members 41.2M (+9.6%). E-commerce comps +21% and <strong>record gasoline volumes</strong> — Costco's fuel price advantage widens precisely when gasoline is +40% y/y. (Sources: Costco IR press release 5/28/2026; Motley Fool earnings transcript 5/28/2026; Yahoo Finance 5/29/2026.)</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Revenue Stream</th><th>Amount (TTM)</th><th>% of Total</th><th>YoY Trend</th><th>Notes</th></tr></thead>
+<tbody><tr><td><strong>Merchandise sales — core</strong> (food &amp; sundries, non-foods, fresh)</td><td>~$240B</td><td>~82%</td><td class="up">Comps +6.6% ex-gas/FX</td><td>Fresh + food driving traffic; non-foods recovering</td></tr>
+<tr><td><strong>Ancillary &amp; other</strong> (gasoline, pharmacy, optical, food court, travel)</td><td>~$48B</td><td>~16%</td><td class="up">Record gas volumes</td><td>Gas is a traffic/loyalty weapon in the oil shock</td></tr>
+<tr><td><strong>Membership fees</strong></td><td>~$5.4B</td><td>~2% of revenue, ~70% of op income</td><td class="up">+10.7% in Q3</td><td>Sept 2024 fee increase still rolling through renewals</td></tr>
+<tr><td><strong>E-commerce</strong></td><td>(within merch)</td><td>~10% of sales</td><td class="up">+21% comp</td><td>Costco Logistics big-and-bulky deliveries at record volume</td></tr>
+</tbody></table>
+
+<h2>🌏 Geographic Expansion</h2>
+<table><thead><tr><th>Market</th><th>Revenue Mix %</th><th>Volume Trend</th><th>Profitability</th><th>Highlights</th></tr></thead>
+<tbody><tr><td>United States</td><td>~73%</td><td class="up">Comps high-single-digit</td><td class="up">Core engine</td><td>~625 warehouses; gas advantage widest here</td></tr>
+<tr><td>Canada</td><td>~14%</td><td class="up">Solid</td><td class="up">Mature, high renewal</td><td>92.2% combined US/CA renewal rate</td></tr>
+<tr><td>International (Mexico, Japan, UK, Korea, China...)</td><td>~13%</td><td class="up">Fastest unit growth</td><td class="up">Improving</td><td>~30 openings planned FY26, skewed international; China clubs outperforming</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>📊 Key Metric:</strong> The membership annuity is the whole thesis — $5.4B/yr of nearly-100%-margin fee income covers the majority of operating profit, letting Costco sell merchandise at ~near cost. Renewal rates RISING (92.2%) a year after a fee increase is the single best datapoint in retail.</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl dn">16.1</div><div class="nt up">Deeply oversold (6/9 close) — bounced today</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl dn">$1,005</div><div class="nt dn">Price -2.2% below</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl up">$955</div><div class="nt up">Price +3.0% above</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl dn">−</div><div class="nt dn">Bearish since post-earnings slide</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$1,096.50</div><div class="nt dn">-10.3% (record set 5/28 post-print)</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$844.06</div><div class="nt up">+16.5%</div></div>
+</div>
+
+<div class="co bl"><strong>⚠️ Technical Signal:</strong> Classic COST pattern — record high $1,096.50 immediately after the May 28 blowout print, then a ~11% valuation-driven slide to $968 (June 9), leaving RSI at a washed-out 16. Today COST bounced <strong>+1.5% to $983.37 against a -1.6% S&P</strong> — textbook defensive-rotation bid on a fear day. Returns through 6/9: 1m -4.0%, 3m -2.7%, 6m +8.6%, 12m -4.0%. Support: $955–968 (SMA200 / June low); resistance $1,005 (SMA50), then $1,060.</div>
+
+<h2>📊 Charts</h2>
+<div class="cg">
+<div class="tc"><div class="mk">Price (1Y)</div><div class="vl">-4% Y/Y</div><div class="nt">$844 low → $1,096 record → $983 now: a year of multiple compression, not business weakness</div></div>
+<div class="tc"><div class="mk">Revenue Trend</div><div class="vl up">$293.6B TTM</div><div class="nt up">+11.6% latest quarter</div></div>
+<div class="tc"><div class="mk">Comps</div><div class="vl up">+9.8%</div><div class="nt up">+6.6% ex-gas/FX; e-comm +21%</div></div>
+<div class="tc"><div class="mk">Forward P/E</div><div class="vl neu">43.5x</div><div class="nt dn">vs 4.54% 10Y — the bear case in one number</div></div>
+</div>
+
+<h2>📏 Historical Valuation</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Current Fwd P/E</div><div class="value neu">43.5x</div></div>
+    <div class="kpi"><div class="label">5Y Avg Fwd P/E*</div><div class="value">42.0x</div><div class="sub">*Outliers filtered</div></div>
+    <div class="kpi"><div class="label">5Y P/E Range</div><div class="value">32x – 56x</div></div>
+    <div class="kpi"><div class="label">Percentile</div><div class="value neu">~55th</div><div class="sub">Near 5Y median after pullback</div></div>
+</div>
+
+<div class="co bl"><strong>📐 Read:</strong> The 11% post-earnings slide took COST from ~48x forward (top-quartile) back to 43.5x — essentially its 5-year average. That's better, but the 5-year window itself was a ZIRP-to-3.5%-rates era; with the 10Y at 4.54% and Dec hike odds at 43%, "average" multiple on COST embeds more rate risk than it used to. EPS compounding ~12-15%/yr does the heavy lifting from here.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Company</th><th>Price</th><th>MCap</th><th>Trail P/E</th><th>Fwd P/E</th><th>Rev Growth</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th></tr></thead>
+<tbody><tr class="hl"><td><strong>COST</strong></td><td>$983.37</td><td>$436.1B</td><td>48.8x</td><td>43.5x</td><td>+11.6%</td><td>12.9%</td><td>3.7%</td><td>3.0%</td></tr>
+<tr><td><strong>WMT</strong> (Walmart)</td><td>$120.59</td><td>$959.7B</td><td>42.3x</td><td>36.7x</td><td>+7.3%</td><td>25.0%</td><td>4.2%</td><td>3.1%</td></tr>
+<tr><td><strong>TGT</strong> (Target)</td><td>$127.98</td><td>$58.1B</td><td>16.9x</td><td>14.4x</td><td>+6.7%</td><td>28.1%</td><td>4.5%</td><td>3.2%</td></tr>
+<tr><td><strong>BJ</strong> (BJ's Wholesale)</td><td>$92.49</td><td>$11.8B</td><td>21.3x</td><td>18.9x</td><td>+9.9%</td><td>18.5%</td><td>3.7%</td><td>2.6%</td></tr>
+<tr><td><strong>KR</strong> (Kroger)</td><td>$64.46</td><td>$39.7B</td><td>41.9x</td><td>11.5x</td><td>+1.2%</td><td>24.1%</td><td>3.4%</td><td>0.7%</td></tr>
+<tr><td><strong>DG</strong> (Dollar General)</td><td>$109.96</td><td>$24.3B</td><td>15.6x</td><td>13.7x</td><td>+3.4%</td><td>30.8%</td><td>5.9%</td><td>3.6%</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>🔍 Peer Read:</strong> COST grows fastest in the cohort (+11.6% vs WMT +7.3%, BJ +9.9%) and carries the best membership economics, but it also carries the biggest multiple premium: 43.5x vs WMT 36.7x and direct club comp BJ at 18.9x. The COST-over-WMT premium (~18%) is the narrowest it's been in several quarters — the relative-value gap is closing from both sides.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value neu">0.90</div><div class="sub">Jun 18 expiry — balanced</div></div>
+    <div class="kpi"><div class="label">P/C Open Interest</div><div class="value neu">1.02</div><div class="sub">Even put/call book</div></div>
+    <div class="kpi"><div class="label">Near P/C Volume</div><div class="value dn">1.07</div><div class="sub">Jun 12 expiry — slight put tilt</div></div>
+    <div class="kpi"><div class="label">P/C OI (Jun 12)</div><div class="value dn">1.72</div><div class="sub">Hedging the macro tape</div></div>
+</div>
+
+<div class="co bl"><strong>📊 Options Read:</strong> Positioning is neutral-to-mildly-hedged: weekly (6/12) open interest skews 1.72 puts-per-call — consistent with portfolio hedging into CPI week and the Iran/Hormuz headlines — while the monthly (6/18) book is balanced at ~1.0. No earnings catalyst until late September, so flows are macro-driven, not stock-specific.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co yw"><strong>Insider read (last 6 months — routine, mildly negative):</strong>
+<ul>
+<li>Officer <strong>Caton Frates</strong> sold 700 shares at $993.00 on 2026-04-01 (~$695k)</li>
+<li>Officer <strong>Claudine Adamo</strong> sold 730 shares at $1,003.02 on 2026-03-09 (~$732k)</li>
+<li>Officer <strong>Teresa Jones</strong> sold 850 shares at $986.26 on 2026-01-21 (~$838k); Director <strong>Susan Decker</strong> sold 458 at $955 on 2026-01-16</li>
+<li>Officer <strong>James Klauer</strong> sold 1,500 shares at $939.00 on 2026-01-14 (~$1.4M)</li>
+<li><strong>No open-market insider buying</strong> in the period; several stock gifts/grants (Raikes, Jones, Raimondo)</li>
+</ul>
+<strong>Verdict:</strong> Small, periodic diversification sales typical of COST — sub-$1M tickets, no cluster, no signal of conviction either way.</div>
+
+<h2>📝 Seeking Alpha &amp; Street Research</h2>
+<div class="tw"><span class="au">"Costco: The $70B Quarter, 92.2% Renewal Rate, and Why the Membership Model Is Unbreakable"</span> · LongYield, May 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Membership fee income +10.7%; renewal rate rising a year after the fee hike proves zero price-elasticity damage. The annuity stream compounds regardless of macro.</p></div>
+<div class="tw"><span class="au">"Costco's Digital Sales Jumped 21% and Gas Volumes Hit a Record. So Why Did COST Stock Drop 5%?"</span> · Motley Fool, Jun 9 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">Business is flawless; the multiple isn't. Stock "often pulls back following its earnings report, as the valuation is hard to justify from its growth."</p></div>
+<div class="tw"><span class="au">"Costco Earnings Preview: A Valuation Stress Test of Resilient Pricing"</span> · TradingKey, May 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">Framed Q3 as a test of whether membership + same-store momentum can defend a ~45x multiple against oil-driven inflation. The print passed the fundamental test; the multiple still compressed.</p></div>
+<div class="tw"><span class="au">"Costco Fell 8% This Week. Here's How Much the Stock Could Rise in 2026"</span> · TIKR, Jun 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Analyst targets all sit above spot, from Truist's $1,011 to UBS's $1,275; consensus implies low-double-digit 12-month upside after the de-rate.</p></div>
+
+<div class="co gr"><strong>Street Consensus:</strong> Universal agreement the business is best-in-class; the entire debate is the multiple. Bulls point to the rising renewal rate and gas/traffic flywheel in an inflationary tape; skeptics note COST has now round-tripped to flat over 12 months while EPS grew ~15% — i.e., the de-rate is already happening through time.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">@ibuycompounders (Compounding Machine)</span> · Jun 10, 2026 · <span class="st net">Neutral/Valuation-torn</span><p style="margin-top:8px; color:#475569">"Should I sell out of $COST… it's up 14% YTD and trading at an extremely high valuation… I think $COST will lag or barely match S&P over the next couple of years. I love the business as both an investor and consumer. But I look around at some of the opportunities in the market and feel like I can do better elsewhere."</p></div>
+<div class="tw"><span class="au">@StockWorthyApp (StockWorthy)</span> · Jun 10, 2026 · <span class="st ber">Sold</span><p style="margin-top:8px; color:#475569">"Personally sold $COST for more $MA. Costco wasn't that large of a position and wanted to stack Mastercard."</p></div>
+<div class="tw"><span class="au">@BarchartNews (Barchart News)</span> · Jun 10, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"These 2 Dividend Stocks Just Boosted Their Payouts by 13% — And More Income Growth Could Be Ahead $COST $TJX" (April dividend hike to $1.30/qtr, 13% increase.)</p></div>
+
+<div class="co bl"><strong>X Consensus:</strong> The quality of the business is undisputed; FinTwit's marginal holder is openly debating opportunity cost at 43–49x. Sentiment is "admiring but trimming" — consistent with the stock's flat 12-month tape despite double-digit EPS growth.</div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>Defensive rotation:</strong> In the June 4–10 fear tape (S&P -1.6% on 6/10), COST rose +1.5% — staples with pricing power are catching the rotation bid out of tech/semis. Beta 0.87.</li>
+<li><strong>Oil shock = traffic weapon:</strong> Gasoline +40% y/y makes Costco's below-market member gas the cheapest in most markets; Q3 already showed record gas volumes. Fill-ups drive trips; trips drive baskets and renewals.</li>
+<li><strong>Membership fee increase still compounding:</strong> ~¼ of Q3's +10.7% fee growth came from the 2024 US/CA fee hike, which rolls through renewals into FY27. Renewal rate up to 92.2% despite it.</li>
+<li><strong>Strong labor market supports spend:</strong> 172k May payrolls (~2x consensus) is a tailwind for member demand even as it pressures the multiple via rates.</li>
+<li><strong>Warehouse expansion:</strong> ~30 openings planned FY26, increasingly international (high-ROIC China/Asia clubs).</li>
+<li><strong>E-commerce +21%</strong> and Costco Logistics record big-and-bulky volumes — the underappreciated growth vector.</li>
+<li><strong>Monthly sales reports</strong> (first Wednesday) provide steady positive datapoints; July 4-week sales print is next.</li>
+<li><strong>Dividend +13%</strong> (April 2026, to $1.30/qtr) plus the periodic special-dividend option (last: $15 in Jan 2024).</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>The multiple, period:</strong> 43.5x forward vs a 4.54% 10Y and ~43% December hike odds. Every 5x of multiple compression ≈ $113 of stock. This is a rates story, not a fundamentals story.</li>
+<li><strong>De-rate through time:</strong> Stock is -4% over 12 months while EPS grew ~15% — holders are already paying the compression tax. If rates stay higher-for-longer, 38x (-13%) is a plausible floor multiple.</li>
+<li><strong>Oil-shock margin pinch:</strong> Gas retailing is high-revenue/low-margin — record volumes inflate sales but dilute margin %; sustained $91 WTI also raises logistics and food-input costs that Costco absorbs before repricing.</li>
+<li><strong>Consumer discretionary mix:</strong> Big-ticket non-foods (electronics, furniture, jewelry) are the first casualty if gasoline at +40% y/y squeezes household budgets.</li>
+<li><strong>Hard comps:</strong> FY25's gold/bullion and inflation-aided comps make FY27 comparisons tougher; comp deceleration below ~5% ex-gas would challenge the multiple.</li>
+<li><strong>WMT convergence:</strong> Walmart at 36.7x with +21% e-commerce growth of its own narrows COST's relative-quality argument.</li>
+<li><strong>No near-term catalyst:</strong> next earnings ~Sept 24; the stock trades on macro until then.</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value up">Buy</div><div class="sub">Mean 1.97 · 33 analysts</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value up">$1,082.33</div><div class="sub up">+10.1% upside</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$740.00</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$1,315.00</div></div>
+</div>
+
+<div class="co bl"><strong>Recent PT context (May–June 2026):</strong>
+<ul>
+<li><strong>UBS</strong> $1,275 — high-conviction bull on membership economics</li>
+<li><strong>Truist</strong> $1,011 — lowest of the post-earnings refreshes, still above spot</li>
+<li>Median PT $1,100; consensus held firm through the post-earnings slide — the Street treated the -11% as multiple noise, not thesis change</li>
+</ul>
+</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data &amp; Methodology:</strong> All market data from Yahoo Finance (yfinance) as of 2026-06-10 intraday ($983.37; day range $964.31–$985.26). Forward EPS <strong>$22.63</strong> is NTM consensus; trailing EPS $20.16. Q3 FY26 actuals from Costco's 5/28/2026 release. Three independent methods triangulate fair value; note they <em>diverge</em> for COST — DCF has never justified the price, the membership-annuity quality premium has.</div>
+
+<h3>Method 1: P/E Multiple Approach</h3>
+<p style="color:#64748b; margin-bottom:12px">Each scenario applies a different P/E multiple to forward EPS, anchored on COST's own 5Y range (32x–56x) and peer relatives.</p>
+<table><thead><tr><th>Scenario</th><th>P/E</th><th>EPS</th><th>Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody><tr><td>Bear (rate de-rate)</td><td>35x</td><td>$22.30</td><td>$781</td><td class="dn">-21%</td><td>Dec hike lands, 10Y &gt;5%; multiple to bottom-quartile of 5Y range</td></tr>
+<tr><td>Base (5Y mean)</td><td>42x</td><td>$22.63</td><td>$950</td><td class="dn">-3%</td><td>Holds the historical average multiple on consensus EPS</td></tr>
+<tr><td>Base+ (FY27 roll-forward)</td><td>44x</td><td>$23.60</td><td>$1,038</td><td class="up">+5.6%</td><td>Multiple holds modest premium as EPS rolls to FY27</td></tr>
+<tr><td>WMT parity</td><td>36.7x</td><td>$22.63</td><td>$831</td><td class="dn">-16%</td><td>If the COST-WMT quality gap fully closes</td></tr>
+<tr><td>Bull (defensive scarcity)</td><td>48x</td><td>$24.20</td><td>$1,162</td><td class="up">+18%</td><td>Fear regime persists; staples scarce; comps stay 6%+ ex-gas</td></tr>
+</tbody></table>
+
+<h3>Method 2: Mean Reversion &amp; Consensus</h3>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">5Y Avg PE × Fwd EPS</div><div class="value">$950</div><div class="sub dn">-3.4%</div></div>
+<div class="kpi"><div class="label">WMT-Parity PE × Fwd EPS</div><div class="value dn">$831</div><div class="sub dn">-15.5%</div></div>
+<div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value up">$1,082</div><div class="sub up">+10.1%</div></div>
+</div>
+
+<div class="co bl"><strong>📐 Calculation Details:</strong><ul><li>5-year average forward P/E 42.0x × $22.63 = $950</li><li>Walmart-parity 36.7x × $22.63 = $831 (relative-value floor)</li><li>Wall Street consensus PT $1,082 (range $740–$1,315; median $1,100)</li></ul></div>
+
+<h3>Method 3: Discounted Cash Flow (DCF)</h3>
+<p style="color:#64748b; margin-bottom:12px">10-year FCF model off $6.95B TTM FCF (heavy warehouse CapEx suppresses current FCF). Terminal value via perpetuity growth. As always for COST, DCF undershoots the market price — the market capitalizes the membership annuity and post-year-10 growth that DCF truncates.</p>
+<table><thead><tr><th>Scenario</th><th>FCF Growth</th><th>WACC</th><th>Terminal Growth</th><th>Intrinsic Value</th><th>Upside</th></tr></thead>
+<tbody><tr><td>Bear</td><td>+7%</td><td>8.5%</td><td>2.5%</td><td>$520</td><td class="dn">-47%</td></tr>
+<tr><td>Base</td><td>+10%</td><td>8.0%</td><td>3.0%</td><td>$640</td><td class="dn">-35%</td></tr>
+<tr><td>Bull</td><td>+12%</td><td>7.5%</td><td>3.5%</td><td>$805</td><td class="dn">-18%</td></tr>
+</tbody></table>
+
+<div class="co yw"><strong>⚠️ Methods Diverge:</strong> DCF says materially overvalued (as it has for a decade of COST outperformance); mean-reversion says fairly valued (~$950); the Street says +10% ($1,082). The honest synthesis: <strong>fair value ≈ $950–1,050</strong> — you are paying full price for the world's best retail annuity, and forward returns come from ~12-15% EPS compounding minus continued multiple drag.</div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$780</div><div class="mt">35x × $22.30 EPS</div><div class="us dn">-21%</div><div class="ds">Fed hikes in December, 10Y breaks 5%, oil shock squeezes discretionary baskets; multiple compresses to bottom-quartile while EPS still grows.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr">$1,040</div><div class="mt">44x × $23.60 FY27E EPS</div><div class="us up">+5.8%</div><div class="ds">Comps run mid-single-digit ex-gas, renewal rate holds 92%+, multiple stabilizes near 5Y average as EPS rolls forward. Modest absolute return, strong relative in a fear regime.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$1,160</div><div class="mt">48x × $24.20 EPS</div><div class="us up">+18%</div><div class="ds">Defensive scarcity premium: prolonged oil shock + fear regime keeps the rotation bid; gas flywheel accelerates membership growth; special dividend optionality.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co gr"><p><strong>COST</strong> just printed one of the cleanest quarters in retail — +11.6% revenue, +9.8% comps, +15% EPS, e-commerce +21%, record gas volumes, and a renewal rate that <em>rose</em> to 92.2% a year after a fee increase. The June macro regime actively favors it: in an oil shock, Costco's cheap member gasoline is a traffic weapon, and in a defensive rotation the stock catches the bid (+1.5% on a -1.6% tape today). The strong labor market underwrites member spend. The only argument against the stock is the only one that has ever existed: 43.5x forward earnings against a 4.54% 10Y and live December hike odds. The post-earnings -11% flush back to the 5-year-average multiple and an RSI of 16 de-risked the entry meaningfully, but DCF still can't get close to the price.</p><p><strong>Verdict: high-quality defensive hold/accumulate-on-weakness — 12-month base case $1,040 (+6%), with the $955–968 zone (SMA200/June low) the attractive add level. Expect COST to outperform in fear regimes and lag any risk-on snapback.</strong></p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, Costco IR, Motley Fool, TIKR, TradingKey, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, company filings, web research, X/Twitter, analyst consensus · 2026-06-10</p></div>
+</div>
+</body>
+</html>

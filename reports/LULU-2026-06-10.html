@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LULU | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.cg { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 16px 0; }
+.cg img { width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, .cg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>LULU — Lululemon Athletica Inc.</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-06-10 · Sources: yfinance, company filings, web research, X/Twitter, analyst consensus</p>
+
+<div class="badge">📅 Next Earnings: 2026-09-03 (Q2 FY26) — 85 days away</div>
+
+<div class="co rd"><strong>🌐 Macro Context (June 10, 2026):</strong> Fear regime — June 4–5 was the year's worst US drop (Nasdaq -4.2%) after a shock 172k May payrolls print lifted Fed December <em>rate-hike</em> odds to ~43%; today's cool core CPI (+0.2% m/m) still saw the S&P fall -1.6% to a 5-week low. Headline CPI runs 4.2% on energy, with <strong>gasoline +40% y/y as US strikes on Iran and a Hormuz blockade hold WTI near $91 — a direct squeeze on the discretionary wallet that buys $128 leggings</strong>. VIX 22.2, 10Y 4.54%, Fear &amp; Greed 27. The defensive rotation favors staples and healthcare, not premium athleisure. The one offset: a strong labor market keeps LULU's affluent core customer employed.</div>
+
+<div class="co rd"><strong>🪞 Self-Review (accountability):</strong> We rated LULU Bullish (78–80) three consecutive times since April while the stock fell another ~27% — the classic value-trap pattern of re-buying a falling premium brand on multiple alone. The June 4 print settled the debate: guidance was cut for a third time and the brand-momentum problem (Alo, Vuori, Skims) is real, not narrative. This report breaks with the prior "premium brand, cheap multiple" framing.</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$118.93</div><div class="sub dn">-52.9% from 52W High · 8-year low zone</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$13.5B</div><div class="sub">Shares: 108.4M</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value up">9.6x</div><div class="sub">EPS: $12.34</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value">10.2x</div><div class="sub">Fwd EPS: $11.64 (guide $10.95–11.15)</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">$11.2B</div><div class="sub neu">Q1 +4.3% YoY; FY26 guided -1% to 0%</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value up">55.7%</div><div class="sub dn">Q1: 54.3%, compressing</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value dn">11.2%</div><div class="sub dn">Q1: 11.3% vs ~18.6% LY</div></div>
+    <div class="kpi"><div class="label">Net Margin</div><div class="value">13.0%</div><div class="sub up">ROE: 32.0% · FCF $1.13B</div></div>
+</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter</th><th>Revenue</th><th>Net Income</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th><th>Diluted EPS</th></tr></thead>
+<tbody><tr><td>2026-04-30 (Q1 FY26)</td><td>$2.47B <span class="up">↑ +4.3%</span></td><td>$0.20B</td><td>54.3%</td><td>11.3%</td><td>8.1%</td><td>$1.69 <span class="dn">(-35% YoY)</span></td></tr>
+<tr><td>2026-01-31 (Q4 FY25)</td><td>$3.64B <span class="up">↑</span></td><td>$0.59B</td><td>54.9%</td><td>22.3%</td><td>16.2%</td><td>$5.01</td></tr>
+<tr><td>2025-10-31 (Q3 FY25)</td><td>$2.57B <span class="up">↑</span></td><td>$0.31B</td><td>55.6%</td><td>17.1%</td><td>12.1%</td><td>$2.59</td></tr>
+<tr><td>2025-07-31 (Q2 FY25)</td><td>$2.53B <span class="up">↑</span></td><td>$0.37B</td><td>58.5%</td><td>20.6%</td><td>14.6%</td><td>$3.10</td></tr>
+<tr><td>2025-04-30 (Q1 FY25)</td><td>$2.37B —</td><td>$0.31B</td><td>58.2%</td><td>18.6%</td><td>13.1%</td><td>$2.60</td></tr>
+</tbody></table>
+
+<div class="co rd"><strong>🧨 Q1 FY26 (reported 2026-06-04) — the print that broke the bull case:</strong> Revenue $2.47B and EPS $1.69 technically beat ($2.433B / $1.68 est.), but management <strong>cut FY26 guidance for the third time</strong>: EPS to $10.95–11.15 (from $12.10–12.30) and revenue to $11.0–11.15B (from $11.35–11.50B) — implying flat-to-down annual revenue and a second straight year of EPS decline. Americas revenue fell -3%; <strong>full-year North America is now guided down high-single-digits</strong>. EPS fell -35% YoY as op margin compressed ~730bps to 11.3%. Interim co-CEO Meghan Frank blamed "negative commentary in the media and on social channels" and product launches that "failed to wow shoppers." Stock fell ~11–12% to an 8-year low. (Sources: CNBC 6/4/2026; TheStreet live blog 6/4/2026; Motley Fool transcript 6/4/2026; WWD 6/5/2026.)</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Revenue Stream</th><th>Share</th><th>YoY Trend</th><th>Notes</th></tr></thead>
+<tbody><tr><td><strong>Women's apparel</strong></td><td>~62%</td><td class="dn">Core franchise under attack</td><td>Alo Yoga / Vuori / Skims taking the trend-setting customer; product misfires (Daydrift et al.) acknowledged by management</td></tr>
+<tr><td><strong>Men's</strong></td><td>~25%</td><td class="neu">Holding better than women's</td><td>Vuori is the direct competitive threat here</td></tr>
+<tr><td><strong>Accessories &amp; other</strong></td><td>~13%</td><td class="neu">Belt-bag franchise matured</td><td>Was the viral growth engine in 2023–24; now comping down</td></tr>
+</tbody></table>
+
+<h2>🌏 Geographic Mix — the real story</h2>
+<table><thead><tr><th>Market</th><th>Revenue Mix</th><th>Q1 FY26 Trend</th><th>Notes</th></tr></thead>
+<tbody><tr><td>Americas</td><td>~70%</td><td class="dn">-3% YoY; FY guided down HSD</td><td>Traffic-driven decline; brand heat cooling, competition + media negativity</td></tr>
+<tr><td>International (China Mainland, RoW)</td><td>~30%</td><td class="up">+22% YoY</td><td>China remains 20%+ grower; India entered H2 2026; int'l is the lone intact growth pillar</td></tr>
+</tbody></table>
+
+<div class="co yw"><strong>📊 Key Metric:</strong> International (+22%) is growing fast enough to offset roughly half of the North America decline. The bull case requires NA to merely stabilize — but management just told you it won't this year (guided down high-single-digits).</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl neu">52.8</div><div class="nt">Reset from oversold after dead-cat bounce</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl dn">$139.62</div><div class="nt dn">Price -14.8% below</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl dn">$170.44</div><div class="nt dn">Price -30.2% below</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl neu">−4.8 / crossing</div><div class="nt">Oversold-bounce cross, not a trend change</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$252.24</div><div class="nt dn">-52.9%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$109.36</div><div class="nt up">+8.8% (set post-earnings, June 5)</div></div>
+</div>
+
+<div class="co rd"><strong>⚠️ Technical Signal:</strong> Structurally broken chart: price 15% below the 50-day, 30% below the 200-day, with every bounce sold since April. Post-earnings flush to $109.36 (June 5), dead-cat bounce +3.2% June 9, fading again today (-2.0% to $118.93; day range $118.02–124.38). Returns: 1m -7.5%, 3m -27.1%, 6m -36.1%, <strong>12m -54.3%</strong>. Support: $109–110 (post-earnings low); resistance $125, then the $139 SMA50. No technical basis for bottoming yet — this needs time and a fundamental catalyst.</div>
+
+<h2>📊 Charts</h2>
+<div class="cg">
+<div class="tc"><div class="mk">Price (1Y)</div><div class="vl dn">-54%</div><div class="nt">$252 → $119; three guidance cuts, three legs down</div></div>
+<div class="tc"><div class="mk">Revenue Trend</div><div class="vl neu">$11.2B TTM</div><div class="nt dn">FY26 guided -1% to 0% — first down year since IPO era</div></div>
+<div class="tc"><div class="mk">Margins</div><div class="vl dn">11.3% Q1 OM</div><div class="nt dn">~730bps YoY compression: markdowns + tariffs + deleverage</div></div>
+<div class="tc"><div class="mk">Forward P/E</div><div class="vl">10.2x</div><div class="nt neu">Cheap — but on falling estimates</div></div>
+</div>
+
+<h2>📏 Historical Valuation</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Current Fwd P/E</div><div class="value">10.2x</div></div>
+    <div class="kpi"><div class="label">5Y Avg P/E*</div><div class="value">~33x</div><div class="sub">*Outliers filtered</div></div>
+    <div class="kpi"><div class="label">5Y P/E Range</div><div class="value">10x – 62x</div></div>
+    <div class="kpi"><div class="label">Percentile</div><div class="value dn">~0th</div><div class="sub">Bottom of 5Y range</div></div>
+</div>
+
+<div class="co yw"><strong>📐 Read:</strong> The "trough multiple" argument has now failed three times in a row, because the E keeps falling: forward EPS was ~$14.50 in early 2025, $12.20 in March, and $11.05 (guide midpoint) today. A 10x multiple on a brand losing North American relevance is not automatically cheap — Under Armour has traded at 20x+ forward for a decade of zero returns. Mean reversion to 33x is off the table until revenue growth and brand heat return; the realistic re-rate band is 12–15x <em>if</em> O'Neill stabilizes NA.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Company</th><th>Price</th><th>MCap</th><th>Trail P/E</th><th>Fwd P/E</th><th>Rev Growth</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th></tr></thead>
+<tbody><tr class="hl"><td><strong>LULU</strong></td><td>$118.93</td><td>$13.5B</td><td>9.6x</td><td>10.2x</td><td>+4.3%</td><td>55.7%</td><td>11.2%</td><td>13.0%</td></tr>
+<tr><td><strong>NKE</strong> (Nike)</td><td>$43.96</td><td>$65.1B</td><td>29.5x</td><td>24.2x</td><td>+0.1%</td><td>40.9%</td><td>6.9%</td><td>4.8%</td></tr>
+<tr><td><strong>DECK</strong> (Deckers/Hoka)</td><td>$111.18</td><td>$15.4B</td><td>15.8x</td><td>13.4x</td><td>+9.6%</td><td>57.7%</td><td>14.0%</td><td>18.7%</td></tr>
+<tr><td><strong>ONON</strong> (On Holding)</td><td>$38.00</td><td>$12.7B</td><td>40.9x</td><td>17.6x</td><td>+14.5%</td><td>63.9%</td><td>14.1%</td><td>8.0%</td></tr>
+<tr><td><strong>UAA</strong> (Under Armour)</td><td>$5.70</td><td>$2.4B</td><td>—</td><td>23.5x</td><td>-0.8%</td><td>45.7%</td><td>8.8%</td><td>-10.0%</td></tr>
+<tr><td><strong>RL</strong> (Ralph Lauren)</td><td>$376.43</td><td>$22.4B</td><td>24.9x</td><td>18.5x</td><td>+16.6%</td><td>69.9%</td><td>13.4%</td><td>11.6%</td></tr>
+</tbody></table>
+
+<div class="co yw"><strong>🔍 Peer Read:</strong> LULU is the cheapest name in athleisure by a wide margin (10.2x vs DECK 13.4x, ONON 17.6x, NKE 24.2x) and still has the second-best margins. The market is pricing it as the share <em>donor</em>: ONON and DECK (Hoka) are growing 10–15% while LULU's home market shrinks. Private competitors Alo Yoga and Vuori don't appear in this table but are the actual share takers — Vuori was last valued at $5.5B and Alo has been expanding stores aggressively into LULU's core malls. DECK-parity (13.4x) is the sensible recovery target, worth ~$148 on current-year EPS.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume (Jun 18)</div><div class="value dn">1.25</div><div class="sub">Put-skewed</div></div>
+    <div class="kpi"><div class="label">P/C Volume (Jun 12)</div><div class="value dn">1.37</div><div class="sub">Weekly puts active</div></div>
+    <div class="kpi"><div class="label">Post-Earnings IV</div><div class="value">~27%</div><div class="sub">Crushed after 6/4 print</div></div>
+    <div class="kpi"><div class="label">Skew</div><div class="value neu">Downside</div><div class="sub">Traders fading bounces</div></div>
+</div>
+
+<div class="co bl"><strong>📊 Options Read:</strong> With earnings past, IV has collapsed to ~27% and flow has flipped put-heavy (P/C 1.25–1.37) — day traders are shorting the bounce (e.g., $119 weekly puts circulating on FinTwit). No sign of institutional bottom-fishing via size call buying yet.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co yw"><strong>Insider read (last 6 months — genuine buying, underwater):</strong>
+<ul>
+<li>Interim co-CEO <strong>André Maestrini</strong> BOUGHT 3,275 shares at $151.02 on 2026-04-01 (~$495k) — now -21%</li>
+<li>Director <strong>Chip Bergh</strong> (ex-Levi's CEO, new board chair) BOUGHT 6,090 shares at $164.20 on 2026-03-20 (~$1.0M) — now -28%</li>
+<li>Officer <strong>Nicole Neuburger</strong> sold 622 shares at $161.00 on 2026-04-08 (~$100k)</li>
+<li>Routine RSU vests/grants for Frank, Maestrini, McNeill, Mahe (March)</li>
+</ul>
+<strong>Verdict:</strong> Directionally positive — real open-market buys from the interim co-CEO and board chair — but both purchases predate the June 4 guidance cut and are deeply underwater, a reminder that insiders also misjudged the trajectory.</div>
+
+<h2>📝 Seeking Alpha &amp; Street Research</h2>
+<div class="tw"><span class="au">"Lululemon Shares Dropped After the Company Cut Its Annual Forecast. Is the Stock a Buy Amid the Selloff?"</span> · Motley Fool, Jun 8 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">FY26 EPS guide cut to $10.95–11.15 implies down revenue and down EPS. Cheap, but the author wants evidence NA traffic stabilizes before calling it a value play.</p></div>
+<div class="tw"><span class="au">"LULU Stock Plunges On Weak North American Demand And 2026 Outlook Cut — Retail Flags Risks"</span> · Stocktwits News, Jun 5 2026 · <span class="st ber">Bearish</span><p style="margin-top:8px; color:#475569">Retail sentiment flagged NA demand erosion and competitive encroachment as structural, not cyclical.</p></div>
+<div class="tw"><span class="au">"Lululemon Q1 2026 Earnings: Bad Online Buzz and Product Misfires Bite"</span> · WWD, Jun 5 2026 · <span class="st ber">Bearish</span><p style="margin-top:8px; color:#475569">Management explicitly blamed negative social/media commentary and product launches that failed to land. Brand-heat problem confirmed by the company itself.</p></div>
+<div class="tw"><span class="au">"Is Lululemon Stock Too Cheap to Pass Up"</span> · Market Wire News, Jun 10 2026 · <span class="st net">Neutral-Value</span><p style="margin-top:8px; color:#475569">Earnings "did little to calm investor fears about the business" — the cheapness debate continues, unresolved.</p></div>
+<div class="tw"><span class="au">"Lululemon Lowers Full-Year Outlook as It Reaches a Turning Point Ahead of CEO Transition"</span> · Jun 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">Frames everything as bridge to Heidi O'Neill's Sept 8 start: product-engine reset, faster development timelines (her Nike specialty), holiday 2026 as first read.</p></div>
+
+<div class="co yw"><strong>Street Consensus:</strong> Coverage has converged on "show me." Nobody disputes the balance sheet ($1.5B cash, 8%+ FCF yield, buybacks); nobody can point to evidence the NA decline is bottoming either.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">@rebound_capital</span> · Jun 10, 2026 · <span class="st bul">Bullish (value)</span><p style="margin-top:8px; color:#475569">"On $LULU — with the stock trading at a historically low P/E of 10x, the company looks very interesting from a value perspective."</p></div>
+<div class="tw"><span class="au">@graystokev2 (Graystoke)</span> · Jun 10, 2026 · <span class="st net">Contrarian-bullish</span><p style="margin-top:8px; color:#475569">"Bull market in bad $LULU takes… margins are what matters, yes — but it's because Ken Paxton saw a politically convenient target and Chip Wilson still can't move on from being expelled over a decade ago." (Argues the media-negativity narrative is overdone.)</p></div>
+<div class="tw"><span class="au">@QualityAtScale_</span> · Jun 10, 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">"I wish you luck with this one. I tend to avoid retail, but big money can be made if this thing recovers. I will be rooting for a $LULU stock recovery."</p></div>
+<div class="tw"><span class="au">@IamJohnJsmith (Options Trader)</span> · Jun 10, 2026 · <span class="st ber">Bearish (tactical)</span><p style="margin-top:8px; color:#475569">"6/11 Trade Ideas: $LULU 119p 6/12 under 118.82" — short-term traders positioned for continued downside through support.</p></div>
+<div class="tw"><span class="au">@coughingbaby23</span> · Jun 10, 2026 · <span class="st ber">Bearish (mocking)</span><p style="margin-top:8px; color:#475569">Mocking a prominent account "down around 50%" on its LULU long — knife-catchers are now the punchline, a sentiment-capitulation marker.</p></div>
+
+<div class="co bl"><strong>X Consensus:</strong> Genuinely split — value accounts circling the 10x multiple, traders shorting every bounce, and longs being openly ridiculed. Peak pessimism is forming but hasn't produced a capitulation low with volume yet.</div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>Heidi O'Neill starts as CEO September 8, 2026</strong> (announced 4/22; board-unanimous; ex-Nike consumer/marketplace president). Her Nike specialty — compressing product-development timelines — is exactly LULU's diagnosed failure. First strategy communication and holiday product slate are the real catalysts.</li>
+<li><strong>International engine intact:</strong> +22% in Q1, China growing 20%+, India launch H2 2026. At ~30% of revenue and compounding, international alone adds ~6-7pts of consolidated growth.</li>
+<li><strong>Lowered bar:</strong> Guidance now embeds NA down high-single-digits — the first guide in two years that might actually be beatable. Q2 print Sept 3 lands 5 days before O'Neill arrives.</li>
+<li><strong>Balance sheet/FCF support:</strong> $1.5B cash, $1.13B TTM FCF (8.4% FCF yield), ongoing buybacks shrinking the share count ~3-4%/yr at these prices.</li>
+<li><strong>Strong labor market</strong> (172k May payrolls) keeps the affluent core customer employed — demand softness is brand-driven, not income-driven, which is more fixable.</li>
+<li><strong>Sentiment washout:</strong> 12m -54%, longs publicly mocked, 25-analyst consensus down to Hold — the contrarian setup builds if any datapoint surprises positively.</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>Value-trap continuation (the base risk):</strong> three guidance cuts in 12 months; forward EPS estimates still falling. A 10x multiple on declining EPS produced -27% since April — it can do it again. UAA is the cautionary template.</li>
+<li><strong>Competitive structural share loss:</strong> Alo Yoga and Vuori opening stores in LULU's best malls; Skims expanding into adjacent categories; ONON/Hoka winning footwear-adjacent wallet. None of these are cyclical.</li>
+<li><strong>Oil-shock discretionary squeeze:</strong> gasoline +40% y/y hits exactly the $100+ apparel impulse purchase; the June macro regime is the worst possible backdrop for a premium-price apparel turnaround.</li>
+<li><strong>Brand-narrative spiral:</strong> management itself cites negative media/social commentary as a traffic driver — including coverage of the <strong>Texas AG (Paxton) PFAS investigation opened April 13, 2026</strong> into "forever chemicals" claims (LULU says PFAS was phased out in FY23). Low direct financial risk, real brand-perception risk.</li>
+<li><strong>Tariff and input costs:</strong> Vietnam/Cambodia-heavy sourcing remains tariff-exposed; oil-linked synthetic-fabric (nylon/lycra) input costs rise with $91 WTI.</li>
+<li><strong>CEO-transition execution risk:</strong> a September outsider arrival means strategy limbo through H2; interim co-CEO structure rarely makes bold inventory/markdown decisions.</li>
+<li><strong>China concentration in the bull case:</strong> the only growth pillar is also the most geopolitically fragile one.</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value neu">Hold</div><div class="sub">Mean 3.03 · 25 analysts</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value up">$136.34</div><div class="sub up">+14.6% upside</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$88.00</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$295.00</div></div>
+</div>
+
+<div class="co bl"><strong>Consensus context:</strong> The Street has fully capitulated from Buy (PT $177 on 5/27) to Hold (PT $136, median $127) in two weeks — the fastest de-rating in our coverage. The $88–295 target dispersion is enormous: nobody agrees on whether this is UAA or a coiled spring. Median $127 sits just +7% above spot — the Street is effectively at "no opinion until O'Neill."</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data &amp; Methodology:</strong> Market data from Yahoo Finance (yfinance) as of 2026-06-10 intraday ($118.93; day range $118.02–$124.38). Forward EPS uses the NTM consensus $11.64 and company FY26 guide midpoint $11.05 where noted. The June 4 guidance reset is fully incorporated. Three independent methods triangulate fair value.</div>
+
+<h3>Method 1: P/E Multiple Approach</h3>
+<p style="color:#64748b; margin-bottom:12px">Each scenario applies a multiple to a guided/estimated EPS. The key discipline this time: bear-case EPS assumes guidance gets cut AGAIN (the pattern of the last 12 months), not just a lower multiple.</p>
+<table><thead><tr><th>Scenario</th><th>P/E</th><th>EPS</th><th>Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody><tr><td>Bear (4th cut)</td><td>8x</td><td>$10.00</td><td>$80.00</td><td class="dn">-33%</td><td>NA decline accelerates, holiday misses, FY27 guide disappoints; UAA-ification</td></tr>
+<tr><td>Base (guide delivered)</td><td>11x</td><td>$11.05</td><td>$121.55</td><td class="up">+2.2%</td><td>Company hits its own lowered bar; multiple stays trough until proof</td></tr>
+<tr><td>DECK parity</td><td>13.4x</td><td>$11.05</td><td>$148.07</td><td class="up">+24.5%</td><td>Re-rate to the quality-athleisure comp if NA stabilizes</td></tr>
+<tr><td>Bull (O'Neill inflection)</td><td>14.5x</td><td>$12.50</td><td>$181.25</td><td class="up">+52.4%</td><td>FY27 EPS recovers on int'l + NA flattening; early innings of brand reset</td></tr>
+</tbody></table>
+
+<h3>Method 2: Mean Reversion &amp; Consensus</h3>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">5Y Avg PE × Fwd EPS</div><div class="value">$365</div><div class="sub up">Not credible — pre-2025 regime</div></div>
+<div class="kpi"><div class="label">DECK-Parity PE × Guide EPS</div><div class="value up">$148</div><div class="sub up">+24.5%</div></div>
+<div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value up">$136</div><div class="sub up">+14.6%</div></div>
+</div>
+
+<div class="co bl"><strong>📐 Calculation Details:</strong><ul><li>5Y average ~33x × $11.05 = $365 — shown for completeness, but the growth regime that earned 33x is gone; treat as invalid</li><li>DECK-parity 13.4x × $11.05 = $148 — the realistic mean-reversion anchor</li><li>Wall Street consensus PT $136 (median $127; range $88–$295)</li></ul></div>
+
+<h3>Method 3: Discounted Cash Flow (DCF)</h3>
+<p style="color:#64748b; margin-bottom:12px">10-year FCF model off $1.13B TTM FCF (8.4% FCF yield — the strongest pillar of the bull case). Net cash position ~flat after operating leases.</p>
+<table><thead><tr><th>Scenario</th><th>FCF Growth</th><th>WACC</th><th>Terminal Growth</th><th>Intrinsic Value</th><th>Upside</th></tr></thead>
+<tbody><tr><td>Bear</td><td>-3%</td><td>10.0%</td><td>0.5%</td><td>$95.00</td><td class="dn">-20%</td></tr>
+<tr><td>Base</td><td>0%</td><td>9.5%</td><td>1.5%</td><td>$134.00</td><td class="up">+12.7%</td></tr>
+<tr><td>Bull</td><td>+5%</td><td>9.0%</td><td>2.0%</td><td>$175.00</td><td class="up">+47.1%</td></tr>
+</tbody></table>
+
+<div class="co yw"><strong>⚖️ Methods Read:</strong> Even assuming ZERO FCF growth forever, DCF base lands at $134 (+13%) — the cash-generation floor is real. But the bear case ($80–95) only requires the existing 12-month trend to continue one more time. The distribution is wide and roughly symmetric: this is a coin-flip priced as one, not a mispriced bargain. <strong>Fair value band: $120–135.</strong></div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$80</div><div class="mt">8x × $10.00 EPS</div><div class="us dn">-33%</div><div class="ds">Fourth guidance cut; NA decline runs into a weakening discretionary tape (gas +40%); Alo/Vuori keep taking the core customer; O'Neill's reset takes 2+ years like most apparel turnarounds.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr">$125</div><div class="mt">11x × $11.05 guide + FCF support</div><div class="us up">+5%</div><div class="ds">Company finally hits a lowered bar; international +20% offsets NA bleed; stock chops in a $110–140 range until holiday-quarter proof. Dead money, not dead capital.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$170</div><div class="mt">~14x × $12.25 FY27E EPS</div><div class="us up">+43%</div><div class="ds">O'Neill's product reset + faster development cycle shows traction by holiday; NA flattens; buyback shrinks share count at trough prices; re-rate toward DECK parity.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co yw"><p><strong>LULU</strong> is no longer a "premium brand at a cheap multiple" story — that thesis failed three times on the way from $180 to $119, and the June 4 print confirmed why: North America is guided down high-single-digits, EPS fell 35% YoY, and management itself admits the product engine and brand heat are broken while Alo, Vuori, and Skims take share. What remains is a genuinely strong cash machine (55.7% gross margin, 8.4% FCF yield, $1.5B cash, international +22%, China +20%, India launching) trading at 10.2x — with insider buying from the board chair and incoming-CEO catalyst (Heidi O'Neill, Sept 8) offering a credible path to a 13–14x re-rate. The macro regime (gasoline +40% y/y squeezing discretionary, defensive rotation away from consumer cyclicals) argues against paying up early.</p><p><strong>Verdict: Neutral / wait-for-proof. The 12-month base case is $125 (+5%) — the asymmetry only turns attractive on either a flush toward $95–100 or the first hard evidence (Q2 print Sept 3, holiday slate) that the NA decline is decelerating. Do not repeat the knife-catch.</strong></p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, CNBC, Motley Fool, WWD, Stocktwits, Texas OAG, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, company filings, web research, X/Twitter, analyst consensus · 2026-06-10</p></div>
+</div>
+</body>
+</html>

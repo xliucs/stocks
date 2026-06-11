@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TSM | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #16a34a, #15803d); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(22,163,74,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.cg { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 16px 0; }
+.cg img { width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, .cg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>TSM — Taiwan Semiconductor Manufacturing Co.</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-06-10 · Sources: yfinance, TSMC IR, TipRanks, DigiTimes, SEC 6-K, analyst consensus</p>
+
+<div class="badge">📅 Next Earnings: 2026-07-16 (Q2 2026) — 36 days away · May revenue reported today: NT$416.98B, +30.1% YoY</div>
+
+<div class="co rd"><strong>🌐 Macro Context (regime check):</strong> Semis are the epicenter of 2026's worst drawdown. June 4–5: Nasdaq -4.2% (AVGO -14% on a guidance whisper-miss, MU -13.3%, INTC -11.3%, AMD -10.9%, NVDA -6%) after a shock May jobs report (172k payrolls, ~2x consensus) pushed December rate-<em>hike</em> odds to ~43%. June 10: cool core CPI (+0.2% vs +0.3% exp) yet the S&amp;P fell -1.6% to a 5-week low — good news can't get bought; headline CPI 4.2% on energy (gasoline +40% y/y). <strong>Geopolitics hit TSM doubly:</strong> US strikes on Iran two consecutive days and a declared Strait of Hormuz blockade (WTI ~$91) have repriced all geopolitical-tail assets — and TSM carries the market's biggest one (Taiwan). The AI capital cycle has also inflected: ORCL -5% AH despite RPO $638B (capex/dilution scrutiny), SMCI -28% on a $7B raise. The market now grades capital intensity — relevant for a foundry running a record capex program. VIX 22.2, 10Y 4.54%, Fear &amp; Greed 27 (extreme fear).</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price (ADR)</div><div class="value">$408.75</div><div class="sub dn">-9.2% from 52W High · -4.5% today</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$2.12T</div><div class="sub">ADR equiv. shares: 5.19B</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value">35.1x</div><div class="sub up">EPS: $11.64</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value up">20.9x</div><div class="sub">Fwd EPS: $19.53</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">NT$4,104B</div><div class="sub up">+35.1% YoY (~$133B USD)</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value up">61.9%</div><div class="sub">Q1 2026: 66.2%</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value up">58.1%</div><div class="sub">Record</div></div>
+    <div class="kpi"><div class="label">Net Margin</div><div class="value up">46.5%</div><div class="sub">Q1: 50.5%</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">1-Month Return</div><div class="value up">+1.0%</div><div class="sub">1W: -6.4%</div></div>
+    <div class="kpi"><div class="label">3-Month Return</div><div class="value up">+15.6%</div><div class="sub">6M: +36.2%</div></div>
+    <div class="kpi"><div class="label">12-Month Return</div><div class="value up">+99.9%</div><div class="sub">Best in mega-cap semis</div></div>
+    <div class="kpi"><div class="label">Net Cash</div><div class="value up">~NT$2.3T</div><div class="sub">(~$74B) Fortress balance sheet</div></div>
+</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter</th><th>Revenue (NT$)</th><th>Net Income (NT$)</th><th>Gross Mgn</th><th>Op Mgn</th><th>Net Mgn</th><th>Diluted EPS (NT$)</th></tr></thead><tbody>
+<tr><td>2026-03-31 (Q1)</td><td>NT$1,134B <span class="up">↑</span></td><td>NT$572B</td><td>66.2%</td><td>58.1%</td><td>50.5%</td><td>NT$110.40</td></tr>
+<tr><td>2025-12-31 (Q4)</td><td>NT$1,046B <span class="up">↑</span></td><td>NT$485B</td><td>62.3%</td><td>54.0%</td><td>46.4%</td><td>NT$97.50</td></tr>
+<tr><td>2025-09-30 (Q3)</td><td>NT$989.9B <span class="up">↑</span></td><td>NT$452B</td><td>59.5%</td><td>50.6%</td><td>45.7%</td><td>NT$87.20</td></tr>
+<tr><td>2025-06-30 (Q2)</td><td>NT$933.8B <span class="up">↑</span></td><td>NT$398B</td><td>58.6%</td><td>49.6%</td><td>42.7%</td><td>NT$76.80</td></tr>
+<tr><td>2025-03-31 (Q1)</td><td>NT$839.3B</td><td>NT$362B</td><td>58.8%</td><td>48.5%</td><td>43.1%</td><td>NT$69.70</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>📈 Fresh datapoint — May 2026 monthly revenue (reported June 10):</strong> NT$416.98B, <strong>+30.1% YoY</strong> and +1.5% MoM; January–May cumulative NT$1,961.8B, +30.0% YoY (TSMC IR; SEC 6-K, Jun 10). Management reiterated full-year 2026 USD revenue growth <strong>above 30%</strong>, and supply-chain reports (DigiTimes, Jun 10) say TSMC plans to raise 3nm quotes by up to <strong>15% in H2</strong> — pricing power confirming demand exceeds tight capacity. Yet the ADR fell ~4.5% today: in this tape, even a 30%-growth print can't get bought.</div>
+
+<h2>💰 Revenue Composition (Q1 2026)</h2>
+<table><thead><tr><th>Segment</th><th>USD Revenue</th><th>Share</th><th>QoQ</th><th>Note</th></tr></thead>
+<tbody><tr><td><strong>HPC (incl. AI accelerators)</strong></td><td>$21.9B</td><td>61%</td><td class="up">+11% QoQ</td><td>NVDA Blackwell/Rubin, AVGO XPUs, AMD MI400 — the AI bottleneck</td></tr>
+<tr><td><strong>Smartphone</strong></td><td>$9.3B</td><td>26%</td><td class="dn">-7% QoQ</td><td>Apple anchor; IDC sees 2026 global smartphone shipments <strong>-13% YoY</strong>, a 10-year low</td></tr>
+<tr><td><strong>IoT / Automotive</strong></td><td>$2.9B</td><td>8%</td><td class="up">+4% QoQ</td><td>Modest; consumer electronics soft</td></tr>
+<tr><td><strong>DCE / Other</strong></td><td>$1.8B</td><td>5%</td><td>Mixed</td><td>Consumer + non-classified</td></tr>
+</tbody></table>
+
+<table><thead><tr><th>Node</th><th>Share of Wafer Revenue</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td><strong>3nm (N3)</strong></td><td>25%</td><td>Quotes rising up to 15% in H2 per supply chain; AI + Apple A19</td></tr>
+<tr><td><strong>5nm (N5)</strong></td><td>32%</td><td>Blackwell B100/B200, MI300X, Apple legacy</td></tr>
+<tr><td><strong>7nm (N7)</strong></td><td>14%</td><td>Mature flagship logic, networking</td></tr>
+<tr><td><strong>2nm (N2)</strong></td><td>~3–5% (ramping)</td><td>5-fab ramp; AMD Venice, iPhone 18 design-ins</td></tr>
+<tr><td><strong>16nm + mature</strong></td><td>~26%</td><td>Automotive, IoT, specialty</td></tr>
+</tbody></table>
+
+<div class="co yw"><strong>📊 The two-speed customer base:</strong> AI/HPC (61% of revenue) is sold out — CoWoS-L advanced packaging remains the industry bottleneck and NVDA/AVGO/AMD have pre-booked capacity into 2027. But smartphone (26%) faces IDC's projected -13% 2026 shipment decline, the worst year in a decade, as memory-price inflation pushes handset BOMs up and consumers delay upgrades. Net: the >30% FY26 guide already embeds the smartphone drag — AI strength is that dominant.</div>
+
+<h2>🌏 Geographic Expansion</h2>
+<table><thead><tr><th>Region</th><th>Revenue Share</th><th>Trend</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td>North America</td><td>~75%</td><td class="up">Rising</td><td>NVDA, Apple, AMD, Broadcom, Qualcomm; Arizona Fab 21 phases expanding — TSMC detailed expanded US guarantees alongside the May revenue 6-K</td></tr>
+<tr><td>Asia Pacific (ex-China)</td><td>~12%</td><td>Stable</td><td>MediaTek, Sony; Kumamoto (JASM) in production</td></tr>
+<tr><td>China</td><td>~9%</td><td class="dn">Declining</td><td>Export controls cap advanced-node sales; mature nodes only</td></tr>
+<tr><td>EMEA</td><td>~4%</td><td>Stable</td><td>Dresden (ESMC) under construction for auto/industrial</td></tr>
+</tbody></table>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl neu">52.5</div><div class="nt neu">Neutral</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl up">$393.07</div><div class="nt up">Price above (+4.0%)</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl up">$327.34</div><div class="nt up">Price above (+24.9%)</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl dn">8.66</div><div class="nt dn">Below signal (10.78)</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$450.16</div><div class="nt dn">-9.2%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$206.20</div><div class="nt up">+98.2%</div></div>
+</div>
+
+<div class="co bl"><strong>⚠️ Technical Signal:</strong> TSM is the relative-strength leader of the June selloff — only -6.4% over the crash week versus AVGO -22%, QCOM -23% — and is the only one of our four still above its 50-day. RSI 52.5 is dead neutral; MACD rolled negative; price remains an extended +24.9% above the 200-day after a near-double in 12 months. Translation: nothing broken technically, but the cushion to trend support ($393 then $327) is the relevant 12-month risk framing, not the 52-week-high chase.</div>
+
+<h2>📊 Charts</h2>
+<div class="cg"><p style="color:#64748b; padding:20px; text-align:center; grid-column:1/-1">Chart images generated server-side at publish time. Reference: $206 (Jun '25) → $450 high (Jun 2 '26) → $409; held the 50dma through the June 4–10 semis crash; 200dma rising steeply at ~$327.</p></div>
+
+<h2>📏 Historical Valuation</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Current Trailing P/E</div><div class="value dn">35.1x</div></div>
+    <div class="kpi"><div class="label">5Y Avg P/E*</div><div class="value">23.4x</div><div class="sub">*Outliers filtered (PE&lt;100)</div></div>
+    <div class="kpi"><div class="label">5Y P/E Range</div><div class="value">11x – 36x</div></div>
+    <div class="kpi"><div class="label">Percentile</div><div class="value dn">~93rd</div><div class="sub">Near top of own history</div></div>
+</div>
+
+<div class="co yw"><strong>📐 Mean Reversion Read:</strong> Trailing 35.1x sits near the top of TSM's own 5-year range — but trailing EPS badly lags the margin inflection (Q1 net margin 50.5% vs 43.1% a year ago). On forward EPS of $19.53 the multiple is 20.9x, roughly in line with the 5Y average of 23.4x applied forward: 23.4x × $19.53 = <strong>$457</strong> (+12%). The cheap-TSM era (11–15x) is gone; what remains is a fair multiple on rapidly compounding earnings.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Ticker</th><th>Price</th><th>MktCap</th><th>Trail P/E</th><th>Fwd P/E</th><th>Rev Growth</th><th>Gross Mgn</th><th>Op Mgn</th><th>Net Mgn</th></tr></thead>
+<tbody><tr class="hl"><td><strong>TSM</strong></td><td>$408.75</td><td>$2.12T</td><td>35.1x</td><td>20.9x</td><td>35.1%</td><td>61.9%</td><td>58.1%</td><td>46.5%</td></tr>
+<tr><td>NVDA</td><td>$200.42</td><td>$4.85T</td><td>31.9x</td><td>15.7x</td><td>85.2%</td><td>74.1%</td><td>65.6%</td><td>63.0%</td></tr>
+<tr><td>AVGO</td><td>$372.10</td><td>$1.77T</td><td>61.7x</td><td>19.2x</td><td>47.9%</td><td>76.3%</td><td>49.0%</td><td>38.8%</td></tr>
+<tr><td>AMD</td><td>$452.40</td><td>$738B</td><td>151.3x</td><td>34.6x</td><td>37.8%</td><td>53.1%</td><td>14.4%</td><td>13.4%</td></tr>
+<tr><td>MU</td><td>$891.88</td><td>$1.01T</td><td>42.0x</td><td>8.0x</td><td>196.3%</td><td>58.4%</td><td>67.6%</td><td>41.5%</td></tr>
+<tr><td>INTC</td><td>$107.04</td><td>$538B</td><td>—</td><td>69.6x</td><td>7.2%</td><td>37.2%</td><td>6.9%</td><td>-5.9%</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>🔍 Relative Read:</strong> At 20.9x forward, TSM now trades <em>above</em> AVGO (19.2x) and NVDA (15.7x) for the first time in this cycle — the June crash compressed its customers' multiples faster than its own. The monopoly justification: TSM gets paid regardless of whether the accelerator is an NVDA GPU, an AVGO XPU, or an AMD MI400, and it is raising prices 15% into the shortage. The caveat: it carries the Taiwan tail those customers don't.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume (Jun 26)</div><div class="value up">0.77</div><div class="sub">Call-tilted</div></div>
+    <div class="kpi"><div class="label">P/C Volume (Jul 2)</div><div class="value up">0.42</div><div class="sub">Strongly call-tilted</div></div>
+    <div class="kpi"><div class="label">IV Skew</div><div class="value dn">Put &gt; Call</div><div class="sub">Tail-risk premium persists</div></div>
+    <div class="kpi"><div class="label">OI Data</div><div class="value neu">Sparse</div><div class="sub">ADR chain thin vs US names</div></div>
+</div>
+
+<div class="co bl"><strong>📊 Options Read:</strong> Call-dominant volume (P/C 0.42–0.77) even through the macro shock — dip-buyers active. The structural feature unchanged all cycle: put IV trades rich to call IV, the permanent Taiwan-strait insurance bid, and the Iran/Hormuz escalation this week fattened that premium further. Earnings July 16 sits inside the July monthly — expect event IV build into mid-July.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co bl"><strong>Insider holdings:</strong> ~0.04% of shares (typical for a foreign ADR; governance sits with the Taiwan-listed parent). Recent filings are small but directionally positive — all buys, no sales:<ul>
+<li>TIEN BOR-ZEN (Officer) — Purchased 17 shares @ $391.81–$400.00 · 2026-05-20; also bought 20 shares @ $386–$390 · 2026-04-28</li>
+<li>BURNS URSULA M (Director) — Purchased 1,000 shares @ $322.05 ($322K) · 2026-03-31</li>
+</ul>No insider selling in six months. Token sizes, but the only all-buy insider tape among our four covered semis.</div>
+
+<h2>📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">"TSMC Posts 30% Year-on-Year Revenue Surge for May 2026"</span> · TipRanks · Jun 10, 2026 · <span class="st bul">Bullish (facts)</span><p style="margin-top:8px; color:#475569">May NT$416.98B +30.1% YoY; details expanded US guarantees supporting the Arizona buildout — the geographic-derisking narrative is becoming financial reality.</p></div>
+<div class="tw"><span class="au">"TSMC's May revenue grows 30% as AI demand and tight capacity support outlook"</span> · DigiTimes · Jun 10, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Capacity remains tight across leading edge; 3nm quotes reportedly rising up to 15% in H2 2026. Full-year USD growth seen exceeding 30%.</p></div>
+<div class="tw"><span class="au">"TSMC Reports May Revenue Growth, Yet Shares Decline"</span> · GuruFocus · Jun 10, 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">Captures today's regime in one headline: +30% growth, stock down ~2.2% in Taipei and ~4.5% in the ADR — macro and geopolitics overriding fundamentals.</p></div>
+<div class="tw"><span class="au">"TSMC: The AI Silicon Shortage Is About To Get Worse"</span> · Seeking Alpha · Apr 2026 · <span class="st bul">Strong Buy</span><p style="margin-top:8px; color:#475569">CoWoS-L sold out for 2026, NVDA pre-booked 800–850K wafers, 3nm capacity being raised 50%. Supply, not demand, is the binding constraint — still true as of the May revenue print.</p></div>
+
+<div class="co gr"><strong>Research Consensus:</strong> Operationally unanimous — demand exceeds capacity, pricing is rising, FY26 &gt;30% growth is on track. The divergence is entirely about what discount rate a Taiwan-domiciled monopoly deserves in a Hormuz-blockade, rate-hike-scare world.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">AI-supply-chain bulls</span> · Jun 10, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Theme: "Everyone fights about NVDA vs ASICs; TSM banks both sides." May +30% with 3nm price hikes = pricing power at the bottleneck. The toll-booth framing dominates.</p></div>
+<div class="tw"><span class="au">Geopolitics bears</span> · Jun 8–10, 2026 · <span class="st ber">Bearish</span><p style="margin-top:8px; color:#475569">Theme: With the US striking Iran and Hormuz blockaded, the market is re-learning how to price geopolitical tails — and TSM's is the biggest unhedgeable tail in global equities. Put skew steepening; "fab diversification is years from mattering at the leading edge."</p></div>
+<div class="tw"><span class="au">Consumer-cycle skeptics</span> · Jun 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">Theme: IDC's -13% 2026 smartphone forecast (10-year low) plus memory-cost BOM inflation = the non-AI 40% of TSM's business shrinks this year; AI must keep over-delivering for the &gt;30% guide to hold.</p></div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>Q2 2026 earnings (Jul 16):</strong> Guide was $39.0–40.2B revenue (+~32% YoY) at 65.5–67.5% GM; Jan–May run-rate (+30.0%) says it's on track. Watch FY26 guide reiteration and any 2027 capex frame.</li>
+<li><strong>3nm price increases (H2 2026):</strong> Up to +15% per supply chain reports — direct gross-margin fuel into 2027, on top of the 66%+ GM base.</li>
+<li><strong>N2 ramp (5 fabs):</strong> The steepest node ramp in company history; N2 carries higher ASPs and locks Apple/AMD/NVDA designs through 2028.</li>
+<li><strong>CoWoS-L expansion:</strong> Advanced packaging remains the AI bottleneck; each incremental line converts directly to revenue at premium margins.</li>
+<li><strong>US expansion + guarantees:</strong> Expanded Arizona guarantees (disclosed with the May 6-K) deepen the geographic-derisking story that ultimately compresses the Taiwan discount.</li>
+<li><strong>AI capex breadth:</strong> Big-4 hyperscaler 2026 capex ~$700B; every custom-ASIC win (AVGO, MRVL) and every NVDA Rubin wafer lands at TSM either way.</li>
+<li><strong>Rate-fear reversal:</strong> Cool core CPI (Jun 10) ignored today; two more cool prints likely unwind the Dec-hike scare and the highest-quality compounders re-rate first.</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>Taiwan geopolitics (policyRisk: moderate):</strong> The unhedgeable tail, freshly repriced by the Iran/Hormuz escalation. Arizona/Kumamoto/Dresden diversify packaging and mature nodes, but the leading edge stays on-island into 2028+.</li>
+<li><strong>Tariff/export policy:</strong> US tariff frameworks on semiconductors and export-control expansion remain live policy variables; TSM sits in the middle of every scenario (China ~9% of revenue already structurally declining).</li>
+<li><strong>Smartphone drag:</strong> 26% of revenue against IDC's -13% 2026 shipment forecast (10-year low) plus memory-inflation BOM pressure. A worse-than-modeled consumer year clips the &gt;30% guide's margin of safety.</li>
+<li><strong>Capex supercycle vs the new regime:</strong> Record capex (~$52–56B 2026) suppresses FCF (TTM NT$719B ≈ $23B, a fraction of net income). The market just started punishing capital intensity (ORCL); TSM's monopoly economics argue it earns returns on that capex, but the optics risk is real.</li>
+<li><strong>Customer concentration:</strong> Apple + NVDA are each >20% customers; an NVDA digestion phase (see our NVDA report — financing anxiety) transmits directly.</li>
+<li><strong>NT$ appreciation:</strong> A persistent FX headwind to NT$-reported margins (each 1% NT$ appreciation ≈ -0.4pp GM).</li>
+<li><strong>Valuation vs own history:</strong> ~93rd percentile trailing P/E after a +100% year; mean-reversion math no longer screams cheap — upside must come from EPS growth, not re-rating.</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value up">Strong Buy</div><div class="sub">18 analysts · 1.47 mean</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value up">$467.84</div><div class="sub up">+14% vs price</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$354.00</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$600.00</div></div>
+</div>
+<div class="co yw"><strong>⚠️ Stale-PT Warning (TIGR lesson):</strong> The $467.84 mean is <em>identical</em> to our May 27 report — no analyst has re-marked through the June 4–10 drawdown. The +14% "upside to PT" is therefore a pre-crash artifact; treat with appropriate skepticism in both directions.</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data &amp; Methodology:</strong> Market data from Yahoo Finance (yfinance) as of 2026-06-10 intraday ($408.75; day range $407.70–$426.32; cross-check: 5.19B ADR-equiv shares × $408.75 = $2.12T ✓). Forward EPS <strong>$19.53</strong> = consensus (18 analysts). May monthly revenue from TSMC IR (Jun 10). All methods are 12-month frameworks.</div>
+
+<h3>Method 1: P/E Multiple Approach</h3>
+<table><thead><tr><th>Scenario</th><th>P/E</th><th>EPS</th><th>Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody><tr><td>Conservative (current multiple)</td><td>20.9x</td><td>$19.53</td><td>$408.18</td><td class="neu">~0%</td><td>Fear-regime multiple persists</td></tr>
+<tr><td>5Y avg applied forward</td><td>23.4x</td><td>$19.53</td><td>$457.00</td><td class="up">+12%</td><td>Own-history mean reversion</td></tr>
+<tr><td>Quality-monopoly premium</td><td>25.0x</td><td>$19.53</td><td>$488.25</td><td class="up">+19%</td><td>Modest premium for sole-source AI bottleneck + price hikes</td></tr>
+<tr><td>Taiwan-discount widens</td><td>17.0x</td><td>$19.53</td><td>$332.01</td><td class="dn">-19%</td><td>Geopolitical risk premium expands in escalation scenario</td></tr>
+<tr><td>Optimistic (beat + re-rate)</td><td>25.0x</td><td>$21.50</td><td>$537.50</td><td class="up">+32%</td><td>+10% EPS beat on price hikes; multiple holds premium</td></tr>
+</tbody></table>
+
+<h3>Method 2: Mean Reversion &amp; Consensus</h3>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">5Y Avg PE × Fwd EPS</div><div class="value up">$457.00</div><div class="sub up">+12% upside</div></div><div class="kpi"><div class="label">Premium PE × Fwd EPS</div><div class="value up">$488.25</div><div class="sub up">+19% upside</div></div><div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value up">$467.84</div><div class="sub neu">+14% (stale — unchanged since May)</div></div>
+</div>
+
+<h3>Method 3: Discounted Cash Flow (DCF)</h3>
+<p style="color:#64748b; margin-bottom:12px">10-year DCF on normalized owner earnings of ~$55B (between suppressed current FCF of ~$23B and TTM net income of ~$62B, reflecting capex normalizing post-N2 ramp), plus ~$70B net cash. Growth fades linearly to terminal.</p>
+<table><thead><tr><th>Scenario</th><th>Growth (Yr1 → Yr10)</th><th>WACC</th><th>Terminal Growth</th><th>Intrinsic Value</th><th>Upside</th></tr></thead><tbody>
+<tr><td>Bear (consumer drag + tail premium)</td><td>12% → 3%</td><td>11.0%</td><td>2.5%</td><td>$202</td><td class="dn">-51%</td></tr>
+<tr><td>Base (&gt;30% FY26, normalizing after)</td><td>22% → 4%</td><td>10.5%</td><td>3.0%</td><td>$332</td><td class="dn">-19%</td></tr>
+<tr><td>Bull (AI supercycle + pricing power)</td><td>30% → 6%</td><td>10.0%</td><td>3.5%</td><td>$536</td><td class="up">+31%</td></tr>
+</tbody></table>
+<div class="co yw"><strong>📐 DCF honesty note:</strong> We deliberately use a WACC ~1.5pp above US peers to price the Taiwan tail, and FCF is mid-capex-supercycle depressed — so the DCF is the harshest of the three methods (base $332 vs price $409). The earnings-multiple methods better capture monopoly pricing power; the DCF tells you what you're paying for geopolitical trust.</div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$299</div><div class="mt">17x × $17.58 EPS (-10% miss)</div><div class="us dn">-27%</div><div class="ds">Smartphone year worse than -13%, hyperscaler digestion clips AI wafer pull-ins, Taiwan/tariff premium widens in escalation regime.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr up">$449</div><div class="mt">23x × $19.53 EPS</div><div class="us up">+10% upside</div><div class="ds">FY26 &gt;30% growth delivered, 3nm price hikes land, multiple holds near 5Y average as rate fear gradually fades.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$538</div><div class="mt">25x × $21.50 EPS (+10% beat)</div><div class="us up">+32% upside</div><div class="ds">Price hikes + N2 ASPs drive margin beat, geopolitical premium compresses on de-escalation, US fab milestones re-rate the story.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co gr"><p><strong>TSMC just printed +30.1% May revenue growth on the same day the market refused to buy good news — that is the whole setup.</strong> Operationally, this is the strongest position in the company's history: &gt;30% FY26 USD growth guided and tracking, 66% gross margins, CoWoS-L sold out, customers pre-booking wafers into 2027, and 3nm price hikes of up to 15% coming in H2. TSM is the toll booth on every lane of the AI highway — NVDA GPUs, AVGO XPUs, AMD accelerators all converge on the same fabs — which is why it was the relative-strength winner of the June crash (-6% week vs -22% for AVGO).</p>
+<p>The bear case has two distinct legs. Cyclical: 26% of revenue faces IDC's -13% smartphone year (a 10-year low) and the capex supercycle suppresses FCF exactly when the market began punishing capital intensity. Geopolitical: the Iran strikes and Hormuz blockade reminded markets that tails get repriced suddenly, and TSM's Taiwan tail is the largest in global equities — our DCF charges ~1.5pp of extra WACC for it and still can't make the stock cheap. After a +100% year, the valuation argument has shifted from re-rating to earnings compounding: at 20.9x forward, TSM now costs <em>more</em> than its two biggest customers.</p>
+<p>Twelve-month balance: bear $299 (-27%) needs a consumer collapse plus escalation; base $449 (+10%) needs only delivery of guided numbers; bull $538 (+32%) needs price-hike margin flow-through and a calmer world. The asymmetry is mildly positive but the leanest of our four semis — appropriate for the highest-quality, most-owned, and geopolitically heaviest name in the set.</p>
+<p><strong>12-month base case: $449 (+10%). Key catalyst: Q2 earnings July 16. Key monitors: Taiwan-strait/tariff headlines and whether smartphone weakness stays inside the -13% IDC frame.</strong></p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, TSMC IR, TipRanks, DigiTimes, SEC filings. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, TSMC IR, TipRanks, DigiTimes, analyst consensus · 2026-06-10</p></div>
+</div>
+</body>
+</html>

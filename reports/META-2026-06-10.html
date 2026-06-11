@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>META | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>META — Meta Platforms, Inc.</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-06-10 · Sources: yfinance, Seeking Alpha, X/Twitter, analyst consensus</p>
+
+<div class="badge">📅 Next Earnings: 2026-07-29 — 49 days away</div>
+
+<div class="co rd"><strong>🌐 Macro Context (June 10, 2026):</strong> Fear regime. June 4–5 was the worst drop of the year (Nasdaq −4.2%, semis −10–15%) after a shock May jobs report (172k payrolls, ~2x consensus) lifted December Fed <em>rate-hike</em> odds to ~43%. Today's cool core CPI (+0.2% m/m vs +0.3% exp.) failed to hold a rally — S&amp;P 500 −1.6% to a 5-week low; headline CPI 4.2% on energy after US strikes on Iran and a declared Strait of Hormuz blockade (WTI ~$91). VIX 22.2, 10Y 4.54%, Fear &amp; Greed 27 (extreme fear), JPM "Tactical Caution." The defining Mag7 story is an <strong>AI capital-cycle inflection</strong>: the market now grades AI on capital intensity, dilution, and FCF-after-capex — ORCL −5% despite blowout bookings (capex + $40B raise), SMCI −28% on a $7B raise, GOOG priced an $84.75B equity offering June 2. <strong>META sits at the center of the dilution debate: capex guided up to $125–145B and a June 5 report that it may raise tens of billions in equity knocked the stock −5% in a session (CNBC, June 5).</strong></div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$570.98</div><div class="sub dn">-28.3% from 52W High ($796.25)</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$1.45T</div><div class="sub">~2.54B shares (A+B)</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value">20.7x</div><div class="sub up">EPS: $27.52</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value up">15.8x</div><div class="sub">Fwd EPS: $36.16 — cheapest in Mag7</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">$215.0B</div><div class="sub up">+33.1% YoY — best in Mag7</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value up">81.9%</div><div class="sub">Best in Mag7</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value up">40.6%</div><div class="sub">Despite Reality Labs drag</div></div>
+    <div class="kpi"><div class="label">Net Margin</div><div class="value up">32.8%</div><div class="sub">ROE: 32.9%</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">1M Return</div><div class="value dn">-4.1%</div><div class="sub">Raise-rumor hit June 5</div></div>
+    <div class="kpi"><div class="label">3M Return</div><div class="value dn">-10.5%</div><div class="sub">Worst Mag7 ex-TSLA</div></div>
+    <div class="kpi"><div class="label">6M Return</div><div class="value dn">-13.0%</div><div class="sub">vs QQQ ~flat</div></div>
+    <div class="kpi"><div class="label">Dividend Yield</div><div class="value">0.37%</div><div class="sub">Cash $81.2B / Debt $86.8B</div></div>
+</div>
+
+<div class="co bl"><strong>💸 AI Capital-Cycle Scorecard:</strong> TTM operating cash flow <strong>$124.0B</strong>; implied TTM capex ~<strong>$98B</strong>; FCF after capex <strong>$25.6B</strong> and shrinking. 2026 capex guided <strong>$125–145B</strong> (raised from $115–135B on the Q1 call) — at the midpoint, 2026 FCF goes to roughly <strong>zero or negative</strong> unless OCF grows ~20%+. Funding mix is the problem: unlike MSFT/GOOG/AMZN, Meta has <em>no cloud business</em> to rent its compute externally — every AI dollar must pay back through ads or new products. The June 5 CNBC report of a potential tens-of-billions equity raise (following Alphabet's $85B) puts <strong>dilution</strong> on the table for the first time. This is the central question for the stock.</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter</th><th>Revenue</th><th>Net Income</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th><th>Diluted EPS</th></tr></thead>
+<tbody><tr><td>2026-03-31</td><td>$56.3B <span class="up">↑ +33%</span></td><td>$26.8B*</td><td>81.9%</td><td>40.6%</td><td>47.6%*</td><td>$10.44*</td></tr>
+<tr><td>2025-12-31</td><td>$59.9B <span class="up">↑</span></td><td>$22.8B</td><td>81.8%</td><td>41.3%</td><td>38.1%</td><td>$8.88</td></tr>
+<tr><td>2025-09-30</td><td>$51.2B <span class="up">↑</span></td><td>$2.7B†</td><td>82.0%</td><td>40.1%</td><td>5.3%†</td><td>$1.05†</td></tr>
+<tr><td>2025-06-30</td><td>$47.5B <span class="up">↑</span></td><td>$18.3B</td><td>82.1%</td><td>43.0%</td><td>38.5%</td><td>$7.14</td></tr>
+<tr><td>2025-03-31</td><td>$42.3B</td><td>$16.6B</td><td>82.1%</td><td>41.5%</td><td>39.2%</td><td>$6.43</td></tr>
+</tbody></table>
+<p style="color:#94a3b8; font-size:0.85em">* Q1 2026 includes an $8.03B One Big Beautiful Bill Act tax benefit; ex-benefit EPS ≈ $7.31 (+14% YoY). † Q3 2025 depressed by a one-time tax charge.</p>
+
+<div class="co gr"><strong>🔥 Fundamentals vs stock — the disconnect:</strong> Q1 2026 revenue +33% YoY (best in Mag7), impressions +19%, price-per-ad +12%, Q2 guided $58–61B (~+30% at midpoint). The business is not the problem. The stock's 23-point underperformance vs QQQ since April traces to three discrete events: (1) Apr 29 capex guide raised to $125–145B (−8.5%), (2) May 15 JPMorgan downgrade to Neutral on "challenging path to returns on AI capex beyond advertising," (3) June 5 equity-raise report (−5%). One Q1 wrinkle: Iran internet disruptions dragged user numbers (CNBC, Apr 29) — now compounded by the actual US–Iran conflict.</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Revenue Stream</th><th>Q1 2026 Amount</th><th>% of Total</th><th>YoY Trend</th><th>Notes</th></tr></thead>
+<tbody><tr><td><strong>Family of Apps Ads</strong></td><td>$55.0B</td><td>97.7%</td><td class="up">+33% YoY (29% cc)</td><td>Impressions +19%, price/ad +12%; AI ranking lift (+3.5% FB clicks, +3% IG conversions)</td></tr>
+<tr><td><strong>Family of Apps Other</strong></td><td>$0.9B</td><td>1.6%</td><td class="up">Growing</td><td>WhatsApp Business + Click-to-Message ramping</td></tr>
+<tr><td><strong>Reality Labs</strong></td><td>$0.4B</td><td>0.7%</td><td class="neu">Roughly flat</td><td>Ray-Ban Meta strong; Quest soft; −$4.0B quarterly op loss</td></tr>
+<tr><td><strong>Total Q1 2026</strong></td><td>$56.3B</td><td>100%</td><td class="up">+33% YoY</td><td>Q2 guide $58–61B; FY26 expenses $162–169B; capex $125–145B</td></tr>
+</tbody></table>
+<div class="co yw"><strong>⚠️ Concentration:</strong> 97.7% of revenue is advertising. That is precisely why the market is skeptical of $125–145B capex — every GPU has to be paid for by an ad. The bull rebuttal: the AI ad-ranking lift is already visible in the P&amp;L (simultaneous +19% impressions and +12% pricing), and MTIA custom silicon cuts the unit cost of that lift from 2027.</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl neu">43.7</div><div class="nt neu">Soft, not oversold</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl dn">$621.45</div><div class="nt dn">Price below</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl dn">$660.18</div><div class="nt dn">Price below — dead cross zone</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl dn">-7.31</div><div class="nt dn">Negative, below signal (−4.61)</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$796.25</div><div class="nt dn">-28.3%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$520.26</div><div class="nt up">+9.7%</div></div>
+</div>
+
+<div class="co rd"><strong>⚠️ Technical Signal:</strong> Weakest chart among the four megacap platforms: below both SMA50 ($621) and SMA200 ($660), MACD negative and falling, and June 10 trading $571 intraday (day range $570.60–$591.30, prior close $584.59) — a fresh leg down on the raise overhang. Only ~10% above the 52-week low. There is no technical support story here until $520–540; this is a fundamentals/valuation buy case fighting a downtrend.</div>
+
+<h2>📏 Historical Valuation</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Current P/E</div><div class="value up">20.7x</div></div>
+    <div class="kpi"><div class="label">5Y Avg P/E*</div><div class="value">23.4x</div><div class="sub">*Outliers filtered (PE&lt;100)</div></div>
+    <div class="kpi"><div class="label">5Y P/E Range</div><div class="value">12x – 35x</div></div>
+    <div class="kpi"><div class="label">Percentile</div><div class="value up">~35th</div><div class="sub">Below average</div></div>
+</div>
+<div class="co gr"><strong>📐 Mean Reversion Upside:</strong> At 20.7x trailing vs the filtered 5Y average of 23.4x, applying the historical average to forward EPS of $36.16 implies <strong>$846.14</strong> — <strong class="up">+48% upside</strong>. The 15.8x forward multiple is the lowest in the Mag7 and ~35% below the Mag7 average (~24x). Caveat: META traded at 12x in late 2022 during the last "Zuckerberg is burning money" episode — cheap got cheaper for a year before the re-rate.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Company</th><th>Price</th><th>MCap</th><th>Trail P/E</th><th>Fwd P/E</th><th>Rev Growth</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th></tr></thead>
+<tbody><tr class="hl"><td><strong>META</strong></td><td>$570.98</td><td>$1.45T</td><td>20.7x</td><td>15.8x</td><td>33.1%</td><td>81.9%</td><td>40.6%</td><td>32.8%</td></tr>
+<tr><td><strong>GOOG</strong></td><td>$353.32</td><td>$4.31T</td><td>27.0x</td><td>24.4x</td><td>21.8%</td><td>60.4%</td><td>36.1%</td><td>37.9%</td></tr>
+<tr><td><strong>MSFT</strong></td><td>$397.36</td><td>$2.95T</td><td>23.7x</td><td>20.5x</td><td>18.3%</td><td>68.3%</td><td>46.3%</td><td>39.3%</td></tr>
+<tr><td><strong>AAPL</strong></td><td>$291.58</td><td>$4.28T</td><td>35.3x</td><td>30.4x</td><td>16.6%</td><td>47.9%</td><td>32.3%</td><td>27.2%</td></tr>
+<tr><td><strong>AMZN</strong></td><td>$238.00</td><td>$2.56T</td><td>31.6x</td><td>24.1x</td><td>16.6%</td><td>50.6%</td><td>13.1%</td><td>12.2%</td></tr>
+<tr><td><strong>NVDA</strong></td><td>$200.42</td><td>$4.85T</td><td>31.9x</td><td>15.7x</td><td>85.2%</td><td>74.1%</td><td>65.6%</td><td>63.0%</td></tr>
+</tbody></table>
+
+<div class="co bl"><strong>Peer Read:</strong> META delivers the fastest revenue growth (+33%) and highest gross margin (81.9%) in the group, yet trades at the lowest forward multiple (15.8x) — a 0.85 PEG. The discount is not about the P&amp;L; it is the market charging META for (a) ad-only monetization of $125–145B capex and (b) prospective dilution. If either fear is retired, the multiple gap to GOOG (24.4x) closes violently — in both directions, this is the highest-torque name in the Mag7.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value neu">0.60</div><div class="sub">Mildly bullish volume</div></div>
+    <div class="kpi"><div class="label">P/C Open Interest</div><div class="value up">0.55</div><div class="sub">Call-heavy positioning</div></div>
+    <div class="kpi"><div class="label">Avg Call IV</div><div class="value neu">29.7%</div><div class="sub">Elevated — event risk priced</div></div>
+    <div class="kpi"><div class="label">Avg Put IV</div><div class="value">16.1%</div><div class="sub">Near expiries 6/12–6/15</div></div>
+</div>
+<div class="co bl"><strong>📊 Options Read:</strong> Call IV (29.7%) running well above put IV (16.1%) on the June 12/15 expiries is unusual — the market is pricing headline risk in <em>both</em> directions around the equity-raise question (a confirmed raise = dump; an explicit denial or debt-only funding = rip). Positioning remains call-tilted (P/C OI 0.55): dip-buyers have not capitulated.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co bl"><strong>Pattern: steady scheduled officer selling, no buys.</strong><ul><li>LI SUSAN (CFO) — Sale 11,322 shares ≈ $6.9M (2026-05-18)</li><li>BOSWORTH ANDREW (CTO) — Sale 7,847 shares ≈ $4.8M (2026-05-18)</li><li>OLIVAN JAVIER (COO) — Sales 1,466 shares each on 2026-05-18, 05-26, 06-01 (~$0.9M each, 10b5-1 cadence)</li><li>MAHONEY CURTIS J (Officer) — Sale 2,079 shares ≈ $1.27M (2026-05-27)</li><li>KIMMITT ROBERT M (Director) — Sale 504 shares ≈ $317K (2026-06-01)</li><li>ZUCKERBERG MARK (CEO) — no open-market sales reported recently; holdings unchanged</li></ul>Read: Mechanical 10b5-1 sales post-blackout; no information content. The absence of any insider buy during a 28% drawdown is, however, worth noting.</div>
+
+<h2>📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">"Meta Stock Continues To Underperform: What Is Going On?"</span> · The Bull · June 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">META −9.5% YTD vs Nasdaq 100 +17.5% — a 27-point gap; worst megacap performer over 12 months. Attributes it to capex anxiety and the lack of an external compute monetization channel.</p></div>
+<div class="tw"><span class="au">JPMorgan (Doug Anmuth) — downgrade to Neutral</span> · May 2026 · <span class="st ber">Neutral (from OW)</span><p style="margin-top:8px; color:#475569">"Full-stack AI competition is intensifying and Meta has a more challenging path to returns on heavy AI capex beyond advertising." The street's clearest articulation of the bear case.</p></div>
+<div class="tw"><span class="au">"Meta Beat Q1 2026 Estimates but Fell 8.55%. Here's What the Selloff Is Missing"</span> · TIKR · May 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Argues the selloff ignores that the AI ad-lift is already in the P&amp;L (impressions +19%, price/ad +12% simultaneously) and that capex guides have historically front-run revenue by 12–18 months.</p></div>
+<div class="tw"><span class="au">"Meta Stock Drops on Capex Increase. Should You Buy the Dip?"</span> · Barchart · May 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">15.8x forward for 30%+ growth is the widest growth-multiple gap in megacap; consensus PT ~$854 at the time. Risk flagged: FCF approaching zero at capex midpoint.</p></div>
+<div class="tw"><span class="au">"Meta's stock sinks on report company could raise tens of billions"</span> · CNBC · June 5, 2026 · <span class="st ber">Event</span><p style="margin-top:8px; color:#475569">−5%+ session after report Meta may follow Alphabet's $85B raise with its own equity offering to fund AI. Until size/structure is confirmed or denied, this is the overhang.</p></div>
+
+<div class="co yw"><strong>Research Consensus:</strong> Street is still ~Strong Buy with PT ~$829 (+45%), but the JPM downgrade broke the unanimity and the PTs are stale post-June-4. The honest synthesis: best-in-class P&amp;L, worst-in-class capex narrative.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">Dilution hawks</span> · June 5–10 · <span class="st ber">Bearish</span><p style="margin-top:8px; color:#475569">Dominant thread since the CNBC report: "SMCI −28% on $7B, ORCL −5% on $40B — what does META get on $50B+?" The regime is punishing every raise; META's rumored one is the largest unconfirmed overhang in the market.</p></div>
+<div class="tw"><span class="au">Value buyers</span> · June 9–10 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"15.8x forward, 33% growth, 0.85 PEG, $124B OCF — this is 2022 all over again, and that bottom made careers." The 2022-analogy camp is loud but acknowledges 2022 also took a year to resolve.</p></div>
+<div class="tw"><span class="au">AI skeptics</span> · June · <span class="st ber">Bearish</span><p style="margin-top:8px; color:#475569">Muse Spark (the Superintelligence Labs model replacing Llama) gets good technical reviews but no revenue line; "where's the ROI" demands now extend to the $14.3B Scale AI deal and Alexandr Wang's org.</p></div>
+<div class="tw"><span class="au">Ad-channel checks</span> · June · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Advertiser-side commentary stays strong: Advantage+ adoption, Threads ad load ramping from a near-zero base, WhatsApp click-to-message growth in EM. The cash machine is not in question.</p></div>
+
+<div class="co bl"><strong>X Consensus:</strong> Genuinely split — the most contested Mag7 name. Bulls own the valuation math; bears own the tape and the funding question. Resolution catalyst: any official word on the raise.</div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>Equity-raise clarity</strong> — confirmation with modest size + Berkshire-style anchor (the GOOG playbook) or an outright denial/debt-only funding plan would lift the single biggest overhang; an open-ended large raise is the bear trigger</li>
+<li><strong>Q2 2026 earnings July 29</strong> — guided $58–61B (~+30% midpoint); any capex-discipline language or 2027 capex framing matters more than the revenue print</li>
+<li><strong>MTIA custom silicon roadmap</strong> — MTIA 300 already in ranking/recs, MTIA 400 in lab for GenAI inference; 6-month cadence to MTIA 500 — the structural answer to "ad-funded GPUs" and NVDA dependence</li>
+<li><strong>Muse Spark rollout</strong> (from Meta Superintelligence Labs under Alexandr Wang) across FB/IG/WhatsApp/Messenger/Ray-Ban — first ground-up post-Llama model; engagement lift would directly monetize via the ad engine</li>
+<li><strong>Opex leverage</strong> — 8,000 layoffs (May 20) + 6,000 req cancellations; Zuckerberg committed to no further company-wide cuts in 2026; FY26 expense guide $162–169B held while revenue compounds 30%</li>
+<li><strong>FTC appeal backdrop favorable</strong> — Judge Boasberg's Nov 2025 ruling that Meta holds no social-network monopoly stands while the FTC appeals (filed Jan 2026); district-court precedent is set</li>
+<li><strong>Threads monetization</strong> — 400M+ MAU, passed X in mobile DAU; ad load still nascent — unpriced optionality</li>
+<li><strong>AI ad-lift compounding</strong> — +3.5% FB clicks / +3% IG conversions from model improvements; this is the only Mag7 capex program whose returns are already visible in same-year revenue</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>Dilution</strong> — a confirmed multi-tens-of-billions equity raise in the current regime likely re-tests the 52W low ($520) regardless of terms. This is risk #1.</li>
+<li><strong>FCF math</strong> — at the $135B capex midpoint, 2026 FCF-after-capex approaches zero; the buyback (the historical floor under the stock) gets squeezed exactly when it's needed.</li>
+<li><strong>Ad-only monetization</strong> — JPM's point: no cloud to rent compute; if the ad cycle turns (recession risk rising with Fed hike odds), capex returns collapse with revenue. Macro-sensitive on both the cost and revenue side.</li>
+<li><strong>Macro/ad-cycle</strong> — 4.2% headline CPI, $91 oil and a hiking Fed historically compress brand-ad budgets; Meta's EM performance-ad base is more resilient but not immune. Iran conflict already dented user metrics in Q1.</li>
+<li><strong>FTC appeal</strong> — DC Circuit reversal risk on the Instagram/WhatsApp case is non-trivial (hence policyRisk: moderate), though district precedent favors Meta.</li>
+<li><strong>Superintelligence Labs execution</strong> — $14.3B Scale AI deal + top-dollar talent with no separate revenue line; Reality Labs already burns ~$16B/yr.</li>
+<li><strong>Regime risk</strong> — our own April top rating (84/86) preceded 23 points of underperformance vs QQQ; the lesson is that in a capital-intensity-graded market, cheap + fast-growing is not sufficient while the funding question is open.</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value up">Strong Buy</div><div class="sub">Mean 1.31 (n=59)</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value up">$828.80</div><div class="sub neu">+45% — stale post-crash</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$700.00</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$1,015.00</div></div>
+</div>
+<div class="co yw"><strong>⚠️ Staleness caveat:</strong> Even the LOW street target ($700) is 23% above spot — that is not bullishness, it is lag. Targets were set before the June 4–5 regime break and the raise report. Expect downward PT revisions; do not anchor on the +45%.</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data &amp; Methodology:</strong> All financial data from Yahoo Finance (yfinance) as of 2026-06-10 (price $570.98 intraday; day range $570.60–$591.30; prior close $584.59). Forward EPS <strong>$36.16</strong> consensus; trailing P/E <strong>20.7x</strong> on TTM EPS $27.52. Historical P/E: 20 quarterly observations, 5 years, outliers filtered. Three independent methods.</div>
+
+<h3>Method 1: P/E Multiple Approach</h3>
+<p style="color:#64748b; margin-bottom:12px">Each scenario applies a different P/E multiple to forward EPS of $36.16.</p>
+<table><thead><tr><th>Scenario</th><th>P/E</th><th>EPS</th><th>Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody><tr><td>Capex-panic (raise confirmed, big)</td><td>13.0x</td><td>$30.74</td><td>$399.62</td><td class="dn">-30%</td><td>2022-style derating; bear EPS = 85% of consensus on ad-cycle softness</td></tr>
+<tr><td>Conservative (current fwd multiple)</td><td>15.8x</td><td>$36.16</td><td>$571.33</td><td class="neu">~flat</td><td>Market keeps the fear multiple; stock only follows EPS</td></tr>
+<tr><td>Trailing-multiple hold</td><td>20.7x</td><td>$36.16</td><td>$748.51</td><td class="up">+31%</td><td>Forward earnings arrive, multiple unchanged</td></tr>
+<tr><td>5Y mean reversion</td><td>23.4x</td><td>$36.16</td><td>$846.14</td><td class="up">+48%</td><td>Historical average multiple restored</td></tr>
+<tr><td>GOOG Parity</td><td>24.4x</td><td>$36.16</td><td>$882.30</td><td class="up">+55%</td><td>Closest AI-platform comp; requires funding question resolved</td></tr>
+<tr><td>Optimistic (re-rate + beat)</td><td>22.0x</td><td>$39.78</td><td>$875.16</td><td class="up">+53%</td><td>+10% EPS beat; multiple between current trailing and GOOG parity</td></tr>
+</tbody></table>
+
+<h3>Method 2: Mean Reversion &amp; Consensus</h3>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">5Y Avg PE × Fwd EPS</div><div class="value up">$846.14</div><div class="sub up">+48% upside</div></div><div class="kpi"><div class="label">Mag7 Peer Avg PE × Fwd EPS</div><div class="value up">$907.62</div><div class="sub up">+59% upside</div></div><div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value up">$828.80</div><div class="sub neu">+45% — stale, discount it</div></div>
+</div>
+<div class="co bl"><strong>📐 Calculation Details:</strong><ul><li>5Y average P/E 23.4x (filtered, range 12x–35x) × forward EPS $36.16 = $846.14</li><li>Mag7 platform-peer average forward P/E 25.1x (MSFT 20.5x, GOOG 24.4x, AAPL 30.4x) × $36.16 = $907.62</li><li>Analyst consensus PT $828.80 (range $700–$1,015, n=59) — set pre-regime-break</li></ul></div>
+
+<h3>Method 3: Discounted Cash Flow (DCF)</h3>
+<p style="color:#64748b; margin-bottom:12px">10-year two-stage FCF model. TTM FCF ($25.6B) is capex-depressed; we model revenue growth with FCF margin ramping linearly from today's 11.9% of revenue to a normalized terminal margin by year 5. WACC 10%, terminal growth 3.0%, 2.54B shares. The bear case assumes the capex never normalizes (margin stuck at 16%).</p>
+<table><thead><tr><th>Scenario</th><th>Rev Growth</th><th>Normalized FCF Margin</th><th>WACC</th><th>Terminal Growth</th><th>Intrinsic Value</th><th>Upside</th></tr></thead>
+<tbody><tr><td>Bear (capex structural, ad cycle slows)</td><td>10.0%</td><td>16%</td><td>10.0%</td><td>3.0%</td><td>$328.03</td><td class="dn">-43%</td></tr>
+<tr><td>Base (capex digestion by 2029)</td><td>18.0%</td><td>24%</td><td>10.0%</td><td>3.0%</td><td>$885.25</td><td class="up">+55%</td></tr>
+<tr><td>Bull (AI lift compounds, pre-capex margins return)</td><td>26.0%</td><td>30%</td><td>10.0%</td><td>3.0%</td><td>$1,991.53</td><td class="up">+249%</td></tr>
+</tbody></table>
+<div class="co yw"><strong>⚖️ Honest read:</strong> The DCF spread ($328–$1,992) is the widest among the megacap platforms because META's value is almost entirely a bet on what FCF margin survives the capex cycle. Base-case DCF ($885), 5Y mean reversion ($846), and peer parity ($908) cluster remarkably tightly around <strong>$850–900</strong> — but ALL require the funding/dilution question to resolve benignly. The market is currently paying for something between bear and base.</div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$399.62</div><div class="mt">13x × $30.74 EPS (85% of consensus)</div><div class="us dn">-30%</div><div class="ds">Large dilutive raise confirmed into a hiking Fed; ad cycle slows with the economy; FCF goes negative; 2022-style trough multiple returns.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr up">$650.88</div><div class="mt">18x × $36.16 EPS</div><div class="us up">+14%</div><div class="ds">No raise or a modest, well-structured one; Q2 in line; capex held at guide; multiple recovers part-way to trailing as the dilution fear fades but the capex debate continues.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$875.16</div><div class="mt">22x × $39.78 EPS (+10% beat)</div><div class="us up">+53%</div><div class="ds">Raise denied/debt-funded, ad growth holds 28%+, MTIA savings hit the P&amp;L, macro fear fades — multiple re-rates toward GOOG parity and PTs become achievable again.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co gr"><p><strong>META</strong> is the Mag7's most contested name, and our April mistake is instructive: we top-rated it on the P&amp;L (which was right — +33% revenue, 82% gross margin, 0.85 PEG) and missed that the market had switched to grading capital intensity, where META screens worst: $125–145B capex with no cloud business to rent the compute, FCF-after-capex heading toward zero, and now a rumored tens-of-billions equity raise that cost the stock 5% in a day. At 15.8x forward — the cheapest multiple in the Mag7 for its fastest grower — the valuation case is overwhelming <em>if</em> the funding question resolves benignly: base DCF, 5Y mean reversion, and peer parity all cluster at $850–900. But the chart is broken (below both major SMAs, 10% above the 52W low), insiders aren't buying the dip, and a confirmed mega-raise into this tape likely means $520 before $700.</p><p><strong>Verdict: High-torque hold/accumulate-slowly — 12-month base case $651 (+14%), bull $875 (+53%) on funding clarity, bear $400 (−30%) on a large dilutive raise. Do not size this like a defensive; it is the Mag7's highest-variance bet.</strong></p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, Seeking Alpha, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, Seeking Alpha, X/Twitter, analyst consensus · 2026-06-10</p></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NVDA | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #16a34a, #15803d); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(22,163,74,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.cg { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 16px 0; }
+.cg img { width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, .cg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>NVDA — NVIDIA Corporation</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-06-10 · Sources: yfinance, CNBC, SEC filings, TheStreet, Yahoo Finance, analyst consensus</p>
+
+<div class="badge">📅 Next Earnings: 2026-08-26 (Q2 FY27) — ~77 days away · Company guided ~$91B revenue</div>
+
+<div class="co rd"><strong>🌐 Macro Context (regime check):</strong> Semis are the epicenter of 2026's worst drawdown. June 4–5: Nasdaq -4.2% (AVGO -14%, MU -13.3%, INTC -11.3%, AMD -10.9%, <strong>NVDA -6%</strong>) after a shock May jobs report (172k payrolls, ~2x consensus) sent December <em>rate-hike</em> odds to ~43% from near zero — "higher-for-longer or higher." June 10: core CPI cooled (+0.2% m/m vs +0.3% exp) yet the S&amp;P fell -1.6% to a 5-week low — good news can't get bought. Headline CPI 4.2% on energy (gasoline +40% y/y), WTI ~$91 after US strikes on Iran and a declared Strait of Hormuz blockade. The AI trade's grading standard has shifted: ORCL fell ~5% AH despite OCI +93% and RPO $638B (FY27 capex ~$70B + $40B raise planned); SMCI -28% on a $7B equity raise. The market now penalizes <strong>capital intensity and dilution risk</strong>, not AI demand — which remains contracted. VIX 22.2, 10Y 4.54%, Fear &amp; Greed 27 (extreme fear), QQQ -5.1% off highs but +13.7% above its 200dma. NVDA slipped back below the $5T market-cap line it first crossed in May.</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$200.42</div><div class="sub dn">-15.3% from 52W High · -3.7% today</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$4.85T</div><div class="sub">Shares: 24.2B · back below $5T</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value">31.9x</div><div class="sub up">EPS: $6.29</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value up">15.7x</div><div class="sub">Fwd EPS: $12.73</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">$253.5B</div><div class="sub up">+85.2% YoY</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value up">74.1%</div><div class="sub">Q1 FY27: 74.9%</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value up">65.6%</div><div class="sub">Best-in-class</div></div>
+    <div class="kpi"><div class="label">Net Margin</div><div class="value up">63.0%</div><div class="sub">TTM NI: $159.6B</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">1-Month Return</div><div class="value dn">-8.6%</div><div class="sub">1W: -6.6%</div></div>
+    <div class="kpi"><div class="label">3-Month Return</div><div class="value up">+7.9%</div><div class="sub">6M: +8.1%</div></div>
+    <div class="kpi"><div class="label">12-Month Return</div><div class="value up">+40.7%</div><div class="sub">From $142.43</div></div>
+    <div class="kpi"><div class="label">Net Cash</div><div class="value up">~$40B</div><div class="sub">$53.2B cash / $12.8B debt</div></div>
+</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter</th><th>Revenue</th><th>Net Income</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th><th>Diluted EPS</th></tr></thead>
+<tbody><tr><td>2026-04-30 (Q1 FY27)</td><td>$81.6B <span class="up">↑↑</span></td><td>$58.3B</td><td>74.9%</td><td>65.6%</td><td>71.5%</td><td>$2.39</td></tr>
+<tr><td>2026-01-31 (Q4 FY26)</td><td>$68.1B <span class="up">↑↑</span></td><td>$43.0B</td><td>75.0%</td><td>65.0%</td><td>63.1%</td><td>$1.76</td></tr>
+<tr><td>2025-10-31 (Q3 FY26)</td><td>$57.0B <span class="up">↑↑</span></td><td>$31.9B</td><td>73.4%</td><td>63.2%</td><td>56.0%</td><td>$1.30</td></tr>
+<tr><td>2025-07-31 (Q2 FY26)</td><td>$46.7B <span class="up">↑</span></td><td>$26.4B</td><td>72.4%</td><td>60.8%</td><td>56.5%</td><td>$1.08</td></tr>
+<tr><td>2025-04-30 (Q1 FY26)</td><td>$44.1B —</td><td>$18.8B</td><td>60.5%</td><td>49.1%</td><td>42.6%</td><td>$0.76</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>🔥 Fundamentals unchanged since the May print:</strong> Q1 FY27 (reported May 2026) delivered $81.6B revenue (+85% YoY, +20% QoQ) with gross margin back at 74.9% post the Blackwell-ramp dip. Q2 FY27 guide is ~$91B (+56% YoY at midpoint). Per the company's Q1 FY27 8-K/CFO commentary (SEC, May 2026), supply commitments nearly doubled to <strong>$95.2B</strong> — a forward bet on demand that also becomes a liability if AI capex flattens. The June drawdown is a macro/financing repricing, not an estimate cut: consensus FY27 numbers have not come down.</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Revenue Stream</th><th>Q1 FY27 Amount</th><th>% of Total</th><th>YoY Trend</th><th>Notes</th></tr></thead>
+<tbody><tr><td><strong>Data Center — Compute</strong></td><td>~$64B</td><td>~78%</td><td class="up">+92% YoY</td><td>Blackwell B200/B300 + GB300 rack systems; cloud GPUs sold out</td></tr>
+<tr><td><strong>Data Center — Networking</strong></td><td>~$11B</td><td>~14%</td><td class="up">+267% YoY</td><td>NVLink 6, Spectrum-X Ethernet (&gt;$10B run rate), Quantum InfiniBand</td></tr>
+<tr><td><strong>Gaming</strong></td><td>~$4.0B</td><td>~5%</td><td class="up">+30% YoY</td><td>RTX 50-series; RTX Spark expands into Windows-on-Arm PCs (vs QCOM)</td></tr>
+<tr><td><strong>Professional Visualization</strong></td><td>~$0.6B</td><td>~0.7%</td><td class="up">+25% YoY</td><td>Omniverse, RTX workstation for AI design</td></tr>
+<tr><td><strong>Automotive &amp; Robotics</strong></td><td>~$0.7B</td><td>~0.9%</td><td class="up">+85% YoY</td><td>DRIVE Thor, Isaac platform, AV partnerships</td></tr>
+</tbody></table>
+
+<div class="co yw"><strong>📊 Concentration Note:</strong> Data Center is ~92% of revenue, and roughly half of DC revenue comes from hyperscalers that are simultaneously building custom silicon (TPU v7, Maia 200, Trainium 3 — AMZN's Trainium is already a multi-billion-dollar business). In the new regime the second-order risk is sharper: those same customers are funding capex with debt/equity raises the market has begun to penalize (ORCL, META, GOOG, rumored OpenAI/Anthropic raises; SpaceX's largest-ever IPO prices Friday and drains liquidity).</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl dn">33.2</div><div class="nt dn">Approaching oversold</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl dn">$204.79</div><div class="nt dn">Price below (-2.1%)</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl up">$188.68</div><div class="nt up">Price above (+6.2%)</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl dn">-0.14</div><div class="nt dn">Bearish (below signal 2.52)</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$236.54</div><div class="nt dn">-15.3%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$140.85</div><div class="nt up">+42.3%</div></div>
+</div>
+
+<div class="co yw"><strong>⚠️ Technical Signal:</strong> The June 4–10 macro shock broke the stock below its 50-day ($204.79) for the first time since March, with RSI at 33 nearing oversold and MACD flipping negative. The 200-day at $188.68 is the key trend line — it held the December 2025 and March 2026 pullbacks and is still rising. Pattern: $236.54 high (May) → $200 now; -15% is a correction within an intact primary uptrend, but momentum is firmly with sellers this week. We make no short-term call (our own backtests show ~zero rank correlation of scores with 2–6 week returns); the levels matter only for framing 12-month entry risk.</div>
+
+<h2>📊 Charts</h2>
+<div class="cg"><p style="color:#64748b; padding:20px; text-align:center; grid-column:1/-1">Chart images generated server-side at publish time. Reference: 12-month price action $142 → $237 → $200; June 4–10 semis-led selloff broke the 50dma; 200dma rising at ~$189.</p></div>
+
+<h2>📏 Historical Valuation</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Current Trailing P/E</div><div class="value neu">31.9x</div></div>
+    <div class="kpi"><div class="label">5Y Avg P/E*</div><div class="value">58.4x</div><div class="sub">*Outliers filtered (PE&lt;100)</div></div>
+    <div class="kpi"><div class="label">5Y P/E Range</div><div class="value">28x – 92x</div></div>
+    <div class="kpi"><div class="label">Percentile</div><div class="value up">~18th</div><div class="sub">Near bottom of range</div></div>
+</div>
+
+<div class="co gr"><strong>📐 Mean Reversion Read:</strong> At 31.9x trailing / 15.7x forward, NVDA is at the cheapest forward multiple in its modern history — cheaper than during the 2022 bear market trough on a forward basis. A defensible 30x on forward EPS of $12.73 implies <strong>$381.90</strong> (+91%). We deliberately do not apply the 58.4x historical average: law-of-large-numbers compression at a $4.9T base makes that ceiling illusory. The retrospective lesson cuts both ways — we have repeatedly faded AI-compute winners on valuation anchoring while they doubled, but the regime now punishes capital intensity, so multiple re-rating likely waits for rate-fear to clear rather than for an earnings beat.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Company</th><th>Price</th><th>MCap</th><th>Trail P/E</th><th>Fwd P/E</th><th>Rev Growth</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th></tr></thead>
+<tbody><tr class="hl"><td><strong>NVDA</strong></td><td>$200.42</td><td>$4.85T</td><td>31.9x</td><td>15.7x</td><td>85.2%</td><td>74.1%</td><td>65.6%</td><td>63.0%</td></tr>
+<tr><td><strong>AMD</strong></td><td>$452.40</td><td>$738B</td><td>151.3x</td><td>34.6x</td><td>37.8%</td><td>53.1%</td><td>14.4%</td><td>13.4%</td></tr>
+<tr><td><strong>AVGO</strong></td><td>$372.10</td><td>$1.77T</td><td>61.7x</td><td>19.2x</td><td>47.9%</td><td>76.3%</td><td>49.0%</td><td>38.8%</td></tr>
+<tr><td><strong>TSM</strong></td><td>$408.75</td><td>$2.12T</td><td>35.1x</td><td>20.9x</td><td>35.1%</td><td>61.9%</td><td>58.1%</td><td>46.5%</td></tr>
+<tr><td><strong>MU</strong></td><td>$891.88</td><td>$1.01T</td><td>42.0x</td><td>8.0x</td><td>196.3%</td><td>58.4%</td><td>67.6%</td><td>41.5%</td></tr>
+<tr><td><strong>INTC</strong></td><td>$107.04</td><td>$538B</td><td>—</td><td>69.6x</td><td>7.2%</td><td>37.2%</td><td>6.9%</td><td>-5.9%</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>🔍 Discount Alert:</strong> NVDA's 15.7x forward P/E is the lowest in the peer set bar memory-cyclical MU, despite the highest growth (85%) and margins (63% net). Peer average forward P/E ex-INTC/MU (AMD 34.6x, AVGO 19.2x, TSM 20.9x) is 24.9x — at that multiple NVDA is worth <strong>$317</strong> (+58%). Note MU's 8.0x forward on +196% growth: the market now refuses to capitalize cyclical-peak AI earnings at premium multiples anywhere in the complex.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value up">0.68</div><div class="sub">Calls dominate (Jun 18 exp)</div></div>
+    <div class="kpi"><div class="label">P/C Open Interest</div><div class="value up">0.32</div><div class="sub">Heavily call-biased</div></div>
+    <div class="kpi"><div class="label">Front IV</div><div class="value neu">Elevated</div><div class="sub">VIX 22 regime</div></div>
+    <div class="kpi"><div class="label">Next Expiry</div><div class="value">06-12</div><div class="sub">Weekly</div></div>
+</div>
+
+<div class="co bl"><strong>📊 Options Read:</strong> Even through a -6.6% week, P/C open interest of 0.32 on the June 18 monthly remains one of the most call-skewed books in megacap — the options market has not capitulated. Put volume picked up (P/C vol 0.68 vs 0.57 in late May) as macro hedging flowed in, but there is no sign of panic put accumulation specific to NVDA. Earnings (Aug 26) is outside front-month expiries, so current premium is macro-driven, not event-driven.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co yw"><strong>Insider holdings:</strong> ~4.0% of shares. Recent activity skews to disposals — Yahoo Finance notes all 52 insider transactions in the past three months were sales or gifts, zero open-market buys.<ul>
+<li>STEVENS MARK A (Director) — Sold <strong>1,000,000 shares @ $217.66–$222.38 = $221.1M</strong> on 2026-06-04 (the day of the semis crash); plus a 307.5K-share stock gift same day</li>
+<li>NEAL STEPHEN C. (Director) — Sold 15.5K shares @ $215.73 = $3.3M · 2026-06-03</li>
+<li>DABIRI JOHN O (Director) — Sold 625 shares @ $214.00 · 2026-05-27</li>
+<li>KRESS COLETTE M (CFO) — Sold 62.7K shares @ $171.97–$177.51 = $11.0M · 2026-03-20 (10b5-1)</li>
+<li>HUANG JEN-HSUN (CEO) — March stock gift of 58.96M shares (charitable/estate planning); no open-market sales</li>
+</ul>Pattern: systematic and event-adjacent director selling into the $215–$222 zone right before/through the crash. Not a thesis-breaker, but the $221M Stevens print on June 4 is poor optics.</div>
+
+<h2>📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">"Nvidia Stock Nearing 52-Week High: Buy, Sell or Hold?"</span> · Yahoo Finance/Zacks syndication · early Jun 2026 · <span class="st net">Hold-leaning</span><p style="margin-top:8px; color:#475569">Written just before the crash: flags H200 GPU rental prices down ~38% as a hint of softening spot/secondary demand, and hyperscaler custom-silicon ramp as the structural share risk — while conceding the forward multiple screens cheap.</p></div>
+<div class="tw"><span class="au">"NVIDIA (NVDA) Stock in 2026: Blackwell Demand, Record Revenue, Key Risks"</span> · Phemex Academy · Jun 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Blackwell demand exceeds supply; supply commitments nearly doubled to $95.2B; deployed at every major cloud. Risk framing: $119B total purchase commitments become a liability if AI capex flattens.</p></div>
+<div class="tw"><span class="au">"Can Blackwell and Vera Rubin Take NVDA Back to $300?"</span> · BingX Research · Jun 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Rubin platform = six new chips targeting up to 10x reduction in inference token cost vs Blackwell; big-4 cloud capex projected ~$700B in 2026, the majority AI infrastructure flowing through NVDA's data center line.</p></div>
+<div class="tw"><span class="au">"Bank of America resets Nvidia stock price target"</span> · TheStreet · May 13, 2026 · <span class="st bul">Buy, PT $320</span><p style="margin-top:8px; color:#475569">Vivek Arya raised PT $300 → $320; lifts AI data-center TAM estimate to ~$1.7T by 2030 (from $1.4T). Pre-dates the June 4–5 repricing.</p></div>
+
+<div class="co bl"><strong>Research Consensus:</strong> Demand-side work remains uniformly bullish (sold-out Blackwell, $95.2B supply commitments, $700B big-4 capex). The new bear literature is financing-side: rental-price softness, customer dilution risk, and rate regime. Nobody credible is cutting FY27 estimates yet.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">AI-infra bulls (dominant cohort)</span> · Jun 8–10, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Theme: "Demand didn't change between June 3 and June 5 — the discount rate did." Sub-16x forward on 85% growth framed as the best entry since early 2024; Polymarket's most active June contract clusters at a $208 print (63.5% prob), i.e. traders expect stabilization, not cascade.</p></div>
+<div class="tw"><span class="au">Macro/capital-cycle bears</span> · Jun 9–10, 2026 · <span class="st ber">Bearish</span><p style="margin-top:8px; color:#475569">Theme: ORCL's $40B raise + SMCI's $7B raise + GOOG/META raises = the AI buildout is now debt/equity-funded, and NVDA's revenue is the expense line of levered customers. H200 rental -38% cited as the canary. December hike odds at 43% kill the duration trade.</p></div>
+<div class="tw"><span class="au">Positioning watchers</span> · Jun 10, 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">Theme: Fear &amp; Greed 27, VIX 22, QQQ still +13.7% above its 200dma — "a correction in an uptrend until proven otherwise." Director Stevens' $221M June 4 sale circulating as bearish optics.</p></div>
+
+<div class="co yw"><strong>X Consensus:</strong> Split for the first time since 2025 — bulls own the fundamentals argument, bears own the tape. The debate has moved from "is AI demand real?" (settled: yes, contracted) to "who pays for it and at what cost of capital?"</div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>Q2 FY27 earnings (Aug 26, 2026):</strong> Guided ~$91B ±2% revenue (+56% YoY) at 74.9–75.0% gross margin. A guide-and-beat with steady FY27 commentary is the cleanest re-rating trigger once macro stabilizes.</li>
+<li><strong>Vera Rubin volume ramp (H2 2026 → Q1 2027):</strong> Six-chip platform targeting up to 10x lower inference token cost vs Blackwell — directly counters the ASIC cost-per-token attack and resets the upgrade cycle.</li>
+<li><strong>Big-4 hyperscaler 2026 capex ~$700B:</strong> The majority AI infrastructure; NVDA captures the dominant share of accelerator spend. Backlogs are contracted — the demand leg of the thesis is not the debate.</li>
+<li><strong>Rate-fear reversal:</strong> The June 10 CPI was actually cool (core +0.2%). If December hike odds (~43%) fade on the next payrolls/CPI prints, the highest-beta quality name in the complex (beta 2.2) snaps back hardest.</li>
+<li><strong>China H20/H200-class licensing:</strong> Advanced DC-GPU sales to China remain restricted (the 15%-revenue-share license framework covers only a compliant subset). Any broadening is pure upside not in consensus; status quo is the baseline.</li>
+<li><strong>Sovereign AI buildouts:</strong> UAE, Saudi HUMAIN, EU programs — $50B+ TAM by 2028, diversifying away from the four US hyperscalers.</li>
+<li><strong>Networking compounding:</strong> $11B/qtr (+267% YoY), Spectrum-X &gt;$10B run-rate at compute-like margins.</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>AI capital-cycle financing (the new #1):</strong> NVDA's revenue is funded by customers now raising debt/equity at rising rates (ORCL $40B, SMCI $7B, GOOG/META; OpenAI/Anthropic rumored). If the financing window narrows, orders stretch right even though demand is real. This is a timing risk to FY28 estimates, not a demand-existence risk.</li>
+<li><strong>Rate regime:</strong> Dec hike odds ~43%, 10Y 4.54% and rising. At beta 2.2, NVDA is the long-duration proxy of the whole market; multiple expansion is unlikely while "good news can't get bought."</li>
+<li><strong>China export controls (policyRisk: elevated):</strong> A full DC-GPU segment remains banned; the $4.5B FY26 inventory charge already taken. China AI-accelerator TAM (~$50B by 2028) is largely forgone at baseline, and the policy can tighten further around Taiwan/Iran escalation.</li>
+<li><strong>Custom ASIC substitution:</strong> TPU v7, Maia 200, Trainium 3 (already multi-billion at AMZN), MTIA — inference share projected to erode meaningfully by 2028. Mitigants: training share intact, CUDA's ~5M developers, Rubin's 10x token-cost reduction.</li>
+<li><strong>Spot-market softness:</strong> H200 rental prices -38% — the secondary market is the first place oversupply would show. Watch whether Blackwell rental rates follow.</li>
+<li><strong>Purchase-commitment leverage:</strong> $119B total supply commitments ($95.2B near-doubled component) — a powerful weapon in shortage, a write-down generator if capex flattens (2018 crypto-hangover playbook).</li>
+<li><strong>Insider optics:</strong> 52 consecutive disposal transactions; $221M director sale on crash day. 10b5-1 plans, but zero open-market buys at -15% off highs.</li>
+<li><strong>Geopolitics:</strong> Hormuz blockade/oil at $91 pressures the macro tape; Taiwan single-source (TSMC CoWoS-L) remains the existential tail.</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value up">Strong Buy</div><div class="sub">59 analysts · 1.29 mean</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value up">$298.42</div><div class="sub up">+49% vs price</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$180.00</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$500.00</div></div>
+</div>
+<div class="co yw"><strong>⚠️ Stale-PT Warning (TIGR lesson):</strong> The $298 mean was set almost entirely before the June 4–10 drawdown (BofA's $320 dates to May 13). After sharp macro drops, "upside to PT" is mechanically inflated and should not be read as fresh conviction. Expect target marks lower if the regime persists — without any estimate cuts.</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data &amp; Methodology:</strong> All market data from Yahoo Finance (yfinance) as of 2026-06-10 intraday ($200.42; day range $199.92–$207.22; market cap cross-checked: 24.22B shares × $200.42 = $4.85T ✓). Forward EPS <strong>$12.73</strong> = consensus (59 analysts). Trailing P/E 31.9x on TTM EPS $6.29. Three independent methods triangulate fair value; all are 12-month frameworks — we explicitly do not make 2–6 week calls.</div>
+
+<h3>Method 1: P/E Multiple Approach</h3>
+<table><thead><tr><th>Scenario</th><th>P/E</th><th>EPS</th><th>Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody><tr><td>Conservative (current multiple)</td><td>15.7x</td><td>$12.73</td><td>$199.86</td><td class="neu">~0%</td><td>No re-rating; market keeps the fear-regime multiple</td></tr>
+<tr><td>AVGO parity</td><td>19.2x</td><td>$12.73</td><td>$244.42</td><td class="up">+22%</td><td>Match the closest AI-infra comp post-crash</td></tr>
+<tr><td>TSM parity</td><td>20.9x</td><td>$12.73</td><td>$266.06</td><td class="up">+33%</td><td>Foundry-monopoly multiple on far higher growth</td></tr>
+<tr><td>Base (peer avg ex-INTC/MU)</td><td>24.9x</td><td>$12.73</td><td>$316.98</td><td class="up">+58%</td><td>Avg of AMD 34.6x, AVGO 19.2x, TSM 20.9x</td></tr>
+<tr><td>Mean reversion (capped)</td><td>30.0x</td><td>$12.73</td><td>$381.90</td><td class="up">+91%</td><td>Bottom slice of filtered 5Y range (28x–92x)</td></tr>
+<tr><td>Optimistic (beat + re-rate)</td><td>26.0x</td><td>$14.00</td><td>$364.00</td><td class="up">+82%</td><td>+10% EPS beat, partial re-rating as rate fear clears</td></tr>
+</tbody></table>
+
+<h3>Method 2: Mean Reversion &amp; Consensus</h3>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">30x (capped 5Y) × Fwd EPS</div><div class="value up">$381.90</div><div class="sub up">+91% upside</div></div><div class="kpi"><div class="label">Peer Avg PE × Fwd EPS</div><div class="value up">$316.98</div><div class="sub up">+58% upside</div></div><div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value up">$298.42</div><div class="sub neu">+49% (stale — see warning)</div></div>
+</div>
+
+<h3>Method 3: Discounted Cash Flow (DCF)</h3>
+<p style="color:#64748b; margin-bottom:12px">10-year DCF on owner-earnings proxy of $128B (TTM net income $159.6B × ~80% cash conversion — reported FCF of $46B is depressed by inventory/prepayment build for the Blackwell/Rubin ramp), plus $40B net cash. Growth fades linearly to terminal.</p>
+<table><thead><tr><th>Scenario</th><th>Growth (Yr1 → Yr10)</th><th>WACC</th><th>Terminal Growth</th><th>Intrinsic Value</th><th>Upside</th></tr></thead><tbody>
+<tr><td>Bear (capex air-pocket 2027)</td><td>20% → 2%</td><td>11.0%</td><td>2.5%</td><td>$126</td><td class="dn">-37%</td></tr>
+<tr><td>Base (financed but slower cycle)</td><td>35% → 4%</td><td>10.5%</td><td>3.0%</td><td>$258</td><td class="up">+29%</td></tr>
+<tr><td>Bull (Rubin supercycle + China)</td><td>48% → 6%</td><td>10.0%</td><td>3.5%</td><td>$500</td><td class="up">+149%</td></tr>
+</tbody></table>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$149</div><div class="mt">13x × $11.46 EPS (-10% miss)</div><div class="us dn">-26%</div><div class="ds">Fed hikes in December, hyperscaler financing window narrows, orders push right, ASIC share loss accelerates. Multiple compresses to memory-like levels.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr up">$280</div><div class="mt">22x × $12.73 EPS</div><div class="us up">+40% upside</div><div class="ds">Aug 26 guide holds ~$91B+, Rubin ships on time, rate-hike odds fade by Q4. Multiple recovers partway toward peer average; no heroics required.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$392</div><div class="mt">28x × $14.00 EPS (+10% beat)</div><div class="us up">+96% upside</div><div class="ds">Rubin earns ASP premium, China licensing broadens, sovereign AI accelerates, Fed cuts return to the table. Re-rate toward (not to) historical norms.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co gr"><p><strong>NVIDIA at $200 is the same company it was at $237 two weeks ago — what changed is the market's grading rubric.</strong> The June 4–5 semis crash (NVDA -6%, then a slide back below $5T) was triggered by a rate-hike scare and amplified by a new fear: that the AI buildout's <em>financing</em> — ORCL's $40B raise, SMCI's dilution, leveraged neocloud debt — is the cycle's weak link. NVDA's $95.2B of supply commitments and $119B purchase obligations make it structurally long that financing cycle.</p>
+<p>Against that: 85% trailing growth, 63% net margins, ~$40B net cash, Blackwell sold out, Q2 FY27 guided to ~$91B, and Rubin's 10x inference-token-cost reduction landing into H2 2026 — at <strong>15.7x forward earnings</strong>, the cheapest in the company's modern history. Our own retrospective shows we systematically over-faded AI-compute winners on valuation anchoring (AMD, MU doubled against our caution); we won't repeat that. But we also won't momentum-chase into a regime that just demonstrated it can knock 6% off the best balance sheet in tech on a jobs print.</p>
+<p>The 12-month balance: demand is contracted reality, the financing anxiety is a timing risk, and the multiple already prices meaningful deceleration. Bear $149 (-26%) requires a Fed hike <em>and</em> a capex air-pocket; base $280 (+40%) requires only that estimates hold and rate panic fades; bull $392 (+96%) needs Rubin + China + cuts. Asymmetry remains clearly positive — wider than in May, with a deeper bear tail than the old regime priced.</p>
+<p><strong>12-month base case: $280 (+40%). Key catalyst: Q2 FY27 earnings Aug 26. Key risk monitor: hyperscaler financing terms and Blackwell rental-market pricing.</strong></p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, CNBC, SEC filings, TheStreet. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, CNBC, SEC, TheStreet, analyst consensus · 2026-06-10</p></div>
+</div>
+</body>
+</html>

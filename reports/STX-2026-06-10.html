@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>STX | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>STX — Seagate Technology Holdings plc</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-06-10 · Sources: yfinance, Seeking Alpha, X/Twitter, analyst consensus, web research</p>
+
+<div class="badge">📅 Next Earnings: 2026-07-28 (FQ4'26) — ~7 weeks away · Guide: Rev $3.45B ±$100M, non-GAAP EPS $5.00 ±$0.20</div>
+
+<div class="co rd"><strong>🌐 Macro Context (June 10, 2026):</strong> The AI-hardware complex just had its worst week of the year. June 4–5: Nasdaq -4.2% after a shock May jobs report (172k payrolls, ~2x consensus) lifted December Fed <em>rate-hike</em> odds to ~43%; semis were the epicenter (AVGO -14%, MU -13.3%, a memory ETF -15%). STX fell -9.9% over the two sessions ($940.69 → $847.47) — less than memory peers, cushioned by its sold-out order book. Today (June 10) a cool core CPI (+0.2% vs +0.3% exp) still produced an S&P -1.6% close at a 5-week low; STX -3.5% to $815.99. VIX 22.2, Fear &amp; Greed 27 (extreme fear), 10Y 4.54%, WTI ~$91 on the Iran/Hormuz escalation. The market's new test is capital intensity and dilution (ORCL -5% on capex guide, SMCI -28% on a $7B raise) — STX screens <em>well</em> on this test: management explicitly chose density (HAMR) over greenfield factories, capex stays ~5-8% of revenue, and FCF funds buybacks and the dividend.</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$815.99</div><div class="sub dn">-15.6% from 52W High ($966.80 intraday) · -3.5% today</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$183.0B</div><div class="sub">Shares: 224.2M</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value">77.5x</div><div class="sub">TTM EPS: $10.53 (trough-distorted)</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value neu">30.5x</div><div class="sub">Fwd EPS: $26.76</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">$11.0B</div><div class="sub up">+44.1% YoY</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value up">41.6% GAAP</div><div class="sub">FQ3 non-GAAP: 47.0% record</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value up">35.7%</div><div class="sub">FCF TTM: $1.6B</div></div>
+    <div class="kpi"><div class="label">Net Margin</div><div class="value up">21.6%</div><div class="sub">Dividend yield ~0.4%</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">1-Week Return</div><div class="value dn">-13.3%</div><div class="sub">Crash + CPI-day fade</div></div>
+    <div class="kpi"><div class="label">1-Month Return</div><div class="value dn">-2.2%</div><div class="sub">3-mo +111.8% · 6-mo +187.2%</div></div>
+    <div class="kpi"><div class="label">P/S (TTM)</div><div class="value dn">16.6x</div><div class="sub">vs ~2x historical</div></div>
+    <div class="kpi"><div class="label">Short Interest</div><div class="value">4.6%</div><div class="sub">of float · Beta 2.08</div></div>
+</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter</th><th>Revenue</th><th>Net Income</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th><th>Diluted EPS</th></tr></thead>
+<tbody>
+<tr class="hl"><td>2026-03-31 (FQ3'26)</td><td>$3.11B <span class="up">↑</span></td><td>$748M</td><td>46.5%</td><td>35.7%</td><td>24.0%</td><td>$3.27</td></tr>
+<tr><td>2025-12-31 (FQ2'26)</td><td>$2.83B <span class="up">↑</span></td><td>$593M</td><td>41.6%</td><td>29.9%</td><td>21.0%</td><td>$2.60</td></tr>
+<tr><td>2025-09-30 (FQ1'26)</td><td>$2.63B <span class="up">↑</span></td><td>$549M</td><td>39.4%</td><td>26.9%</td><td>20.9%</td><td>$2.43</td></tr>
+<tr><td>2025-06-30 (FQ4'25)</td><td>$2.44B <span class="up">↑</span></td><td>$488M</td><td>37.4%</td><td>23.8%</td><td>20.0%</td><td>$2.24</td></tr>
+<tr><td>2025-03-31 (FQ3'25)</td><td>$2.16B —</td><td>$340M</td><td>35.2%</td><td>20.4%</td><td>15.7%</td><td>$1.57</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>🔥 Five consecutive quarters of sequential margin expansion:</strong> FQ3'26 revenue $3.11B (+44% YoY) with record 47.0% non-GAAP GM and record $953M quarterly FCF — growth driven by ASP/mix (HAMR Mozaic), not volume. FQ4 guide ($3.45B / $5.00 non-GAAP EPS) implies +11% QoQ and another margin step-up. Management raised long-term annual revenue growth outlook to ≥20% with nearline capacity almost fully allocated through 2027 (Seagate 8-K, FY2026).</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Revenue Stream</th><th>FQ3'26</th><th>% of Total</th><th>YoY Trend</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td><strong>Mass Capacity (Nearline HDD)</strong></td><td>~$2.55B</td><td>~82%</td><td class="up">+55% YoY</td><td>~90% of exabyte shipments; hyperscaler build-to-order contracts through FY2027</td></tr>
+<tr><td><strong>Legacy &amp; Other</strong></td><td>~$0.56B</td><td>~18%</td><td class="neu">Stable</td><td>Client/edge HDD, consumer, VIA Systems, services</td></tr>
+</tbody></table>
+
+<div class="co bl"><strong>📦 Supply story intact — and now industry-wide:</strong> Both Seagate and WDC confirm HDDs are sold out through calendar 2026, with long-term agreements (exabyte volumes + locked pricing) extending into 2027–2028 (heise, Tom's Hardware, June 2026). Channel pricing is still rising — 20TB drives +12% since December, with another ~5% retail hike forecast by June; lead times for integrators exceed 26 weeks. Mozaic 4 (44TB HAMR) began revenue shipments late March and should be the majority of HAMR exabytes exiting CY2026; HAMR crossover (&gt;50% of nearline EBs) targeted H2 CY2026. Unlike consumer-exposed memory, STX has near-zero smartphone exposure — IDC's -13% 2026 handset forecast barely touches the nearline cold-storage TAM.</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl neu">58.7</div><div class="nt">Cooled from overbought</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl up">$694.32</div><div class="nt up">Price +18% above</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl up">$396.23</div><div class="nt up">Price +106% above</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl dn">47.8</div><div class="nt dn">Below signal (62.6) — momentum broken</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$966.80</div><div class="nt dn">-15.6%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$124.63</div><div class="nt up">+555%</div></div>
+</div>
+
+<div class="co yw"><strong>⚠️ Technical Signal:</strong> June 3 close $940.69 (all-time closing high) → June 5 $847.47 (-9.9% in two sessions), a failed bounce to $876.77 on June 8 (+3.5%, on the Mizuho PT raise), then -3.5% and -2.5% fades into today's $815.99. MACD has crossed decisively below signal. STX held up better than memory peers in the crash (its order book is contracted, not spot-priced), but the 1-month return is now -2.2% — the May rally fully round-tripped. Supports: $750 (May consolidation shelf), then the 50DMA at $694. Daily realized vol is ~4% — normal swings are large; don't over-read single sessions.</div>
+
+<h2>📏 Historical Valuation</h2>
+<table><thead><tr><th>Metric</th><th>Current</th><th>5Y Avg</th><th>5Y Range</th><th>Interpretation</th></tr></thead>
+<tbody>
+<tr><td>Forward P/E</td><td class="neu">30.5x</td><td>~14x</td><td>6x – 38x</td><td>2x history — the AI-storage re-rate is mostly priced</td></tr>
+<tr><td>Trailing P/E</td><td>77.5x</td><td>~22x</td><td>—</td><td>Distorted by trough FY25 quarters in TTM</td></tr>
+<tr><td>P/S</td><td class="dn">16.6x</td><td>~2.0x</td><td>1x – 18x</td><td>8x history; margin re-rating explains part, not all</td></tr>
+<tr><td>EV/EBITDA</td><td class="neu">~53x trailing / ~25x fwd</td><td>~10x</td><td>—</td><td>High end of any HDD-era range</td></tr>
+</tbody></table>
+
+<div class="co yw"><strong>📐 Re-rating Caveat:</strong> STX has structurally exited its HDD-commodity valuation band; full mean reversion to ~14x forward would require the AI-storage thesis to break outright ($375 — we treat that as a tail, not a target, given contracted FY27 visibility). The honest anchor is the HDD peer set: WDC at 27.5x forward with comparable growth. STX's ~3-point premium = its 12–18 month HAMR commercialization lead.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Ticker</th><th>Company</th><th>Price</th><th>Market Cap</th><th>Fwd P/E</th><th>Rev Growth</th><th>Gross Margin</th><th>Op Margin</th></tr></thead>
+<tbody>
+<tr class="hl"><td><strong>STX</strong></td><td>Seagate</td><td>$815.99</td><td>$183.0B</td><td>30.5x</td><td class="up">+44.1%</td><td>41.6%</td><td class="up">35.7%</td></tr>
+<tr><td>WDC</td><td>Western Digital</td><td>$490.09</td><td>$168.9B</td><td>27.5x</td><td class="up">+45.5%</td><td>45.4%</td><td>37.0%</td></tr>
+<tr><td>MU</td><td>Micron</td><td>$891.88</td><td>$1,005.8B</td><td>8.0x</td><td class="up">+196%</td><td>58.4%</td><td>67.6%</td></tr>
+<tr><td>NVDA</td><td>NVIDIA (ref.)</td><td>$200.42</td><td>$4,854B</td><td>15.7x</td><td class="up">+85.2%</td><td>74.1%</td><td>65.6%</td></tr>
+</tbody></table>
+
+<div class="co bl"><strong>🆚 Read:</strong> STX trades at a modest premium to WDC (30.5x vs 27.5x) for near-identical growth — the HAMR lead justifies it. Note WDC short interest is 10.4% vs STX 4.6%: the bears prefer the follower. MU's 8x optically embarrasses the HDD multiples, but memory EPS is spot-cyclical while HDD EPS is now contract-backed through FY27 — different earnings quality. HDD peer average forward P/E ~29x; STX is in line.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value dn">1.31</div><div class="sub">Put-skewed flow post-crash</div></div>
+    <div class="kpi"><div class="label">P/C Open Interest</div><div class="value neu">0.45</div><div class="sub">OI still call-heavy from the run</div></div>
+    <div class="kpi"><div class="label">Avg Call IV (near)</div><div class="value">~42%</div><div class="sub">vs Put IV ~31%</div></div>
+    <div class="kpi"><div class="label">Nearest Expiry</div><div class="value">06-12</div><div class="sub">No earnings until Jul 28</div></div>
+</div>
+
+<div class="co bl"><strong>📊 Options Read:</strong> Flow flipped put-skewed (P/C volume 1.31, from 1.80 pre-crash highs of hedging then ~0.8 in the melt-up) — longs protecting +555% twelve-month gains through the macro window (SpaceX IPO liquidity drain Friday, FOMC ahead). Standing OI remains call-heavy (0.45), i.e., positioning is hedged-long, not net-short. With no earnings until July 28, options here price macro beta, not company events.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co yw"><strong>Form 4 activity (April–June 2026, via yfinance):</strong>
+<ul>
+<li><strong>William Mosley</strong> (CEO) — ~30,000 shares (~$27.3M) on 2026-06-01 plus 30,000 shares (~$22.5M) on 2026-05-20 — ~$50M in two weeks, partially offset by 14,000-share option exercises at $46.23</li>
+<li><strong>Ban-Seng Teh</strong> (EVP) — 15,560 shares (~$12.7M) on 2026-05-14</li>
+<li><strong>Shankar Arumugavelu</strong> (Director) — 1,000 shares (~$928K) on 2026-06-04; <strong>Pratik Bhatt</strong> (Director) — 1,000 shares (~$930K) on 2026-06-02</li>
+<li><strong>Yolanda Conyers</strong> (Director) — 750 shares (~$664K) on 2026-06-01</li>
+</ul>
+The C-suite selling cluster that started in May continued right into the June top — roughly $90M+ aggregate over six weeks, including director sales printed during the crash week itself. Mostly 10b5-1, but the density near the highs is the clearest insider-distribution tape among our storage names.</div>
+
+<h2>📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">"Seagate Stock: AI Storage Demand Is Real, But STX Has Already Priced In a Lot"</span> · TECHi · June 2026 · <span class="st net">Hold</span><p style="margin-top:8px; color:#475569">The representative June take: trades the bull thesis (sold-out nearline, HAMR lead, 20%+ LT growth guide) against a forward multiple ~2x history and a stock that was above the analyst mean PT pre-crash.</p></div>
+<div class="tw"><span class="au">"Seagate: The Golden Buying Opportunity Born From Panic"</span> · Agar Capital · May 19, 2026 · <span class="st bul">Strong Buy</span><p style="margin-top:8px; color:#475569">PT $968. 70% incremental margins, path to ~56% GM, re-rate from hardware to "core AI/cloud technology." Written for the May 18 dip; doubly relevant after June 4–5.</p></div>
+<div class="tw"><span class="au">"Seagate Stock: HAMR Has Matured Into A Supply Story"</span> · April 2026 · <span class="st bul">Strong Buy</span><p style="margin-top:8px; color:#475569">HAMR is now a production/allocation story, not a roadmap story. Capacity fully allocated through CY2026; CY2027 orders opening.</p></div>
+<div class="tw"><span class="au">"Seagate: The Biggest Risk Is Buying At The Top Of The Industry Capex Cycle"</span> · March 2026 · <span class="st net">Hold</span><p style="margin-top:8px; color:#475569">The standing counterpoint: 30x+ forward P/E may be peak-cycle pricing if hyperscaler capex normalizes in CY27/28 — the exact fear the ORCL print just validated.</p></div>
+
+<div class="co gr"><strong>SA Consensus:</strong> Bulls own the supply/contract story; the marginal article has shifted from "buy the re-rate" to "the re-rate is in the price." Nobody credible disputes the demand — the debate is purely the multiple.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">@Drewalphatrades</span> · Jun 9, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"$STX PT increased to $1,090. Mizuho maintains Outperform — sees STX benefiting from growing HAMR mix and strong nearline demand visibility, supporting a strong FCF outlook and significant capital returns."</p></div>
+<div class="tw"><span class="au">@allday_stocks</span> · Jun 8, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"Mizuho PT ↑ $1,090 (from $875) | Current $885 (~23% upside). Raised FY27 and FY28 revenue/EPS estimates above consensus; strong HAMR adoption and nearline demand extending into 2028; FCF to support increased buybacks."</p></div>
+<div class="tw"><span class="au">@TheWizardFi</span> · Jun 10, 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">"Seagate fell 2.5% to $824.99 — broadly in line with its typical 4.1% daily swing. Now 12.3% below its 52-week high. -1.1% over the past month, +544.6% over the past year, after deepening a 3.5% slide a day earlier."</p></div>
+<div class="tw"><span class="au">@byul_finance</span> · Jun 10, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"$STX $WDC — Seagate and Western Digital shares rise as analysts lift price targets on AI storage demand." The PT-raise wave continued straight through the crash week.</p></div>
+
+<div class="co gr"><strong>X Consensus:</strong> Notably constructive vs. the memory names — the June chatter is dominated by the Mizuho $1,090 raise and sold-out-supply data points rather than top-calling. STX is being treated as the "contracted, capital-light" way to own AI storage in a regime that suddenly cares about exactly that.</div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>FQ4'26 print (July 28):</strong> guide $3.45B ±$100M (+41% YoY), non-GAAP EPS $5.00 ±$0.20; FY27 build-to-order commentary and any CY2028 LTA disclosure are the real events</li>
+<li><strong>Mizuho PT $1,090 (from $875), June 8</strong> — raised FY27/FY28 estimates above consensus on HAMR mix + nearline visibility into 2028 (@allday_stocks, @Drewalphatrades)</li>
+<li><strong>HDD industry sold out through CY2026, LTAs into 2027–2028</strong> — both STX and WDC confirmed (heise, Tom's Hardware); channel prices still rising (+12% on 20TB since December, ~5% more by June)</li>
+<li><strong>HAMR exabyte crossover H2 CY2026</strong> — Mozaic 4 (44TB) majority of HAMR EBs by end of CY2026; Mozaic 5 (50TB) qualification late 2027; each generation is nearly pure margin (same unit, more TB)</li>
+<li><strong>Long-term growth guide raised to ≥20%/yr</strong> with nearline almost fully allocated through 2027 (Seagate 8-K)</li>
+<li><strong>Capital returns:</strong> record $953M FQ3 FCF; rising FCF + disciplined capex = buyback/dividend leverage — the profile this market is paying up for post-ORCL/SMCI</li>
+<li><strong>AI inference data exhaust:</strong> inference logs, training corpora, and agent memory are cold-storage native; the cold tier remains under-built relative to compute</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>Peak-cycle multiple:</strong> 30.5x forward vs ~14x history on potentially peak-ish earnings. If FY28 estimates ever roll over, the multiple and EPS compress together. Mitigant: locked pricing through FY27 contracts.</li>
+<li><strong>Hyperscaler capex normalization:</strong> the ORCL print showed even AI winners get sold on capex guides; if cloud capex decelerates in CY27/28, nearline orders are the easiest thing to stretch. Mitigant: build-to-order contracts are firm commitments, and storage is ~3-5% of a data-center build — the last line item cut.</li>
+<li><strong>Macro/fear regime:</strong> beta 2.08, -9.9% in the two crash days, and a Friday SpaceX IPO draining liquidity. A December Fed hike (~43% odds) keeps long-duration multiples under pressure.</li>
+<li><strong>QLC/NAND encroachment:</strong> if NAND oversupplies in 2027 and QLC pricing collapses, the HDD TCO moat narrows. Mitigant: HDD still ~5-7x cheaper per TB at exabyte scale; cold/sequential workloads are structurally HDD-friendly.</li>
+<li><strong>WDC competition:</strong> WDC's HAMR ramp targets 2027 and it trades cheaper (27.5x); STX's premium depends on holding the 12–18 month lead. Mitigant: multi-year contracts limit near-term share shift.</li>
+<li><strong>Insider distribution:</strong> ~$90M+ of C-suite/director sales over six weeks into the top, including during crash week.</li>
+<li><strong>Supply-side communication risk:</strong> the May 18 -9.5% on Mosley's "new factories take too long" comment showed how twitchy positioning is; density-over-capacity is the right strategy but a recurring headline hazard.</li>
+<li><strong>Geopolitics (note, not policy):</strong> Thai/Malaysian manufacturing concentration; Hormuz/oil shock raises logistics and component costs at the margin. No meaningful US-China policy exposure — policy risk: none.</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value up">Buy</div><div class="sub">22 analysts · mean 1.54</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value up">$871.09</div><div class="sub up">+6.8% from current</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$545</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value up">$1,150</div></div>
+</div>
+
+<div class="co bl"><strong>Read:</strong> Mean PT has climbed to $871 (from $829 two weeks ago) and now sits <em>above</em> spot for the first time since March — partly fresh raises (Mizuho $1,090, BofA $900, Rosenblatt/Evercore $1,000), partly the price falling to meet the targets. Median $855. Standard caveat applies: most marks predate the June 4–5 crash, so the +6.8% "upside" is softer than it looks — but unlike AMD/MU, the newest STX revisions (June 8–9) were made <em>with</em> full knowledge of the crash and still went up.</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data &amp; Methodology:</strong> All data from Yahoo Finance (yfinance) as of 2026-06-10 close. Forward EPS <strong>$26.76</strong> is consensus (FY27-weighted); FQ4 guide of $5.00 implies a ~$20 CY2026 run-rate building toward $30+ FY27 consensus. Trailing P/E (77.5x) is trough-distorted and ignored. Three methods triangulate; 12-month horizon only.</div>
+
+<h3>Method 1: P/E Multiple Approach</h3>
+<table><thead><tr><th>Scenario</th><th>P/E</th><th>EPS</th><th>Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody>
+<tr><td>Bear (re-rate fails)</td><td>18.0x</td><td>$24.00</td><td>$432</td><td class="dn">-47%</td><td>Hyperscaler capex rolls CY27; HDD reverts toward cycle-mid multiple on trimmed EPS</td></tr>
+<tr><td>Conservative (WDC parity)</td><td>27.5x</td><td>$26.76</td><td>$736</td><td class="dn">-10%</td><td>HAMR-lead premium evaporates; multiple matches the follower</td></tr>
+<tr><td>Base (HDD peer band holds)</td><td>30.0x</td><td>$26.76</td><td>$803</td><td class="dn">-2%</td><td>Multiple holds at peer parity; EPS delivers to consensus</td></tr>
+<tr><td>Bull (Mizuho path)</td><td>33.0x</td><td>$30.00</td><td>$990</td><td class="up">+21%</td><td>FY27/28 estimates above consensus prove out; FCF/buyback re-rate</td></tr>
+<tr><td>Optimistic (utility re-rate)</td><td>36.0x</td><td>$31.00</td><td>$1,116</td><td class="up">+37%</td><td>2028 LTAs disclosed; market caps the cohort like contracted infrastructure</td></tr>
+</tbody></table>
+
+<h3>Method 2: Mean Reversion &amp; Consensus</h3>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">HDD Peer Avg PE × Fwd EPS</div><div class="value neu">$776</div><div class="sub dn">-5%</div></div>
+<div class="kpi"><div class="label">5Y Avg PE × Fwd EPS</div><div class="value dn">$375</div><div class="sub dn">-54% (assumes thesis breaks — tail case)</div></div>
+<div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value up">$871.09</div><div class="sub up">+6.8% (June 8-9 marks included)</div></div>
+</div>
+<div class="co bl"><strong>📐 Calculation Details:</strong>
+<ul>
+<li>HDD peer forward P/E (STX 30.5x, WDC 27.5x → ~29x) × $26.76 = <strong>$776</strong></li>
+<li>5Y average forward P/E ~14x × $26.76 = <strong>$375</strong> — pre-AI-cycle multiple; informative as a stress floor only</li>
+<li>Wall Street consensus PT $871.09 (range $545–$1,150, 22 analysts; median $855)</li>
+</ul></div>
+
+<h3>Method 3: Discounted Cash Flow (DCF)</h3>
+<p style="color:#64748b; margin-bottom:12px">10-year DCF on FCF (TTM $1.6B, FQ3 run-rate ~$3.8B annualized and rising with margin mix). Terminal value via perpetuity growth; WACC reflects 10Y 4.54% + cyclical beta.</p>
+<table><thead><tr><th>Scenario</th><th>Yr 1–3 Rev Growth</th><th>WACC</th><th>Terminal Growth</th><th>Intrinsic Value</th><th>Upside</th></tr></thead>
+<tbody>
+<tr><td>Bear</td><td>12% (capex cycle rolls Y2)</td><td>10.5%</td><td>2.0%</td><td>$490</td><td class="dn">-40%</td></tr>
+<tr><td>Base</td><td>25% (≥20% LT guide delivers)</td><td>10.5%</td><td>3.0%</td><td>$850</td><td class="up">+4%</td></tr>
+<tr><td>Bull</td><td>38% (sold out through CY28)</td><td>10.0%</td><td>3.0%</td><td>$1,310</td><td class="up">+61%</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>✅ Methods Converge:</strong> HDD peer parity ($776), base P/E ($803), base DCF ($850), and consensus PT ($871) cluster tightly around spot ($816). The June pullback removed the premium-to-fair-value that existed at $880–940. <strong>Fair value band: $780–$880.</strong> STX is the closest to "fairly priced with a live bull option" of our four semis this cycle.</div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$500</div><div class="mt">20x × $25.00 EPS</div><div class="us dn">-39%</div><div class="ds">CY27 hyperscaler capex digestion; nearline orders stretch; multiple reverts toward cycle norms. Fed hikes extend the de-rate.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr neu">$830</div><div class="mt">30x × $27.50 EPS</div><div class="us neu">+2%</div><div class="ds">FQ4 delivers the $5.00 guide; FY27 contracts execute; GM grinds toward 50%. Multiple holds at HDD-peer parity through the macro chop.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$1,050</div><div class="mt">34x × $31.00 EPS</div><div class="us up">+29%</div><div class="ds">FY27/28 estimates keep rising (Mizuho path); 2028 LTAs disclosed; buybacks accelerate. $1,090–1,150 Street-high zone becomes consensus.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co gr"><strong>Bull:</strong> Seagate is the cleanest expression of contracted AI-infrastructure demand in our coverage: nearline capacity sold out through CY2026 with priced LTAs into 2027–2028, five straight quarters of margin expansion to a record 47% non-GAAP GM, record $953M quarterly FCF, and a HAMR density roadmap (Mozaic 4→5→6) that raises revenue-per-unit without building factories. In a market that just started punishing capital intensity and dilution (ORCL, SMCI), STX's density-over-capex strategy and buyback-funding FCF are precisely the right profile — which is why the only post-crash analyst actions (Mizuho $1,090, June 8) were raises. We also own our error: we said "fully priced" at $880 in late May after saying it through a +69% run since April.</div>
+
+<div class="co rd"><strong>Bear:</strong> 30.5x forward and 16.6x sales is peak-cycle pricing on a business that was a 6x-P/E commodity three years ago; the whole thesis rests on hyperscaler capex not pausing in CY27-28, and the June 4–5 tape (-9.9%) demonstrated STX trades as high-beta AI hardware (beta 2.08) regardless of its contract book. Insiders sold ~$90M+ into the top, including during crash week. If NAND oversupplies in 2027, QLC closes the TCO gap at the exact moment HDD contract renewals come due.</div>
+
+<div class="co bl"><strong>Verdict: Hold / accumulate dips toward $750.</strong> 12-month base $830 (+2%), bull $1,050 (+29%), bear $500 (-39%). Within our four-name semi group, STX has the best regime fit (contracted revenue, low capex, no policy exposure) but also the least cushion if cloud capex itself is the next shoe. Fairly priced; let the July 28 print and FY27 order commentary, not the macro tape, drive the next move. Policy risk: none.</div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, Seeking Alpha, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, Seeking Alpha, X/Twitter, analyst consensus · 2026-06-10</p></div>
+</div>
+</body>
+</html>

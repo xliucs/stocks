@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BABA | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>BABA — Alibaba Group Holding Limited</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-06-10 · Sources: yfinance, SEC filings, Seeking Alpha, analyst consensus</p>
+
+<div class="badge">📅 Next Earnings: ~mid-August 2026 (Q1 FY2027) · Q4 FY2026 reported May 13, 2026</div>
+
+<div class="co rd"><strong>🌍 Macro Context (June 10, 2026):</strong> Fear regime. June 4–5 saw the worst US drop of the year (Nasdaq -4.2%) after a shock jobs report pushed Fed <em>rate-hike</em> odds for December to ~43%; today a benign core CPI still couldn't stop the S&amp;P from falling -1.6% to a 5-week low. VIX 22.2, 10Y at 4.54%, Fear &amp; Greed 27 (extreme fear), JPM on "Tactical Caution." US strikes on Iran and Tehran's declared Hormuz blockade have WTI near $91 — a direct cost shock for oil-importing China. Rising US rates + risk-off is historically toxic for China ADR flows, and Friday's record SpaceX IPO is absorbing institutional liquidity. BABA has dropped from ~$126 (our May 27 report) to $115.38 in two weeks largely on these flows, not on company news.</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$115.38</div><div class="sub dn">-40.1% from 52W High ($192.67)</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$276.8B</div><div class="sub">Day range $115.38–118.18</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value">17.7x</div><div class="sub">EPS: $6.51</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value up">12.5x</div><div class="sub">Fwd EPS: $9.21</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">RMB 1,023.7B</div><div class="sub neu">≈$141B · +2.9% YoY</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value">39.8%</div><div class="sub">TTM</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value dn">1.0%</div><div class="sub">Mar Q op income negative</div></div>
+    <div class="kpi"><div class="label">Free Cash Flow</div><div class="value dn">-RMB 46.6B</div><div class="sub dn">FY26 outflow (first ever)</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">1-Month Return</div><div class="value dn">-17.6%</div></div>
+    <div class="kpi"><div class="label">3-Month Return</div><div class="value dn">-15.7%</div></div>
+    <div class="kpi"><div class="label">6-Month Return</div><div class="value dn">-27.1%</div></div>
+    <div class="kpi"><div class="label">Cash / Debt</div><div class="value">317 / 282</div><div class="sub">RMB B · modest net cash</div></div>
+</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter (RMB)</th><th>Revenue</th><th>Op Income</th><th>Net Income</th><th>Op Margin</th><th>Net Margin</th></tr></thead>
+<tbody><tr><td>2026-03-31 (Q4 FY26)</td><td>243.4B <span class="dn">↓ QoQ</span></td><td class="dn">-0.85B</td><td>25.5B*</td><td class="dn">-0.3%</td><td>10.5%</td></tr>
+<tr><td>2025-12-31</td><td>284.8B <span class="up">↑</span></td><td>20.2B</td><td>16.4B</td><td>7.1%</td><td>5.8%</td></tr>
+<tr><td>2025-09-30</td><td>247.8B</td><td>5.4B</td><td>21.0B</td><td>2.2%</td><td>8.5%</td></tr>
+<tr><td>2025-06-30</td><td>247.7B</td><td>35.0B</td><td>40.6B</td><td>14.1%</td><td>16.4%</td></tr>
+<tr><td>2025-03-31</td><td>236.5B</td><td>28.5B</td><td>12.6B</td><td>12.0%</td><td>5.3%</td></tr>
+</tbody></table>
+<div class="co yw"><strong>📊 FY26 Read (reported May 13, 2026):</strong> Revenue +3% YoY to RMB243.4B in the March quarter, but GAAP operating income went <em>negative</em> (-RMB0.85B) and FY26 non-GAAP net income fell <strong>-62%</strong> as instant-commerce subsidies and AI capex consumed the P&amp;L. Free cash flow swung to a RMB46.6B annual <em>outflow</em> — Alibaba's first FCF-negative year — against a RMB380B (~$53B) three-year cloud/AI capex commitment (US News, May 13; StockTitan 6-K). *March-quarter net income was flattered by investment gains, not operations.</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Segment</th><th>~Share of Revenue</th><th>YoY Trend</th><th>Notes (Q4 FY26, Mar 2026)</th></tr></thead>
+<tbody><tr><td><strong>China E-commerce (Taobao/Tmall + instant commerce)</strong></td><td>~60%</td><td class="neu">Low single digit</td><td>CMR growth modest; quick commerce +57% YoY but loss-making — breakeven targeted by end FY3/27 (Minichart, May 18)</td></tr>
+<tr><td><strong>Cloud Intelligence Group</strong></td><td>~14%</td><td class="up">+38% YoY</td><td>AI-related cloud revenue RMB8.97B, triple-digit growth 11 straight quarters; fastest cloud growth in 2+ years (US News, May 13)</td></tr>
+<tr><td><strong>International (AIDC)</strong></td><td>~13%</td><td class="up">Double digit</td><td>AliExpress/Trendyol/Lazada; turning toward profitability</td></tr>
+<tr><td><strong>Cainiao, local services, other</strong></td><td>~13%</td><td class="neu">Mixed</td><td>Restructuring continues; segment reporting reshuffled into consumption vs cloud pillars</td></tr>
+</tbody></table>
+<div class="co bl"><strong>Mix shift:</strong> The investable story is now two-engine: a slow-growth consumption business funding a hyper-growth Cloud/AI business. Management targets &gt;$100B annual external cloud/AI revenue within five years and expects AI products to exceed 50% of external cloud revenue within ~a year (TradingNews/earnings call). The Qwen app fully integrated Taobao/Tmall commerce on May 7 and added a UEFA alliance (Yahoo Finance, June 2026).</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl dn">~22</div><div class="nt dn">Deeply oversold</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl dn">$130.94</div><div class="nt dn">Price -12% below</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl dn">$149.73</div><div class="nt dn">Price -23% below</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl dn">-3.37</div><div class="nt dn">Below signal (-2.45)</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$192.67</div><div class="nt dn">-40.1%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$103.71</div><div class="nt up">+11.3%</div></div>
+</div>
+<div class="co rd"><strong>⚠️ Technical Signal:</strong> Full downtrend: price below both major SMAs, MACD negative and widening, five straight red weeks. RSI ~22 is the most oversold since the 2024 lows — historically a bounce zone, but in a macro fear regime oversold can stay oversold. Next support is the 52W low at $103.71.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Company</th><th>Price</th><th>MCap</th><th>Trail P/E</th><th>Fwd P/E</th><th>Rev Growth</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th></tr></thead>
+<tbody><tr class="hl"><td><strong>BABA</strong></td><td>$115.38</td><td>$276.8B</td><td>17.7x</td><td>12.5x</td><td>+2.9%</td><td>39.8%</td><td>1.0%</td><td>10.1%</td></tr>
+<tr><td><strong>PDD</strong></td><td>$81.82</td><td>$116.5B</td><td>8.6x</td><td>6.6x</td><td>+11.0%</td><td>56.0%</td><td>18.4%</td><td>21.6%</td></tr>
+<tr><td><strong>JD</strong></td><td>$28.45</td><td>$38.4B</td><td>20.8x</td><td>6.5x</td><td>+4.9%</td><td>9.3%</td><td>1.2%</td><td>1.0%</td></tr>
+<tr><td><strong>Tencent (TCEHY)</strong></td><td>$57.63</td><td>$519.8B</td><td>16.1x</td><td>11.4x</td><td>+9.1%</td><td>56.4%</td><td>34.3%</td><td>30.6%</td></tr>
+<tr><td><strong>BIDU</strong></td><td>$117.48</td><td>$40.0B</td><td>—</td><td>12.9x</td><td>-1.2%</td><td>42.1%</td><td>10.0%</td><td>1.0%</td></tr>
+</tbody></table>
+<div class="co yw"><strong>Peer read — honesty check:</strong> BABA at 12.5x forward is NOT the cheap one anymore: PDD (6.6x) and JD (6.5x) trade at half the multiple, and both are subsidy-war combatants squeezing BABA's instant-commerce economics. The "cheapest AI hyperscaler" framing only works if Cloud is valued separately — on consolidated numbers, BABA carries a <em>premium</em> to e-commerce peers for an AI story that currently burns cash.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value up">0.42</div><div class="sub">Front expiry 6/12 · call-tilted</div></div>
+    <div class="kpi"><div class="label">Avg Call IV (front)</div><div class="value neu">~35%</div><div class="sub">Elevated vs mega-cap norm</div></div>
+    <div class="kpi"><div class="label">Short % of Float</div><div class="value">1.7%</div><div class="sub">Low</div></div>
+    <div class="kpi"><div class="label">Beta</div><div class="value">0.46</div><div class="sub">Low vs SPX (5Y)</div></div>
+</div>
+<div class="co bl"><strong>📊 Options Read:</strong> Even at 5-week lows, front-week flow stays call-tilted (P/C 0.42) — dip-buyers positioning for a bounce off oversold RSI. IV elevated by the macro tape rather than any imminent company event (next earnings ~2 months out). Open-interest data on the front weekly is thin; treat with caution.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co bl"><strong>Insider Holdings:</strong> Insiders hold ~1.8% (Joe Tsai and Jack Ma added meaningfully in the 2024 buy programs; no comparable open-market purchases disclosed during the current drawdown). The company itself remains the dominant buyer via the ongoing multi-billion-dollar buyback authorization. Net signal: neutral-to-mildly-supportive — corporate buyback continues, but no fresh insider conviction buys reported during the June slide.</div>
+
+<h2 class="pb">📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">"Alibaba Q4 Earnings Review: AI Inflection Point Is Here"</span> · May 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Cloud Intelligence +38% YoY with 40% external customer growth; argues fair value near $239 if re-rated to 25x FY2028 earnings.</p></div>
+<div class="tw"><span class="au">"Alibaba: Look Beyond Lumpy Margins — Promising Instant Commerce/Cloud Growth Ahead"</span> · 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Quick commerce +57% YoY with management guiding unit-economics breakeven by end-FY3/27; margins are an investment choice, not deterioration.</p></div>
+<div class="tw"><span class="au">"Alibaba Stock: A Value Trap Behind The Headline Growth"</span> · 2026 · <span class="st ber">Sell</span><p style="margin-top:8px; color:#475569">Core-commerce share shrinking amid fierce competition; heavy capex with uncertain ROIC; Sell on declining core business and uncertain AI returns.</p></div>
+<div class="tw"><span class="au">"Alibaba Stock: Consumer Slowdown Weighs On Cloud Intelligence"</span> · 2026 · <span class="st net">Hold</span><p style="margin-top:8px; color:#475569">Weak Chinese consumption can cap even cloud upside; US export controls a structural ceiling on AI competitiveness.</p></div>
+<div class="co yw"><strong>SA Consensus:</strong> Genuinely split — bulls value the cloud/AI engine on a SOTP basis ($200+), bears see a melting-core/value-trap with negative FCF. The split itself is the signal: this is no longer a consensus-cheap stock; it's a battleground.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">China-tech FinTwit (aggregate)</span> · early June 2026 · <span class="st ber">Bearish</span><p style="margin-top:8px; color:#475569">Dominant theme: ADR de-risking into the rate-hike scare — "rising US rates + Hormuz oil shock is the worst combo for China tech flows." Several large accounts flagged closing China ADR longs into the SpaceX IPO week.</p></div>
+<div class="tw"><span class="au">AI/semis community</span> · late May 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Qwen ecosystem momentum (app unification May 7, UEFA partnership) keeps BABA the consensus "China AI champion" pick; triple-digit AI cloud revenue growth for 11 straight quarters is the most-cited stat.</p></div>
+<div class="tw"><span class="au">Value-investor accounts</span> · June 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">"Cheap for four years now" fatigue is visible — multiple threads note that BABA has derated through every buyback, and that PDD/JD at 6.5x make BABA's 12.5x look expensive within its own cohort.</p></div>
+<div class="co bl"><strong>X Consensus:</strong> Sentiment bifurcated: bullish on the AI/cloud franchise, bearish on the ADR wrapper and the macro. Flow-driven selling is the near-term driver, not fundamentals.</div>
+
+<h2>🚀 Catalysts</h2>
+<ul>
+<li><strong>Cloud acceleration continuing &gt;40%:</strong> management guided external cloud growth to keep accelerating; AI revenue crossing 50% of cloud mix within ~a year would force SOTP re-ratings (earnings call, May 13)</li>
+<li><strong>Quick-commerce breakeven by end FY3/27:</strong> the single biggest P&amp;L swing factor — removing the subsidy drag mechanically rebuilds ~RMB30B+ of annualized EBITA</li>
+<li><strong>Qwen app monetization:</strong> China's first all-in-one AI assistant integrated Taobao/Tmall commerce May 7; UEFA alliance extends global brand (Yahoo Finance, June 2026)</li>
+<li><strong>Buyback:</strong> large remaining authorization provides a mechanical bid at multi-quarter-low prices</li>
+<li><strong>Q1 FY27 earnings (~mid-August):</strong> first quarter to show whether June-quarter cloud growth sustains &gt;38% and instant-commerce losses narrow</li>
+<li><strong>Possible China stimulus:</strong> a consumption-side policy response to the oil shock/US slowdown would disproportionately help BABA's core</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>FCF-negative AI bet:</strong> RMB380B capex over three years with uncertain ROIC; FY26 already swung FCF to -RMB46.6B and non-GAAP net income -62% — if AI monetization lags, this is value destruction at scale</li>
+<li><strong>Instant-commerce subsidy war:</strong> Meituan/JD price war has no declared end; BABA is buying GMV with margin, and competitors are better capitalized for it than in past cycles (PDD 18% op margin)</li>
+<li><strong>HFCAA / delisting overhang:</strong> renewed US enforcement noise since the Feb 2025 "America First Investment Policy" memo keeps ~$830B of US-held Chinese equities structurally discounted (KrAsia/White &amp; Case); HK primary listing is a mitigant, not a cure for ADR flows</li>
+<li><strong>Macro fear regime:</strong> Fed hike odds + Hormuz oil at $91 hit China's import bill and US risk appetite simultaneously — the exact regime in which China ADRs historically underperform most</li>
+<li><strong>Consumption weakness:</strong> headline revenue +2.9% YoY shows the core is barely growing; deflationary pressure caps CMR take-rate gains</li>
+<li><strong>Backtest lesson (our own):</strong> BABA has underperformed QQQ by ~22pts since our April report — optical cheapness alone has not closed the gap in any of our measurement windows; the catalyst must be cloud-led earnings, not multiple hope</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value up">Strong Buy</div><div class="sub">40 analysts · mean 1.37</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value up">$191.94</div><div class="sub up">+66% upside</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$112.52</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$258.43</div></div>
+</div>
+<div class="co yw"><strong>⚠️ Staleness warning:</strong> The $191.94 mean PT implies +66% upside, but the stock has fallen ~9% in two weeks while most PTs predate the June macro break. Treat headline "upside" as lagging — our TIGR experience showed stale post-crash PTs create illusory upside. The PT <em>low</em> of $112.52 sits roughly at spot.</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data &amp; Methodology:</strong> All market data from Yahoo Finance (yfinance) as of 2026-06-10. Forward EPS $9.21 is the consensus NTM estimate (USD per ADS — sanity-checked against trailing $6.51 and the FY26 margin trough; the implied +41% EPS recovery assumes subsidy losses narrow). Three methods triangulated below.</div>
+
+<h3>Method 1: P/E Multiple Approach</h3>
+<table><thead><tr><th>Scenario</th><th>P/E</th><th>EPS</th><th>Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody><tr><td>Bear (e-comm peer parity)</td><td>9.0x</td><td>$8.00</td><td>$72</td><td class="dn">-38%</td><td>Market treats BABA like JD/PDD (6.5x) + small cloud premium; EPS misses on subsidy war</td></tr>
+<tr><td>Base (modest re-rate)</td><td>14.0x</td><td>$9.21</td><td>$129</td><td class="up">+12%</td><td>Tencent-like multiple as cloud mix grows; consensus EPS delivered</td></tr>
+<tr><td>Tencent parity</td><td>11.4x</td><td>$9.21</td><td>$105</td><td class="dn">-9%</td><td>Quality-adjusted China mega-cap floor multiple</td></tr>
+<tr><td>Bull (AI re-rate)</td><td>18.0x</td><td>$10.00</td><td>$180</td><td class="up">+56%</td><td>Cloud &gt;40% growth + quick-commerce breakeven visibility; SOTP logic takes hold</td></tr>
+</tbody></table>
+
+<h3>Method 2: Mean Reversion &amp; Consensus</h3>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">Peer Avg Fwd P/E × EPS</div><div class="value">$86</div><div class="sub dn">9.4x peer avg → -25%</div></div>
+<div class="kpi"><div class="label">5Y Median P/E × EPS</div><div class="value">$138</div><div class="sub up">~15x → +20%</div></div>
+<div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value up">$191.94</div><div class="sub up">+66% (stale — see above)</div></div>
+<div class="kpi"><div class="label">SA Bull SOTP</div><div class="value up">$239</div><div class="sub">25x FY28E — aggressive</div></div>
+</div>
+<div class="co bl"><strong>📐 Calculation Details:</strong><ul><li>Peer average forward P/E (PDD 6.6x, JD 6.5x, TCEHY 11.4x, BIDU 12.9x) = 9.4x × $9.21 = $86 — peer parity is now BELOW spot</li><li>5Y median P/E ~15x × $9.21 = $138</li><li>Wall Street consensus $191.94 (n=40, range $112.52–$258.43) — flagged stale</li></ul></div>
+
+<h3>Method 3: Discounted Cash Flow (DCF)</h3>
+<table><thead><tr><th>Scenario</th><th>Rev Growth (10Y)</th><th>Terminal FCF Margin</th><th>WACC</th><th>Terminal Growth</th><th>Intrinsic Value</th><th>Upside</th></tr></thead>
+<tbody><tr><td>Bear</td><td>3%</td><td>8%</td><td>11.5%</td><td>2.0%</td><td>$88</td><td class="dn">-24%</td></tr>
+<tr><td>Base</td><td>6%</td><td>13%</td><td>10.5%</td><td>2.5%</td><td>$148</td><td class="up">+28%</td></tr>
+<tr><td>Bull</td><td>9%</td><td>17%</td><td>10.0%</td><td>3.0%</td><td>$205</td><td class="up">+78%</td></tr>
+</tbody></table>
+<div class="co bl"><strong>✅ Triangulation:</strong> The honest range is wide: peer-parity math says $86 (overvalued vs cohort), historical mean reversion says ~$138, DCF base says ~$148. The bull case requires the FY26 FCF outflow to be a one-time investment trough that converts into cloud earnings by FY28 — that is the bet, and it is not yet evidenced in reported numbers.</div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$85</div><div class="mt">~9x × $8.00 fwd EPS</div><div class="us dn">-26%</div><div class="ds">Subsidy war persists, cloud decelerates below 30%, HFCAA enforcement escalates, macro risk-off deepens. Stock converges toward PDD/JD multiples.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr up">$135</div><div class="mt">~14.5x × $9.21 fwd EPS</div><div class="us up">+17%</div><div class="ds">Cloud holds ~38–40% growth, instant-commerce losses narrow on schedule, macro stabilizes. Modest re-rate toward 5Y median multiple.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$180</div><div class="mt">~18x × $10.00 EPS</div><div class="us up">+56%</div><div class="ds">AI revenue crosses 50% of cloud mix, quick-commerce hits breakeven early, China stimulus lands. SOTP framing reprices the cloud business separately.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co gr"><p><strong>BABA</strong> is two companies: a genuinely accelerating AI/cloud platform (+38% cloud growth, AI revenue up triple-digits for 11 consecutive quarters, Qwen as China's leading open-source model family) bolted onto a barely-growing consumption business that just spent its way to a -62% non-GAAP profit decline and the first FCF-negative year in company history. At $115.38 and 12.5x forward earnings the stock looks cheap — but our own backtests show BABA has lagged QQQ by ~22 points since April on exactly this "cheap" thesis, and within its own cohort PDD and JD now trade at half the multiple. The catalyst that closes the gap is specific and dated: quick-commerce breakeven by end FY3/27 plus AI crossing 50% of cloud revenue — both 2–4 quarters away, while HFCAA overhang, a Fed-hike scare, and $91 oil suppress China ADR flows in the interim. <strong>Verdict: fundamentals justify patience, not urgency — 12-month base case $135 (+17%), with the position sized for a macro regime that is actively hostile to the trade.</strong></p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, SEC filings, Seeking Alpha, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, SEC filings, Seeking Alpha, analyst consensus · 2026-06-10</p></div>
+</div>
+</body>
+</html>
