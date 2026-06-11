@@ -49,8 +49,9 @@ def get_price_change(symbol):
     try:
         t = yf.Ticker(symbol)
         hist = t.history(period="2d")
+        hist = hist.dropna(subset=["Close"])
         if len(hist) < 2:
-            hist = t.history(period="5d")
+            hist = t.history(period="5d").dropna(subset=["Close"])
         if len(hist) >= 2:
             prev = hist["Close"].iloc[-2]
             curr = hist["Close"].iloc[-1]
