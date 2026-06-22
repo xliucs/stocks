@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>QCOM | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #dc2626, #b91c1c); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(220,38,38,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>QCOM — Qualcomm Incorporated</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-06-21 · Sources: yfinance, Seeking Alpha, TIKR, StockStory, TradingKey, X/Twitter, analyst consensus</p>
+
+<div class="badge">⚠️ Model Score: 40/100 — Bearish · Forward P/E 21.0x · Investor Day June 24 is the binary event (3 days away)</div>
+
+<div class="co yw"><strong>🌐 Macro Context (mid-June 2026):</strong> The semiconductor complex has rebounded hard off the early-June crash. After the June 4–10 break (driven by a shock May jobs print and a hot CPI of 4.2% that revived rate-<em>hike</em> fears), the June FOMC dot plot landed hawkish — median 2026 rate revised up to ~3.8% from 3.4% in March, with the funds rate held at 3.50–3.75%. Yet risk appetite returned: the Philadelphia Semiconductor Index ripped ~6% on multiple sessions (June 12, 15, 19) and QCOM <strong>round-tripped +16% on the month back to ~$226</strong> on AI-data-center optimism into its June 24 Investor Day. The setup is now reflexive: semis reprice faster than any sector to rate moves (QCOM beta ~1.6), and a chunk of QCOM's bounce is pure event speculation rather than fundamental repricing — exactly the configuration that whipsawed the stock from $259 to $191 two weeks ago. MU reports this week into a "priced-for-perfection" memory tape; HBM pricing is the cross-read.</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$226.11</div><div class="sub dn">-13.0% from 52W High ($259.92)</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$238.3B</div><div class="sub">Shares: 1.054B</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value neu">24.3x</div><div class="sub">EPS $9.29 (incl. one-time tax benefit)</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value">21.0x</div><div class="sub">Fwd EPS: $10.75 (FY0 consensus)</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">$44.4B</div><div class="sub dn">-3.5% YoY</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value up">54.8%</div><div class="sub">Stable</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value">22.1%</div><div class="sub up">Net Margin 22.3% · ROE 36.1%</div></div>
+    <div class="kpi"><div class="label">Div Yield</div><div class="value">1.63%</div><div class="sub">Cash $9.8B / Debt $15.3B</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">1M Return</div><div class="value up">+16.0%</div><div class="sub">Round-trip rebound</div></div>
+    <div class="kpi"><div class="label">3M Return</div><div class="value up">+72.9%</div><div class="sub">Off the March base</div></div>
+    <div class="kpi"><div class="label">6M Return</div><div class="value up">+29.7%</div><div class="sub">12M: +52.6%</div></div>
+    <div class="kpi"><div class="label">FCF (TTM)</div><div class="value">$9.6B</div><div class="sub">FCF Yield ~4.0% · OpCF $14.3B</div></div>
+</div>
+
+<div class="co rd"><strong>🚩 Why the model scores this Bearish (40/100):</strong> The enrich engine flags QCOM honestly. The analyst mean target ($183.83) sits <strong>~19% BELOW</strong> the $226 price — the Street never chased the AI rally and rates it a <strong>Hold</strong> (2.61 mean, n=30). Add negative revenue growth (-3.5% YoY), a forward multiple (21x) at the high end of QCOM's 10x–22x five-year band, and a price now in the upper third of its 52-week range after a +16% month — and the quantitative picture is a richly-valued, decelerating cyclical whose recent gains are story-driven, not earnings-driven. The qualitative bull case is entirely contingent on June 24 converting AI-datacenter optionality into booked revenue.</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter</th><th>Revenue</th><th>Net Income</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th><th>Diluted EPS</th></tr></thead>
+<tbody>
+<tr class="hl"><td>2026-03-31 (Q2 FY26)</td><td>$10.60B <span class="dn">↓</span></td><td>$7.37B*</td><td>53.8%</td><td>21.8%</td><td>69.5%*</td><td>$6.88* (adj $2.65)</td></tr>
+<tr><td>2025-12-31 (Q1 FY26)</td><td>$12.25B <span class="up">↑↑</span></td><td>$3.00B</td><td>54.6%</td><td>27.5%</td><td>24.5%</td><td>$2.78</td></tr>
+<tr><td>2025-09-30 (Q4 FY25)</td><td>$11.27B <span class="up">↑</span></td><td>-$3.12B**</td><td>55.3%</td><td>26.2%</td><td>-27.7%</td><td>-$2.89</td></tr>
+<tr><td>2025-06-30 (Q3 FY25)</td><td>$10.36B <span class="dn">↓</span></td><td>$2.67B</td><td>55.6%</td><td>26.6%</td><td>25.7%</td><td>$2.43</td></tr>
+<tr><td>2025-03-31 (Q2 FY25)</td><td>$10.98B —</td><td>$2.81B</td><td>55.0%</td><td>28.4%</td><td>25.6%</td><td>$2.52</td></tr>
+</tbody></table>
+<p style="font-size:0.82em;color:#64748b;margin-top:8px">* Q2 FY26 GAAP figures include a ~$5.7B one-time income tax benefit (deferred-tax valuation allowance release); economic earnings = non-GAAP EPS $2.65, at the high end of guidance. ** Q4 FY25 loss reflects an EU antitrust charge and tax items. yfinance reports trailing GAAP EPS $9.29, inflated by the tax benefit; the clean run-rate is closer to ~$10.50 non-GAAP.</p>
+
+<div class="co yw"><strong>📊 The real run-rate:</strong> Strip the one-timers and Q2 FY26 was decent-not-great: revenue $10.6B (-3.4% YoY), non-GAAP EPS $2.65 (high end of guide). The mix is rebalancing — Automotive $1.33B (+38% YoY, a record), IoT $1.7B (+9%), QTL licensing $1.4B at ~72% EBT margin — but handsets ($6.0B, -13% YoY) still dominate at ~57% of revenue, and that is exactly where 2026's pain is concentrated. The fiscal-year consensus has earnings effectively flat ($10.75 FY0 vs $12.03 a year ago = -10.6%) — the AI rally is buying a 2027+ story, not 2026 numbers.</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Segment</th><th>Q2 FY26 Revenue</th><th>% of Total</th><th>YoY Trend</th><th>Strategic Notes</th></tr></thead>
+<tbody>
+<tr><td>QCT Handsets</td><td>$6.00B</td><td>56.6%</td><td><span class="dn">-13%</span></td><td>IDC: 2026 global smartphone shipments tracking down YoY; memory-price inflation squeezing OEM BOMs; China Android guided to bottom in Q3 FY26</td></tr>
+<tr><td>QCT Automotive</td><td>$1.33B</td><td>12.5%</td><td><span class="up">+38%</span></td><td>Record; building toward a &gt;$6B FY26 exit run-rate on a ~$45B design-win pipeline; Snapdragon Digital Chassis</td></tr>
+<tr><td>QCT IoT (incl. PC/XR)</td><td>$1.70B</td><td>16.0%</td><td><span class="up">+9%</span></td><td>Snapdragon X2 Elite PC push (Copilot+ PCs across HP/Dell/Lenovo/Asus) — but NVIDIA's RTX Spark now contests the Windows-on-Arm lane</td></tr>
+<tr><td>QTL Licensing</td><td>$1.40B</td><td>13.2%</td><td><span class="up">+5%</span></td><td>~72% EBT-margin annuity — mechanically tied to the global handset unit base; Apple license expires March 2027</td></tr>
+<tr><td>Other / Eliminations</td><td>$0.17B</td><td>1.6%</td><td>—</td><td>Investments and adjustments</td></tr>
+</tbody></table>
+<div class="co bl"><strong>📊 The unbooked option — Dragonfly / AI200 &amp; AI250:</strong> QCOM has branded its data-center push <em>Dragonfly</em>, anchored by the AI200 accelerator (shipping later in 2026) and AI250 (2027), built on a NUVIA-derived CPU plus Alphawave connectivity. The pitch: LPDDR-based rack systems delivering ~10x higher effective memory bandwidth at far lower power than incumbent GPUs, plus a HUMAIN supply agreement and a reported ByteDance ASIC engagement opening a multi-billion-dollar FY27 revenue stream. None of this is in any consensus line item. June 24 Investor Day is where management must convert the story into named customers, TAM, and revenue timing.</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl neu">42.3</div><div class="nt neu">Neutral, cooled from the spike</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl up">$190.90</div><div class="nt up">Price above (+18.4%)</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl up">$165.31</div><div class="nt up">Price above (+36.8%)</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl dn">4.90</div><div class="nt dn">Below signal (7.89)</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$259.92</div><div class="nt dn">-13.0%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$121.99</div><div class="nt up">+85.4%</div></div>
+</div>
+
+<div class="co yw"><strong>⚠️ Technical Signal:</strong> A second leg up. After the boom-bust round trip ($259.92 high → $191 trough), QCOM has climbed back through the $191–$226 zone over the past two weeks (recent closes: $191 → $203 → $212 → $221 → $214 → $213 → $226), riding the SOX rebound and Investor-Day positioning. Price sits well above both rising moving averages (50dma $191, 200dma $165) — the structural uptrend off the $122 base is intact. The cautionary tells: RSI 42 despite a +16% month (the close-to-close path was choppy), and MACD (4.90) still below its signal line (7.89) — momentum has not confirmed the price recovery. Support: $191 (50dma / prior pivot), then $179. Resistance: the $259.92 high. This is a stock pinned to a single dated catalyst; we make no short-term directional call.</div>
+
+<h2>📏 Historical Valuation</h2>
+<table><thead><tr><th>Metric</th><th>Current</th><th>5Y Average</th><th>5Y Range</th><th>Position</th></tr></thead>
+<tbody>
+<tr><td>Forward P/E</td><td>21.0x</td><td>~15.0x</td><td>10x – 22x</td><td><span class="dn">+40% vs avg — top of range</span></td></tr>
+<tr><td>Trailing P/E (clean*)</td><td>~21.5x</td><td>~17.5x</td><td>11x – 28x</td><td><span class="neu">Above avg</span></td></tr>
+<tr><td>P/S (TTM)</td><td>~5.4x</td><td>~4.2x</td><td>2.5x – 6.5x</td><td><span class="neu">Upper half</span></td></tr>
+<tr><td>EV/EBITDA</td><td>~17x</td><td>~12.5x</td><td>8x – 20x</td><td><span class="dn">Well above avg</span></td></tr>
+<tr><td>FCF Yield</td><td>~4.0%</td><td>5.5%</td><td>3.5% – 8.5%</td><td><span class="dn">Below avg — richening</span></td></tr>
+</tbody></table>
+<p style="font-size:0.82em;color:#64748b">* Adjusting reported TTM EPS for the ~$5.7B one-time tax benefit (clean ~$10.50 non-GAAP).</p>
+<div class="co rd"><strong>📐 Mean Reversion Read:</strong> The +16% month has un-done the bargain. At 21.0x forward, QCOM trades at the very TOP of its 10x–22x five-year band — a ~40% premium to its ~15x cyclical average. Reversion to 15x × $10.75 = <strong>$161</strong> (-29%) is the gravity if the data-center story disappoints. Even at a generous 18x the math is ~$194 (-14%). The current multiple already embeds a re-rating that, on today's flat-to-declining earnings, is unjustified absent the June 24 catalyst delivering hard numbers.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Ticker</th><th>Price</th><th>Mkt Cap</th><th>Trail P/E</th><th>Fwd P/E</th><th>Rev Growth</th><th>Gross M</th><th>Op M</th><th>Net M</th></tr></thead>
+<tbody>
+<tr class="hl"><td><strong>QCOM</strong></td><td>$226.11</td><td>$238B</td><td>24.3x</td><td>21.0x</td><td>-3.5%</td><td>54.8%</td><td>22.1%</td><td>22.3%</td></tr>
+<tr><td>NVDA</td><td>$200.42</td><td>$4.85T</td><td>31.9x</td><td>15.7x</td><td>85.2%</td><td>74.1%</td><td>65.6%</td><td>63.0%</td></tr>
+<tr><td>AVGO</td><td>$372.10</td><td>$1.77T</td><td>61.7x</td><td>19.2x</td><td>47.9%</td><td>76.3%</td><td>49.0%</td><td>38.8%</td></tr>
+<tr><td>MRVL</td><td>$252.59</td><td>$221B</td><td>87.1x</td><td>40.9x</td><td>27.6%</td><td>51.5%</td><td>14.5%</td><td>29.0%</td></tr>
+<tr><td>TXN</td><td>$282.01</td><td>$257B</td><td>48.3x</td><td>30.0x</td><td>18.6%</td><td>57.3%</td><td>37.8%</td><td>29.1%</td></tr>
+<tr><td>INTC</td><td>$107.04</td><td>$538B</td><td>—</td><td>69.6x</td><td>7.2%</td><td>37.2%</td><td>6.9%</td><td>-5.9%</td></tr>
+</tbody></table>
+<div class="co bl"><strong>🔍 Relative Read:</strong> QCOM still screens "cheaper" than the AI-darling peers on forward earnings (21.0x vs MRVL 40.9x, TXN 30.0x) — but it is the only name in the set with <em>negative</em> revenue growth and the only one whose core market (handsets ~57% + the per-unit QTL annuity) is shrinking in 2026. NVDA's forward multiple (15.7x) is actually <em>lower</em> than QCOM's while growing 85%. The discount that existed at $191 has narrowed sharply after the +16% run; what remains is "cheap-ish optionality" only if Dragonfly becomes a real, repeatable franchise — QCOM is entering custom silicon years behind AVGO/MRVL with no networking franchise to anchor it.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Positioning Bias</div><div class="value neu">Call-skewed</div><div class="sub">Bullish into Jun 24</div></div>
+    <div class="kpi"><div class="label">IV</div><div class="value neu">Elevated</div><div class="sub">Investor-Day event premium</div></div>
+    <div class="kpi"><div class="label">Popular Strikes</div><div class="value">$250 C</div><div class="sub">7/2 expiry chatter</div></div>
+    <div class="kpi"><div class="label">Event</div><div class="value neu">Jun 24</div><div class="sub">Binary vol crush after</div></div>
+</div>
+<div class="co bl"><strong>📊 Options Read:</strong> Positioning has flipped back bullish into Investor Day — retail flow on X cites $250 calls (7/2) as the popular expression of an upside bet, and longer-dated OTM call flow has been noted by flow-watchers. IV is elevated on the dated binary event, which means a large post-June-24 vol crush regardless of direction: the move must be big enough to overcome the premium decay. This is the mirror image of the post-crash neutral reset two weeks ago — the squeeze fuel is back, but so is the disappointment overhang if the event is a teaser.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co yw"><strong>Recent activity: executives sold into strength; no dip-buying.</strong><ul>
+<li>AMON CRISTIANO R. (CEO) — Sold 10,000 shares @ ~$185 ($1.85M) · 2026-05-05 and 10,000 @ ~$180 ($1.80M) · 2026-05-04</li>
+<li>PALKHIWALA AKASH (COO/CFO) — Sold 2,500 shares @ $202–$227 (~$530K) · 2026-05-12</li>
+<li>ACE HEATHER S (Officer) — Sold 3,200 shares @ ~$178 ($569K) · 2026-05-04</li>
+<li>GRECH PATRICIA Y (Officer) — Sold 829 shares @ ~$202 ($167K) · 2026-05-21</li>
+</ul>Modest sizes, mostly scheduled 10b5-1 around vests, and all <em>below</em> today's $226. The signal worth noting before Investor Day: no insider has bought on the open market through the entire round trip — management is happy to sell into the AI narrative, not lean into it.</div>
+
+<h2>📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">"Qualcomm: Get Out Before The Reality Sets In Later (Rating Downgrade)"</span> · Seeking Alpha · June 2026 · <span class="st ber">Sell (Downgrade)</span><p style="margin-top:8px; color:#475569">Cites the rapid valuation spike, the lack of concrete financial detail on the AI data-center project, and heightened profit-taking risk as the stock round-trips back toward its highs without earnings support.</p></div>
+<div class="tw"><span class="au">"Qualcomm Is Not The Next Micron"</span> · Seeking Alpha · June 2026 · <span class="st net">Neutral / Cautious</span><p style="margin-top:8px; color:#475569">Pushes back on the bull comparison to the memory supercycle — argues QCOM's upside is event-dependent (Investor Day, Dragonfly execution) rather than a structural cyclical inflection like MU's HBM tailwind.</p></div>
+<div class="tw"><span class="au">"Qualcomm Round-Tripped to $226 on an AI Data Center Bet — Could the June 24 Investor Day Settle It?"</span> · TIKR · June 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">Frames the whole move as a bet on Dragonfly; sees Investor Day and the Dec-quarter hyperscaler shipment as the two events that either validate a higher multiple or send the stock back to its ~15x cyclical home.</p></div>
+<div class="tw"><span class="au">"AMD and Qualcomm Shares Are Soaring — What You Need To Know"</span> · StockStory · Jun 11, 2026 · <span class="st bul">Bullish (event)</span><p style="margin-top:8px; color:#475569">Attributes the rebound to the SOX recovery plus analysts raising targets on QCOM's AI strategy ahead of Investor Day; notes Q2 beat, the new buyback authorization, and an increased dividend underpinning the move.</p></div>
+<div class="tw"><span class="au">"Qualcomm Earnings: Data Center Optimism Overshadows Handset Weakness"</span> · Morningstar · 2026 · <span class="st net">Hold (Fairly Valued)</span><p style="margin-top:8px; color:#475569">Acknowledges record automotive and the data-center pivot but flags that handset softness and a maturing licensing base cap the fundamental story; views the stock as roughly fairly valued pending hard AI numbers.</p></div>
+
+<div class="co rd"><strong>Research Consensus:</strong> Decidedly mixed-to-cautious. The most recent dedicated SA pieces lean Sell/Neutral on valuation and the absence of concrete data-center financials, while the rally coverage (StockStory) is event-driven. The recurring thread across every source: the move is a <em>bet on June 24</em>, and the burden of proof sits squarely with management to print named customers and TAM.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">@PatrickMoorhead</span> (Moor Insights &amp; Strategy) · Jun 21, 2026 · <span class="st bul">Bullish-Analytical</span><p style="margin-top:8px; color:#475569">"QCOM leads [the week]... built a competitive server chip in 2017 and walked away when the Broadcom fight swallowed the company, not because the silicon failed. Now, with a NUVIA-derived CPU and Alphawave connectivity, it's back, targeting the AI data center and physical AI, with a hyperscaler win it says ships this year. Investor Day is where it shows significant revenue." On the ground at the event + CNBC Power Lunch Tuesday.</p></div>
+<div class="tw"><span class="au">@SamirKhazaka</span> · Jun 21, 2026 · <span class="st ber">Bearish-Structural</span><p style="margin-top:8px; color:#475569">"Apple's licensing agreement with Qualcomm expires in March 2027... Handsets and licensing account for roughly 70% of Qualcomm revenue. Apple will still need Qualcomm IP, but its own modem removes Qualcomm's supply leverage. The risk is not only lost QCT modem revenue — a significant Apple QTL revenue stream could also come under pressure." Wants Investor Day to address the Apple renewal and the expired Huawei license.</p></div>
+<div class="tw"><span class="au">@DuskXBT</span> · Jun 19, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"Bullish on $QCOM here. Can see it doubling this year. Investor day on June 24th — they'll announce their entry into data centers, in particular how they will reduce the need for energy while delivering the same compute. Bullish Qualcomm, bearish AI energy stocks." The energy-efficiency (LPDDR) angle is the core retail bull thesis.</p></div>
+<div class="tw"><span class="au">@prasadmaddali20</span> / flow watchers (@ProblemSniper) · Jun 21–22, 2026 · <span class="st net">Speculative-Bullish</span><p style="margin-top:8px; color:#475569">"$QCOM 250 tgt this week. June 24th investor conference… let's go." Flow accounts cite bullish OTM call positioning into 2H and the $250 strike (7/2) as the popular upside expression — the speculative layer that whipsawed the stock in early June is rebuilding.</p></div>
+
+<div class="co bl"><strong>X Consensus:</strong> Bullish-but-binary, and noticeably louder than the cautious sell-side. The credible analyst voice (Moorhead) treats Investor Day as the proof point; the credible bear (Khazaka) zeroes in on the Apple/Huawei license cliff; retail is leaning into $250 calls. The risk: this is the same speculative configuration that collapsed -23% in a week when Computex delivered a teaser. <em>(Note: $QCOM search is heavily polluted with WhatsApp pump-and-dump spam; those accounts are excluded.)</em></div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>Investor Day — June 24, 2026 (the big one, 3 days out):</strong> Management must convert the Dragonfly story (AI200 shipping 2026, AI250 in 2027, HUMAIN agreement, reported ByteDance ASIC) into named customers, TAM, and revenue timing — plus long-term targets beyond smartphones (agentic AI, gigawatt-scale data centers, physical AI, 6G). Specifics = re-rating sustains; another teaser = back toward 15x.</li>
+<li><strong>The +16% month is the rally cause:</strong> SOX rebound (+6% sessions June 12/15/19) + analysts raising AI-strategy targets + Investor-Day positioning drove the round trip from $191 to $226. It is event-anticipation, not an earnings beat.</li>
+<li><strong>Q3 FY26 earnings (~late July):</strong> China Android guided to bottom this quarter — the first possible "handset trough" datapoint; automotive run-rate progression toward a &gt;$6B FY26 exit.</li>
+<li><strong>December-quarter hyperscaler shipment:</strong> First revenue from the disclosed custom-silicon win — would create a fifth segment absent from every consensus line item.</li>
+<li><strong>Automotive compounding:</strong> +38% YoY at a record $1.33B against a ~$45B design-win pipeline — NVDA-class growth in a lane with no NVDA in it.</li>
+<li><strong>Capital returns:</strong> Multi-billion buyback authorization + an increased dividend; management can retire shares at scale while the AI thesis proves out.</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>Valuation has caught up (the direct risk):</strong> At 21.0x forward, top of the 10x–22x five-year band, with flat-to-declining FY26 EPS. The +16% month removed the margin of safety; the analyst mean PT ($183.83) is ~19% <em>below</em> the price. Downside to a 15x cyclical multiple is ~$161 (-29%).</li>
+<li><strong>Investor Day binary (Jun 24):</strong> The market has already shown what it does to a teaser (-23% week in early June). A second specifics-free event entrenches the "story stock" discount and triggers a post-event IV crush into a selloff.</li>
+<li><strong>Apple modem + license cliff (policyRisk: moderate via China, plus this):</strong> Apple's own modem ramp removes QCT revenue on a known schedule, and the QTL licensing agreement expires March 2027 — putting a high-margin Apple royalty stream under pressure (per @SamirKhazaka). Handsets + licensing ≈ 70% of revenue.</li>
+<li><strong>China / Huawei (policyRisk: moderate):</strong> ~46% China revenue — the most China-exposed US semi. Huawei's internal silicon keeps re-taking China Android share, the expired Huawei license is an overhang, and any export-policy tightening or Chinese retaliation lands on QCOM first. The ByteDance opportunity itself carries export-licensing risk.</li>
+<li><strong>Handset cyclicality:</strong> IDC sees 2026 global smartphone shipments down YoY as memory-price inflation raises BOMs and stretches replacement cycles — hitting ~57% of revenue AND the per-unit QTL annuity simultaneously.</li>
+<li><strong>NVIDIA RTX Spark in Windows-on-Arm:</strong> A credible threat (100+ TOPS vs Snapdragon X Elite's 45, mature CUDA ecosystem) to the PC diversification lane just as it gained traction.</li>
+<li><strong>Data-center entry vs incumbents:</strong> QCOM arrives years behind AVGO/MRVL with no networking franchise; the hyperscaler win must prove repeatable, not a one-off.</li>
+<li><strong>Insider pattern:</strong> CEO and officers sold at $178–$227; zero open-market buys across the round trip.</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value neu">Hold</div><div class="sub">30 analysts · 2.61 mean</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value dn">$183.83</div><div class="sub dn">-18.7% vs price — PT BELOW price</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$100.00</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$300.00</div></div>
+</div>
+<div class="co rd"><strong>⚠️ Unusual consensus setup:</strong> QCOM is a rare case where the mean price target ($183.83) sits ~19% <em>below</em> the market price even after the rally. The Street never chased the AI run — consensus barely moved while the stock added $35+ — and the Hold rating (2.61) is cautious. Two readings, and June 24 decides which is right: (a) the Street is correct and this is a value trap until data-center revenue actually prints; or (b) targets are stale in the <em>opposite</em> direction of the usual pattern — set before/during the Dragonfly disclosures — and a credible Investor Day forces a wave of upgrades. The $100–$300 range captures exactly that bimodal outcome.</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data &amp; Methodology:</strong> Market data from Yahoo Finance (yfinance) as of 2026-06-21 (price $226.11 = last Close; cross-check: 1.054B shares × $226.11 = $238.3B ✓). Forward EPS <strong>$10.75</strong> = FY0 consensus (33 analysts); FY+1 consensus is $10.67 (≈21.2x), reflecting a flat-to-down earnings year. Trailing GAAP EPS ($9.29) is inflated by a ~$5.7B one-time tax benefit; clean run-rate ~$10.50 non-GAAP. All methods are 12-month frameworks.</div>
+
+<h3>Method 1: P/E Multiple Approach</h3>
+<table><thead><tr><th>Scenario</th><th>P/E</th><th>EPS</th><th>Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody><tr><td>Historical cyclical reversion</td><td>15.0x</td><td>$10.75</td><td>$161.25</td><td class="dn">-29%</td><td>Data-center story discounted to zero; back to handset-cyclical multiple</td></tr>
+<tr><td>Mild de-rate (Street's home)</td><td>18.0x</td><td>$10.75</td><td>$193.50</td><td class="dn">-14%</td><td>Partial give-back toward the analyst mean PT ($184)</td></tr>
+<tr><td>Conservative (current multiple holds)</td><td>21.0x</td><td>$10.75</td><td>$225.75</td><td class="neu">~0%</td><td>Market keeps the post-rally multiple — requires Investor Day to not disappoint</td></tr>
+<tr><td>AVGO-parity / story validated</td><td>24.0x</td><td>$10.75</td><td>$258.00</td><td class="up">+14%</td><td>Investor Day converts optionality into backlog; multiple re-rates to AVGO-class</td></tr>
+<tr><td>Optimistic (DC revenue + beat)</td><td>24.0x</td><td>$11.83</td><td>$283.92</td><td class="up">+26%</td><td>+10% EPS uplift as Dec-quarter shipment lands; breakout above the old high</td></tr>
+</tbody></table>
+
+<h3>Method 2: Mean Reversion &amp; Consensus</h3>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">15x Cyclical × Fwd EPS</div><div class="value dn">$161.25</div><div class="sub dn">-29% — the gravity scenario</div></div><div class="kpi"><div class="label">24x Story-Validated × Fwd EPS</div><div class="value up">$258.00</div><div class="sub up">+14% upside</div></div><div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value dn">$183.83</div><div class="sub dn">-19% — Street below market</div></div>
+</div>
+<div class="co bl"><strong>📐 Calculation Details:</strong><ul><li>5-year cyclical average P/E ~15x × forward EPS $10.75 = $161.25 — what QCOM is worth as a decelerating handset/licensing cyclical with no DC contribution</li><li>Story-validated 24x (AVGO-class) × $10.75 = $258.00 — requires June 24 to deliver named customers and a credible TAM</li><li>Analyst consensus PT $183.83 (range $100–$300, n=30) — the rare case where the mean sits below the market price</li></ul></div>
+
+<h3>Method 3: Discounted Cash Flow (DCF)</h3>
+<p style="color:#64748b; margin-bottom:12px">10-year DCF on FCF of ~$10.0B (TTM $9.6B normalized for working-capital timing), less ~$5.5B net debt, ~1.054B shares. Growth fades linearly to terminal. Terminal growth held deliberately low — the QTL annuity decays with the handset unit base unless data center becomes a real segment.</p>
+<table><thead><tr><th>Scenario</th><th>Growth (Yr1 → Yr10)</th><th>WACC</th><th>Terminal Growth</th><th>Intrinsic Value</th><th>Upside</th></tr></thead><tbody>
+<tr><td>Bear (handset slide + Apple/license cliff)</td><td>-3% → 0%</td><td>10.5%</td><td>2.0%</td><td>$92</td><td class="dn">-59%</td></tr>
+<tr><td>Base (auto/IoT offsets, no DC ramp)</td><td>+4% → 3%</td><td>10.0%</td><td>2.5%</td><td>$150</td><td class="dn">-34%</td></tr>
+<tr><td>Bull (data center becomes real)</td><td>+10% → 5%</td><td>9.5%</td><td>3.0%</td><td>$232</td><td class="up">+3%</td></tr>
+</tbody></table>
+<div class="co rd"><strong>📐 DCF honesty note:</strong> Even the <em>bull</em> DCF ($232) only just clears the current price — and it requires the hyperscaler/ByteDance lane to become a real, durable segment. The base case ($150) sits 34% below the market. Translation: on cash flows that exist today, $226 is not cheap — it prices in a data-center future that has not yet generated a dollar of booked revenue. This is a catalyst-contingent valuation, not a margin-of-safety one. It is the inverse of the early-June setup, when the crash to $191 had restored some cushion.</div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$150</div><div class="mt">15x × $10.00 EPS (small miss)</div><div class="us dn">-34%</div><div class="ds">Investor Day disappoints again, smartphone year runs soft, Huawei takes more China share, Apple QTL renewal sours, and the market re-tags QCOM as a melting-annuity cyclical at its historical multiple.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr neu">$200</div><div class="mt">18.5x × $10.75 EPS</div><div class="us neu">-12%</div><div class="ds">Auto/IoT growth offsets handset decline; data center stays promising-but-unproven. The multiple gives back part of the AI premium toward the Street's view. Dead money with a dividend, trending toward the $184 consensus.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$284</div><div class="mt">24x × $11.83 EPS (+10% uplift)</div><div class="us up">+26% upside</div><div class="ds">June 24 delivers named customers + TAM + long-term DC revenue targets, the Dec-quarter shipment confirms, China Android troughs on schedule, and QCOM earns an AVGO-class multiple. Breakout above the $260 high — this time on numbers.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co rd"><p><strong>QCOM has round-tripped back to ~$226 (+16% on the month), and in doing so has spent its margin of safety.</strong> The rebound is event-anticipation — a semiconductor-sector rally plus positioning into the June 24 Investor Day — not an earnings inflection. Our quantitative engine scores it <strong>40/100 (Bearish)</strong>, and the reasons are concrete: revenue is contracting (-3.5% YoY), FY26 EPS is flat-to-down (~$10.75 vs $12.03 a year prior), the forward multiple (21.0x) sits at the very top of its 10x–22x five-year band, and — uniquely — the analyst mean target ($183.83) is ~19% <em>below</em> the price with a Hold rating. Our DCF agrees: base case ~$150, and even the bull case ($232) barely clears today's price.</p>
+<p>The bull case is real but entirely contingent and dated: the Dragonfly data-center push (AI200 shipping this year, AI250 in 2027, a NUVIA CPU + Alphawave connectivity, an LPDDR power-efficiency edge, a HUMAIN agreement, and a reported ByteDance ASIC) plus record automotive (+38%) could open a multi-billion-dollar FY27 segment absent from every consensus model. Credible analysts (Patrick Moorhead, on the ground) frame June 24 as the proof point; credible bears (Samir Khazaka) point to the Apple modem-and-license cliff (March 2027) and ~46% China/Huawei exposure as the structural drag.</p>
+<p><strong>Verdict: Avoid chasing here. 12-month base case $200 (-12%) — the model and the Street both say the stock has gotten ahead of its numbers. This is a binary, catalyst-driven name, not a value name: the entire bull thesis rests on a single event 3 days out that has already burned momentum buyers once this month. Wait for June 24 to print hard numbers, or for a pullback toward the $161–$190 zone that restores a margin of safety, before adding. policyRisk moderate: ~46% China revenue + the Huawei/export overhang.</strong></p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, Seeking Alpha, TIKR, StockStory, TradingKey, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, Seeking Alpha, TIKR, StockStory, X/Twitter, analyst consensus · 2026-06-21</p></div>
+</div>
+</body>
+</html>

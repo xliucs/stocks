@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AAPL | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>AAPL — Apple Inc.</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-06-21 · Sources: yfinance, Seeking Alpha, X/Twitter, analyst consensus</p>
+
+<div class="badge">📊 Score 51/100 · Neutral · $298.01 · Fwd P/E 34.0x · PT $314 · 1M −0.3%</div>
+
+<div class="co yw"><strong>🌐 Macro Context (June 21, 2026):</strong> The fear regime of early June has thawed. VIX has collapsed from 22.2 (June 10) to <strong>16.4</strong> as two tail risks resolved: (1) the Strait of Hormuz crisis ended with a US–Iran "Hormuz Prosperity Accord" (June 18), sending WTI from ~$91 down to <strong>~$76</strong> and reopening commercial shipping; (2) the June 17 FOMC — the first under new Chair <strong>Kevin Warsh</strong> — held at 3.50–3.75% but the dot plot turned hawkish, with the 2026 median rising to 3.8% (9 of 18 members now see a hike by year-end). Stocks fell ~1% on the hawkish hold, then rebounded +1.2% June 18 on the Iran deal; markets were closed June 19 for Juneteenth. 10Y ~4.49%, 2Y 4.21%. The new tape is a "higher-for-longer + crowded-megacap" rotation: leadership has shifted to <strong>memory/semis</strong> (the DRAM/HBM supercycle), with Micron's fiscal-Q3 print this week the sector barometer. <strong>For Apple, two fresh, opposite developments dominate: the June 18 Trump-announced Apple–Intel US chip-manufacturing pact (Intel +10%) on the bull side, and management's own admission that "unsustainable" DRAM/NAND cost inflation will force product price increases on the bear side.</strong></div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$298.01</div><div class="sub dn">-6.1% from 52W High ($317.40)</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$4.38T</div><div class="sub">Shares: 14.69B</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value neu">36.1x</div><div class="sub">EPS: $8.25</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value neu">30.8x</div><div class="sub">Fwd EPS: $9.67 (FY+1); 34.0x on FY0 $8.76</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">$451.4B</div><div class="sub up">+16.6% YoY</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value up">47.9%</div><div class="sub">Services mix lift</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value up">32.3%</div><div class="sub">Stable</div></div>
+    <div class="kpi"><div class="label">Net Margin</div><div class="value up">27.2%</div><div class="sub">ROE: 141% (buyback-inflated)</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">1M Return</div><div class="value dn">-0.3%</div><div class="sub">Most defensive Mag7</div></div>
+    <div class="kpi"><div class="label">3M Return</div><div class="value up">+19.8%</div><div class="sub">Pre/post-WWDC run</div></div>
+    <div class="kpi"><div class="label">6M Return</div><div class="value up">+8.7%</div><div class="sub">Recovered post-June-10</div></div>
+    <div class="kpi"><div class="label">Dividend Yield</div><div class="value">0.36%</div><div class="sub">Cash $68.5B / Debt $84.7B</div></div>
+</div>
+
+<div class="co gr"><strong>💸 AI Capital-Cycle Scorecard — the regime winner:</strong> TTM operating cash flow <strong>$140.2B</strong>; implied TTM capex only ~<strong>$39B</strong>; FCF after capex <strong>$101.1B</strong> — more than MSFT, GOOG and META on a standalone basis. Funding mix: internal, plus a ~$110B buyback authorization shrinking the share count. Apple's WWDC AI reset doubled down on this asset-light model: rather than build a frontier model, it is <strong>renting one — a custom ~1.2T-parameter Google Gemini for a reported ~$1B/yr</strong> — to power the new Siri. In a market that has spent June punishing capital intensity and dilution, AAPL is structurally on the right side, which is why it gave back only −0.3% over the month while the regime churned. The bear mirror-image: capex-light because Apple now <em>pays a rival</em> for its core intelligence — which may cap the AI premium rather than expand it.</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter</th><th>Revenue</th><th>Net Income</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th><th>Diluted EPS</th></tr></thead>
+<tbody><tr><td>2026-03-31 (Q2 FY26)</td><td>$111.2B <span class="up">↑ +17%</span></td><td>$29.6B</td><td>49.3%</td><td>32.3%</td><td>26.6%</td><td>$2.01</td></tr>
+<tr><td>2025-12-31 (Q1 FY26)</td><td>$143.8B <span class="up">↑</span></td><td>$42.1B</td><td>48.2%</td><td>35.4%</td><td>29.3%</td><td>$2.84</td></tr>
+<tr><td>2025-09-30 (Q4 FY25)</td><td>$102.5B <span class="up">↑</span></td><td>$27.5B</td><td>47.2%</td><td>31.6%</td><td>26.8%</td><td>$1.85</td></tr>
+<tr><td>2025-06-30 (Q3 FY25)</td><td>$94.0B</td><td>$23.4B</td><td>46.5%</td><td>30.0%</td><td>24.9%</td><td>$1.57</td></tr>
+<tr><td>2025-03-31 (Q2 FY25)</td><td>$95.4B</td><td>$24.8B</td><td>47.1%</td><td>31.0%</td><td>26.0%</td><td>$1.65</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>🔥 Q2 FY26 (reported May 1) was a record March quarter:</strong> $111.2B revenue (+17% YoY) on iPhone strength and an all-time Services record (~$31B); Greater China re-accelerated for the first clean quarter since FY22, and gross margin of 49.3% is a multi-decade high. No new financials since — the next print (Q3 FY26, ~July 30) is the catalyst. The durability question is now sharpened by management's late-June warning that soaring memory/storage costs are "unsustainable" and will pressure product pricing, a direct gross-margin watch-item against the 49% high.</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Revenue Stream</th><th>Q2 FY26</th><th>% of Total</th><th>YoY Trend</th><th>Notes</th></tr></thead>
+<tbody><tr><td><strong>iPhone</strong></td><td>~$46.8B</td><td>42%</td><td class="up">+10% YoY</td><td>iPhone 17 cycle strength — against an industry IDC sees shrinking ~13% in 2026; DRAM/NAND cost inflation now threatens BoM</td></tr>
+<tr><td><strong>Services</strong></td><td>~$31.0B</td><td>28%</td><td class="up">+16% YoY</td><td>All-time record; App Store, iCloud+, TV+, advertising, payments; the ~75%-margin engine. New Siri adds a paid AI tier</td></tr>
+<tr><td><strong>Mac</strong></td><td>~$7.95B</td><td>7%</td><td class="up">+12% YoY</td><td>M5-series refresh</td></tr>
+<tr><td><strong>iPad</strong></td><td>~$6.40B</td><td>6%</td><td class="up">+15% YoY</td><td>M4 iPad Pro premium mix</td></tr>
+<tr><td><strong>Wearables/Home/Acc</strong></td><td>~$7.52B</td><td>7%</td><td class="dn">-5% YoY</td><td>Watch flat; Vision Pro small; AirPods Pro 3 in 2H</td></tr>
+<tr><td><strong>Other/Reconciling</strong></td><td>~$11.5B</td><td>10%</td><td class="neu">Mixed</td><td>Channel/FX adjustments</td></tr>
+</tbody></table>
+<div class="co yw"><strong>⚠️ The units &amp; memory squeeze:</strong> IDC forecasts 2026 global smartphone shipments down <strong>~13% y/y, a 10-year low</strong>; 42% of Apple's revenue is iPhone, exposed to a shrinking unit market. New this period: Apple has confirmed that the same DRAM/NAND supercycle now leading the market is driving "unsustainable" component costs that will require <strong>product price increases</strong> — a double bind, since higher prices into a contracting unit market risk further volume loss, while absorbing the cost dents the 49% gross margin. The bull offset remains the installed base: the new Gemini-Siri and Apple Intelligence require recent silicon, leaving hundreds of millions of older iPhones as a forced-upgrade runway.</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl neu">39.1</div><div class="nt neu">Soft, near oversold</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl up">$288.63</div><div class="nt up">Price above</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl up">$267.79</div><div class="nt up">Price above — still only Mag7 above both</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl dn">1.21</div><div class="nt dn">Below signal (3.25) — bearish</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$317.40</div><div class="nt dn">-6.1%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$198.96</div><div class="nt up">+49.8%</div></div>
+</div>
+
+<div class="co bl"><strong>⚠️ Technical Signal:</strong> Still the strongest Mag7 chart — holding above both its 50-day ($288.63) and 200-day ($267.79) averages even through the WWDC wobble and the macro chop. But momentum is soft: RSI 39 (near oversold) and MACD (1.21) sits below its signal line (3.25), a bearish configuration. The stock is pinned at the <strong>$300 round number</strong>, which option desks flag as a major gamma wall (control node $290); $300 has been repeatedly tested and rejected. Last session (June 18) ranged $295.62–$300.57, closing $298.01. Support: SMA50 ~$289, then $280; resistance: $300, then the $317 high.</div>
+
+<h2>📏 Historical Valuation</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Current P/E</div><div class="value neu">36.1x</div></div>
+    <div class="kpi"><div class="label">5Y Avg P/E*</div><div class="value">29.5x</div><div class="sub">*Outliers filtered (PE&lt;100)</div></div>
+    <div class="kpi"><div class="label">5Y P/E Range</div><div class="value">22x – 38x</div></div>
+    <div class="kpi"><div class="label">Percentile</div><div class="value dn">~88th</div><div class="sub">Near top of range</div></div>
+</div>
+<div class="co yw"><strong>📐 Mean Reversion Downside:</strong> At 36.1x trailing / 30.8x forward (FY+1), AAPL sits near the 88th percentile of its own 5-year range. Applying the filtered 29.5x historical average to forward EPS of $9.67 implies <strong>$285.26</strong> — <strong class="dn">−4% from spot</strong>. Apple still carries an AI-narrative premium, and WWDC's Gemini-powered Siri partially validated it (a working Siri ships this year) while simultaneously undermining it (Apple is renting, not owning, the intelligence — and gave no firm GA date).</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Company</th><th>Price</th><th>MCap</th><th>Trail P/E</th><th>Fwd P/E</th><th>Rev Growth</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th></tr></thead>
+<tbody><tr class="hl"><td><strong>AAPL</strong></td><td>$298.01</td><td>$4.38T</td><td>36.1x</td><td>30.8x</td><td>16.6%</td><td>47.9%</td><td>32.3%</td><td>27.2%</td></tr>
+<tr><td><strong>MSFT</strong></td><td>$397.36</td><td>$2.95T</td><td>23.7x</td><td>20.5x</td><td>18.3%</td><td>68.3%</td><td>46.3%</td><td>39.3%</td></tr>
+<tr><td><strong>GOOG</strong></td><td>$353.32</td><td>$4.31T</td><td>27.0x</td><td>24.4x</td><td>21.8%</td><td>60.4%</td><td>36.1%</td><td>37.9%</td></tr>
+<tr><td><strong>META</strong></td><td>$570.98</td><td>$1.45T</td><td>20.7x</td><td>15.8x</td><td>33.1%</td><td>81.9%</td><td>40.6%</td><td>32.8%</td></tr>
+<tr><td><strong>AMZN</strong></td><td>$238.00</td><td>$2.56T</td><td>31.6x</td><td>24.1x</td><td>16.6%</td><td>50.6%</td><td>13.1%</td><td>12.2%</td></tr>
+<tr><td><strong>NVDA</strong></td><td>$200.42</td><td>$4.85T</td><td>31.9x</td><td>15.7x</td><td>85.2%</td><td>74.1%</td><td>65.6%</td><td>63.0%</td></tr>
+</tbody></table>
+
+<div class="co yw"><strong>Peer Read:</strong> AAPL is the most expensive large platform on forward earnings (30.8x) with the slowest growth ex-AMZN (16.6%) and the lowest margins of the platform group. What the premium buys: $101B FCF (vs the AI spenders' capex-compressed cash flows), the most predictable EPS stream, and zero dilution risk. The new wrinkle is that the regime's leadership has rotated to NVDA/memory/semis — and Apple now sits on the <em>cost</em> side of that supercycle (rising DRAM/NAND), not the beneficiary side. Premium for capital-lightness is rational, but it leaves no margin for an iPhone unit miss or a memory-driven gross-margin hit.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value up">0.52</div><div class="sub">Call-tilted bias</div></div>
+    <div class="kpi"><div class="label">Avg Call IV</div><div class="value">17.5%</div><div class="sub">Subdued</div></div>
+    <div class="kpi"><div class="label">Avg Put IV</div><div class="value">17.2%</div><div class="sub">Flat skew</div></div>
+    <div class="kpi"><div class="label">IV Context</div><div class="value up">Lowest in Mag7</div><div class="sub">VIX 16.4, fear receding</div></div>
+</div>
+<div class="co bl"><strong>📊 Options Read:</strong> Textbook defensive profile — lowest IV in the group (~17%) with a flat call/put skew. With VIX down to 16.4, there is essentially no event premium priced even into the July 30 print. Dealer positioning is pinned to the <strong>$300 gamma wall</strong> (large positive gamma, ~$4–5M notional at the $300 strike per flow desks), which mechanically dampens moves and explains the repeated $300 rejection. Complacency risk if iPhone supply-chain checks or the memory-cost story start to bite.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co rd"><strong>Pattern: persistent insider selling across the range — zero open-market buys.</strong><ul><li>LEVINSON ARTHUR D (Director, former Chair) — Sale 250,000 shares ≈ $71.2M @ ~$284.57–285.04 (2026-05-06); a further 50,000 shares ≈ $15.6M @ $311.02 (2026-05-27) plus a 65,000-share gift/disposition (2026-05-27)</li><li>NEWSTEAD JENNIFER (General Counsel) — 30,104-share disposition (2026-06-15)</li><li>BORDERS BEN (Officer) — Sale 116 shares @ $295.14 (2026-06-16); 240-share disposition (2026-06-15); earlier sale 1,274 shares ≈ $369K @ $290 (2026-05-08)</li><li>COOK TIMOTHY D (CEO) — Sale 64,949 shares ≈ $16.5M @ $251.25–256.00 (2026-04-02)</li><li>PAREKH KEVAN (CFO) — Sale 1,534 shares ≈ $422K @ $275 (2026-04-23)</li><li>O'BRIEN DEIRDRE (Officer) — Sale 30,002 shares ≈ $7.66M @ ~$255 (2026-04-02)</li></ul>⚠️ Signal: Levinson's ~$87M of sales dominate, much of it into the late-May highs near $311. The continued absence of a single insider <em>buy</em> across a ~50% twelve-month rally — including small ongoing officer sales in mid-June — leans cautionary, consistent with a stock the Street holds for defense rather than conviction upside.</div>
+
+<h2>📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">"Apple's Siri revamp, AI roadmap at WWDC sees bullish analysts' views"</span> · Seeking Alpha · June 9, 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Sell-side largely framed the Gemini-powered Siri as the credibility unlock the AI story needed; bulls argued Siri/AI monetization (paid tier) plus an upgrade cycle could add $75–$100/share over time and cement Apple as a key AI-distribution platform.</p></div>
+<div class="tw"><span class="au">Morgan Stanley — Overweight, $360 PT (Street high tier)</span> · June 9, 2026 · <span class="st bul">Overweight</span><p style="margin-top:8px; color:#475569">Reiterated OW with a $360 target (~+20% vs spot) into WWDC, anchored on Services compounding and an Apple-Intelligence-driven upgrade runway across the installed base.</p></div>
+<div class="tw"><span class="au">"Why Apple Stock Fell After WWDC 2026: Siri AI Delay, AAPL Valuation"</span> · INDmoney · June 9, 2026 · <span class="st ber">Bearish/Caution</span><p style="margin-top:8px; color:#475569">Gene Munster's read: the stock fell because Apple gave <em>no timeline</em> on Siri — a story already two years old — and shipped it in beta. Valuation at a record multiple leaves no cushion for slippage.</p></div>
+<div class="tw"><span class="au">"Apple Closes WWDC 2026 With a Siri AI Powered by Google Gemini — Why AAPL Bought Itself Two More Quarters"</span> · Phemex Academy · June 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">Argues WWDC moves the <em>next</em>-cycle story, not the current-quarter print; the ~$1B/yr Gemini rental buys time and a working assistant, but renting core intelligence from a rival is what caps the premium the bulls want to assign.</p></div>
+<div class="tw"><span class="au">"Can Apple Intelligence Spark the Next iPhone Supercycle?"</span> · TradingKey · June 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">The bull math: the new Siri requires recent silicon, so the large AI-incapable installed base is a forced-upgrade runway that can offset the IDC −13% industry unit forecast for Apple specifically.</p></div>
+
+<div class="co bl"><strong>Research Consensus:</strong> Split and cooling, biased Buy. WWDC delivered a real, shipping AI Siri (bull) on rented Gemini intelligence with no GA date (bear). Consensus PT ~$314 (+5%) is the thinnest cushion in the Mag7 and largely pre-dates both the Apple–Intel pact and the memory-cost warning.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">@linker_eth — the "context moat" bull</span> · June 21 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"The model is rentable, your context is not." Argues Apple quietly won the assistant war: the Gemini-Siri sits on top of your email, texts and receipts, so even on rented intelligence the data moat (your context) is the unpriced asset. Counter to the "Apple admitted defeat" narrative.</p></div>
+<div class="tw"><span class="au">@ankitvarmani (CFA) — memory-cost watcher</span> · June 22 · <span class="st ber">Bearish</span><p style="margin-top:8px; color:#475569">Flags Apple's own statement that "soaring memory and storage chip costs are unsustainable and will require Apple product price increases" — confirming elevated DRAM/NAND pricing flows straight into Apple's BoM and pricing decisions. The cleanest near-term gross-margin risk.</p></div>
+<div class="tw"><span class="au">@LeoTheGreat300 — megacap-weight trader</span> · June 22 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">"$NVDA $AAPL $MSFT $GOOGL getting slaughtered while the memory plays carry the entire market… these biggest weights being dead money." The rotation thesis: leadership has left megacap into memory/semis; AAPL is ballast, not a leader, in this tape.</p></div>
+<div class="tw"><span class="au">@BullTradeFinder / @PJtrader_17 — the $300 pin</span> · June 21–22 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">Both flag $300 as a "very sticky" major gamma wall (+~$4.9M at strike, control node $290). Above $300 opens 305–310; loss of $295 risks 292.5–290. The chart is mechanically pinned, not trending.</p></div>
+
+<div class="co bl"><strong>X Consensus:</strong> Mixed, positioning-driven. Real debate has shifted from "did WWDC deliver" to two newer axes: the context-moat bull case for rented-Gemini Siri, and the memory-cost / dead-money bear case as the supercycle rotates leadership away from megacap. AAPL is again the hiding place, not the conviction long — which historically caps both tails. <em>(Note: $AAPL cashtag streams are heavily polluted by promo/finfluencer spam; substantive themes extracted above, low-signal posts excluded.)</em></div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>Apple–Intel US chip pact (announced June 18)</strong> — Trump confirmed Apple will partner with Intel to design/manufacture certain chips in the US under Apple's $600B four-year domestic commitment; Intel jumped ~10%. Scope/timeline unconfirmed, but it diversifies away from TSMC dependence and is a political/onshoring tailwind</li>
+<li><strong>New Siri ships (2H 2026)</strong> — Gemini-powered (~1.2T-param custom model), with a paid AI tier and selectable model providers (Gemini/ChatGPT/Claude). A well-received GA converts WWDC skepticism into upgrade-cycle and Services-monetization evidence</li>
+<li><strong>Q3 FY26 earnings (~July 30)</strong> — watch iPhone units vs the IDC −13% industry backdrop, whether Greater China momentum sustains, and the first gross-margin read against rising memory costs</li>
+<li><strong>Capital-lightness / FCF scarcity</strong> — $101B FCF and zero dilution keep AAPL the defensive Mag7 expression whenever the anti-capex/dilution regime reasserts</li>
+<li><strong>Services compounding</strong> — ~$31B/quarter at +16% with ~75% gross margin; trajectory toward $130B+/yr in FY27, now augmented by a paid Siri AI tier</li>
+<li><strong>iPhone 18 (FY27)</strong> — rumored foldable + larger on-device model; bulls' real supercycle candidate</li>
+<li><strong>Buyback</strong> — ~$110B authorization; less accretive at 36x but the persistent bid under every dip</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>Memory-cost squeeze (new)</strong> — Apple has flagged DRAM/NAND cost inflation as "unsustainable," requiring product price increases. Either path hurts: higher prices into a contracting unit market risk volume; absorbing costs dents the 49% gross-margin high. Directly tied to the DRAM/HBM supercycle now leading the market.</li>
+<li><strong>Industry unit contraction</strong> — IDC: 2026 smartphone shipments −13% y/y, a 10-year low; 42% of revenue is iPhone. Premium mix mitigates but cannot fully escape a shrinking market.</li>
+<li><strong>AI dependence &amp; credibility</strong> — the new Siri runs on a <em>rented</em> Google Gemini (~$1B/yr), shipped in beta with no firm GA date. Renting core intelligence from a rival caps the AI premium, and a second consecutive delayed/diluted Siri cycle would break the supercycle thesis the multiple depends on.</li>
+<li><strong>Valuation</strong> — ~88th percentile of its own 5Y range; 5Y mean reversion (−4%), peer parity (−35%) and base DCF (~−24%) all sit at or below spot. Only the analyst PT (+5%) is above, and it is stale.</li>
+<li><strong>Regulatory (policyRisk: moderate)</strong> — DOJ smartphone-monopoly suit ongoing; EU DMA pressure (the new Siri's regional handling and App Store rules) exposes a slice of global revenue to fines; the DOJ–Google remedies process threatens the ~$20B/yr default-search payments — a direct, high-margin Services risk.</li>
+<li><strong>China</strong> — a Q2 highlight, but any Apple-Intelligence/Siri exclusion or delay in China hands domestic rivals the AI-marketing narrative in Apple's most contested market.</li>
+<li><strong>Macro / duration</strong> — least macro-exposed Mag7 operationally, but a hawkish-hold Fed (2026 dot 3.8%, hike risk) and a 31x forward multiple is still long-duration: a December hike compresses it like everything else.</li>
+<li><strong>Insider selling</strong> — ~$100M+ in recent weeks, no open-market buys across the entire rally.</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value up">Buy</div><div class="sub">recommendationKey "buy" (n=42) — weakest Mag7 conviction</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value">$314.42</div><div class="sub neu">+5.5% — thinnest cushion in Mag7</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$215.00</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$400.00</div></div>
+</div>
+<div class="co yw"><strong>⚠️ Staleness caveat:</strong> The $314 mean (range $215–$400, n=42) mostly pre-dates the Apple–Intel pact and the memory-cost warning; Morgan Stanley's $360 (June 9) is at the high tier. With only +5% headline upside on stale numbers, AAPL remains the one Mag7 name where consensus itself signals limited reward.</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data &amp; Methodology:</strong> All financial data from Yahoo Finance (yfinance) as of 2026-06-21 (price <strong>$298.01</strong>, the June 18 close — the last session before the Juneteenth holiday; last session range $295.62–$300.57). Forward EPS <strong>$9.67</strong> (FY+1 consensus); a more conservative FY0 consensus of $8.76 yields the 34.0x figure in our score badge. Trailing P/E <strong>36.1x</strong> on TTM EPS $8.25. Historical P/E: 20 quarterly observations over 5 years, outliers (&gt;100x) filtered. Three independent methods triangulate fair value.</div>
+
+<h3>Method 1: P/E Multiple Approach</h3>
+<p style="color:#64748b; margin-bottom:12px">Each scenario applies a different P/E multiple to forward EPS of $9.67 (FY+1 consensus).</p>
+<table><thead><tr><th>Scenario</th><th>P/E</th><th>EPS</th><th>Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody><tr><td>Peer Parity (loses all premium)</td><td>20.2x</td><td>$9.67</td><td>$195.33</td><td class="dn">-34%</td><td>Avg of MSFT 20.5x, GOOG 24.4x, META 15.8x — full de-rating</td></tr>
+<tr><td>Bear (units + memory bite)</td><td>24.0x</td><td>$8.70</td><td>$208.87</td><td class="dn">-30%</td><td>IDC −13% + margin hit; EPS = 90% of consensus</td></tr>
+<tr><td>GOOG Parity</td><td>24.4x</td><td>$9.67</td><td>$235.95</td><td class="dn">-21%</td><td>Re-rates to the AI-leader multiple</td></tr>
+<tr><td>5Y mean reversion</td><td>29.5x</td><td>$9.67</td><td>$285.26</td><td class="dn">-4%</td><td>Historical average multiple</td></tr>
+<tr><td>Conservative (current multiple holds)</td><td>31.0x</td><td>$9.67</td><td>$299.77</td><td class="neu">~flat</td><td>Market keeps paying the FCF/quality premium</td></tr>
+<tr><td>Optimistic (supercycle + Intel/Siri)</td><td>34.0x</td><td>$10.44</td><td>$355.08</td><td class="up">+19%</td><td>+8% EPS beat on AI upgrades; multiple to top of 5Y range</td></tr>
+</tbody></table>
+
+<h3>Method 2: Mean Reversion &amp; Consensus</h3>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">5Y Avg PE × Fwd EPS</div><div class="value dn">$285.26</div><div class="sub dn">-4%</div></div><div class="kpi"><div class="label">Peer Avg PE × Fwd EPS</div><div class="value dn">$195.33</div><div class="sub dn">-34%</div></div><div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value">$314.42</div><div class="sub neu">+5.5% — stale</div></div>
+</div>
+<div class="co bl"><strong>📐 Calculation Details:</strong><ul><li>5Y average P/E 29.5x (filtered, range 22x–38x) × forward EPS $9.67 = $285.26</li><li>Mag7 platform-peer average forward P/E 20.2x × $9.67 = $195.33</li><li>Analyst consensus PT $314.42 (range $215–$400, n=42)</li></ul></div>
+
+<h3>Method 3: Discounted Cash Flow (DCF)</h3>
+<p style="color:#64748b; margin-bottom:12px">10-year FCF model. Unlike the hyperscalers, AAPL's TTM FCF ($101.1B, ~22% of revenue) is NOT capex-depressed — it is already normalized, so the DCF is higher-conviction here. FCF margin drifts modestly with mix and the new memory-cost / Gemini-rental drags; WACC 9.0% (beta 1.09), terminal growth 3.0–3.5%, 14.69B shares.</p>
+<table><thead><tr><th>Scenario</th><th>Rev Growth</th><th>FCF Margin (terminal)</th><th>WACC</th><th>Terminal Growth</th><th>Intrinsic Value</th><th>Upside</th></tr></thead>
+<tbody><tr><td>Bear (units + memory cost win)</td><td>5.0%</td><td>22%</td><td>9.0%</td><td>3.0%</td><td>$135.10</td><td class="dn">-55%</td></tr>
+<tr><td>Base (services-led mid-single/low-double)</td><td>10.0%</td><td>25%</td><td>9.0%</td><td>3.0%</td><td>$226.40</td><td class="dn">-24%</td></tr>
+<tr><td>Bull (AI supercycle + services premium)</td><td>15.0%</td><td>27%</td><td>9.0%</td><td>3.5%</td><td>$379.60</td><td class="up">+27%</td></tr>
+</tbody></table>
+<div class="co rd"><strong>⚖️ Honest read:</strong> This remains the least flattering valuation page in our Mag7 coverage: base DCF (−24%), 5Y mean reversion (−4%) and peer parity (−34%) all sit below spot; only the bull/supercycle scenarios justify today's price. The market is consciously paying a scarcity premium for FCF certainty — defensible while the regime favors capital-lightness, fragile the moment iPhone units, China, or the memory-cost story disappoints. The score of 51/100 (Neutral) captures exactly this: a high-quality business at a price that already discounts a good outcome.</div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$208.87</div><div class="mt">24x × $8.70 EPS (90% of consensus)</div><div class="us dn">-30%</div><div class="ds">IDC's −13% industry contraction hits iPhone units, the memory-cost squeeze compresses gross margin, Siri slips again with no GA date, and DOJ/Google-payments risk threatens Services. Premium evaporates toward the historical-average multiple.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr">$299.77</div><div class="mt">31x × $9.67 EPS</div><div class="us neu">+0.6%</div><div class="ds">Multiple holds on FCF-scarcity value; Services +15%, iPhone units roughly flat vs a shrinking industry, memory costs partially passed through, Q3 in line. Dead-money outcome — the most probable path; the stock stays pinned near $300.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$355.08</div><div class="mt">34x × $10.44 EPS (+8% beat)</div><div class="us up">+19%</div><div class="ds">Gemini-Siri lands well and monetizes (paid tier), the AI-incapable installed base begins upgrading, China holds, the Apple–Intel onshoring narrative adds a political tailwind, and FY27 foldable-iPhone leaks fuel supercycle hopes.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co yw"><p><strong>AAPL</strong> is still the right stock for a capital-intensity-averse regime at a price that already knows it. Apple is the structural winner of the anti-capex tape — $101B FCF after just ~$39B capex, zero dilution, a ~$110B buyback — and at WWDC it doubled down on asset-light AI by <em>renting</em> a custom Google Gemini (~$1B/yr) to finally ship a working Siri. That is why it gave back only −0.3% over a choppy month and is the only Mag7 name above both its 50- and 200-day averages. But the price discounts a good outcome: 30.8x forward (≈88th percentile of its own history) for 16.6% growth that decelerates against IDC's −13% smartphone forecast, a Siri shipped in beta with no GA date on rented intelligence, fresh management warnings that "unsustainable" DRAM/NAND costs will force price increases, ~$100M of insider selling and no buys, and three of four valuation methods at or below spot. The bull case — the AI-incapable installed base as a forced-upgrade runway, relentless Services compounding, and the new Apple–Intel onshoring tailwind — is real but needs evidence the multiple already assumes.</p><p><strong>Verdict: Hold as the defensive Mag7 allocation; do not add at 31x. Score 51/100 (Neutral). 12-month base case $300 (~flat, dead money), bull $355 (+19%) on Siri monetization + supercycle confirmation, bear $209 (−30%) if units, China, or memory costs crack the premium. Better entry: the $280–289 moving-average shelf.</strong></p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, Seeking Alpha, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, Seeking Alpha, X/Twitter, analyst consensus · 2026-06-21</p></div>
+</div>
+</body>
+</html>

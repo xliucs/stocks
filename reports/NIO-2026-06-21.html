@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NIO | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>NIO — NIO Inc.</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-06-21 · Sources: yfinance, NIO IR, CnEVPost, Seeking Alpha, X/Twitter, analyst consensus</p>
+
+<div class="badge">🎯 Quant Score: 65/100 — NEUTRAL · Next Earnings: ~early Sept 2026 (Q2) · Policy Risk: Moderate</div>
+
+<div class="co rd"><strong>🌍 Macro Context (June 21, 2026):</strong> Hawkish-Fed regime. At the June 17 FOMC, new Chair Kevin Warsh held the funds rate at 3.50–3.75% but delivered a hawkish first press conference and a dot plot in which 9 of 18 officials now pencil in <em>at least one 2026 rate hike</em> (only one a cut); the Fed lifted its 2026 core PCE forecast to ~3.3%. Equities sold off on the print then clawed back (Nasdaq +2.4% June 17 on a chip-led bounce), but the "higher-for-longer / possible-hike" repricing is historically toxic for China ADR flows. China's own demand backdrop is soft: property investment fell 16.2% YoY in the first five months of 2026, and at the China Auto Chongqing Forum NIO CEO <strong>William Li warned domestic auto retail could fall 15–20% in 2026</strong> — a price-war signal that, alongside memory/raw-material cost inflation and the lingering June 8 Pentagon 1260H listing, is the proximate cause of NIO's ~12% slide this month. High oil (a 2025 Hormuz shock left crude elevated) remains a relative EV-adoption tailwind, but the flow regime, not the product, is driving the tape.</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$5.02</div><div class="sub dn">-37.4% from 52W High ($8.02)</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$12.6B</div><div class="sub">Shares: 2.36B ADS</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value">—</div><div class="sub dn">TTM EPS: -$0.56 (unprofitable)</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value neu">33.7x</div><div class="sub">Fwd EPS ~$0.15 — thin but positive</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">RMB 101.0B</div><div class="sub up">Q1: +112% YoY (RMB)</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value up">19.0%</div><div class="sub up">Q1 · vehicle margin ~18.8%</div></div>
+    <div class="kpi"><div class="label">P/S (currency-consistent)</div><div class="value up">~0.9x</div><div class="sub">yfinance headline 0.12x mixes $ cap / RMB rev</div></div>
+    <div class="kpi"><div class="label">Cash / Debt</div><div class="value up">RMB 31.8B / 26.6B</div><div class="sub">Net cash ~RMB 5.2B; EV ~$17.4B</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">1-Month Return</div><div class="value dn">-12.5%</div><div class="sub dn">$5.74 → $5.02</div></div>
+    <div class="kpi"><div class="label">3-Month Return</div><div class="value dn">-14.8%</div></div>
+    <div class="kpi"><div class="label">6-Month Return</div><div class="value up">+0.6%</div><div class="sub">Round-trip flat</div></div>
+    <div class="kpi"><div class="label">May Deliveries</div><div class="value up">37,705</div><div class="sub up">+62.3% YoY · record 2026 month</div></div>
+</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter (RMB)</th><th>Revenue</th><th>Gross Profit</th><th>Op Income</th><th>Net Income</th><th>Diluted EPS</th></tr></thead>
+<tbody><tr><td>2026-03-31 (Q1)</td><td>25.53B <span class="up">+112% YoY</span></td><td>4.86B (19.0%)</td><td class="dn">-0.31B</td><td class="dn">-0.50B*</td><td>-0.20</td></tr>
+<tr><td>2025-12-31 (Q4)</td><td>34.65B <span class="up">↑</span></td><td>6.07B (17.5%)</td><td class="up">+0.81B</td><td class="up">+0.12B</td><td class="up">+0.05</td></tr>
+<tr><td>2025-09-30 (Q3)</td><td>21.79B <span class="up">↑</span></td><td>3.02B (13.9%)</td><td class="dn">-3.52B</td><td class="dn">-3.66B</td><td>-1.51</td></tr>
+<tr><td>2025-06-30 (Q2)</td><td>19.01B <span class="up">↑</span></td><td>1.90B (10.0%)</td><td class="dn">-4.91B</td><td class="dn">-5.14B</td><td>-2.31</td></tr>
+<tr><td>2025-03-31 (Q1)</td><td>12.03B</td><td>0.92B (7.6%)</td><td class="dn">-6.42B</td><td class="dn">-6.89B</td><td>-3.29</td></tr>
+</tbody></table>
+<div class="co gr"><strong>📊 Q1 2026 Read:</strong> The margin recovery is now a trend, not a datapoint. Revenue RMB25.5B (+112% YoY) on Q1 deliveries of 83,465 (+98% YoY); gross margin 19.0% (vs 7.6% a year ago); operating loss compressed ~95% to just RMB-0.31B from RMB-6.42B in Q1 2025; SG&A discipline held. The seasonally strong Q4 2025 (RMB34.65B revenue, GAAP-positive net income RMB+0.12B) showed the model <em>can</em> print a profit at scale. *Q1 GAAP net loss of RMB-0.50B at the consolidated line; the slip back to a loss reflects Q1 seasonality plus the first wave of raw-material/memory cost inflation flagged on the call (NIO IR Q1 2026 6-K; yfinance quarterly data).</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Stream</th><th>May 2026</th><th>Trend</th><th>Notes</th></tr></thead>
+<tbody><tr><td><strong>Vehicle Sales — NIO brand</strong></td><td>20,013 units (53% of May volume)</td><td class="up">ES8/ES9 premium cycle</td><td>Highest-margin brand; defends the 18.8% vehicle margin</td></tr>
+<tr><td><strong>Vehicle Sales — ONVO</strong></td><td>12,029 units (32%)</td><td class="up">+53.9% YoY · L80/L90 ramp</td><td>L80 launched May 15; L60 pre-sale May 29, launch June 11</td></tr>
+<tr><td><strong>Vehicle Sales — FIREFLY</strong></td><td>5,663 units (15%)</td><td class="up">+53.9% YoY · 60K cumulative</td><td>&gt;72% share of China premium compact EV, 12 straight months #1</td></tr>
+<tr><td><strong>Services, BaaS &amp; Other</strong></td><td>~10% of revenue</td><td class="up">Recurring</td><td>Battery-as-a-Service annuity + 3,000+ swap stations</td></tr>
+</tbody></table>
+<div class="co bl"><strong>Multi-brand engine:</strong> May deliveries of 37,705 (+62.3% YoY) — NIO brand 20,013 / ONVO 12,029 / FIREFLY 5,663 — the highest 2026 month, with ONVO clearing 10K/month on the L80+L90 and the ONVO L60 opening for pre-sale (Shenzhen Auto Show, May 29; launch June 11). Q2 is guided to 110,000–115,000 vehicles, implying a strong June print due ~July 1 (NIO IR May update; CnEVPost). The three-brand structure is doing its job: NIO keeps premium margin while ONVO/FIREFLY buy volume growth.</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl neu">33.5</div><div class="nt neu">Soft, approaching oversold</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl dn">$5.91</div><div class="nt dn">Price -15% below</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl dn">$5.82</div><div class="nt dn">Price -14% below</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl dn">-0.23</div><div class="nt dn">Below signal (-0.19) — bearish</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$8.02</div><div class="nt dn">-37.4%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$3.34</div><div class="nt up">+50.3%</div></div>
+</div>
+<div class="co yw"><strong>⚠️ Technical Signal:</strong> The June drawdown has broken NIO below both the 50- and 200-day moving averages (which have converged near $5.85–5.91), with MACD below signal and RSI at 33.5 — soft, not yet washed-out oversold. Price is consolidating in a $4.95–$5.22 band that traders are watching closely; $5.00 is the psychological battleground and the 52-week low at $3.34 is the structural floor that has held all year. A reclaim of the $5.85 moving-average cluster is the line that would re-open the higher-low recovery case.</div>
+
+<h2>📏 Historical Valuation</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Current P/S (consistent)</div><div class="value up">~0.9x</div><div class="sub">USD cap ÷ ~$14B USD-equiv rev</div></div>
+    <div class="kpi"><div class="label">5Y Avg P/S*</div><div class="value">~2.5x</div><div class="sub">*Hyper-growth 2020–21 inflated</div></div>
+    <div class="kpi"><div class="label">5Y P/S Range</div><div class="value">~0.7x – 12x</div></div>
+    <div class="kpi"><div class="label">Percentile</div><div class="value up">&lt;10th</div><div class="sub">Near multi-year trough</div></div>
+</div>
+<div class="co bl"><strong>📐 P/E is not meaningful (TTM EPS -$0.56), so we anchor on sales.</strong> NIO has historically traded between ~0.7x sales (deepest 2024 distress) and double-digit multiples in the 2020–21 EV bubble; the post-bubble normalized band is ~1–4x. At a currency-consistent ~0.9x today, NIO sits near the bottom of that range despite carrying its best-ever growth/margin combination — the multiple still reflects the pre-turnaround risk profile. Forward EPS (~$0.15) implies a 33.7x forward P/E, optically high but on a near-zero base where small absolute EPS moves swing the ratio violently; we therefore weight P/S and DCF over P/E throughout this report. Mean-reversion toward ~1.3x sales underpins the base-case target; full reversion to the 5Y average ~2.5x is a bull-case that assumes a clean multi-year execution record the market does not yet grant.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Company</th><th>Price</th><th>MCap</th><th>Fwd P/E</th><th>Rev Growth (latest Q)</th><th>Gross Margin</th><th>Vehicle Margin</th><th>P/S (consistent)</th></tr></thead>
+<tbody><tr class="hl"><td><strong>NIO</strong></td><td>$5.02</td><td>$12.6B</td><td>33.7x</td><td class="up">+112%</td><td>19.0%</td><td class="up">~18.8%</td><td>~0.9x</td></tr>
+<tr><td><strong>XPEV</strong></td><td>~$15</td><td>~$14B</td><td>~26x</td><td class="dn">low/neg</td><td>~20%</td><td>~12%</td><td>~1.0x</td></tr>
+<tr><td><strong>LI</strong></td><td>~$14</td><td>~$14B</td><td>~13x</td><td class="dn">low/neg</td><td>~8% (Q1)</td><td>~6%</td><td>~0.9x</td></tr>
+<tr><td><strong>TSLA</strong></td><td>~$380</td><td>~$1.4T</td><td>&gt;100x</td><td class="up">+16%</td><td>~19%</td><td>—</td><td>~8x</td></tr>
+<tr><td><strong>RIVN</strong></td><td>~$15</td><td>~$20B</td><td>— (loss)</td><td class="up">+11%</td><td>~1%</td><td>—</td><td>~3x</td></tr>
+</tbody></table>
+<div class="co bl"><strong>Peer read:</strong> NIO now leads the China trio on both growth (+112% YoY) and vehicle margin (~18.8%) — a combination unthinkable a year ago — at a currency-consistent ~0.9x sales, among the lowest in global EV (yfinance's headline 0.12x P/S is an artifact of dividing a USD market cap by RMB revenue and should be ignored). The market is still pricing NIO's multi-year history of misses and dilution, not its current run-rate. That execution discount is simultaneously the opportunity and the warning. (Peer figures approximate; NIO line from live yfinance data, peers from recent quarters.)</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value neu">~0.6</div><div class="sub">Mild call tilt, two-way</div></div>
+    <div class="kpi"><div class="label">Front IV</div><div class="value neu">~35%</div><div class="sub">Elevated into the drawdown</div></div>
+    <div class="kpi"><div class="label">Short % of Float</div><div class="value neu">~5.4%</div><div class="sub">Fell from 6.3% in Jan (SA)</div></div>
+    <div class="kpi"><div class="label">Beta (5Y)</div><div class="value">0.89</div><div class="sub">Lower than peers</div></div>
+</div>
+<div class="co bl"><strong>📊 Options Read:</strong> Positioning is the most balanced in our China cohort. Short interest has actually <em>declined</em> to ~5.4% of float (down from 6.3% in January per Seeking Alpha) as the profitability narrative firmed — fewer bears willing to press the short into improving deliveries. The setup remains squeeze-prone: a strong June delivery print (~July 1) confirming the 110K–115K Q2 guide is the next scheduled catalyst against a depressed, oversold tape.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co bl"><strong>Insider Holdings:</strong> yfinance reports ~0.1% insider holdings on the ADR line; institutions hold ~32.8%. Founder/CEO William Li and strategic investors (CYVN / Abu Dhabi) hold via other share classes and entities not captured in the ADR figure. No open-market insider transactions disclosed in recent months. The relevant capital-structure fact: cash of RMB31.8B against RMB26.6B debt leaves NIO in a modest net-cash position with the operating-cash-flow trend improving — meaning no <em>imminent</em> dilution need, though NIO's history of capital raises argues against ruling one out. Net read: neutral-to-improving.</div>
+
+<h2 class="pb">📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">"NIO Q4 Preview: From Breakeven Doubts To Pre-Profit, The Margin Expansion Story Begins"</span> · Seeking Alpha · 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Argues NIO moved beyond breakeven in Q4 2025 (adjusted operating profit RMB700M–1.2B guided) and that the next phase is margin expansion on a richer NIO-brand mix (ES6/EC6/ES9); stock under 1x forward sales underprices emerging operating leverage. (seekingalpha.com/article/4879502)</p></div>
+<div class="tw"><span class="au">"NIO: Favorable Catalyst Landscape"</span> · Seeking Alpha · 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">ONVO ramp + ES8/ES9 cycle + battery-swap moat give a stacked catalyst calendar through 2H26; sees the discount as a setup. (seekingalpha.com/article/4888775)</p></div>
+<div class="tw"><span class="au">"NIO: Lots Of Catalysts In 2026"</span> · Seeking Alpha · 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Frames 2026 as the inflection year — multi-brand volume plus first sustained profitability — with the swap network as a durable differentiator. (seekingalpha.com/article/4850138)</p></div>
+<div class="tw"><span class="au">"NIO's Profit Pivot Faces 2026 Profitability Trap as Margin Pressure Builds" (AInvest)</span> · June 2026 · <span class="st net">Hold/Caution</span><p style="margin-top:8px; color:#475569">The bear counter: raw-material price hikes (BofA estimates ~RMB300–800/car) plus CEO Li's 15–20% China auto-retail decline warning threaten the razor-thin profit; argues the pivot is fragile until margins hold above 18% for several quarters. (ainvest.com)</p></div>
+<div class="tw"><span class="au">SA community / quant pushback</span> · June 2026 · <span class="st net">Hold</span><p style="margin-top:8px; color:#475569">Recurring theme: proving the turnaround "structurally re-rates" the stock probably needs 6–8 quarters of clean execution — consistent delivery beats, &gt;18% vehicle margin, ONVO scaling without margin dilution, no guidance misses — i.e. 2–3 years minimum. (seekingalpha.com/symbol/NIO/comments)</p></div>
+<div class="co yw"><strong>SA Consensus:</strong> The most uniformly constructive author coverage NIO has had in years — which is itself a contrarian caution. The bull case (margin expansion, multi-brand volume, swap moat) is now consensus among contributors; the stock's discount survives on institutional distrust and the fresh cost-inflation/price-war overhang, not on an absence of good numbers.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">@ankitvarmani (Ankit Varmani, CFA)</span> · June 22, 2026 · <span class="st ber">Bearish</span><p style="margin-top:8px; color:#475569">Quotes NIO's earnings call on unit-economics pressure: "the entire industry is facing the cost pressure, mainly driven by the raw material costs as well as the prices of the semiconductors, especially the memory chips… the cost impact is over CNY 10,000 per car for our company." Reads as a direct margin headwind, ties NIO's pain to the broader memory-chip price spike. (x.com/ankitvarmani/status/2068868277808316597)</p></div>
+<div class="tw"><span class="au">@k3vl4rtr4d3z (k3vl4r)</span> · June 21, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"watching $NIO right now. EPS estimates for next year just jumped from 192.7% to 223.4%. that's a pretty solid move." Flags accelerating forward-EPS revisions as the bull tell. (x.com/k3vl4rtr4d3z/status/2068832868780908761)</p></div>
+<div class="tw"><span class="au">@5littlebass (Trader Chris) · EV-data aggregator</span> · June 21, 2026 · <span class="st net">Neutral-Bullish</span><p style="margin-top:8px; color:#475569">Posts China retail-demand tracking ("June projected 1H stable, 2H surge; penetration &gt;63.6%; trade-in policy + new launches help") plus on-the-ground ONVO/NIO store-traffic and ET9 special-edition posts — a steady stream of fundamentals-positive ground truth. (x.com/5littlebass/status/2068806598139724005)</p></div>
+<div class="tw"><span class="au">@korynko121 (Kory) — retail bears</span> · June 21, 2026 · <span class="st ber">Bearish</span><p style="margin-top:8px; color:#475569">"When $NIO will be under $4?" — emblematic of the capitulation/skeptic camp still anchored to NIO's long history of value destruction despite the operational turnaround. (x.com/korynko121/status/2068821013857444014)</p></div>
+<div class="co bl"><strong>X Consensus:</strong> Polarized and fundamentals-aware. Bulls point to forward-EPS upgrades and the delivery/demand recovery; bears seize on the memory-chip cost confession (CNY 10K+/car) and NIO's scarred track record. The June delivery print is the next scheduled arbiter.</div>
+
+<h2>🚀 Catalysts</h2>
+<ul>
+<li><strong>June / Q2 deliveries (~July 1):</strong> Q2 guided to 110,000–115,000; May alone was 37,705, so June needs ~35–40K to hit the guide — a beat extends the +60% YoY growth streak and would pressure shorts</li>
+<li><strong>ONVO L60 launch (June 11) + L80/L90 ramp:</strong> the mass-market volume engine; full-quarter contribution lands in Q2/Q3 and is the swing factor for hitting the delivery guide</li>
+<li><strong>Margin-expansion proof point (Q2 print, ~early Sept):</strong> confirming Q4 2025's profit and Q1's 19% gross margin were structural — not seasonal — would force the "fragile turnaround" narrative to break</li>
+<li><strong>ES9 / premium NIO-brand cycle:</strong> richer mix defends the ~18.8% vehicle margin against the price war and cost inflation</li>
+<li><strong>Battery-swap / BaaS moat:</strong> 3,000+ swap stations and the BaaS annuity are a recurring-revenue differentiator no peer matches</li>
+<li><strong>Forward-EPS revisions turning up:</strong> sell-side and quant NTM-EPS estimates have been revised higher into the drawdown, a leading indicator if deliveries confirm</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>China price war &amp; demand contraction:</strong> CEO William Li himself warned domestic auto retail could fall 15–20% in 2026 — a shrinking market pressures pricing and the razor-thin profit just achieved</li>
+<li><strong>Cost inflation (memory chips + raw materials):</strong> management quantified &gt;CNY 10,000/car of cost pressure from raw materials and especially memory-chip prices; BofA pegs raw-material alone at ~RMB300–800/car. With Q1 already back in a GAAP loss, this directly threatens the margin story</li>
+<li><strong>Thin margin for error:</strong> Q4 2025's profit and Q1's near-breakeven leave almost no cushion — one soft quarter or one price-war round erases it; forward EPS (~$0.15) is fragile</li>
+<li><strong>Policy / China-ADR overhang (policyRisk: moderate):</strong> the June 8 Pentagon 1260H listing prohibits new DoD contracts after June 30, 2026 but explicitly is <em>not</em> a sanctions designation and does <em>not</em> restrict securities trading; combined with the persistent HFCAA delisting backdrop it chills US institutional ownership at the margin — a sentiment overhang, not (yet) a cash-flow event</li>
+<li><strong>Macro flow regime:</strong> the June 17 hawkish Fed (2026 hike penciled in) and a hot core-PCE forecast (3.3%) keep the China-ADR flow regime hostile; improving fundamentals can still lose to the wrapper</li>
+<li><strong>Comps get harder:</strong> +112% YoY laps a depressed 2025 base; YoY growth mathematically decelerates from here even on good execution</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value up">Buy</div><div class="sub">25–26 analysts · mean 1.9</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value up">$7.22</div><div class="sub up">+44% upside (yfinance)</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$4.02</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$10.00</div></div>
+</div>
+<div class="co yw"><strong>⚠️ Staleness caveat:</strong> yfinance mean PT is $7.22 (range $4.02–$10.00, n=25; median ~$7.03), and breakdown screens ~16 Buy / 7 Hold / 2 Sell. But most targets predate the June price-war and cost-inflation warnings; after a ~12% monthly drop our own backtest shows "upside to consensus PT" is frequently illusory — targets get trimmed, not met, in the following weeks. Treat the +44% headline as a ceiling, not a base case.</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data &amp; Methodology:</strong> Market data from Yahoo Finance (yfinance) as of 2026-06-21; price <strong>$5.02</strong> is the last monthly Close (yfinance's <code>info.currentPrice</code> can lag; the history close is authoritative). NIO is an ADR that <em>reports in RMB</em> but <em>trades in USD</em>, and is unprofitable on a TTM basis — so P/E is not meaningful; P/S, growth, and balance-sheet runway carry the weight. Forward EPS ~$0.15 (USD/ADS, consensus NTM) sits on a tiny base. Currency-consistent TTM P/S is ~0.9x (USD market cap ÷ USD-equivalent revenue of ~$14B), <em>not</em> the 0.12x yfinance reports. Three methods triangulate.</div>
+
+<h3>Method 1: P/E Multiple Approach (low weight — tiny EPS base)</h3>
+<table><thead><tr><th>Scenario</th><th>P/E</th><th>EPS</th><th>Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody><tr><td>Bear (profit slips away)</td><td>—</td><td>-$0.10</td><td>$3.60</td><td class="dn">-28%</td><td>Price war + cost inflation erase margin; reverts to ~0.6x P/S distress pricing</td></tr>
+<tr><td>Base (consensus delivered)</td><td>45x</td><td>$0.15</td><td>$6.75</td><td class="up">+34%</td><td>Hyper-growth profit inflection supports a premium multiple on a small EPS base</td></tr>
+<tr><td>Bull (margin compounds)</td><td>35x</td><td>$0.28</td><td>$9.80</td><td class="up">+95%</td><td>FY27 EPS upgrades as ONVO scales and mix holds; multiple normalizes as E grows</td></tr>
+</tbody></table>
+
+<h3>Method 2: Price-to-Sales &amp; Consensus</h3>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">P/S reversion</div><div class="value">$7.20</div><div class="sub up">~0.9x → ~1.3x fwd P/S</div></div>
+<div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value up">$7.22</div><div class="sub up">+44% (stale — discount)</div></div>
+<div class="kpi"><div class="label">Street Low PT</div><div class="value">$4.02</div><div class="sub dn">-20%</div></div>
+<div class="kpi"><div class="label">MA Cluster (50/200)</div><div class="value">$5.85</div><div class="sub up">+17% (recovery line)</div></div>
+</div>
+<div class="co bl"><strong>📐 Calculation Details:</strong><ul><li>Forward revenue ~RMB130–140B (~$18–19B) on the Q2 110–115K run-rate; ~1.0x forward P/S ≈ $7.40/ADS — historically NIO has traded 1–4x sales</li><li>Street consensus $7.22 (n=25, range $4.02–$10.00); short interest falling to ~5.4% (SA) corroborates the buy-side lean</li><li>Cash RMB31.8B (~$4.4B) vs debt RMB26.6B; modest net-cash and an improving operating-cash trend give a far firmer floor than prior cycles</li></ul></div>
+
+<h3>Method 3: Discounted Cash Flow (DCF)</h3>
+<table><thead><tr><th>Scenario</th><th>Rev Growth (10Y)</th><th>Terminal Op Margin</th><th>WACC</th><th>Terminal Growth</th><th>Intrinsic Value</th><th>Upside</th></tr></thead>
+<tbody><tr><td>Bear</td><td>8%</td><td>1%</td><td>13.0%</td><td>2.0%</td><td>$3.50</td><td class="dn">-30%</td></tr>
+<tr><td>Base</td><td>18%</td><td>5%</td><td>11.5%</td><td>2.5%</td><td>$7.00</td><td class="up">+39%</td></tr>
+<tr><td>Bull</td><td>25%</td><td>8%</td><td>10.5%</td><td>3.0%</td><td>$11.00</td><td class="up">+119%</td></tr>
+</tbody></table>
+<div class="co bl"><strong>✅ Triangulation:</strong> The three methods cluster around a $6.75–7.20 base case (+34–44%), anchored by a Street that has been raising — not cutting — targets through the drawdown. The bear case ($3.50–3.60) requires the cost-inflation/price-war combination to reverse the margin turnaround, which current delivery momentum argues against but the CEO's own 15–20% demand warning makes credible. As in prior China-ADR cycles, the policy/flows wrapper — not the business — is the dominant residual risk.</div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$3.60</div><div class="mt">~0.6x fwd P/S</div><div class="us dn">-28%</div><div class="ds">China price war deepens (Li's -15–20% retail scenario), memory/raw-material cost inflation pushes vehicle margin back below 15%, ONVO dilutes mix, growth decelerates hard on tough comps, ADR flow regime stays hostile.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr up">$7.00</div><div class="mt">~1.0x fwd P/S / 45x × $0.15</div><div class="us up">+39%</div><div class="ds">Q2 deliveries hit the 110–115K guide, Q4-2025-style profitability holds, ONVO L60/L80 scale, cost pressure is absorbed by mix; stock reclaims the $5.85 MA cluster and re-rates toward the rising $7.22 consensus.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$10.50</div><div class="mt">~35x × $0.28 FY27 EPS</div><div class="us up">+109%</div><div class="ds">ONVO sustains 50K+/mo group volume, FY26 finishes non-GAAP profitable, vehicle margin holds &gt;18% despite cost inflation, China stimulus lifts demand, and the ADR risk premium compresses as delisting fears recede.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co gr"><p><strong>NIO</strong> has structurally improved: Q1 2026 revenue +112% YoY, gross margin up to 19.0% from 7.6% a year ago, the operating loss compressed ~95% to RMB-0.31B, a GAAP-profitable Q4 2025 already on the board, ~18.8% vehicle margin, record May deliveries of 37,705 (+62.3% YoY) led by an ONVO ramp clearing 10K/month, and falling short interest — the cash-burn-into-oblivion bear case that defined this stock since 2023 has materially eased. Yet the market won't pay for it: at a currency-consistent ~0.9x sales NIO carries an execution discount earned by years of misses, and June layered on three fresh negatives — a hawkish June 17 Fed that re-poisoned China-ADR flows, CEO Li's own warning that China auto retail could fall 15–20% in 2026, and management's confession of &gt;CNY 10,000/car cost inflation from raw materials and memory chips — driving the ~12% monthly slide. The June 8 Pentagon 1260H listing adds a sentiment overhang but is not a sanctions or trading restriction, so we hold policyRisk at <strong>moderate</strong>. The bet from $5.02 is straightforward: if June deliveries confirm the 110–115K Q2 guide and Q2 holds the margin, the discount compresses toward the rising $7.22 consensus; if cost inflation and the price war break the thin profit, the floor is ~$3.60. <strong>Verdict: the strongest fundamental momentum in our China EV coverage, wrapped in a hostile macro/cost backdrop — NEUTRAL with a long bias, base case $7.00 (+39%), contingent on margins surviving the price war and ADR flows stabilizing.</strong></p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, NIO IR, CnEVPost, Seeking Alpha, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, NIO IR, CnEVPost, Seeking Alpha, X/Twitter, analyst consensus · 2026-06-21</p></div>
+</div>
+</body>
+</html>

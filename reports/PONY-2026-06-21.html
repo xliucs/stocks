@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PONY | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>PONY — Pony AI Inc.</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-06-21 · Sources: yfinance, SEC filings, Seeking Alpha, X/Twitter, analyst consensus</p>
+
+<div class="badge">⚖️ Composite score 60/100 · Rating: Neutral · Policy risk: ELEVATED (US-listed China AV) · Next earnings ~2026-08-18</div>
+
+<div class="co yw"><strong>🌐 Macro Context (June 21, 2026):</strong> The regime has shifted from the early-June fear spike to a <strong>hawkish-hold recovery</strong>. The June 17 FOMC — the first under new Chair Kevin Warsh — held the funds rate at <strong>3.50–3.75%</strong> in a unanimous 12–0 vote but turned more hawkish in the dots: <strong>9 of 18 participants now pencil in at least one hike by year-end</strong> as inflation lingers above 2%. Equities sold off on the decision, then recovered into the Juneteenth close (markets shut Friday June 19); the S&amp;P 500 sits near an all-time high around <strong>7,420</strong> with the 10Y at <strong>4.48%</strong>. The tape is risk-on at the index level but punishing for long-duration, pre-profit names: a higher-for-longer rate path directly compresses multiples on assets like PONY whose cash flows are years out. Layer on the persistent <strong>China-ADR overhang</strong> (data-security/export scrutiny, delisting tail) and PONY trades as one of the most duration- and policy-sensitive vehicles in the market. It is <strong>flat over the past month (+0.2%)</strong> — having already absorbed its de-rating — while the index recovered, leaving it ~5% off its 52-week low.</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$8.34</div><div class="sub dn">-65% from 52W high ($24.06) · +5.4% above 52W low ($7.91)</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$2.94B</div><div class="sub">352.5M ADS · ~433M total shares</div></div>
+    <div class="kpi"><div class="label">P/S (TTM)</div><div class="value">~27x</div><div class="sub">EV/S ~17x net of $1.07B cash</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value dn">n/m</div><div class="sub">Pre-profit · fwd EPS -$0.60 · GAAP breakeven 2028+</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">$110.3M</div><div class="sub up">+145% YoY · Q1'26 $34.3M</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value">15.8%</div><div class="sub">Q1: 16.2%</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value dn">-170%</div><div class="sub up">improving vs -401% Q1'25</div></div>
+    <div class="kpi"><div class="label">Cash &amp; ST Inv.</div><div class="value up">$1.07B</div><div class="sub">Debt $16M · op burn ~$185M/yr → ~5-yr runway</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">1M Return</div><div class="value neu">+0.2%</div><div class="sub">Flat as index recovered</div></div>
+    <div class="kpi"><div class="label">3M Return</div><div class="value dn">-22.5%</div><div class="sub">Sustained de-rating</div></div>
+    <div class="kpi"><div class="label">6M Return</div><div class="value dn">-42.8%</div><div class="sub">Duration/ADR compression</div></div>
+    <div class="kpi"><div class="label">FCF (TTM)</div><div class="value dn">-$171M</div><div class="sub">Op CF -$185M · no debt pressure</div></div>
+</div>
+
+<div class="co rd"><strong>💸 The metric this market grades on — cash runway vs burn:</strong> PONY carries <strong>$1.07B</strong> in cash + short-term investments against just <strong>$16M</strong> of debt. TTM operating cash flow is <strong>-$185M</strong> and FCF <strong>-$171M</strong>, and burn accelerates with fleet capex — but at the current rate that is roughly a <strong>5-year runway with no forced raise</strong>. In a hawkish, dilution-punishing tape (the higher-for-longer dots make equity raises by cash-burners especially costly), a fully-funded balance sheet is PONY's single strongest defensive stat. Net cash alone is ~<strong>$3.03/share</strong> — a hard floor under the equity.</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter</th><th>Revenue</th><th>Net Income</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th><th>Diluted EPS</th></tr></thead>
+<tbody><tr class="hl"><td>2026-03-31 (Q1'26)</td><td>$34.3M <span class="up">↑↑</span></td><td>$-50.4M</td><td>16.2%</td><td>-170.3%</td><td>-147.2%</td><td>$-0.12</td></tr>
+<tr><td>2025-12-31 (Q4'25)</td><td>$29.1M <span class="up">↑</span></td><td>$23.4M*</td><td>12.7%</td><td>-253.6%</td><td>80.5%*</td><td>$0.06</td></tr>
+<tr><td>2025-09-30 (Q3'25)</td><td>$25.4M <span class="up">↑</span></td><td>$-61.3M</td><td>18.4%</td><td>-273.9%</td><td>-241.0%</td><td>$-0.16</td></tr>
+<tr><td>2025-06-30 (Q2'25)</td><td>$21.5M <span class="up">↑</span></td><td>$-53.1M</td><td>16.1%</td><td>-285.6%</td><td>-247.5%</td><td>$-0.14</td></tr>
+<tr><td>2025-03-31 (Q1'25)</td><td>$14.0M —</td><td>$-43.0M</td><td>16.6%</td><td>-400.9%</td><td>-307%</td><td>$-0.12</td></tr>
+</tbody></table>
+<p style="color:#64748b;font-size:0.85em">*Q4'25 net income positive on non-operating items (investment income / fair-value marks), not operations.</p>
+
+<div class="co yw"><strong>📊 Read:</strong> Operationally the story is intact and improving — Q1'26 revenue +145% YoY, robotaxi revenue +395%, a 5th straight quarter of sequential growth, and operating margin compressing from -401% to -170% as the fleet scales. But the loss is still widening in dollar terms ($50.4M vs $43.0M Q1'25), and in a higher-for-longer rate regime the market is no longer capitalizing growth-without-a-dated-breakeven. No new financials since the May print; the move is regime- and rate-driven, not a fundamental miss.</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Revenue Stream</th><th>Amount (Q1'26)</th><th>% of Total</th><th>YoY Trend</th><th>Notes</th></tr></thead>
+<tbody><tr><td><strong>Robotaxi Services</strong></td><td>~$8.6M</td><td>~25%</td><td class="up">+395% YoY</td><td>Fare-charging +450%; UE breakeven in Guangzhou + Shenzhen; fleet 1,700+ → 3,500 target EOY26</td></tr>
+<tr><td><strong>Robotruck (Pony Trucking)</strong></td><td>~$10.2M</td><td>~30%</td><td class="up">+31% YoY</td><td>Sinotrans partnership; Gen-4 mass production H2 2026</td></tr>
+<tr><td><strong>Licensing / Technical Services / Other</strong></td><td>~$15.5M</td><td>~45%</td><td class="up">Strong</td><td>Toyota Gen-7 stream, Tencent, Uber/Verne (Europe), Mowasalat Karwa (Qatar)</td></tr>
+</tbody></table>
+<div class="co bl"><strong>Mix shift:</strong> Robotaxi share is rising as the fleet scales toward the raised 3,500-vehicle year-end target (1,700+ as of Q1); FY26 robotaxi revenue target is &gt;3.5x 2025. Only company authorized for fully-driverless commercial robotaxi service across all four China Tier-1 cities (Beijing, Shanghai, Guangzhou, Shenzhen). The Gen-7 platform targets a sub-¥230,000 (~$33,000) all-in vehicle cost by 2027, the unit-economics flywheel underpinning the licensing stream.</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl neu">34.2</div><div class="nt neu">Approaching oversold</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl dn">$9.58</div><div class="nt dn">Price 13% below</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl dn">$13.93</div><div class="nt dn">Price 40% below</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl dn">-0.43</div><div class="nt dn">Below signal (-0.33) — bearish</div></div>
+    <div class="tc"><div class="mk">52W High / Low</div><div class="vl">$24.06 / $7.91</div><div class="nt dn">-65% / +5.4%</div></div>
+    <div class="tc"><div class="mk">Avg Volume (3M)</div><div class="vl">5.1M</div><div class="nt">Elevated on down days</div></div>
+</div>
+<div class="co rd"><strong>📊 Technical Read:</strong> PONY is pinned just above its $7.91 52-week low. RSI at 34 is approaching oversold but not yet capitulatory; MACD remains below signal; every moving average points down (SMA50 $9.58, SMA200 $13.93). The stock went sideways through the past month while the S&amp;P recovered to near record highs — relative weakness, not strength. First resistance is the SMA50 near $9.60, then $14 (SMA200). A decisive break below $7.91 puts the equity in price discovery toward the ~$3.03 net-cash floor. Oversold bounces are tradeable; the trend is not yet.</div>
+
+<h2>📏 Historical Valuation</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Current P/S</div><div class="value">~27x</div><div class="sub">EV/S ~17x</div></div>
+    <div class="kpi"><div class="label">P/S 2 wks ago</div><div class="value">~32x</div><div class="sub">Compressing</div></div>
+    <div class="kpi"><div class="label">EV/S range (public life)</div><div class="value">~15x–60x+</div><div class="sub">Now near low end</div></div>
+    <div class="kpi"><div class="label">Net Cash / Share</div><div class="value up">$3.03</div><div class="sub">Hard valuation floor</div></div>
+</div>
+<div class="co yw"><strong>📐 No P/E anchor — value off sales and cash:</strong> PONY has no earnings, so trailing/forward P/E are not meaningful (forward EPS ~-$0.60). At ~17x EV/S the stock sits near the low end of its short public-market history (it traded above 50–60x EV/S at peak), but a high-double-digit sales multiple is still demanding for a 15.8%-gross-margin business years from profit. The valuation case rests on the +145% growth rate, the Tier-1 permit moat, and the $1.07B cash cushion — not on historical multiple mean-reversion, which is unreliable at this revenue base.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Ticker</th><th>Mkt Cap</th><th>P/S (TTM)</th><th>Rev Growth</th><th>Gross Margin</th><th>Op Margin</th><th>Notes</th></tr></thead>
+<tbody><tr class="hl"><td><strong>PONY</strong></td><td>$2.9B</td><td>~27x</td><td class="up">+145%</td><td>15.8%</td><td>-170%</td><td>Only China player driverless-commercial in all 4 Tier-1 cities</td></tr>
+<tr><td>WRD (WeRide)</td><td>$2.0B</td><td>~20x</td><td class="up">+57.6%</td><td>30.4%</td><td>-376%</td><td>Broader product line; 5 European bases; also near lows</td></tr>
+<tr><td>TSLA</td><td>~$1.4T</td><td>~14x</td><td>+15.8%</td><td>19.1%</td><td>+4.2%</td><td>Robotaxi optionality + EV core; Taiwan L2+ inspection in focus</td></tr>
+<tr><td>GOOG (Waymo)</td><td>~$4.3T</td><td>~10x</td><td>+21.8%</td><td>60.4%</td><td>+36.1%</td><td>Scale benchmark; London trials 2026</td></tr>
+<tr><td>BIDU (Apollo Go)</td><td>~$40B</td><td>~0.3x</td><td>-1.2%</td><td>42.1%</td><td>+10.0%</td><td>~10x PONY's China fleet; entering London</td></tr>
+<tr><td>MBLY</td><td>~$7.7B</td><td>~3.8x</td><td>+27.4%</td><td>48.3%</td><td>-19.4%</td><td>ADAS supplier comp</td></tr>
+</tbody></table>
+<div class="co yw"><strong>Peer Read:</strong> PONY still carries the richest sales multiple in the AV cohort (~27x P/S, ~17x EV/S) — down from ~32x two weeks ago but far from cheap. The premium rests on the fastest growth rate (+145%) and the Tier-1 permit moat. In a higher-for-longer regime, premium multiples on pre-profit names compress first; that compression is what the chart shows. WeRide is the closest direct comp and trades at a discount on a lower growth rate but worse operating margin.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value neu">~1.0</div><div class="sub">Cautious; elevated from spring</div></div>
+    <div class="kpi"><div class="label">Implied Vol</div><div class="value neu">Elevated</div><div class="sub">High single-name IV near 52W low</div></div>
+    <div class="kpi"><div class="label">Short Interest</div><div class="value neu">~9%</div><div class="sub">~30M shares; elevated</div></div>
+    <div class="kpi"><div class="label">Regime</div><div class="value neu">Hawkish hold</div><div class="sub">Hedging bid persists</div></div>
+</div>
+<div class="co bl"><strong>📊 Options Read:</strong> Positioning stays defensive — the bullish call skew of the spring is gone, put/call sits near parity, short interest remains elevated near ~9% of float, and single-name IV is high as the stock grinds against its 52-week low. There is no aggressive bull positioning to fade; flow is hedging the downside, consistent with a hawkish-hold tape that punishes pre-profit duration.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co yw"><strong>Net direction: institutional accumulation into weakness; founder lockup overhang ahead.</strong>
+<ul>
+<li><strong>ARK Invest (Cathie Wood) added 45,949 PONY shares (~$412K) via ARKQ</strong> in mid-June 2026 (Benzinga) — continued accumulation into the lows, alongside ARK adding DoorDash and trimming Archer Aviation</li>
+<li>CFO Wang Haojun sold 18,283 shares @ $8.69 (~$159K) on 2026-03-30 — last notable insider sale on file</li>
+<li>Founders (Peng + Lou) remain under a <strong>voluntary 540-day lockup</strong> covering ~22.9% of shares — expires ~Nov 2026, a dated supply overhang inside our horizon</li>
+<li>AGM (June 8, Guangzhou): all resolutions passed, incl. 2025 audited financials adoption</li>
+<li>Institutions hold ~47.7%</li>
+</ul>
+</div>
+
+<h2>📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">"Pony AI: Heading Into Earnings With A Scalable Edge"</span> · Seeking Alpha · 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Argues the Gen-7 platform's ~70% BOM reduction and city-wide UE breakeven give PONY a scalable cost edge over Western peers; sees fleet expansion as the re-rating catalyst.</p></div>
+<div class="tw"><span class="au">"Scaling Up: How Pony AI's Fleet Targets Could Double Revenue By 2026"</span> · Seeking Alpha · 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Despite premium valuation and ongoing losses, frames the share price as justified by rapid fleet expansion and high-margin licensing; models ~54% revenue CAGR over the next four years.</p></div>
+<div class="tw"><span class="au">"Pony AI: Fleet Growth Should Drive The Stock Higher"</span> · Seeking Alpha · 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Rates PONY a buy on improving cost structure, licensing traction, and large TAM; flags robotruck as underappreciated optionality at a depressed share price.</p></div>
+<div class="tw"><span class="au">"Robotaxis Are Expensive, and Investors Are Now Punishing Pony AI Stock"</span> · Yahoo Finance / Motley Fool · Jun 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">The bear-leaning counterpoint: the drawdown is the market repricing the capital intensity of fleet scaling, even as the operational beat-rate stays high. Asks whether the selling has overshot.</p></div>
+<div class="tw"><span class="au">Macquarie (Eugene Hsiao)</span> · Jun 2026 · <span class="st bul">Outperform, PT $24 (from $25)</span><p style="margin-top:8px; color:#475569">Modest mark-down, rating kept — still nearly 3x spot. The only post-selloff sell-side mark on file; underscores how stale the rest of the $20.91 consensus is.</p></div>
+
+<div class="co yw"><strong>Research Consensus:</strong> Coverage is real but thin and skews structurally bullish on the growth/cost-edge story. The retrospective lesson holds: after a sharp drawdown, sell-side PTs ($24, $20.91 mean) lag the regime and should be discounted, not annualized. Even the Street-low $10 target sits ~20% above spot — classic stale-PT risk.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">@Benzinga</span> · 2026-06-15 · <span class="st bul">Bullish (institutional)</span><p style="margin-top:8px; color:#475569">"Cathie Wood's Ark Invest... added DoorDash and Pony AI... bought 45,949 shares of $PONY through ARKQ for about $412,000." Continued ARK accumulation into the lows is the clearest institutional conviction signal on the tape.</p></div>
+<div class="tw"><span class="au">@smsehy (Shawn)</span> · 2026-06-16 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"Pony AI is already 395% YoY on robotaxi in China. Tesla walking the same path [Taiwan L2+ inspection] is the data point that makes the whole market credible." Frames PONY's traction as validating the entire robotaxi thesis.</p></div>
+<div class="tw"><span class="au">@CounterPointTR (Counterpoint Research)</span> · 2026-06 · <span class="st net">Neutral / constructive</span><p style="margin-top:8px; color:#475569">Names Waymo, Apollo Go, Tesla, WeRide and Pony.ai as the scale leaders in a robotaxi services market projected to reach $168B by 2035 (3.6M-vehicle global fleet), with 2026 the deployment-breakthrough year.</p></div>
+<div class="tw"><span class="au">@BA_WAS_HERE / AV-stock lists</span> · 2026-06-18/20 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">$PONY appears consistently in curated autonomous-vehicle/robotaxi basket posts alongside TSLA, GOOG, WRD, AUR and MBLY — broad thematic awareness, but organic single-name conviction chatter remains scarce at the lows.</p></div>
+<div class="co bl"><strong>X Consensus:</strong> Industry and institutional accounts stay constructive — ARK buying, Counterpoint's $168B TAM, Tesla-comparison validation — while organic retail conviction is muted near the 52-week low. A contrarian setup with no near-term momentum bid.</div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>Q2 2026 earnings (~Aug 18)</strong> — fleet adds toward the raised 3,500 target (1,700+ as of Q1) and robotaxi revenue trajectory vs the &gt;3.5x guide; first read on whether burn is leveling as scale builds</li>
+<li><strong>Tier-1 permit moat</strong> — only company with fully-driverless commercial robotaxi authorization across Beijing, Shanghai, Guangzhou and Shenzhen; Shenzhen city-wide license (with Xihu) the latest</li>
+<li><strong>Toyota Gen-7 mass production</strong> — sub-¥230,000 (~$33,000) all-in cost by 2027 (-70% BOM); the unit-economics flywheel behind the licensing stream</li>
+<li><strong>City-wide UE breakeven in Guangzhou + Shenzhen</strong> — proof the robotaxi unit economics can generalize as the fleet scales</li>
+<li><strong>Global expansion</strong> — Europe (Uber-Pony.ai-Verne, Zagreb), Middle East (Dubai driverless approval, Qatar/Karwa); target 20+ cities by year-end, ~half overseas</li>
+<li><strong>Gen-4 Robotruck mass production H2 2026</strong> (Sinotrans) — underappreciated second leg</li>
+<li><strong>Macro regime turn</strong> — any softening of the hawkish Fed dots disproportionately benefits the highest-duration names; PONY is a high-beta vehicle for that trade</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>Rate/duration risk is the dominant driver</strong> — at ~17x EV/S and years from profit, PONY trades as pure duration; the new Warsh-Fed dots (9/18 see a 2026 hike) and a 4.48% 10Y are direct multiple compressors regardless of execution</li>
+<li><strong>China-ADR / policy overhang (ELEVATED)</strong> — US-listed Chinese AV names carry data-security/export-control scrutiny and a delisting tail; AV data is geopolitically sensitive on both sides. Our backtests show this overhang underperforms QQQ and does not mean-revert quickly. HK dual listing (2026.HK) + Stock Connect mitigate but don't eliminate</li>
+<li><strong>Cash burn ~$185M/yr op CF (FCF -$171M)</strong> vs $1.07B liquidity → ~5-yr runway; burn accelerates with fleet capex. In a dilution-punishing tape a future raise would be costly</li>
+<li><strong>Net loss still widening</strong> ($50.4M vs $43.0M) — the market has stopped crediting the "investment income" explanation that propped up the Q4 print</li>
+<li><strong>Founder lockup expiry ~Nov 2026</strong> — ~22.9% of shares; a dated supply event inside the 12-month horizon</li>
+<li><strong>Competition</strong> — Baidu Apollo Go ~10x PONY's China fleet; Waymo/Tesla capital advantage in the West; Amazon's Zoox scaling a purpose-built vehicle</li>
+<li><strong>Stale analyst PTs</strong> — $20.91 mean implies ~+150% but largely predates the rate repricing; treat with heavy discount</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value up">Strong Buy</div><div class="sub">Mean 1.33 · 16–18 analysts</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value neu">$20.91</div><div class="sub neu">+151% — stale, discount it</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$10.00</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$32.80</div></div>
+</div>
+<div class="co yw"><strong>⚠️ Staleness caveat:</strong> Macquarie's June trim ($25 → $24, Outperform) is the only post-selloff mark; the rest of the $20.91 consensus predates the hawkish-hold repricing. Even the Street-low $10 sits ~20% above spot. Our backtest shows "upside to consensus PT" right after a sharp decline is illusory — targets get cut, not met. Discount the +151% headline heavily.</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data &amp; Methodology:</strong> All data from Yahoo Finance (yfinance) as of 2026-06-21 (price $8.34, last close from 1-month history; yfinance <em>currentPrice</em> matched). No P/E anchor (pre-profit, fwd EPS -$0.60), so value is triangulated off (1) the cash floor, (2) forward EV/S on FY27E revenue, and (3) a sanity-check DCF. Share base: ~352.5M ADS-relevant (mcap $2.94B); ~433M total shares for fully-diluted views. FY27E revenue ~$300M assumes ~70% then ~60% growth off the $110M TTM base — below the &gt;3.5x robotaxi guide to stay conservative.</div>
+
+<h3>Method 1: Forward EV/Sales (primary)</h3>
+<p style="color:#64748b; margin-bottom:12px">Apply a range of EV/S multiples to FY27E revenue (~$300M), then add back $1.07B net cash, ÷ 352.5M ADS.</p>
+<table><thead><tr><th>Scenario</th><th>EV/S (FY27E)</th><th>FY27E Rev</th><th>Implied Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody><tr><td>Cash floor</td><td>—</td><td>—</td><td>$3.03</td><td class="dn">-64%</td><td>Net cash per share; absolute downside anchor</td></tr>
+<tr><td>Bear (multiple breaks to WRD-zone)</td><td>6x</td><td>$300M</td><td>$8.13</td><td class="dn">-3%</td><td>Hawkish regime persists, growth decelerates, ADR overhang intensifies</td></tr>
+<tr><td>Conservative</td><td>8x</td><td>$300M</td><td>$9.84</td><td class="up">+18%</td><td>Modest re-rating as burn levels; permit moat holds</td></tr>
+<tr><td>Base</td><td>12x</td><td>$300M</td><td>$13.24</td><td class="up">+59%</td><td>Guidance hit, Gen-7 on schedule, macro normalizes by 2027</td></tr>
+<tr><td>Bull</td><td>18x</td><td>$300M</td><td>$18.35</td><td class="up">+120%</td><td>UE breakeven generalizes, EU/ME scaling, Fed turns dovish</td></tr>
+<tr><td>Stretch</td><td>25x</td><td>$300M</td><td>$24.30</td><td class="up">+191%</td><td>Full ADR-sentiment thaw; return to consensus-PT zone</td></tr>
+</tbody></table>
+
+<h3>Method 2: Cash Floor &amp; Mean Reversion</h3>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">Net Cash / Share</div><div class="value dn">$3.03</div><div class="sub dn">-64% — hard floor</div></div><div class="kpi"><div class="label">SMA200 (mean reversion)</div><div class="value up">$13.93</div><div class="sub up">+67% — needs regime turn</div></div><div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value neu">$20.91</div><div class="sub neu">+151% — stale, discount it</div></div>
+</div>
+<div class="co bl"><strong>📐 Calculation Details:</strong><ul><li>$1.07B cash + ST investments ÷ 352.5M ADS = ~$3.03/share absolute floor</li><li>SMA200 of $13.93 (≈ trailing 12-mo average) requires the fear/duration regime to break and the ADR discount to stabilize</li><li>Analyst consensus PT $20.91 (range $10–$32.80, n=16–18) — largely predates the hawkish-hold repricing; discount heavily</li></ul></div>
+
+<h3>Method 3: Discounted Cash Flow (sanity check)</h3>
+<p style="color:#64748b; margin-bottom:12px">Highly assumption-sensitive at this $110M revenue base. Two-stage model: revenue scales toward ~$1.2B by 2031, gross margin recovers from 16% toward ~35%, operating breakeven ~2029. WACC 13% (reflecting China-ADR risk premium), terminal growth 3.5%, ~433M fully-diluted shares.</p>
+<table><thead><tr><th>Scenario</th><th>Rev to 2031</th><th>Terminal GM</th><th>WACC</th><th>Breakeven</th><th>Intrinsic Value</th><th>Upside</th></tr></thead>
+<tbody><tr><td>Bear (scaling stalls)</td><td>~$700M</td><td>25%</td><td>13.0%</td><td>2031+</td><td>~$5.50</td><td class="dn">-34%</td></tr>
+<tr><td>Base (guidance holds)</td><td>~$1.2B</td><td>35%</td><td>13.0%</td><td>2029</td><td>~$13.00</td><td class="up">+56%</td></tr>
+<tr><td>Bull (UE breakeven generalizes)</td><td>~$1.8B</td><td>40%</td><td>13.0%</td><td>2028</td><td>~$21.00</td><td class="up">+152%</td></tr>
+</tbody></table>
+<div class="co yw"><strong>⚖️ Honest read:</strong> The three methods converge on a base case around <strong>$13</strong> — EV/S (12x → $13.24), DCF base (~$13.00) and SMA200 ($13.93) all land in a tight band, ~55–67% above spot. But every method assumes the rate regime normalizes and the ADR discount stabilizes; in a higher-for-longer world the bear cases ($5.50–$8.13) are live, and the $3.03 cash floor is what's left if scaling disappoints. This is a wide, bimodal tree, not a point estimate.</div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$5.50</div><div class="mt">~6x FY27E EV/S / DCF bear</div><div class="us dn">-34%</div><div class="ds">Fleet scaling stalls below 3,000, hawkish Fed persists, founder lockup supply hits in Nov, robotaxi UE breakeven doesn't generalize, ADR overhang intensifies. Multiple compresses toward WeRide's.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr">$13.00</div><div class="mt">~12x FY27E EV/S; DCF/SMA200 confirm</div><div class="us up">+56%</div><div class="ds">Guidance hit (3,500 fleet, &gt;3.5x robotaxi revenue), Gen-7 production on schedule, macro normalizes into 2027, lockup absorbed. Partial re-rating, not full recovery.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$21.00</div><div class="mt">~18x FY27E EV/S / DCF bull</div><div class="us up">+152%</div><div class="ds">UE breakeven generalizes to all Tier-1s + overseas, EU/ME scaling accelerates, Fed turns dovish, China-ADR sentiment thaws. Returns to the consensus-PT zone.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co yw"><p><strong>PONY</strong> is executing: Q1'26 revenue +145%, robotaxi +395%, raised FY26 targets (3,500 vehicles, &gt;3.5x robotaxi revenue), city-wide unit-economics breakeven proven in Guangzhou and Shenzhen, the only China player with fully-driverless commercial ops in all four Tier-1 cities, Toyota Gen-7 economics intact, and ARK still buying into the lows. Yet the stock sits at $8.34, ~5% above its 52-week low and -65% from its high, because the macro regime — a hawkish Warsh-Fed (9/18 dots see a 2026 hike), a 4.48% 10Y, and a higher-for-longer path — is repricing all long-duration assets, and the persistent China-ADR/policy overhang (elevated) compounds it. The stock went sideways while the S&amp;P recovered to record highs: relative weakness, not strength.</p>
+<p>The honest framing: fundamentals improved while the multiple regime broke. At ~17x EV/S, PONY is still the most expensive name in the AV cohort, options flow stays defensive, short interest is elevated (~9%), and the founder-lockup expiry (~Nov 2026, ~22.9% of shares) is a dated supply event inside our horizon. The offset is a fortress balance sheet: $1.07B cash vs $16M debt and ~5-year runway means no forced raise — the key tail risk in a dilution-punishing tape is contained, and net cash alone is ~$3.03/share.</p>
+<p><strong>Verdict: Hold / Neutral (composite score 60) — do not chase above $8.30; staged accumulation more interesting toward $7 and the cash-supported zone. 12-month base $13 (+56%), bear $5.50 (-34%), bull $21 (+152%). The Q2 print (~Aug 18) and the Nov lockup are the two events that decide which leg of this bimodal tree we end up on.</strong></p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, SEC filings, Seeking Alpha, Benzinga, Macquarie, Counterpoint Research, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, SEC filings, web research, X/Twitter, analyst consensus · 2026-06-21</p></div>
+</div>
+</body>
+</html>

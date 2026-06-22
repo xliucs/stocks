@@ -16,8 +16,8 @@
     "forwardPE": 22.5,
     "policyRisk": "none",
     "momentum1m": -0.089,
-    "thesis": "The best-positioned hyperscaler in the new capital-intensity regime: 18% growth, $627B backlog, Azure +40%, and a ~$190B capex program funded entirely from operating cash flow with zero equity raise, at 20.5x forward \u2014 below its own 5-year trough range. Bear risk is macro multiple compression (Dec hike odds ~43%, $91 oil) and $37B FCF-after-capex (~80x FCF) if AI revenue per megawatt disappoints.",
-    "url": "reports/MSFT-2026-06-10.html"
+    "thesis": "Best-positioned hyperscaler in the new \"show me the FCF\" regime: 18% revenue growth at 39% net margin, $627B backlog, Azure +40%, with a ~$190B AI capex program funded 100% from operating cash flow and no equity raise. At 19.6x FY27 earnings with RSI washed out at 18.6 near the 52-week low, the stock has pre-paid most of its macro-driven de-rating; base case $464 (+22%), bull $623 if FY27 capex digestion and Copilot monetization deliver.",
+    "url": "reports/MSFT-2026-06-21.html"
   },
   {
     "ticker": "META",
@@ -36,8 +36,8 @@
     "forwardPE": 17.6,
     "policyRisk": "moderate",
     "momentum1m": -0.041,
-    "thesis": "Cheapest multiple in the Mag7 (15.8x forward) for its fastest grower (+33% revenue, 82% gross margin), but the market is now grading capital intensity and META screens worst: $125-145B capex with no cloud to monetize it, FCF-after-capex heading toward zero, and a rumored tens-of-billions equity raise. High-torque setup: funding clarity re-rates it toward $850-900; a large dilutive raise into this tape retests $520.",
-    "url": "reports/META-2026-06-10.html"
+    "thesis": "Meta has the best P&L in the Mag7 (+33% revenue, 82% gross margin) at one of the lowest forward multiples (17.6x), yet sits ~27% off its high because the market now grades AI on capital intensity, where its $125-145B ad-funded capex and a reported ~$64B equity raise screen worst. The valuation case is compelling if the dilution question resolves benignly (fair value clusters $700-830), but a confirmed mega-raise into a higher-for-longer Fed could re-test the $520 52-week low. Highest-torque, highest-variance bet in the group; next catalysts are the raise decision and July 29 earnings.",
+    "url": "reports/META-2026-06-21.html"
   },
   {
     "ticker": "BILI",
@@ -51,12 +51,12 @@
     ],
     "nextEarnings": null,
     "price": 17.2,
-    "analystPT": 29.55,
+    "analystPT": 29.53,
     "forwardPE": 12.8,
     "policyRisk": "moderate",
     "momentum1m": -0.14,
-    "thesis": "The ad engine is intact (13 straight double-digit quarters, +30% in Q1) and the 2H26 game pipeline is on schedule, but our May bullishness was early \u2014 the stock fell 19% as back-end-loaded catalysts offered no defense in a risk-off China-ADR tape. At 13.4x forward with ~26% of market cap in net cash, BILI is a show-me story whose first hard checkpoint is NCard's official launch in July; until a game actually ships and charts, the multiple stays hostage to ADR flows.",
-    "url": "reports/BILI-2026-06-10.html"
+    "thesis": "Profitable-transition China media name with 13 straight double-digit ad quarters, 15 quarters of gross-margin expansion and ~20% of market cap in net cash, now pinned to its 52-week low at $17.20 (12.8x forward) purely on China-ADR/Hang Seng Tech flows after a clean Q1 beat. The entire bull case is whether the 2H26 game pipeline (NCard July, San Wang/Lumi Master Q4) converts record engagement into gaming EPS. Flow-hostage falling knife with no confirmed bottom; accumulate small only with July's NCard launch as the validation gate, 12-month base case $21.50 (+25%).",
+    "url": "reports/BILI-2026-06-21.html"
   },
   {
     "ticker": "GM",
@@ -75,8 +75,8 @@
     "forwardPE": 6.2,
     "policyRisk": "none",
     "momentum1m": 0.094,
-    "thesis": "Still the cheapest highly-profitable automaker \u2014 5.6x forward earnings, 9.4% operating margin, $9-11B FCF, and a $6B buyback retiring ~8% of the float \u2014 but the June 10 -5.2% rejection at the all-time-high zone, a ~$50M late-May C-suite insider-sale cluster led by CEO Barra, and $91 oil (gasoline +40% y/y) aimed at the truck/SUV engine that drives 83% of EBIT argue for buying weakness toward $72-76 rather than chasing; 12-month base case $92.",
-    "url": "reports/GM-2026-06-10.html"
+    "thesis": "GM is the cheapest highly-profitable automaker at 5.6x forward earnings with the legacy cohort's best operating margin (9.4%), ~$10B automotive FCF, and a $6B buyback retiring ~8% of the float, sitting right at its 5-year average multiple after a +66% twelve-month run. The Hormuz oil-spike tail has eased on a holding US-Iran ceasefire and RSI has reset to neutral, but a bearish MACD, ~$50M of late-May C-suite selling at $80-85, Brent above $100, and a hawkish Fed under new Chair Warsh argue for patience on entry. Base-case fair value ~$92 (+16%); buy-on-weakness in the $74-78 zone ahead of the July 21 Q2 print.",
+    "url": "reports/GM-2026-06-21.html"
   },
   {
     "ticker": "LULU",
@@ -93,8 +93,8 @@
     "forwardPE": 10.1,
     "policyRisk": "none",
     "momentum1m": -0.062,
-    "thesis": "The value-trap pattern is now confirmed: a third guidance cut (FY26 EPS to $10.95-11.15, North America down high-single-digits) and management-admitted brand/product misfires against Alo and Vuori mean the 10x multiple is cheap for a reason; international +22%, an 8.4% FCF yield, and Heidi O'Neill's September 8 CEO start are real options, but wait for evidence of NA stabilization \u2014 not price \u2014 before re-engaging.",
-    "url": "reports/LULU-2026-06-10.html"
+    "thesis": "LULU has collapsed 51% over the past year to ~$112 (9.1x trailing / ~10x forward earnings, 1.1x sales) after a Q1 FY26 miss and FY26 guidance cut driven by weak US comps (-5% to -6% cc), tariffs (~$240-320M/yr), and share loss to Alo/Vuori. The bull case rests on a 55.7% gross margin, 32% ROE, ~9% FCF yield, +13% China comps, an incoming Nike-veteran CEO, and notable insider buying on the way down. It is a value-trap-vs-generational-buy debate: base case $132 (+18%) requires only stabilization, but 9-10x may be fair value if US decline proves structural.",
+    "url": "reports/LULU-2026-06-21.html"
   },
   {
     "ticker": "QUBT",
@@ -113,8 +113,8 @@
     "forwardPE": null,
     "policyRisk": "none",
     "momentum1m": 0.167,
-    "thesis": "A $1.4B treasury (~65% of market cap) attached to a photonics roll-up and a quantum-narrative call option: Q1'26 revenue of $3.69M was ~95% acquired (organic ~$204K) with negative gross margin, share count grew 64% in a year, and a June dilution-related shareholder vote lands in the most dilution-hostile tape of the year \u2014 strictly a 0.5-1.5% lottery ticket with a $4.40-6.20/share cash floor, 29.7% short interest squeeze fuel, and sovereign-quantum-stake/defense-contract headlines as the only true upgrades.",
-    "url": "reports/QUBT-2026-06-10.html"
+    "thesis": "Highly speculative, essentially pre-revenue quantum-photonics name trading at ~560x sales on $4.3M of mostly-acquired revenue, with negative margins and ~$20M/quarter burn. Real assets are a ~$1B cash pile (a ~$4.35/share floor, but funded by relentless dilution\u2014shares +64% YoY) and a government-adjacent TFLN foundry/NeuraWave narrative riding the 50%+ quantum-sector theme rally; a credible short-seller record (Capybara, Iceberg) and active fraud litigation make disclosure quality itself a risk. Scenario expected value (~$10.40) sits almost exactly at spot\u2014roughly fairly priced for binary risk; venture-style, total-loss-tolerant sizing only.",
+    "url": "reports/QUBT-2026-06-21.html"
   },
   {
     "ticker": "AVGO",
@@ -132,8 +132,8 @@
     "forwardPE": 35.4,
     "policyRisk": "none",
     "momentum1m": 0.001,
-    "thesis": "The June 4 -14% crash was guidance anchoring, not demand breakage: AI semis grew 143% and Broadcom booked >$30B of new AI orders even as the ~$16B Q3 AI guide missed the whisper. At 19.2x forward for a contracted custom-XPU plus networking franchise with VMware software annuity, the reset looks like opportunity \u2014 but the stock now trades on AI capex financing sentiment, not fundamentals.",
-    "url": "reports/AVGO-2026-06-10.html"
+    "thesis": "Broadcom delivered a record Q2 FY26 (+48% revenue, AI semis +143% to $10.8B) and has fully recovered from its June 4 earnings-day crash, trading at $411 \u2014 about 21x forward, below its own 5-year average and at a ~33% discount to AI-design peers. It is the highest-margin, most contracted way to own the AI accelerator buildout via named multi-year custom-XPU customers, an Ethernet-for-AI networking franchise, and a ~$29B/yr 90%-margin VMware software annuity, with sell-side raising targets (BofA $530, JPM ~$580) and BofA adding it to an 'AI Big 10.' Base case $465 (+13%), bull $582 (+41%) on an FY27 framework raise; key risk is XPU lumpiness and hyperscaler-financing-driven deployment timing.",
+    "url": "reports/AVGO-2026-06-21.html"
   },
   {
     "ticker": "NVDA",
@@ -152,8 +152,8 @@
     "forwardPE": 23.5,
     "policyRisk": "elevated",
     "momentum1m": -0.044,
-    "thesis": "At 15.7x forward earnings with Blackwell sold out through 2026 and Rubin promising a 10x token-cost reduction, NVDA is cheap on numbers \u2014 but the market is now grading hyperscaler capex financing (ORCL's $40B raise, debt-funded buildouts), not chip demand. Export-control overhang on China and the macro rate-hike scare keep the multiple compressed despite 85%+ growth.",
-    "url": "reports/NVDA-2026-06-10.html"
+    "thesis": "NVIDIA at ~$211 trades at 16.6x FY28 (23.5x current-year) earnings \u2014 the cheapest forward multiple in its modern history \u2014 despite 85% revenue growth, 63% net margins, ~$40B net cash, and a sold-out Blackwell/Rubin roadmap. The June fear regime is easing (Hormuz reopened, oil ~$77, VIX 16, hawkish-but-priced Fed hold), but two real risks keep it Bullish-not-euphoric: China data-center GPU sales remain banned at baseline (the H200 thaw is partial and reversible) and the whole AI cycle now leans on credit markets the Fed is no longer easing into. Base case $280 (+33%) needs only that estimates hold while macro keeps calming.",
+    "url": "reports/NVDA-2026-06-21.html"
   },
   {
     "ticker": "TIGR",
@@ -171,8 +171,8 @@
     "forwardPE": 9.1,
     "policyRisk": "severe",
     "momentum1m": -0.191,
-    "thesis": "The CSRC penalty (~$60M, booked in Q1's GAAP loss; CEO personally fined) is paid but the crackdown is active, not resolved: mainland clients hold ~10% of the $58.9B client assets and enter a mandated two-year sell-only wind-down while regulators vow to 'fully eradicate' non-compliant cross-border brokerage. Against that, the other 90% of the franchise is compounding (Q1 revenue +26%, client assets +28% YoY, SG/HK-led account growth), the stock trades at 0.99x book with a $50M buyback live, and a Fed hike would actually raise interest income \u2014 post-kitchen-sink value with an unpriceable regulatory left tail.",
-    "url": "reports/TIGR-2026-06-10.html"
+    "thesis": "Tiger Brokers sits at 0.97x book and ~7x normalized earnings after a CSRC mainland-brokerage crackdown that froze its mainland accounts (sell-only) on June 12 and triggered a multi-week analyst PT/estimate slashing (FY26 EPS consensus cut $0.94->$0.41); the headline '5x forward / +73% to PT' is illusory because the denominators are stale and still falling. The ~90% non-mainland franchise (Singapore/HK/ANZ) is genuinely compounding (+28% YoY client assets), ex-penalty profitability is intact, insiders own 24.6%, a $50M buyback is live, and Avenir/Li Lin just raised their stake to 10.9% near the lows. Base case ~$5.50 (+17% on normalized EPS) against a live $3 bear; policyRisk stays SEVERE until the two-year CSRC eradication campaign has a defined boundary.",
+    "url": "reports/TIGR-2026-06-21.html"
   },
   {
     "ticker": "NIO",
@@ -191,8 +191,8 @@
     "forwardPE": 33.7,
     "policyRisk": "moderate",
     "momentum1m": -0.125,
-    "thesis": "The existential balance-sheet question has materially eased \u2014 RMB48.2B cash, positive operating cash flow and net current assets, 18.8% vehicle margin, two straight non-GAAP profitable periods, and the EV trio's best growth (May deliveries +62% YoY) \u2014 yet the stock trades at ~0.9x sales on an execution discount earned by years of misses. The June 9 DoD 'Chinese military companies' (1260H) designation adds a fresh policy overhang on a razor-thin 0.2% profit margin, so the re-rate to consensus $7 requires both a clean Q2 and a calmer ADR flow regime.",
-    "url": "reports/NIO-2026-06-10.html"
+    "thesis": "NIO's turnaround is real \u2014 Q1 2026 revenue +112% YoY, gross margin up to 19% from 7.6%, a GAAP-profitable Q4 2025, ~18.8% vehicle margin, and record May deliveries of 37,705 (+62.3% YoY) led by the ONVO ramp \u2014 yet the stock trades at just ~0.9x sales on a lingering execution discount. June layered on three fresh negatives that drove a ~12% monthly drop: a hawkish June 17 Fed that re-poisoned China-ADR flows, CEO Li's warning that China auto retail could fall 15-20% in 2026, and management's disclosure of >CNY 10,000/car cost inflation from raw materials and memory chips. Neutral with a long bias: base case $7.00 (+39%), contingent on margins surviving the price war and ADR flows stabilizing.",
+    "url": "reports/NIO-2026-06-21.html"
   },
   {
     "ticker": "TSM",
@@ -210,8 +210,8 @@
     "forwardPE": 23.5,
     "policyRisk": "moderate",
     "momentum1m": 0.18,
-    "thesis": "May revenue +30.1% y/y and 3nm price hikes of up to 15% confirm TSM's AI-wafer monopoly pricing power, and it was the relative-strength winner of the June semis crash. But a -13% global smartphone year hits ~26% of revenue, the capex supercycle suppresses near-term FCF, and the Taiwan geopolitical tail plus tariff risk keep the risk premium structurally fat at 20.9x forward.",
-    "url": "reports/TSM-2026-06-10.html"
+    "thesis": "TSM has round-tripped from the June-10 fear regime to a fresh 52-week high (~$462, +18% on the month), led by an NVIDIA Taiwan-expansion pledge and a +30% May revenue print \u2014 confirming its toll-booth grip on the AI buildout (NVDA GPUs, hyperscaler ASICs, and AMD accelerators all route through its fabs) at record 66% gross margins. But the rally closed the gap: at 23.5x forward it now trades above its two biggest customers and into the $473 consensus target, leaving an asymmetry that has turned mildly unfavorable. This is now a momentum/quality hold (base $492, +6%; bull $540, +17%; bear $354, -23%) with the Taiwan geopolitical tail and a hawkish June-17 Fed as the key risks.",
+    "url": "reports/TSM-2026-06-21.html"
   },
   {
     "ticker": "WRD",
@@ -225,12 +225,12 @@
     ],
     "nextEarnings": null,
     "price": 6.35,
-    "analystPT": 14.29,
+    "analystPT": 14.28,
     "forwardPE": null,
     "policyRisk": "elevated",
     "momentum1m": -0.045,
-    "thesis": "Broadest international L4 autonomous franchise (2,800 vehicles, 12 countries) with fresh Madrid and Slovakia wins and ~44% of market cap in cash, but trading at all-time lows because the persistent China-ADR delisting overhang, >$200M/yr burn with no breakeven guidance, and a rate-hike-fearing extreme-fear tape all punish exactly this profile; hold/small accumulate below $6.50 with a 12-month base case of $9.50.",
-    "url": "reports/WRD-2026-06-10.html"
+    "thesis": "WeRide is the broadest international L4 robotaxi franchise (~2,800 vehicles, 40+ cities), with accelerating Uber-partnered EU launches in Madrid and Zurich, trading near its all-time low ($6.35) with ~43% of market cap in cash and ~4 years of runway. But it is a pre-profit China ADR burning >$200M/yr with no breakeven guidance, a persistent delisting/data-security overhang, and lumpy revenue, into a Fed that just flipped to a hike bias. Hold / speculative-accumulate only in small size: base case $9.50 (+50%), bear $4.20, bull $14.",
+    "url": "reports/WRD-2026-06-21.html"
   },
   {
     "ticker": "BABA",
@@ -245,12 +245,12 @@
     ],
     "nextEarnings": null,
     "price": 107.1,
-    "analystPT": 191.52,
+    "analystPT": 191.42,
     "forwardPE": 11.6,
     "policyRisk": "moderate",
     "momentum1m": -0.203,
-    "thesis": "Cloud/AI is genuinely accelerating (+38% cloud, AI revenue triple-digit for 11 straight quarters) but FY26 non-GAAP net income fell 62% and FCF swung to a RMB46.6B outflow as instant-commerce subsidies and a RMB380B capex plan consume the P&L. At 12.5x forward earnings the stock is optically cheap, yet the gap-closing catalysts (quick-commerce breakeven end-FY3/27, AI crossing 50% of cloud mix) are quarters away while HFCAA overhang, Fed-hike odds, and $91 oil keep China ADR flows hostile.",
-    "url": "reports/BABA-2026-06-10.html"
+    "thesis": "Alibaba is a deeply oversold two-engine story: an accelerating AI/cloud platform (+38% YoY, Qwen) bolted onto a barely-growing, FCF-negative consumption business, now trading at 11.6x forward on a >$75B net-cash balance sheet. The ~20% June drop was driven by the June 8 Pentagon Section 1260H Chinese-Military-Company designation plus a hawkish Fed, China's July-1 outbound-investment rules, and a soft 618 festival. Fundamentally cheap but a falling knife with a fresh sanctions tail: 12-month base case ~$126 (+18%), bull $180, bear $78.",
+    "url": "reports/BABA-2026-06-21.html"
   },
   {
     "ticker": "PONY",
@@ -268,8 +268,8 @@
     "forwardPE": null,
     "policyRisk": "elevated",
     "momentum1m": 0.002,
-    "thesis": "Operationally the L4 robotaxi story keeps delivering (Q1'26 revenue +145%, robotaxi +395%, raised 3,500-vehicle target, EU 17-state framework backing its Zagreb beachhead), but at ~23x EV/S the stock is pure duration in a rate-hike-fearing tape \u2014 down 21% in a week to within 2% of its 52-week low, with options flow flipped bearish and the Nov 2026 founder-lockup expiry ahead; hold, staged accumulation only below $7.50, 12-month base case $13.",
-    "url": "reports/PONY-2026-06-10.html"
+    "thesis": "Pony AI is executing operationally (Q1'26 revenue +145%, robotaxi +395%, raised 3,500-vehicle FY26 fleet target, city-wide unit-economics breakeven in Guangzhou and Shenzhen, the only China player driverless-commercial in all four Tier-1 cities) yet the stock sits ~5% above its 52-week low and -65% off its high as a hawkish Warsh-Fed and a persistent China-ADR/policy overhang reprice long-duration, pre-profit names. A fortress balance sheet ($1.07B cash vs $16M debt, ~5-year runway, ~$3.03/share net-cash floor) contains the dilution tail risk, but at ~17x EV/S PONY is still the most expensive name in the AV cohort. Hold/Neutral: base case $13 (+56%), bear $5.50 (-34%), bull $21 (+152%), with the Q2 print (~Aug 18) and the ~Nov founder lockup the decisive events.",
+    "url": "reports/PONY-2026-06-21.html"
   },
   {
     "ticker": "GOOG",
@@ -288,8 +288,8 @@
     "forwardPE": 25.8,
     "policyRisk": "moderate",
     "momentum1m": -0.045,
-    "thesis": "The only full-stack AI company (TPU silicon, Gemini, Cloud +63% on a $462B backlog) just pre-funded its $180-190B capex with an $84.75B equity raise anchored by $10B from Berkshire \u2014 at the cost of a four-week, -13% slide that puts the stock exactly at its 5-year-average multiple. Fair value with a fat bull tail (TPU externalization) against two real risks: the DOJ cross-appeal seeking Chrome divestiture/payment bans, and another raise cycle if 2027 capex climbs again.",
-    "url": "reports/GOOG-2026-06-10.html"
+    "thesis": "Alphabet is the AI capital cycle's marquee test case \u2014 the only full-stack player (TPU silicon, Gemini models, Cloud distribution, 2B-user Search) with megacap's best fundamental momentum (Cloud +63%, $460B+ backlog, revenue +22%) and an $84.75B equity war chest anchored by Berkshire. After the June raise it has stabilized at ~$367 with analyst targets being raised (TD Cowen $475), but at 25.3x forward it now pays a small premium over its 5Y-average multiple and carries the most multiple to lose in a hawkish-Fed regime. Hold core / add on weakness: base $377 (+3%), bull $500 (+36%), bear $234 (-36%); the real asymmetry sits in TPU externalization upside vs the multi-front antitrust (search-remedies appeal + AdTech/AdX) downside.",
+    "url": "reports/GOOG-2026-06-21.html"
   },
   {
     "ticker": "MU",
@@ -307,8 +307,8 @@
     "forwardPE": 18.6,
     "policyRisk": "moderate",
     "momentum1m": 0.623,
-    "thesis": "MU was the epicenter of both the HBM supercycle and the June 4-5 crash (-20% in two days; memory ETF -15%): the entire 2026 HBM slate is sold out under binding 3-5 year LTAs and FQ3 guidance ($33.5B rev, 81% GM, $19.15 EPS, June 24 print) is historic, but at 8x potentially-peak forward EPS, P/S 5x history, $25B+ rising capex in a regime that now punishes capital intensity, and consensus already above guide, the scenario tree (~$885 blended) is fully priced at $892.",
-    "url": "reports/MU-2026-06-10.html"
+    "thesis": "Micron is printing the steepest earnings inflection in semiconductor history on a sold-out HBM/DRAM AI-memory supercycle, trading at just 9.6x forward EPS of $117.95 with all of 2026 HBM output under binding multi-year contracts. But the stock just ran +62% in a month to a $1,134 all-time high, now trades ~17% above its mean analyst PT, and sits at the richest trailing valuation in its history (53.5x P/E, 22x sales) into a binary June 24 print where consensus already exceeds guidance. Verdict: Hold/Trim into strength, wait for a gap-zone retest rather than chase the high \u2014 momentum and cyclical-top risk now outweigh the cheap-forward-multiple lure.",
+    "url": "reports/MU-2026-06-21.html"
   },
   {
     "ticker": "LI",
@@ -323,12 +323,12 @@
     ],
     "nextEarnings": null,
     "price": 13.21,
-    "analystPT": 18.52,
+    "analystPT": 18.51,
     "forwardPE": 12.8,
     "policyRisk": "moderate",
     "momentum1m": -0.184,
-    "thesis": "Q1 confirmed the bear case \u2014 vehicle margin collapsed to 6.1% (vs NIO's 18.8%) as the cheaper i6 BEV reached ~60% of mix, driving a RMB2.29B loss on -11.4% revenue \u2014 and the stock sits at fresh 52-week lows with the Street cutting targets. What remains is a falsifiable trough thesis: ~$10.30/ADS net cash (~75% of market cap) as a leaky floor, plus the L9/L8 refresh and management's explicit ~10% Q2 gross-margin guide to be graded at the late-August print; entry before that proof point is paying for a promise Li has not yet kept.",
-    "url": "reports/LI-2026-06-10.html"
+    "thesis": "Li Auto sits at a fresh 52-week low (~$13.21, -49% YoY) after Q1 2026 confirmed a vehicle-margin collapse to the mid-single digits as the cheaper i6 BEV cannibalized its premium EREV mix; the ~18% June drop was driven by the June 17 hawkish Fed draining China-ADR flows plus capital rotating within the trio out of LI into NIO. The bull case is a leaky balance-sheet floor (~$10.30/ADS net cash, ~78% of market cap) plus a falsifiable margin-recovery guide (L9/L8 refresh, ~10% Q2 gross margin), but the Street is cutting (HSBC to $15.60 Hold; 15 Hold vs 11 Buy) and every prior cheap-with-a-floor call has failed. Verdict: hold into the late-August Q2 margin print.",
+    "url": "reports/LI-2026-06-21.html"
   },
   {
     "ticker": "COST",
@@ -346,8 +346,8 @@
     "forwardPE": 46.2,
     "policyRisk": "none",
     "momentum1m": -0.131,
-    "thesis": "Operationally flawless defensive compounder \u2014 +11.6% Q3 revenue, 9.8% comps, renewal rate UP to 92.2% post-fee-hike, and record gas volumes that turn the oil shock into a traffic weapon \u2014 but at 43.5x forward EPS with December rate-hike odds at ~43%, the multiple remains the entire bear case; the 11% post-earnings flush to the 5Y-average multiple only partially de-risks it.",
-    "url": "reports/COST-2026-06-10.html"
+    "thesis": "Costco just printed a near-flawless Q3 FY26 (+11.6% revenue, +9.8% comps, +15% EPS, 92.2% renewal rate) yet has de-rated ~13% on the month to $951, slicing through its 200-day average as the oil-shock gas tailwind faded and a hawkish-Fed 4.45% 10Y pressured its multiple. The slide resets forward P/E to 42x \u2014 dead-on its 5-year average rather than a premium \u2014 so the world's best retail membership annuity is now fairly (not richly) priced. High-quality defensive hold/accumulate-on-weakness: base case ~$1,040 (+9%), bear $781 on a hike-and-growth-scare, with the $920-956 zone the attractive add level.",
+    "url": "reports/COST-2026-06-21.html"
   },
   {
     "ticker": "XPEV",
@@ -362,12 +362,12 @@
     ],
     "nextEarnings": null,
     "price": 13.21,
-    "analystPT": 22.65,
+    "analystPT": 22.64,
     "forwardPE": 22.9,
     "policyRisk": "moderate",
     "momentum1m": -0.116,
-    "thesis": "Record 20.6% gross margin and real physical-AI optionality (Q3 Guangzhou robotaxi pilot, VLA 2.0, AeroHT HK IPO, Magna-built EU expansion) are pitted against a shrinking core: Q1 revenue fell 17.6% YoY with a swing back to a RMB1.8B loss and May deliveries -4% YoY on a Mona-heavy mix. At 25.8x forward \u2014 the richest multiple of the EV trio while testing 52-week lows \u2014 the stock needs the GX SUV ramp and on-time robotaxi pilot to re-accelerate deliveries before the AI premium is justified.",
-    "url": "reports/XPEV-2026-06-10.html"
+    "thesis": "XPeng sits at its 52-week low ($13.21, -12% on the month) after a hawkish June Fed discounted its long-duration physical-AI optionality and the sell-side kept cutting targets, even as Q1 showed a record 20.6% gross margin and a net-cash balance sheet. The bull case has migrated from EV growth to robotaxi/humanoid/VW-SoC licensing optionality, but the core auto business shrank 17.6% YoY in Q1; everything now hinges on the management-guided Q2 delivery snap-back (+60% QoQ, 100-106k units) actually landing. Neutral / accumulate-on-evidence: base case ~$16.50 (+25%) against a live ~$7.50 bear case, with the August Q2 print and the Guangzhou robotaxi pilot as the binary evidence gates.",
+    "url": "reports/XPEV-2026-06-21.html"
   },
   {
     "ticker": "LMND",
@@ -386,8 +386,8 @@
     "forwardPE": null,
     "policyRisk": "none",
     "momentum1m": 0.09,
-    "thesis": "Inflection-point insurtech with 71% revenue growth, ten straight quarters of accelerating IFP, and a 16pp loss-ratio improvement to 62% \u2014 now FCF-positive and monetizing autonomy via its June Indiana Tesla-FSD insurance launch, yet still binary on the Q4 2026 adj-EBITDA breakeven. At $55.86 in a fear-regime tape (beta 1.81, 14.6% short interest, rising 10Y compressing its 5.1x sales multiple), base case is $69 (+24%) if breakeven lands, $38 if it slips.",
-    "url": "reports/LMND-2026-06-10.html"
+    "thesis": "Lemonade has transitioned from a cash-burning growth story to a credible path-to-profitability one: +71% revenue, gross profit +159%, in-force premium $1.33B (+32% YoY, ten straight quarters of accelerating growth), car insurance +60%, and a fourth consecutive quarter of positive adjusted free cash flow, with management guiding to EBITDA profitability in Q4 2026 and full-year 2027 off a net-cash balance sheet. The catch is valuation and execution: at 5.4x sales it is the priciest, still-unprofitable name in its insurtech cohort, so the thesis is a forward promise vulnerable to loss-ratio shocks or any growth wobble. At $58.84 the stock prices the base case almost exactly (~+5% to consensus $62), with a binary spread of roughly -34% bear to +44% bull.",
+    "url": "reports/LMND-2026-06-21.html"
   },
   {
     "ticker": "AAPL",
@@ -405,8 +405,8 @@
     "forwardPE": 34.0,
     "policyRisk": "moderate",
     "momentum1m": -0.003,
-    "thesis": "The regime winner on the metric the market now grades \u2014 $101B FCF on just ~$39B capex, zero dilution risk \u2014 which is why AAPL is the only Mag7 name above both moving averages in this tape. But you pay 30.4x forward (85th percentile of its own history) for mid-single-digit organic growth, IDC's -13% smartphone-unit 2026 forecast, and a WWDC AI Siri that shipped as an English-only beta with no EU/China availability: a safe-haven multiple, not a growth multiple.",
-    "url": "reports/AAPL-2026-06-10.html"
+    "thesis": "Apple is the structural winner of the anti-capex regime \u2014 $101B FCF, zero dilution, a ~$110B buyback \u2014 and at WWDC 2026 it doubled down on asset-light AI by renting a custom Google Gemini (~$1B/yr) to ship a working Siri, which is why it held up (-0.3% over the month) as the only Mag7 above both its 50- and 200-day averages. But at ~31x forward (\u224888th percentile of its own range) the price already discounts a good outcome, with 16.6% growth decelerating against a -13% industry unit forecast, a beta Siri with no GA date on rented intelligence, fresh 'unsustainable' DRAM/NAND cost warnings, and three of four valuation methods at or below spot. Verdict: Hold as the defensive Mag7 allocation, don't add at 31x; base $300 (dead money), bull $355 (+19%), bear $209 (-30%).",
+    "url": "reports/AAPL-2026-06-21.html"
   },
   {
     "ticker": "TSLA",
@@ -425,8 +425,8 @@
     "forwardPE": 194.3,
     "policyRisk": "none",
     "momentum1m": -0.009,
-    "thesis": "The narrative is advancing \u2014 full Austin-metro robotaxi (Jun 4) after Dallas/Houston, FSD subs +51% to 1.28M, $44.7B cash and zero dilution risk \u2014 but the numbers are the Mag7's weakest: 4.2% operating margin, ~272x FCF, energy storage deployments -15% y/y, and a 152.6x forward multiple above its own 5-year ceiling in a market that just repriced ORCL/SMCI for exactly this profile. Even a bull DCF (28% growth, 13% FCF margin) only reaches $307; at $381 this is a venture bet on robotaxi/Optimus in a 1.8-beta wrapper \u2014 size it accordingly.",
-    "url": "reports/TSLA-2026-06-10.html"
+    "thesis": "Tesla is the Mag7's purest narrative-vs-numbers trade: a 160x-forward multiple priced on robotaxi/FSD/Optimus optionality against an automaker's 4.2% operating margin and ~$5.25B FCF on a $1.50T cap. The mid-June bounce to $400 (+5.3% over 3M) repaired the selloff, but the June 17 hawkish Fed dot-plot flip pressures exactly this long-duration profile, and no cash-flow scenario reaches the current price (bull DCF ~$287). Hold/trim \u2014 base case ~$400 (fairly valued), bear $212, bull $717 only on driverless-at-scale; size as a venture sleeve, not core.",
+    "url": "reports/TSLA-2026-06-21.html"
   },
   {
     "ticker": "STX",
@@ -445,8 +445,8 @@
     "forwardPE": 71.9,
     "policyRisk": "none",
     "momentum1m": 0.459,
-    "thesis": "Seagate is the rare AI-infrastructure name the new regime should reward: nearline exabytes are sold out through CY2026 under LTAs stretching into 2027-28, the HAMR/Mozaic density roadmap grows capacity without a capex arms race, and it was the only crash casualty to get post-crash price-target RAISES (Mizuho to $1,090 June 8) \u2014 but at 30.5x forward EPS and ~16.6x sales versus a 5Y average near 10x earnings, with the CEO selling ~$50M in two weeks, the $780-880 fair-value band brackets the $816 spot and the easy re-rating is behind it.",
-    "url": "reports/STX-2026-06-10.html"
+    "thesis": "Seagate is the prime beneficiary of the AI-datacenter mass-capacity storage supercycle, with HAMR/Mozaic cost leadership, 44% revenue growth, 36% operating margins, and nearline capacity sold out through CY27 at rising $/TB. But after a ~+712% one-year run to an all-time high of $1,070, the stock trades at 39.5x forward / 102x trailing earnings and ~19% above the average analyst target of $898 while the entire C-suite sold into the spike. We rate it Neutral: a great business whose price already discounts the optimistic supercycle scenario, with base-case fair value of ~$677-830 and WDC a cheaper way to own the same thesis.",
+    "url": "reports/STX-2026-06-21.html"
   },
   {
     "ticker": "AMD",
@@ -464,8 +464,8 @@
     "forwardPE": 72.9,
     "policyRisk": "moderate",
     "momentum1m": 0.298,
-    "thesis": "The June 4-10 semi crash (-17% in five sessions) reset AMD from 38x to 34.6x forward earnings \u2014 near its 5Y average \u2014 while the contracted MI400/Helios demand stack (Meta ~6GW, OpenAI 6GW, Oracle 50K GPUs) is unchanged and AMD's fab-light, net-cash model sidesteps the capital-intensity penalty now hitting AI infrastructure names; upside still hinges entirely on the Q3 2026 Helios rack ramp shipping on time into a fear-regime macro with December Fed-hike odds at ~43%.",
-    "url": "reports/AMD-2026-06-10.html"
+    "thesis": "AMD is the only at-scale alternative to NVDA in AI accelerators, with contracted multi-year demand (OpenAI 6GW, Meta up to 6GW, Oracle 50,000 MI450 GPUs) and Data Center now >57% of revenue growing +57% YoY. But after a +30% month back to within 2% of its all-time high, it trades at 41x FY27 / 73x FY26 earnings while every triangulated fair value (mean reversion, peer parity, DCF, consensus PT $488) sits below the $537 price. Verdict: Trim/Hold, do not chase into a hawkish Fed and a momentum run; accumulate on pullbacks toward the 50DMA.",
+    "url": "reports/AMD-2026-06-21.html"
   },
   {
     "ticker": "QCOM",
@@ -483,8 +483,8 @@
     "forwardPE": 21.0,
     "policyRisk": "moderate",
     "momentum1m": 0.16,
-    "thesis": "A -23% week purged the ByteDance data-center euphoria, leaving QCOM at 17.9x forward with consensus PT ($180) now below the price \u2014 the Street doesn't believe the AI pivot yet. Auto (+38%) and IoT diversification are real, but handsets (~57% of revenue) face IDC's -13% smartphone year and NVIDIA's RTX Spark attacks the Windows-on-Arm flank; the June 24 Investor Day and December hyperscaler shipment are the binary catalysts.",
-    "url": "reports/QCOM-2026-06-10.html"
+    "thesis": "QCOM has round-tripped +16% on the month back to ~$226 on AI-data-center optimism into its June 24 Investor Day, but the rebound is event-anticipation rather than an earnings inflection \u2014 revenue is contracting (-3.5% YoY), FY26 EPS is flat-to-down, and the 21x forward multiple sits at the top of its 5-year band with the analyst mean target ($184) roughly 19% BELOW the price. Our model scores it 40/100 (Bearish): the entire bull case (Dragonfly AI200/AI250, ByteDance ASIC, record +38% automotive) is contingent on a single binary catalyst that already burned momentum buyers -23% once this month. Avoid chasing; base case $200 (-12%), with ~46% China/Huawei exposure and the March-2027 Apple license cliff as structural drags.",
+    "url": "reports/QCOM-2026-06-21.html"
   },
   {
     "ticker": "INTC",
@@ -502,7 +502,7 @@
     "forwardPE": 122.7,
     "policyRisk": "moderate",
     "momentum1m": 0.209,
-    "thesis": "The foundry turnaround is no longer a narrative \u2014 six straight beats, GM 29.7%\u219239.4%, and an 18A order book of Apple, Microsoft, AWS, Tesla, and now Google (3M+ TPUs, June 8, +11.2%) with NVIDIA running trials, making INTC the only AI-semi to reclaim its breakout after the June 4-5 crash; but at 69.6x forward EPS, 10x sales, -$8.3B FCF and consensus PT ($92) below spot, $107 already prices a 50-60% chance of the full foundry-duopoly bull case in a regime that punishes capital intensity.",
-    "url": "reports/INTC-2026-06-10.html"
+    "thesis": "Intel has ripped ~21% to a record-close ~$134 on two unconfirmed catalysts \u2014 a reported Google 3M+ TPU foundry order (June 8) and a June 18 Trump Truth Social post naming Apple as a foundry customer \u2014 yet the fundamentals still show $174M of external foundry revenue, a $2.4B/quarter foundry loss, and -$8.3B TTM FCF at 86.6x forward earnings and 12.5x sales. Consensus PT ($94) now sits ~30% below spot and our model scores it 15/100 (Bearish); the foundry-duopoly option is real but, at the 52-week high on headlines companies have not confirmed and into a hawkish Fed, the reward-to-risk has inverted. Verdict: Hold tilting to Trim \u2014 wait for a $100-110 accumulation zone rather than chase the record high; policy risk moderate (US gov ~9.9% stake plus warrant, CHIPS dependence).",
+    "url": "reports/INTC-2026-06-21.html"
   }
 ]
