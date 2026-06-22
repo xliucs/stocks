@@ -1,5 +1,120 @@
 [
   {
+    "date": "2026-06-21",
+    "summary": "Markets advanced on Sunday. The S&P 500 gained 1.08% to 7500.58, the NASDAQ rose 1.91%, and the Dow climbed 0.14%. The VIX fell to 16.4. Technology led sectors (+3.0%) while Energy lagged (-1.6%).",
+    "indices": {
+      "SP500": {
+        "value": 7500.58,
+        "change": 1.08,
+        "name": "S&P 500"
+      },
+      "NASDAQ": {
+        "value": 26517.93,
+        "change": 1.91,
+        "name": "NASDAQ"
+      },
+      "DOW": {
+        "value": 51564.7,
+        "change": 0.14,
+        "name": "Dow Jones"
+      },
+      "VIX": {
+        "value": 16.4,
+        "change": -11.06,
+        "name": "VIX"
+      }
+    },
+    "sectors": {
+      "Technology": 3.04,
+      "Healthcare": -0.87,
+      "Financials": -0.89,
+      "Consumer Discretionary": 1.45,
+      "Energy": -1.65,
+      "Industrials": 0.73,
+      "Materials": -0.4,
+      "Real Estate": -0.25,
+      "Utilities": 0.67,
+      "Communication Services": 0.23,
+      "Consumer Staples": -0.45
+    },
+    "topGainers": [
+      {
+        "ticker": "INTC",
+        "company": "Intel Corporation",
+        "change": 10.64,
+        "price": 133.99,
+        "volume": ""
+      },
+      {
+        "ticker": "QUBT",
+        "company": "Quantum Computing Inc.",
+        "change": 10.13,
+        "price": 10.76,
+        "volume": ""
+      },
+      {
+        "ticker": "MU",
+        "company": "Micron Technology, Inc.",
+        "change": 8.7,
+        "price": 1133.99,
+        "volume": ""
+      },
+      {
+        "ticker": "TSM",
+        "company": "Taiwan Semiconductor Manufacturing Co.",
+        "change": 6.94,
+        "price": 462.12,
+        "volume": ""
+      },
+      {
+        "ticker": "QCOM",
+        "company": "Qualcomm Incorporated",
+        "change": 6.17,
+        "price": 226.11,
+        "volume": ""
+      }
+    ],
+    "topLosers": [
+      {
+        "ticker": "LI",
+        "company": "Li Auto Inc.",
+        "change": -2.72,
+        "price": 13.21,
+        "volume": ""
+      },
+      {
+        "ticker": "XPEV",
+        "company": "XPeng Inc.",
+        "change": -1.71,
+        "price": 13.21,
+        "volume": ""
+      },
+      {
+        "ticker": "COST",
+        "company": "Costco Wholesale Corporation",
+        "change": -1.46,
+        "price": 951.45,
+        "volume": ""
+      },
+      {
+        "ticker": "NIO",
+        "company": "NIO Inc.",
+        "change": -0.59,
+        "price": 5.02,
+        "volume": ""
+      },
+      {
+        "ticker": "GM",
+        "company": "General Motors Company",
+        "change": -0.36,
+        "price": 79.29,
+        "volume": ""
+      }
+    ],
+    "earnings": [],
+    "news": []
+  },
+  {
     "date": "2026-06-10",
     "summary": "Fear regime deepens. The S&P 500 fell 0.26% (7,387) and the NASDAQ dropped 0.97% even after a cool core CPI print (+0.2% m/m vs +0.3% expected) \u2014 a market that can't buy good news. Context: June 4-5 was the worst drop of 2026 (Nasdaq -4.2%, semis -10-15%) after a shock jobs report sent December Fed HIKE odds to ~43%. US strikes on Iran and a declared Hormuz blockade have WTI near $91. The AI trade has entered its capital cycle: Oracle fell on monster results (+93% OCI, $638B RPO) over its ~$70B FY27 capex and a planned $40B raise, while SMCI cratered -28% on dilution; the market now grades AI on capital intensity and financing, not just demand. Positioning: QQQ -5.1% from its 52-week high yet +13.7% above its 200-dma (correction within an uptrend); SPY -3.0% from high; VIX 22 (+24% on the month); Fear & Greed 27 \u2014 extreme fear. Defensive rotation visible in our book: LULU, LMND and GOOG green while QUBT (-9.0%) and QCOM (-5.7%) led losers. Friday's record SpaceX IPO is the next liquidity test.",
     "indices": {
