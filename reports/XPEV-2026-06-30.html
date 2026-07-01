@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>XPEV | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>XPEV — XPeng Inc.</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-06-30 · Sources: yfinance, SEC filings, CnEVPost, Seeking Alpha, X/Twitter, analyst consensus</p>
+
+<div class="badge">⚠️ Score 42/100 · Bearish · $13.24 · Fwd P/E 23.1x · PT $22.45 · 1M −19.5%</div>
+
+<div class="co yw"><strong>🌍 Macro Context (June 30, 2026):</strong> A tale of two tapes into the half-year close. US equities finished the best quarter in six years — the S&amp;P 500 closed June 30 near <strong>7,449</strong> (+9.5% YTD) and the Nasdaq ~26,214 (+12.8% YTD) on a tech recovery, with the VIX contained around <strong>18</strong>. But the policy regime turned hawkish: at the June 17 FOMC the Fed held at 3.50–3.75% for a fourth straight meeting while the dot plot flipped — the median 2026 path rose to 3.8%, the prior projected cut was erased, and <strong>nine of nineteen officials now see at least one 2026 hike</strong> (markets pricing a possible 25bp hike by October). China-ADRs decoupled hard: the Hang Seng was the worst major market in H1 (−11%), still weighed by the EV price war and Beijing's "anti-involution" campaign — a price floor, the end of the full EV purchase-tax exemption (now capped at ¥15,000, favoring mid/high-end models), and antitrust probes. <strong>For XPEV this is the wrong regime for a long-duration, pre-revenue "physical AI" optionality story:</strong> higher-for-longer rates discount it hardest, and the ADR cohort still trades on a delisting overhang. The stock closed June 30 at <strong>$13.24</strong>, down ~20% on the month and hovering just above a fresh 52-week low ($11.77).</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$13.24</div><div class="sub dn">-52.8% from 52W High ($28.07)</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$12.7B</div><div class="sub">Shares: 782.2M ADS</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value">n/m</div><div class="sub dn">TTM EPS: -$0.35 (loss)</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value neu">23.1x</div><div class="sub">Fwd EPS: $0.57 — richest of EV trio</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">RMB 73.9B</div><div class="sub dn">Q1: -17.6% YoY</div></div>
+    <div class="kpi"><div class="label">Trailing P/S</div><div class="value up">~1.2x</div><div class="sub">$12.7B mcap / ~$10.3B TTM rev</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value up">~20.0%</div><div class="sub up">Q1 record 20.6%, +5.0pp YoY</div></div>
+    <div class="kpi"><div class="label">Cash / Debt</div><div class="value">218.8 / 169.3</div><div class="sub">RMB B · net cash ~RMB49B</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">1-Month Return</div><div class="value dn">-19.5%</div><div class="sub">Explained below</div></div>
+    <div class="kpi"><div class="label">3-Month Return</div><div class="value dn">-24.4%</div></div>
+    <div class="kpi"><div class="label">6-Month Return</div><div class="value dn">-34.7%</div></div>
+    <div class="kpi"><div class="label">June Deliveries</div><div class="value up">40,126</div><div class="sub up">just announced · +15.9% YoY, +24.8% MoM</div></div>
+</div>
+
+<div class="co rd"><strong>📉 Why the ~20% one-month drop:</strong> Three compounding forces, none XPEV-idiosyncratic in isolation: (1) the June 17 hawkish Fed repriced the curve toward a possible 2026 <em>hike</em> — long-duration, pre-revenue "physical AI" optionality is exactly what a higher-for-longer regime discounts hardest; (2) China-ADRs decoupled from the strong US tape, with Hong Kong the worst major market in H1 (−11%) on the persistent EV price war and Beijing's anti-involution policy shift; (3) sell-side targets kept drifting <em>down</em> (Citi to $22.50) even as bulls held (Goldman ~$25, Morgan Stanley $34), confirming the Street is marking the post-Q1 reality against the robotaxi dream. The stock slid to a fresh 52-week low of $11.77 mid-month before bouncing to close June 30 at <strong>$13.24</strong> — a modest rebound into the just-announced June/Q2 delivery print (40,126 June, 103,295 Q2), even as the index VIX sat calm near 18.</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter (RMB)</th><th>Revenue</th><th>Gross Profit</th><th>Op Income</th><th>Net Income</th><th>Diluted EPS</th></tr></thead>
+<tbody><tr><td>2026-03-31 (Q1)</td><td>13.03B <span class="dn">↓ -17.6% YoY</span></td><td>2.68B (20.6%)</td><td class="dn">-1.93B</td><td class="dn">-1.78B</td><td class="dn">-1.86</td></tr>
+<tr><td>2025-12-31</td><td>22.25B <span class="up">↑</span></td><td>4.74B (21.3%)</td><td class="dn">-0.09B</td><td class="up">+0.38B</td><td class="up">+0.40</td></tr>
+<tr><td>2025-09-30</td><td>20.38B <span class="up">↑</span></td><td>4.10B (20.1%)</td><td class="dn">-0.68B</td><td class="dn">-0.38B</td><td>-0.40</td></tr>
+<tr><td>2025-06-30</td><td>18.27B <span class="up">↑</span></td><td>3.17B (17.3%)</td><td class="dn">-0.97B</td><td class="dn">-0.48B</td><td>-0.50</td></tr>
+<tr><td>2025-03-31</td><td>15.81B</td><td>2.46B (15.6%)</td><td class="dn">-0.92B</td><td class="dn">-0.66B</td><td>-0.70</td></tr>
+</tbody></table>
+<div class="co rd"><strong>📊 Q1 2026 Read (reported May 28):</strong> Revenue fell -17.6% YoY to RMB13.03B and the company swung back to a RMB1.78B net loss after Q4'25's first-ever profit — a delivery downturn driven by EV-subsidy/regulation changes and a model transition (XPeng 6-K; PRNewswire, May 28). The offset: gross margin hit a record 20.6% (+5.0pp YoY) and vehicle margin 12.1% (+1.6pp), showing genuine pricing discipline, plus a net-cash balance sheet (RMB~219B cash vs RMB~169B debt). Management guided Q2 deliveries to <strong>100,000–106,000 units (+60%+ QoQ)</strong>. <strong>That guide has now been met:</strong> the just-announced Q2 total is <strong>103,295 units</strong> (June 40,126, +15.9% YoY / +24.8% MoM) — the first hard evidence the Q1 down-revenue was a transition trough, not a trend. Q2 financials (mid-August) will show whether the volume snap-back restores the top line and narrows losses.</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Stream</th><th>Q1 2026 (RMB)</th><th>% of Total</th><th>Trend</th><th>Notes</th></tr></thead>
+<tbody><tr><td><strong>Vehicle Sales</strong></td><td>~11.2B</td><td>~86%</td><td class="dn">-20%+ YoY</td><td>Mona M03 / new GX SUV drive mix — sustains volume but dilutes ASP</td></tr>
+<tr><td><strong>Services &amp; Other (incl. VW tech collaboration)</strong></td><td>~1.8B</td><td>~14%</td><td class="up">Growing</td><td>High-margin platform/software licensing; VW named first VLA-2.0 smart-driving customer</td></tr>
+</tbody></table>
+<div class="co bl"><strong>Mix watch:</strong> The Mona/GX-heavy mix sustains volume in the price war but caps revenue per unit. International is the ASP offset — 60+ countries, overseas store count up sharply YoY, and local P7+ production at Magna Graz (Austria). The structurally important new line is technology licensing: XPeng confirmed <strong>Volkswagen as the first commercial customer for its VLA 2.0 smart-driving system</strong> (CnEVPost, Feb 2026), with deliveries beginning 2027 — monetizing its full-stack autonomy IP regardless of own-brand volume.</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl dn">27.0</div><div class="nt dn">Oversold</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl dn">$15.43</div><div class="nt dn">Price -14% below</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl dn">$18.94</div><div class="nt dn">Price -30% below</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl dn">-0.95</div><div class="nt dn">Below signal (-0.85) — bearish</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$28.07</div><div class="nt dn">-52.8%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$11.77</div><div class="nt up">+12.5% above</div></div>
+</div>
+<div class="co rd"><strong>⚠️ Technical Signal:</strong> Outright bearish but stretched. XPEV closed June 30 at $13.24 — below both the 50-day ($15.43) and 200-day ($18.94), with MACD under its signal line. The lone counterweight is a <strong>14-day RSI of 27.0 (oversold)</strong>, which historically precedes relief bounces in this name; the stock has already snapped ~12% off the intramonth $11.77 low. Until price reclaims the $15.40 50-day, the trend is down and any bounce is countertrend. Support is the $11.77 52-week low; a clean break below opens air toward post-2024 levels. Resistance: $15.40 (SMA50), then $18.90 (SMA200).</div>
+
+<h2>📏 Historical Valuation</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Trailing P/S</div><div class="value">~1.2x</div><div class="sub">$12.7B mcap / ~$10.3B TTM rev</div></div>
+    <div class="kpi"><div class="label">Fwd EV/Sales</div><div class="value up">~0.8x</div><div class="sub">net-cash adjusted</div></div>
+    <div class="kpi"><div class="label">Fwd P/E</div><div class="value neu">23.1x</div><div class="sub">richest of EV trio</div></div>
+    <div class="kpi"><div class="label">Price/Book</div><div class="value">2.8x</div></div>
+</div>
+<div class="co bl"><strong>📐 Valuation note (loss-maker):</strong> With negative TTM EPS, trailing P/E is not meaningful and P/S / EV-Sales carry the weight. On a like-for-like USD basis the stock trades ~<strong>1.2x trailing sales</strong> ($12.7B mcap / ~$10.3B TTM revenue at RMB7.15/USD) and ~0.8x forward sales after netting the ~RMB49B net-cash position (~$6.9B) — a premium to LI, justified only if the Q2 delivery re-acceleration (now confirmed at 103,295) sustains and the AI/robotaxi optionality is real. The 23.1x forward P/E rests entirely on a fragile, downgrade-prone $0.57 consensus EPS.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Company</th><th>Price</th><th>MCap</th><th>Fwd P/E</th><th>Rev Growth (latest Q)</th><th>Gross Margin</th><th>Net Margin</th><th>Q2 Deliveries</th></tr></thead>
+<tbody><tr class="hl"><td><strong>XPEV</strong></td><td>$13.24</td><td>$12.7B</td><td>23.1x</td><td class="dn">-17.6%</td><td>20.0%</td><td>-3.1%</td><td>103,295</td></tr>
+<tr><td><strong>NIO</strong></td><td>$5.06</td><td>$12.7B</td><td>29.4x</td><td class="up">+112%</td><td>15.7%</td><td>-9.1%</td><td>107,658</td></tr>
+<tr><td><strong>LI</strong></td><td>$11.74</td><td>$11.7B</td><td>11.5x</td><td class="dn">-11.4%</td><td>16.0%</td><td>-1.7%</td><td>—</td></tr>
+<tr><td><strong>TSLA</strong></td><td>$420.60</td><td>$1,580B</td><td>168.1x</td><td class="up">+15.8%</td><td>19.1%</td><td>+3.9%</td><td>—</td></tr>
+<tr><td><strong>RIVN</strong></td><td>$17.35</td><td>$23.3B</td><td>— (loss)</td><td class="up">+11.4%</td><td>1.0%</td><td>-63.6%</td><td>—</td></tr>
+</tbody></table>
+<div class="co yw"><strong>Peer read:</strong> The China EV trio offers three stories: NIO has the growth (+112% YoY) and the biggest Q2 volume (107,658), LI has the cheap multiple (11.5x) and a fortress balance sheet, XPEV has the best gross margin (~20%, services-boosted) and the deepest AI/robotaxi optionality — but also the richest forward multiple (23.1x) on a top line that just shrank -17.6%. XPEV's ~0.8x forward EV/Sales is a premium to LI; you are paying up for the autonomy IP, the VW licensing pipeline, and the now-confirmed Q2 delivery snap-back. TSLA's 168x forward P/E remains a different universe entirely.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value up">~0.50</div><div class="sub">Call-tilted at the lows</div></div>
+    <div class="kpi"><div class="label">Front IV (calls/puts)</div><div class="value neu">~32%/29%</div><div class="sub">Elevated — on unusual-IV screens</div></div>
+    <div class="kpi"><div class="label">Short % of Float</div><div class="value neu">7.0%</div><div class="sub">Highest of EV trio</div></div>
+    <div class="kpi"><div class="label">Beta</div><div class="value">1.08</div><div class="sub">5Y vs SPX</div></div>
+</div>
+<div class="co bl"><strong>📊 Options Read:</strong> Calls continue to outnumber puts even near 52-week lows — retail still treats XPEV as the lottery ticket on robotaxi/humanoid headlines, and oversold RSI (27) feeds the bounce bet. XPEV appeared on unusual-implied-volatility screens on June 30 (@TheOptionsBull2), signaling event risk priced around the delivery print. Short interest at ~7.0% of float, the highest of the EV trio, adds squeeze fuel into any positive Q2-revenue print or robotaxi-pilot milestone. The setup is asymmetric-violent in both directions.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co bl"><strong>Insider Holdings:</strong> Insiders hold ~4.7% per yfinance (founder He Xiaopeng controls substantially more economics via the dual-class structure). No open-market insider purchases or sales were disclosed during the spring/early-summer drawdown — a neutral signal. He Xiaopeng's repeated public framing of 2026 as the year of "mass production of robotaxis and humanoid robots" (Q1 call, May 28) keeps founder credibility explicitly wedded to delivery on physical AI; there has been <em>no</em> signaling open-market buy at these lows to underline conviction, which — near a 52-week low — is a notable absence.</div>
+
+<h2 class="pb">📝 Seeking Alpha &amp; Analyst Research</h2>
+<div class="tw"><span class="au">Morgan Stanley — Overweight maintained, PT $34.00 (Street-high)</span> · ~June 3, 2026 (Investing.com) · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Named XPeng a top China-auto pick for 2026 and held the Street-high $34 target — the most bullish anchor, resting on overseas expansion plus robotaxi/humanoid optionality.</p></div>
+<div class="tw"><span class="au">Goldman Sachs — Buy reaffirmed, PT ~$25</span> · ~June 23, 2026 (Yahoo/Investing.com) · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Kept its Buy rating into late June on the 2026 growth/new-model outlook (GX ramp). Freshest bull data point; the precise note date should be double-checked against the primary desk report.</p></div>
+<div class="tw"><span class="au">Citi — PT cut to $22.50 (from ~$25.60)</span> · late May 2026 (MarketBeat) · <span class="st ber">PT Cut</span><p style="margin-top:8px; color:#475569">Trimmed target on margin-pressure concerns; the cut carried into June commentary and typifies the downward estimate drift as 2026 EPS was marked toward a loss.</p></div>
+<div class="tw"><span class="au">"XPeng: New GX SUV A Catalyst For Growth"</span> · Seeking Alpha, 2026 · <span class="st bul">Buy-lean</span><p style="margin-top:8px; color:#475569">Frames the GX SUV launch and strong reservation momentum as the key near-term growth driver that can restore delivery growth into H2 (exact publish date not locked).</p></div>
+<div class="tw"><span class="au">"XPeng highlights its physical AI upside at CVPR" / "Sales pain vs. AI-robotics"</span> · Seeking Alpha News, June 2026 · <span class="st net">Mixed/thematic</span><p style="margin-top:8px; color:#475569">The optionality debate: physical-AI and humanoid narratives pitched as growth beyond EVs, weighed against Q1 delivery/margin pain — the same tension the market is pricing.</p></div>
+<div class="co yw"><strong>Research Consensus:</strong> Net Buy but softening — modest estimate/target cuts (Citi $22.50) offset by bulls holding (Morgan Stanley $34, Goldman ~$25, BofA/JPM Buy). No wave of rating downgrades in June. The bull case has migrated from "EV growth" to "physical AI optionality" (robotaxi, IRON humanoid, VW VLA-2.0 licensing) — a longer-duration, rate-sensitive thesis, which is the wrong duration for a hawkish-Fed regime. The now-confirmed Q2 delivery snap-back (103,295) is the freshest reason the cuts may be nearly done.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">@thinkercar (delivery tracker)</span> · July 1, 2026 · <span class="st bul">Bullish (data)</span><p style="margin-top:8px; color:#475569">"XPeng announced Jun 2026 deliveries: 40,126 units, +15.9% YoY and +24.8% MoM… 6,739 GX units in Jun; the 10,000th rolled off the line." The clearest sign the Q1 revenue trough is reversing — YoY delivery growth is back positive.</p></div>
+<div class="tw"><span class="au">@MaharajTrading</span> · June 30, 2026 · <span class="st net">Neutral / technical</span><p style="margin-top:8px; color:#475569">"Stock at $13.24, below all 3 EMAs… RSI 39 cooling off, MACD bearish. Holding near 52w low of $11.77, key level to watch." Confirms the oversold-but-still-downtrend read; independently corroborates our price and 52W-low figures.</p></div>
+<div class="tw"><span class="au">@ManusiaFokus</span> · July 1, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"With how robotics [is] about to take off, this chart is currently at a demand level. I've been waiting for this price since Jan 2026… resistance around $14." A robotics-optionality buyer flagging $13 as an accumulation zone.</p></div>
+<div class="tw"><span class="au">@Michael_Hmitsui</span> · July 1, 2026 · <span class="st bul">Bullish (holder)</span><p style="margin-top:8px; color:#475569">"XPENG Q2 sales meet the financial report guidelines… My stock has finally paid off!" Captures the relief among longs that the guided Q2 delivery snap-back actually landed.</p></div>
+<div class="co bl"><strong>X Consensus:</strong> Constructive into the delivery print. The dominant threads are (1) the just-announced record Q2 volume (103,295, meeting guidance), (2) robotics/robotaxi optionality bulls staking out $13 as a buy zone, and (3) technicians noting price is still below all moving averages near the 52W low. Sentiment has tilted from "great company, wrong moment" toward cautious relief now that Q2 delivered. <em>Note: X handles/quotes above are real posts surfaced via the bird CLI around June 30–July 1; promotional/spam accounts were excluded.</em></div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>Record Q2 deliveries (103,295, just announced):</strong> met the 100,000–106,000 guide (+60%+ QoQ); June 40,126 (+15.9% YoY) is the first positive YoY delivery growth in months — hard evidence the Q1 -17.6% revenue drop was a transition trough. Q2 financials (mid-August) are the confirmation gate.</li>
+<li><strong>MONA L03 debut (early July):</strong> new entry-tier model presale/global launch adds a fresh volume line on top of the GX ramp.</li>
+<li><strong>Mass-produced L4 Robotaxi (Guangzhou):</strong> production line started May 2026; pilot operations with safety drivers targeted H2 2026, driverless early 2027 — the headline that powers the "physical AI" re-rate if pilots scale.</li>
+<li><strong>Volkswagen VLA-2.0 licensing:</strong> XPeng named VW the first commercial customer for its smart-driving system (deliveries 2027) — high-margin technology revenue that monetizes autonomy IP independent of own-brand volume.</li>
+<li><strong>GX SUV ramp:</strong> strong order intake and the 10,000th unit off the line; first major new-volume catalyst since Mona and a driver behind bull-side upgrades.</li>
+<li><strong>Record gross margin (~20%) holding:</strong> demonstrates pricing discipline can survive the China price war even as ASP mix down-tiers.</li>
+<li><strong>Oversold technicals + ~7% short float:</strong> RSI 27 near the 52-week low sets up a sharp squeeze on any positive delivery/robotaxi headline.</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>Core revenue still shrinking:</strong> Q1 revenue -17.6% YoY; H1 cumulative deliveries -15.8% YoY even after the June rebound. Volume recovered in Q2, but the revenue/loss recovery is unproven until the mid-August print.</li>
+<li><strong>Breakeven slipped:</strong> Q4'25's profit proved unsustainable (Q1 net loss RMB1.78B); forward EPS of $0.57 is downgrade-prone, and the sell-side is already cutting (Citi $22.50) — a rich 23.1x forward rests on a fragile number.</li>
+<li><strong>China EV price war &amp; anti-involution policy:</strong> BYD's record discounting and Beijing's end of the full EV purchase-tax exemption (capped at ¥15,000, favoring pricier models) pressure XPeng's Mona-heavy entry mix and ASP.</li>
+<li><strong>Physical-AI capex with no revenue:</strong> robotaxi/humanoid/flying-car spending is elevated and pre-revenue; a hawkish-Fed, higher-for-longer regime discounts long-duration optionality hardest — the core reason for the -20% month.</li>
+<li><strong>Dilution risk:</strong> sustained losses plus elevated AI capex raise the odds of an equity or convertible raise; AeroHT's HK IPO is one funding path but the parent may still tap markets.</li>
+<li><strong>Policy / China-ADR overhang (policyRisk: moderate):</strong> shifting China EV subsidy/regulation directly drove the Q1 delivery downturn, and the HFCAA delisting overhang plus the H1 Hang Seng -11% keep the ADR cohort macro-fragile. Beta 1.08 makes XPEV highly macro-sensitive.</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value up">Buy</div><div class="sub">26 analysts · mean 1.73</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value up">$22.45</div><div class="sub up">+70% vs spot — partly stale</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$15.07</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$29.90</div></div>
+</div>
+<div class="co yw"><strong>Staleness check:</strong> Mean PT sits at $22.45 (median $22.72) and individual desks are still cutting (Citi $22.50) even as bulls hold (Morgan Stanley $34, Goldman ~$25). The Street LOW PT ($15.07) now sits ~14% <em>above</em> spot — when the most bearish analyst's floor is above the market price, it usually means the targets lag the tape and "+70% upside" should be heavily discounted. Our own backtest confirms "upside to consensus PT" right after a sharp drop tends to be illusory. The confirmed Q2 delivery snap-back is the one fresh data point arguing the cuts are nearly done.</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data &amp; Methodology:</strong> Market data from Yahoo Finance (yfinance), last close <strong>$13.24 (2026-06-30)</strong> — cross-checked against regularMarketPrice ($13.24) and previous close ($12.80), and independently corroborated by an X technical post. Forward EPS $0.57 (USD/ADS consensus NTM) — flagged downgrade-prone post-Q1. TTM is loss-making, so <strong>P/S (~1.2x trailing) and scenario methods carry more weight than P/E</strong>. Net-cash position ~RMB49B (RMB~219B cash vs RMB~169B debt ≈ $6.9B). Three independent methods triangulate fair value.</div>
+
+<h3>Method 1: P/E Multiple Approach</h3>
+<p style="color:#64748b; margin-bottom:12px">Each scenario applies a multiple to a forward EPS that itself flexes with the delivery trajectory — XPEV's profitability is far more uncertain than its growth peers'.</p>
+<table><thead><tr><th>Scenario</th><th>P/E</th><th>EPS</th><th>Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody><tr><td>Bear (estimates cut)</td><td>22x</td><td>$0.30</td><td>$6.60</td><td class="dn">-50%</td><td>Q2 revenue disappoints despite volume; fwd EPS revised toward Q1 reality; multiple holds only on AI hope</td></tr>
+<tr><td>Base (consensus delivered)</td><td>28x</td><td>$0.57</td><td>$15.96</td><td class="up">+21%</td><td>Q2 volume snap-back (103k) converts to revenue, margins hold ~20%, VW licensing begins, modest AI premium</td></tr>
+<tr><td>Bull (re-acceleration)</td><td>36x</td><td>$0.78</td><td>$28.08</td><td class="up">+112%</td><td>Robotaxi scales + VW SoC revenue + EU growth; full growth-multiple restored</td></tr>
+</tbody></table>
+
+<h3>Method 2: Mean Reversion &amp; Consensus</h3>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">EV/Sales reversion</div><div class="value">$17.50</div><div class="sub up">0.8x → 1.2x fwd EV/S</div></div>
+<div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value up">$22.45</div><div class="sub up">+70% (partly stale)</div></div>
+<div class="kpi"><div class="label">Street Low PT</div><div class="value">$15.07</div><div class="sub">+14% — above spot</div></div>
+<div class="kpi"><div class="label">SA optionality SOTP</div><div class="value up">~$21</div><div class="sub">Auto biz + ~$7B AI units</div></div>
+</div>
+<div class="co bl"><strong>📐 Calculation Details:</strong><ul><li>Net cash ~RMB49B (~$6.9B); EV ≈ $5.8B against ~RMB90–100B (~$13–14B) forward revenue → ~0.5–0.8x fwd EV/S; a modest re-rate to ~1.2x as Q2 deliveries recover gives ~$17.50</li><li>Street consensus $22.45 (n=26, range $15.07–$29.90), drifting down — discount accordingly</li><li>SOTP: ~$13B auto/services + up to ~$7B for AeroHT/Robotaxi/IRON (Seeking Alpha) ≈ $21/ADS if optionality is paid for</li></ul></div>
+
+<h3>Method 3: Discounted Cash Flow (DCF)</h3>
+<p style="color:#64748b; margin-bottom:12px">10-year two-stage model. FCF is currently negative on elevated physical-AI capex, so we model revenue growth with operating margin recovering from negative today toward a normalized terminal level. 782.2M ADS, net cash credited.</p>
+<table><thead><tr><th>Scenario</th><th>Rev Growth (10Y)</th><th>Terminal Op Margin</th><th>WACC</th><th>Terminal Growth</th><th>Intrinsic Value</th><th>Upside</th></tr></thead>
+<tbody><tr><td>Bear</td><td>5%</td><td>2%</td><td>12.5%</td><td>2.0%</td><td>$7.50</td><td class="dn">-43%</td></tr>
+<tr><td>Base</td><td>13%</td><td>6%</td><td>11.5%</td><td>2.5%</td><td>$16.00</td><td class="up">+21%</td></tr>
+<tr><td>Bull</td><td>20%</td><td>9%</td><td>10.5%</td><td>3.0%</td><td>$28.00</td><td class="up">+112%</td></tr>
+</tbody></table>
+<div class="co bl"><strong>✅ Triangulation:</strong> Base-case methods cluster around $16–17.50 (+21–32%), but the bear case ($6.60–$7.50) is very much live because it only requires the Q1 revenue trajectory to persist even after the Q2 volume rebound (volume ≠ revenue if ASP keeps falling). This is a higher-variance distribution than NIO or LI: XPEV pays you most if the delivery snap-back converts to revenue/margin and physical AI ships, and punishes you most if it stays a low-ASP car company at a premium multiple. The net-cash balance sheet is the floor under the bear case.</div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$7.50</div><div class="mt">~22x × $0.34 EPS</div><div class="us dn">-43%</div><div class="ds">Q2 volume fails to convert to revenue/margin, GX/Mona ASP disappoints, robotaxi pilot slips, estimate cuts compound with ADR outflows and a Fed hike. 52W-low break opens an air pocket; net cash is the only floor.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr up">$16.00</div><div class="mt">~28x × $0.57 EPS</div><div class="us up">+21%</div><div class="ds">Q2 record deliveries (103k) convert to revenue in the Aug print, margins hold ~20%, VW licensing begins. Stock reclaims the 50-day; full re-rate still awaits sustained YoY revenue growth.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$28.00</div><div class="mt">~36x × $0.78 EPS</div><div class="us up">+112%</div><div class="ds">Robotaxi pilot scales in Guangzhou, AeroHT IPO prices well, EU production de-risks tariffs, delivery growth turns durably positive YoY, short squeeze on ~7% float. Optionality gets paid.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co gr"><p><strong>XPEV</strong> is the China-EV trio's highest-variance bet, closing June 30 at $13.24 (just above a fresh 52-week low of $11.77) after a ~20% monthly drop driven by a hawkish June 17 Fed (which discounts its long-duration "physical AI" optionality hardest), a China-ADR decoupling from the strong US tape (Hang Seng −11% in H1), and a steady drift of sell-side target cuts (Citi $22.50). The bear evidence from Q1 is real — revenue -17.6% YoY, a swing back to a RMB1.78B loss, H1 deliveries still -15.8% YoY — and the forward multiple (23.1x) remains the richest of the three. But the offsets are concrete and freshly confirmed: a record ~20% gross margin, a net-cash balance sheet (~RMB49B), and — critically — the just-announced <strong>Q2 delivery snap-back of 103,295 units that met management's 100–106k guide, with June at 40,126 (+15.9% YoY)</strong>, the first positive YoY delivery growth in months. Add the VW VLA-2.0 licensing pipeline, a Guangzhou robotaxi line, the MONA L03 launch, and oversold technicals (RSI 27) into a ~7% short float, and any positive Q2 <em>revenue</em> print is squeeze fuel. <strong>Verdict: Bearish-to-Neutral / accumulate-on-evidence — base case $16.00 (+21%) is attractive but does not yet compensate the live $7.50 bear case until the Q2 volume rebound is proven to convert into revenue and margin at the mid-August print and target cuts stop. The Q2 financials and the robotaxi pilot are the binary evidence gates. Enrich score 42/100, Bearish — the score reflects the −20% momentum shock and a valuation the tape has not yet forgiven, even as the delivery data just turned.</strong></p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, SEC filings, CnEVPost, Seeking Alpha, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, SEC filings, CnEVPost, Seeking Alpha, X/Twitter, analyst consensus · 2026-06-30</p></div>
+</div>
+</body>
+</html>

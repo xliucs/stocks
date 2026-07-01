@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WRD | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>WRD — WeRide Inc.</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-06-30 · Sources: yfinance, SEC filings, Seeking Alpha, X/Twitter, analyst consensus</p>
+
+<div class="badge">📉 Enrich score 49 (Neutral) · New 52-week low $5.18 · Nvidia exited its stake · AGM passed (Jun 26) · policy risk elevated</div>
+
+<div class="co yw"><strong>🌐 Macro Context (June 30, 2026):</strong> The tape into quarter-end is a "higher-for-longer, hawkish-Fed" regime. At the June 17 FOMC — the first under new chair <strong>Kevin Warsh</strong> — the Fed held at <strong>3.50–3.75%</strong> but the median SEP dot flipped to a tightening bias (one-to-two 2026 <em>hikes</em>, with the committee visibly split; Warsh declined to submit his own dot). The 10-year sits ~4.5% and the S&amp;P 500 is near record highs (~7,400), a bifurcated market rewarding megacap AI while punishing long-duration, pre-profit speculatives. That backdrop is squarely hostile to a loss-making China ADR like WRD: J.P. Morgan sees the Fed on hold through 2026, and China's own economy is decelerating (soft property, weak consumption) even as manufacturing/exports hold. The one tailwind is the autonomous-vehicle news cycle — Uber's global L4 push (targeting 100k AVs from 2027, on NVIDIA DRIVE) keeps WeRide in the frame — but WRD trades on ADR-risk sentiment and its own cash-burn optics far more than on the index. Over the trailing month the stock fell to a fresh all-time low, underperforming both the market and its AV peers.</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$5.82</div><div class="sub dn">-53.6% from 52W high · 12.4% above 52W low ($5.18)</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$1.92B</div><div class="sub">~311M ADS (1 ADS = 3 ordinary)</div></div>
+    <div class="kpi"><div class="label">P/S (TTM, USD)</div><div class="value">~19x</div><div class="sub">EV/S ~10x net of cash</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value dn">n/m</div><div class="sub dn">Loss-making through 2028E</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">~$100M</div><div class="sub up">Q1'26: RMB114.1M ($16.5M), +57.6% YoY</div></div>
+    <div class="kpi"><div class="label">Gross Margin (Q1)</div><div class="value up">34.7%</div><div class="sub">TTM ~30.4%</div></div>
+    <div class="kpi"><div class="label">Operating Margin (Q1)</div><div class="value dn">-376%</div><div class="sub up">vs -605% Q1'25</div></div>
+    <div class="kpi"><div class="label">Cash &amp; ST Inv.</div><div class="value up">~$880M</div><div class="sub">RMB6.22B reserve (3/31/26) · ~46% of mkt cap</div></div>
+</div>
+
+<div class="co bl"><strong>💸 Cash-runway scorecard (the metric this regime grades on):</strong> Net loss ~RMB389M (~US$55M) in Q1'26; cash burn running roughly <strong>US$200M+/yr</strong> against a ~<strong>RMB6.22B (~US$880M)</strong> capital reserve and only ~US$48M debt → roughly <strong>4 years of runway</strong> with no near-term forced raise. In USD terms net cash is ~$2.7/ADS, a partial hard floor under the stock — now ~46% of a market cap that has shrunk with the price. The market is no longer paying for open-ended growth stories funded by dilution; WRD is not yet at the point of needing one, its main defense versus better-known cash-burn casualties. But the AGM (June 26) renewed the share-<em>issuance</em> mandate alongside buyback authority, keeping future dilution optionality live.</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<p style="color:#64748b;font-size:0.85em">Reported in RMB (Q1'26: RMB114.1M = US$16.5M). Margins are currency-neutral.</p>
+<table><thead><tr><th>Quarter</th><th>Revenue (RMB)</th><th>Net Income (RMB)</th><th>Gross Margin</th><th>Op Margin</th><th>Diluted EPS (RMB)</th></tr></thead>
+<tbody><tr class="hl"><td>2026-03-31</td><td>114.1M <span class="dn">↓ seq</span></td><td>-389.1M</td><td>34.7%</td><td>-376%</td><td>-1.14</td></tr>
+<tr><td>2025-12-31</td><td>314.0M <span class="up">↑↑</span></td><td>-556.1M</td><td>28.5%</td><td>-176%</td><td>-1.71</td></tr>
+<tr><td>2025-09-30</td><td>171.0M <span class="up">↑</span></td><td>-307.3M</td><td>32.9%</td><td>-222%</td><td>-1.02</td></tr>
+<tr><td>2025-06-30</td><td>127.2M <span class="up">↑</span></td><td>-406.4M</td><td>28.1%</td><td>-355%</td><td>-1.35</td></tr>
+<tr><td>2025-03-31</td><td>72.4M —</td><td>-385.1M</td><td>35.0%</td><td>-605%</td><td>-1.38</td></tr>
+</tbody></table>
+
+<div class="co yw"><strong>📊 Read:</strong> Q1'26 revenue of RMB114.1M (+57.6% YoY) was a record first quarter — product revenue (robotaxi/L4 vehicle sales) +115.8% and service revenue +49%. FY2025 revenue was RMB684.6M, +89.6% YoY, with full-year losses improving ~34% vs 2024. The market's concern is unchanged: the seasonal sequential drop from Q4'25's RMB314M (lumpy year-end vehicle deliveries) and a still-massive RMB389M quarterly loss with no profitability framework on the call. Burn of ~US$200M+/yr on a ~US$880M reserve implies ~4 years of runway. <strong>Q2'26 ends June 30</strong>; the next print (~mid-August) is the first read on whether the June price collapse coincided with any commercial slippage. (Sources: WeRide 6-K Q1'26 results &amp; FY25 figures, SEC; Motley Fool transcript, May 13, 2026; StockTitan.)</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Revenue Stream</th><th>Q1'26 (RMB)</th><th>% of Total</th><th>YoY</th><th>Notes</th></tr></thead>
+<tbody><tr><td><strong>Product (robotaxi &amp; L4 vehicle sales)</strong></td><td>~20.5M</td><td>~18%</td><td class="up">+115.8%</td><td>GXR robotaxi, Robobus, Robovan, Robosweeper deliveries; GXR unit cost well below peers' ~$150K, next-gen ~25% cheaper</td></tr>
+<tr><td><strong>Service (operations, ADAS R&amp;D, support)</strong></td><td>~93.6M</td><td>~82%</td><td class="up">+49.0%</td><td>Robotaxi operations (Middle East, Singapore, Europe), Bosch ADAS program, high-margin licensing/data/revenue-share</td></tr>
+</tbody></table>
+<div class="co bl"><strong>Footprint:</strong> ~2,800 autonomous vehicles across 40+ cities in ~12 countries, including ~1,300 robotaxis — the broadest international L4 franchise of any listed pure-play. WeRide now holds autonomous-driving permits in <strong>8 markets</strong> (China, UAE, Singapore, France, Switzerland, Saudi Arabia, Belgium, US), with fully driverless robotaxi service live in Dubai, Abu Dhabi and Singapore. Roadmap: ~2,600 robotaxis globally by end-2026, tens of thousands by 2030 under the 15-city Uber agreement. On the AV-ranking front, WeRide is grouped with the leaders (Baidu Apollo Go, Waymo, Pony) among operators running unsupervised rides at scale, but trails the top three on raw safety/ops data.</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl neu">37.3</div><div class="nt neu">Weak, not yet washed out</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl dn">$7.08</div><div class="nt dn">Price 18% below</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl dn">$8.27</div><div class="nt dn">Price 30% below</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl dn">-0.43</div><div class="nt dn">Below signal (-0.40) — bearish</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$12.55</div><div class="nt dn">-53.6%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$5.18</div><div class="nt up">+12.4%</div></div>
+</div>
+<div class="tg">
+    <div class="tc"><div class="mk">1M Return</div><div class="vl dn">-22.9%</div><div class="nt dn">Broke to new lows</div></div>
+    <div class="tc"><div class="mk">3M / 6M Return</div><div class="vl dn">-18.1% / -33.2%</div><div class="nt dn">Downtrend deepening</div></div>
+    <div class="tc"><div class="mk">Avg Volume (3M)</div><div class="vl">2.9M</div><div class="nt">Steady bleed, no spike</div></div>
+</div>
+<div class="co rd"><strong>📊 Technical Read:</strong> The chart has deteriorated materially since the June 21 report. WRD lost the prior $6.005 floor, printed a fresh 52-week low of <strong>$5.18</strong>, and closed <strong>$5.82</strong> on June 30 — down 22.9% in a month. Price sits ~18% below the SMA50 ($7.08) and ~30% below the SMA200 ($8.27); MACD is negative and below signal. RSI at 37.3 is weak but <em>not</em> classically oversold, so there is no washout signal to lean on. The stock has bounced modestly off the $5.42 intraweek low (+7% over the last two sessions), but until sentiment turns the only structural support below is the net-cash floor (~$2.7/ADS). Rallies into the $7.1–8.3 SMA band are likely to be sold; a sustained break of $5.18 opens fresh price discovery.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Ticker</th><th>Mkt Cap</th><th>P/S (TTM, USD)</th><th>Rev Growth</th><th>Gross Margin</th><th>Op Margin</th><th>Notes</th></tr></thead>
+<tbody><tr class="hl"><td><strong>WRD</strong></td><td>$1.9B</td><td>~19x</td><td class="up">+57.6%</td><td>30.4%</td><td>-376%</td><td>Broadest international L4 footprint; ~1,300 robotaxis; Uber partner in Madrid + Zurich; Nvidia exited stake</td></tr>
+<tr><td>PONY (Pony AI)</td><td>~$3.4B</td><td>~30x</td><td class="up">+145%</td><td>15.8%</td><td>-170%</td><td>China Tier-1 driverless permits; 1,700+ fleet; ~1.0M unsupervised rides/wk cohort</td></tr>
+<tr><td>TSLA</td><td>~$1.4T</td><td>~14x</td><td>+15.8%</td><td>19.1%</td><td>+4.2%</td><td>Robotaxi optionality + FSD flywheel; Q2 deliveries ~410K est.</td></tr>
+<tr><td>GOOG (Waymo)</td><td>~$4.3T</td><td>~10x</td><td>+21.8%</td><td>60.4%</td><td>+36.1%</td><td>Waymo is the scale benchmark for unsupervised L4</td></tr>
+<tr><td>MBLY</td><td>~$7.7B</td><td>~3.8x</td><td>+27.4%</td><td>48.3%</td><td>-19.4%</td><td>ADAS supplier, not a robotaxi operator</td></tr>
+<tr><td>BIDU (Apollo Go)</td><td>~$40B</td><td>~0.3x</td><td>-1.2%</td><td>42.1%</td><td>+10.0%</td><td>Largest China robotaxi fleet; profitable parent</td></tr>
+</tbody></table>
+<div class="co yw"><strong>Peer Read (currency-corrected):</strong> Screen tools showing WRD at "2.6x P/S" mix a USD market cap with RMB revenue — the apples-to-apples figure is ~19x TTM sales / ~10x EV/S in USD. On that basis WRD is cheaper than PONY (~30x) with roughly 2x PONY's gross margin and the only meaningful European franchise, but it is not "bottom-decile cheap" in absolute terms for a company burning &gt;$200M/yr. Versus the profitable benchmarks (BIDU, GOOG/Waymo) it remains a pure pre-profit option on execution — and Nvidia's exit removes a strategic-validation anchor PONY-style peers can still point to.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value neu">Mixed</div><div class="sub">Bottom-fishing calls vs downside puts</div></div>
+    <div class="kpi"><div class="label">P/C Open Interest</div><div class="value dn">Put-heavy</div><div class="sub">Delisting-tail hedges dominate OI</div></div>
+    <div class="kpi"><div class="label">Implied Vol</div><div class="value neu">Elevated</div><div class="sub">Single-name IV high; thin liquidity</div></div>
+    <div class="kpi"><div class="label">Short Interest</div><div class="value dn">~3.8% (rising)</div><div class="sub">Holders flag shorts +41% into Q2</div></div>
+</div>
+<div class="co bl"><strong>📊 Options Read:</strong> Flow stays barbelled: standing open interest is put-heavy (insurance against the delisting tail), while fresh volume tilts to long-dated bottom-fishing calls near the lows. Reported short interest is a still-modest ~3.8% of float, though frustrated holders on X flag that shorts grew materially (~+41%) through Q2 as the stock made new lows — the pressure is fundamental and macro, not a squeeze setup. Absolute option liquidity is low; treat all signals as weak.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co yw"><strong>Recent activity: active company buyback, but a notable strategic-holder exit.</strong>
+<ul>
+<li><strong>Company buyback continuing</strong> — post-AGM, WeRide repurchased <strong>1,242,285 ordinary shares on June 26</strong> (VWAP ~$1.81/ordinary, ~$2.24M) and <strong>996,882 shares on June 29</strong> (~$1.9M) on Nasdaq under the renewed mandate; ~25 buybacks / ~38M shares to Treasury over three months. CEO Tony Han has framed the stock as dramatically undervalued vs Waymo.</li>
+<li><strong>⚠️ Nvidia exited its entire WeRide stake</strong> — 13F filings showed Nvidia sold out over Q4 2025 (having first disclosed a position in Feb 2025). A high-profile validation anchor is gone; the market read it as a reset in expectations for WeRide's AV commercialization timeline.</li>
+<li>No major insider Form 144 / cluster selling flagged; founder/management retain super-voting control via Class B shares. AGM (June 26, Guangzhou) passed all resolutions, incl. director re-elections and general mandates for share issuance, treasury resale and repurchase.</li>
+<li>Institutions hold only ~24% — thin institutional sponsorship amplifies volatility in both directions.</li>
+</ul>
+</div>
+
+<h2>📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">"WeRide: Autonomous Driving At A Discount" (Seeking Alpha)</span> · 2026 · <span class="st bul">Strong Buy</span><p style="margin-top:8px; color:#475569">Strong Buy on robust revenue growth, expanding margins and scalable global partnerships; a DCF implies large upside (~$30/share) assuming a path to profitability. Highlights GXR unit cost well below peers' ~$150K and Q-level gross margin near 33%. (seekingalpha.com/symbol/WRD)</p></div>
+<div class="tw"><span class="au">"WeRide (WRD) Stock Valuation Check After Recent Share Price Weakness" (Simply Wall St)</span> · Jun 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">Notes the stock is down ~19% over the month and ~34% YTD; flags the valuation paradox — a DCF puts fair value well above spot, yet WRD screens rich on P/S vs auto-component comps — model output is hugely assumption-sensitive. (simplywall.st)</p></div>
+<div class="tw"><span class="au">BofA (Ming Hsun Lee) — most recent PT</span> · mid-May 2026 · <span class="st bul">Buy, $11.80 PT</span><p style="margin-top:8px; color:#475569">Raised target to $11.80 from $11.50, Buy maintained — the freshest sell-side mark, and still ~2x the $5.82 spot. Citi (Buy $15.50) and UBS (Buy $12) initiations from earlier in 2026 sit above it. (TipRanks, MarketBeat)</p></div>
+<div class="tw"><span class="au">"Nvidia exits WeRide stake" coverage (Sherwood News, ainvest)</span> · 2026 · <span class="st ber">Cautionary</span><p style="margin-top:8px; color:#475569">Nvidia's full sale of its WeRide position (13F, Q4'25) framed as a "reset in expectations" for the AV timeline — a credibility hit in a space where strategic capital signals matter. The clearest new bear data point since the June 21 report.</p></div>
+<div class="tw"><span class="au">TipRanks "Spark" AI analyst</span> · Jun 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">Neutral — held down by weak financials (heavy losses, worsening cash burn) despite strong revenue momentum and a low-debt balance sheet. The clearest quant counterweight to the sell-side Strong Buy tally.</p></div>
+
+<div class="co gr"><strong>Research Consensus:</strong> Sell-side stays Buy/Strong Buy (Citi $15.50, UBS $12, JPM ~$21, BofA $11.80) with DCF bull cases that are extremely sensitive to an unproven profitability ramp. The honest counterweights are the quant "Neutral" reads (TipRanks Spark, Simply Wall St) keyed on burn — and, new since last report, the <em>negative signal from Nvidia's exit</em>. Coverage is real and not sparse, but every PT predates the latest leg to new lows and should be discounted until re-marked post-Q2.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">@jmllubber (jml)</span> · late June 2026 · <span class="st ber">Bearish (frustrated long)</span><p style="margin-top:8px; color:#475569">"With Friday's resumption of buybacks… $WRD completed 25 buybacks for 38MM shares over 3 months. Do not use buybacks to save WRD. Investors fled in Q2. Shorts grew by 41%. Fix this with guidance/details." Recurring theme: management's no-guidance posture has ceded the narrative to shorts near the lows.</p></div>
+<div class="tw"><span class="au">@upand_right (UpAndRight)</span> · June 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"We're all aware that robotaxis are the most monetizable and obvious near-term physical-AI application, right? $MBLY + $WRD feel like absolute layups at these valuations." Deep-value AV bull framing WRD at the lows as an asymmetric entry.</p></div>
+<div class="tw"><span class="au">@garyblack00 (Gary Black)</span> · June 2026 · <span class="st net">Neutral-Bullish (sector)</span><p style="margin-top:8px; color:#475569">"$GOOG $BIDU $WRD $PONY and $AMZN are now completing 1.0M paid unsupervised autonomous rides per week without safety monitors… Unsupervised autonomy will become table stakes." Groups WRD with the scaled L4 cohort — a structural positive, not a WRD-specific call.</p></div>
+<div class="tw"><span class="au">@gulVasikova (GUL)</span> · June 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"$WRD is putting its money where its mouth is. While many early-stage growth companies keep issuing new shares, WeRide just bought some of its own back," alongside commercial expansion in the Middle East, Europe and SE Asia. Buyback-as-confidence read.</p></div>
+<div class="co yw"><strong>X Consensus:</strong> Split and price-tracking. Deep-value AV bulls (@upand_right, @gulVasikova) frame the lows as a layup and cheer the buyback; the sector optimists (@garyblack00) like the unsupervised-rides cohort; but the loudest holder voice (@jmllubber) is a frustrated long attacking the no-guidance posture as shorts pressed the name to new lows. Net: sentiment tracks price, and price is at the lows. <em>Note: handles/quotes above are real posts surfaced via the bird CLI on June 30; promotional "join my group" spam accounts were excluded.</em></div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>Zurich commercial robotaxi launch with Uber (announced June 17)</strong> — 2nd European market in ~two weeks after Madrid, via Switzerland's FEDRO permit; fare-charging with safety drivers targeted from Dec 2026, fully driverless mid-2027 (Switzerland now among 8 permitted markets)</li>
+<li><strong>Madrid pilot with Uber + AVOMO (June 2)</strong> — Spain's first commercial robotaxi pilot; fleet scales to "hundreds" on milestones</li>
+<li><strong>~2,600 robotaxis globally by EOY 2026</strong> (from ~1,300) — the single most verifiable execution metric; unsupervised service already live in Dubai/Abu Dhabi/Singapore</li>
+<li><strong>Uber 15-city / tens-of-thousands-of-vehicles roadmap on NVIDIA DRIVE</strong> — part of Uber's stated push to 100k global AVs from 2027; market-by-market rollout continues</li>
+<li><strong>Hong Kong Stock Connect / HKEX dual-listing optionality</strong> — a southbound mainland bid and a partial mitigant to US delisting risk</li>
+<li><strong>Ongoing buyback</strong> — management repurchasing at all-time lows (Jun 26 &amp; 29), a demand signal even if it can't offset the burn narrative</li>
+<li><strong>Q2 2026 print (~mid-Aug)</strong> — first read post the June collapse; watch robotaxi fleet adds and, critically, any first-ever margin/breakeven framework or guidance (the market is explicitly demanding it)</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>Delisting / HFCAA overhang is persistent, not transient</strong> — US scrutiny of Chinese listings continues; WRD's 20-F flags PCAOB-access and data-security risk. Backtests show US-listed Chinese AV names underperformed QQQ in every window — the discount has not mean-reverted. This is the core "elevated" policy risk: data-security/export scrutiny plus a delisting tail.</li>
+<li><strong>Nvidia exited its entire stake (new)</strong> — the loss of a marquee strategic backer is a credibility hit and was read as a reset in expectations for WeRide's commercialization timeline; it removes a validation anchor peers still cite.</li>
+<li><strong>Macro / rate regime</strong> — the Fed's June dot plot flipped to a hike bias, keeping rates higher-for-longer; the most rate-sensitive, longest-duration speculative names get re-rated down first.</li>
+<li><strong>Cash burn ~US$200M+/yr</strong> vs ~$880M reserve → ~4-yr runway; the AGM renewed the share-issuance mandate, so a future dilutive raise into a dilution-punishing tape remains possible.</li>
+<li><strong>No profitability guidance</strong> — management has declined to frame a breakeven path; holders (see X) are openly frustrated that this has ceded the narrative to shorts.</li>
+<li><strong>Lumpy, product-sale-dependent revenue</strong> — the Q4→Q1 sequential drop shows revenue is not yet recurring robotaxi economics; service still ~82% of the mix.</li>
+<li><strong>Competition &amp; relative position</strong> — Baidu Apollo Go, Waymo and Pony contest the same tenders at greater scale; the safety-driver-to-driverless transition (mid-2027 in Zurich) is still ahead of WRD, not behind it.</li>
+<li><strong>Stale analyst PTs</strong> — the ~$14.23 mean implies ~+145% "upside" that should be heavily discounted post-decline; even the low (~$11) is ~2x spot.</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value up">Strong Buy</div><div class="sub">Mean 1.31 · 12 analysts</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value">$14.23</div><div class="sub neu">+145% — stale post-drop, discount it</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$10.96</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$19.95</div></div>
+</div>
+<div class="co yw"><strong>Note:</strong> Even the lowest Street target (~$11) sits ~88% above the $5.82 spot — a textbook stale-PT setup after a sharp decline to new lows. Recent marks (Citi $15.50, UBS $12, JPM ~$21, BofA $11.80) are constructive but predate the latest leg lower and, in most cases, predate Nvidia's disclosed exit; treat "upside to PT" as illusory until targets are re-marked post-Q2.</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data &amp; Methodology:</strong> Price <strong>$5.82</strong> (last close 2026-06-30 from yfinance history; regularMarketPrice $5.82, previousClose $5.71 agree). WeRide is unprofitable (forward P/E not meaningful), so we value on EV/Sales, a net-cash floor, and a sanity-check DCF rather than P/E. The screen-reported P/S of ~2.6x mixes a USD market cap with RMB revenue; the correct figure is ~19x TTM sales / ~10x EV/S in USD. Liquidity ~RMB6.22B reserve (~US$880M) at 3/31/26; debt ~$48M. Three independent methods triangulate fair value.</div>
+
+<h3>Method 1: EV/Sales Multiple Approach</h3>
+<p style="color:#64748b; margin-bottom:12px">Applies a range of forward EV/Sales multiples to FY27E USD revenue of ~$210M, then adds back ~$880M net cash (~$2.7/ADS) across ~311M ADS.</p>
+<table><thead><tr><th>Scenario</th><th>EV/Sales (FY27E)</th><th>Implied EV</th><th>+ Net Cash → Price</th><th>vs Spot</th><th>Rationale</th></tr></thead>
+<tbody><tr><td>Bear (China-ADR discount)</td><td>4x</td><td>~$0.84B</td><td>~$5.50</td><td class="dn">-5%</td><td>Delisting overhang dominates; growth gets no premium; Nvidia-exit chill</td></tr>
+<tr><td>Conservative</td><td>6x</td><td>~$1.26B</td><td>~$6.85</td><td class="up">+18%</td><td>Modest premium for fastest-growing pure-play L4</td></tr>
+<tr><td>Base (peer-informed)</td><td>10x</td><td>~$2.10B</td><td>~$9.55</td><td class="up">+64%</td><td>EU commercialization on track; below PONY's ~23x EV/S</td></tr>
+<tr><td>Bull (re-rating)</td><td>16x</td><td>~$3.36B</td><td>~$13.60</td><td class="up">+134%</td><td>EU scale + breakeven roadmap + delisting fears recede</td></tr>
+</tbody></table>
+
+<h3>Method 2: Net-Cash Floor &amp; Mean Reversion</h3>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">Net-Cash Floor</div><div class="value">~$2.70</div><div class="sub dn">Business valued at zero</div></div>
+<div class="kpi"><div class="label">SMA200 (mean rev.)</div><div class="value neu">$8.27</div><div class="sub up">+42% — needs regime change</div></div>
+<div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value up">$14.23</div><div class="sub neu">+145% — stale, discount it</div></div>
+</div>
+<div class="co bl"><strong>📐 Calculation Details:</strong><ul><li>Net cash ~$880M − ~$48M debt ÷ ~311M ADS ≈ $2.7/ADS — a partial hard floor assuming the operating business is worth nothing</li><li>SMA200 of $8.27 marks the 6-month mean; reversion there (+42%) requires sentiment/macro to turn</li><li>Analyst consensus PT $14.23 (range $10.96–$19.95, n=12) — largely predates the latest decline and the Nvidia exit</li></ul></div>
+
+<h3>Method 3: Discounted Cash Flow (DCF, sanity check)</h3>
+<p style="color:#64748b; margin-bottom:12px">Highly assumption-sensitive given a pre-profit base. Models revenue scaling toward ~$1B by 2031, gross margin ~35%, breakeven ~2029, WACC 12%, terminal growth 3%, ~311M ADS. Shown as a triangulation range, not a point estimate.</p>
+<table><thead><tr><th>Scenario</th><th>2031 Revenue</th><th>Terminal Op Margin</th><th>WACC</th><th>Intrinsic Value</th><th>vs Spot</th></tr></thead>
+<tbody><tr><td>Bear (burn never pays off)</td><td>~$0.5B</td><td>5%</td><td>14%</td><td>~$4.20</td><td class="dn">-28%</td></tr>
+<tr><td>Base (digestion + EU scale by FY29)</td><td>~$1.0B</td><td>12%</td><td>12%</td><td>~$9.50</td><td class="up">+63%</td></tr>
+<tr><td>Bull (global L4 inflection)</td><td>~$1.6B</td><td>18%</td><td>11%</td><td>~$15.00</td><td class="up">+158%</td></tr>
+</tbody></table>
+<div class="co yw"><strong>⚖️ Honest read:</strong> Third-party DCFs (SA ~$30, Simply Wall St even higher) show how a profitability ramp can imply enormous upside — but those outputs swing wildly with terminal-margin and discount-rate assumptions and should be treated as scenario art, not price targets. Our more conservative DCF base (~$9.50) lines up with the EV/Sales base (~$9.55), giving a coherent ~$9.5 base case; the bear case (~$4.20) shows what's at stake if burn persists without commercial scale, partly cushioned by the ~$2.70 cash floor. At $5.82 the stock is pricing closer to the bear/floor zone than to base.</div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$4.20</div><div class="mt">~4x FY27E EV/S + cash</div><div class="us dn">-28%</div><div class="ds">Delisting momentum builds, Nvidia-exit chill lingers, EU rollouts stay pilot-scale, burn unabated, rate-hike regime + soft China persist. Stock drifts toward the cash floor.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr">$9.00</div><div class="mt">~9–10x FY27E EV/S + net cash</div><div class="us up">+55%</div><div class="ds">~2,600-robotaxi target hit; Madrid + Zurich turn commercial; Stock Connect adds a southbound bid; macro stabilizes; no new equity raise; management offers a breakeven framework.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$13.50</div><div class="mt">~16x FY27E EV/S + cash</div><div class="us up">+132%</div><div class="ds">EU framework accelerates approvals; Uber deepens commitment toward 15 cities on NVIDIA DRIVE; first credible breakeven roadmap; delisting fears recede via HK line.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co yw"><p><strong>WRD</strong> is the broadest international L4 autonomous franchise — ~2,800 vehicles, 40+ cities, ~12 countries, permits in 8 markets — and its European cadence is genuinely accelerating: Uber-partnered commercial launches in Madrid and now <strong>Zurich (June 17)</strong>, with fully driverless service already live in Dubai, Abu Dhabi and Singapore. It trades at fresh all-time lows ($5.82, ~12% above the $5.18 floor) with ~46% of its market cap in cash, ~4 years of runway, an active buyback (June 26 &amp; 29), and a sell-side that is uniformly Buy/Strong Buy (Citi $15.50, UBS $12, JPM ~$21, BofA $11.80).</p>
+<p>But the bear case is concrete and currently winning. This is a long-duration, pre-profit China ADR into a Fed that just flipped to a hike bias and a decelerating Chinese economy; the delisting/data-security overhang has proven persistent; revenue is lumpy and still ~82% service; burn is &gt;$200M/yr with no breakeven framework offered — a gap frustrated holders are now vocal about; and, new this cycle, <strong>Nvidia exited its entire stake</strong>, stripping away a marquee validation signal. Correctly measured (~19x USD P/S, ~10x EV/S) it is not screen-cheap, and the ~$14 analyst mean is stale. The enrich score has slipped to <strong>49 (Neutral)</strong> from 65, driven by the −22.9% one-month drop and the elevated policy overlay.</p>
+<p><strong>Verdict: Hold / speculative-accumulate only in small size near $5.20–6.00. Enrich score 49 (Neutral). 12-month base case $9.00 (+55%), bear $4.20 (-28%), bull $13.50 (+132%). The ~$2.70 cash floor limits ultimate downside, but with the ADR overhang, a hike-biased Fed, and Nvidia's exit all leaning against the name — and no guidance to anchor the story — there is no urgency to be early. Re-assess at Q2 earnings (~mid-Aug) on fleet adds and any first breakeven framework.</strong></p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, SEC filings (6-K Q1'26, 20-F), Seeking Alpha, Simply Wall St, StockTitan, TipRanks, Sherwood News, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, SEC filings, web research, X/Twitter, analyst consensus · 2026-06-30</p></div>
+</div>
+</body>
+</html>

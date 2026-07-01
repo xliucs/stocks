@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BILI | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>BILI — Bilibili Inc.</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-06-30 · Sources: yfinance, SEC filings, Seeking Alpha, X/Twitter, analyst consensus</p>
+
+<div class="badge">📊 Quant Score 80 — Bullish · $17.03 · Fwd P/E 12.7x · PT $29.43 (+73%) · Next Earnings: 2026-08-20 (Q2)</div>
+
+<div class="co yw"><strong>🌍 Macro Context (June 30, 2026):</strong> The China tape has quietly turned <em>less bad</em> since mid-month. June PMIs came in above forecast — Composite to a six-month-high 50.6, Manufacturing 50.3, Non-Manufacturing 50.2 — reinforcing that growth is stabilizing (Q1 GDP ~5% YoY), and onshore indices firmed into month-end (Shanghai Composite +0.5% Tuesday, Shenzhen Component +4% for June) as money rotated back into AI names (Trading Economics; Global Times, June 2026). That is a meaningful shift from the mid-June risk-off, when Bilibili and Meituan were the biggest Hang Seng Tech losers on the property-slump narrative. Property remains the unresolved drag (investment still contracting, home prices soft), and the US–Iran peace deal (June 14) plus a firm yuan (+~2% YTD on PBoC stabilization) are the macro offsets. Net for BILI: the cohort headwind has eased at the margin, but the stock is still pinned near its $15.79 52-week low ($17.03 last) — now more a Tencent-overhang / single-name story than a broad China-ADR purge.</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$17.03</div><div class="sub dn">-52.6% from 52W High ($35.92)</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$7.10B</div><div class="sub">Shares: 337M ADS</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value">34.8x</div><div class="sub">EPS: $0.49</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value up">12.7x</div><div class="sub">Fwd EPS: $1.34</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">RMB 30.8B</div><div class="sub up">+6.7% YoY</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value up">36.8%</div><div class="sub">15+ quarters of expansion</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value neu">2.2%</div><div class="sub">GAAP, Q1 seasonal + AI capex</div></div>
+    <div class="kpi"><div class="label">Net Cash</div><div class="value up">RMB 14.6B</div><div class="sub">Cash 24.2B / Debt 9.6B</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">1-Month Return</div><div class="value dn">-1.7%</div><div class="sub">Stabilizing off the low</div></div>
+    <div class="kpi"><div class="label">3-Month Return</div><div class="value dn">-21.5%</div></div>
+    <div class="kpi"><div class="label">6-Month Return</div><div class="value dn">-31.7%</div></div>
+    <div class="kpi"><div class="label">Net Margin / ROE</div><div class="value neu">4.6% / 9.4%</div><div class="sub">Beta 0.70</div></div>
+</div>
+
+<div class="co bl"><strong>💸 The setup in one line:</strong> A profitable-transition story — 13 straight double-digit ad quarters, 15+ quarters of gross-margin expansion, RMB14.6B net cash (~20% of the $7.10B market cap) — trading near its 52-week low. What is new since our June-21 look: on <strong>June 24 the board authorized a fresh US$300M, 24-month buyback</strong> (RMB14.6B net cash funds it entirely) and <strong>Morgan Stanley tagged BILI a "Research Tactical Idea," Overweight $31</strong>. The stock popped ~2.5–7% intraday on the news but has round-tripped most of it. At 12.7x forward the market still pays almost nothing for the 2H26 game pipeline.</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter (RMB)</th><th>Revenue</th><th>Net Income</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th><th>Diluted EPS</th></tr></thead>
+<tbody><tr><td>2026-03-31 (Q1)</td><td>7.47B <span class="dn">↓ QoQ</span></td><td>209.8M</td><td>37.1%</td><td>2.2%</td><td>2.8%</td><td>0.48</td></tr>
+<tr><td>2025-12-31</td><td>8.32B <span class="up">↑</span></td><td>513.4M</td><td>37.0%</td><td>6.1%</td><td>6.2%</td><td>1.14</td></tr>
+<tr><td>2025-09-30</td><td>7.69B <span class="up">↑</span></td><td>470.2M</td><td>36.7%</td><td>4.6%</td><td>6.1%</td><td>1.05</td></tr>
+<tr><td>2025-06-30</td><td>7.34B <span class="up">↑</span></td><td>219.0M</td><td>36.5%</td><td>3.4%</td><td>3.0%</td><td>0.51</td></tr>
+<tr><td>2025-03-31</td><td>7.00B —</td><td>-9.1M</td><td>36.3%</td><td>0.2%</td><td>-0.1%</td><td>-0.02</td></tr>
+</tbody></table>
+<div class="co yw"><strong>📊 Q1 2026 Read (reported May 19):</strong> Beat-but-decelerate. Adjusted net profit rose more than 60% YoY on RMB7.47B revenue (+7%); advertising grew over 30% (RMB2.59B, US$375.3M) for the 13th straight double-digit quarter as AI tools improved ad-user matching and commercialization efficiency (Investing.com, Yahoo Finance, May–June 2026). GAAP op margin slipped to 2.2% from Q4's 6.1% on Q1 seasonality plus the P&amp;L impact of the FY26 AI capex ramp. Gross margin expanded for the 15th consecutive quarter. DAU 115.2M (+8% YoY), daily time spent a record 119 minutes (May 19 6-K). No new prints since — the drift near the 52W low is flow/overhang, not fundamentals.</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Revenue Stream</th><th>Q1 2026 (RMB)</th><th>% of Total</th><th>YoY Trend</th><th>Notes</th></tr></thead>
+<tbody><tr><td><strong>Advertising</strong></td><td>2.59B</td><td>~35%</td><td class="up">+30% YoY</td><td>13th consecutive double-digit quarter; AI targeting + CPM lift (6-K, May 19)</td></tr>
+<tr><td><strong>Value-Added Services (Live + Premium)</strong></td><td>2.91B</td><td>~39%</td><td class="up">+4% YoY</td><td>Maturing; live streaming + Big Membership</td></tr>
+<tr><td><strong>Mobile Games</strong></td><td>1.52B</td><td>~20%</td><td class="dn">-12% YoY</td><td>San Mou downcycle; pipeline (NCard July, San Wang Q4, Lumi Master Q4) is the swing factor</td></tr>
+<tr><td><strong>IP Derivatives & Other</strong></td><td>0.45B</td><td>~6%</td><td class="dn">-4% YoY</td><td>Merchandise + comics; lumpy</td></tr>
+</tbody></table>
+<div class="co bl"><strong>Mix shift:</strong> Ads carry the entire incremental growth (~+RMB600M YoY) while gaming is a headwind until the 2H26 launches. NCard's April soft launch met expectations with the official launch planned for July; San Wang (Romance of the Three Kingdoms: Wangdaotianxia) targets Q4 with Morgan Stanley projecting ~RMB1.7B annualized grossing; Lumi Master global launch is slated for Q4 after positive worldwide testing (Investing.com, Insider Monkey, May–June 2026). Guosen and CITIC Securities both flag AI integration + the games pipeline as the key forward drivers (Simply Wall St, June 2026).</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl neu">44.2</div><div class="nt neu">Neutral — off oversold</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl dn">$19.34</div><div class="nt dn">Price -12% below</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl dn">$25.43</div><div class="nt dn">Price -33% below</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl up">-0.77</div><div class="nt up">Above signal (-0.87) — narrowing</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$35.92</div><div class="nt dn">-52.6%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$15.79</div><div class="nt neu">+7.9% above</div></div>
+</div>
+<div class="co yw"><strong>⚠️ Technical Signal:</strong> Defined downtrend, but the very-short-term picture has improved. Price is still well below both moving averages, yet it has bounced ~8% off the fresh $15.79 52-week low set in late June, the MACD sits marginally above its signal line, and RSI (44.2) is neutral rather than oversold — selling looks like flow-grind, not panic. There is no confirmed bottom: this remains a falling knife until the stock reclaims the $19.34 SMA50. First support is the $15.79–$16 52W-low zone; a break there opens air below. Resistance: SMA50 $19.34, then SMA200 $25.43.</div>
+
+<h2>📏 Historical Valuation</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Current Fwd P/E</div><div class="value up">12.7x</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value">34.8x</div><div class="sub">TTM EPS $0.49</div></div>
+    <div class="kpi"><div class="label">EV / EBITDA (approx)</div><div class="value up">~7x</div><div class="sub">Net-cash-adjusted</div></div>
+    <div class="kpi"><div class="label">P/Sales (TTM)</div><div class="value up">~1.7x</div><div class="sub">Near multi-year trough</div></div>
+</div>
+<div class="co gr"><strong>📐 Valuation context:</strong> The trailing 34.8x P/E is meaningless — it reflects an EPS base ($0.49) still near breakeven as the profitability turn only began in 2025. The relevant number is the 12.7x forward multiple, which is at the low end of BILI's post-IPO range and pricing it as an ex-growth China media name rather than a re-accelerating one. Net cash of ~20% of market cap means the operating business trades closer to ~10x forward earnings stripped of the balance sheet.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Company</th><th>Price</th><th>MCap</th><th>Trail P/E</th><th>Fwd P/E</th><th>Rev Growth</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th></tr></thead>
+<tbody><tr class="hl"><td><strong>BILI</strong></td><td>$17.03</td><td>$7.10B</td><td>34.8x</td><td>12.7x</td><td>+6.7%</td><td>36.8%</td><td>2.2%</td><td>4.6%</td></tr>
+<tr><td><strong>BABA</strong></td><td>$95.98</td><td>$230.4B</td><td>14.8x</td><td>10.6x</td><td>+2.9%</td><td>39.8%</td><td>1.0%</td><td>10.1%</td></tr>
+<tr><td><strong>TME</strong></td><td>$8.35</td><td>$13.7B</td><td>9.9x</td><td>7.9x</td><td>+7.3%</td><td>44.4%</td><td>30.4%</td><td>26.5%</td></tr>
+<tr><td><strong>IQ</strong></td><td>$1.04</td><td>$1.0B</td><td>—</td><td>12.6x</td><td>-13.4%</td><td>18.8%</td><td>-3.7%</td><td>-2.6%</td></tr>
+<tr><td><strong>HUYA</strong></td><td>$2.30</td><td>$0.5B</td><td>—</td><td>12.0x</td><td>+14.6%</td><td>13.9%</td><td>-1.7%</td><td>-1.7%</td></tr>
+</tbody></table>
+<div class="co bl"><strong>Peer read:</strong> At 12.7x forward, BILI screens roughly in line with the China-media cohort average (~10.8x) and above margin-leader TME (7.9x, 30% op margin). The multiple offers no obvious discount today; the upside has to come from gaming EPS that is not yet in numbers. Morgan Stanley models 2027 game revenue of ~RMB7.8B vs consensus ~RMB6.8B — that estimate gap IS the bull case (Investing.com, May 2026).</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value neu">~0.5</div><div class="sub">Mildly call-tilted on buyback</div></div>
+    <div class="kpi"><div class="label">Avg Front IV</div><div class="value neu">~55%</div><div class="sub">Elevated single-name / ADR premium</div></div>
+    <div class="kpi"><div class="label">Short % of Float</div><div class="value">~7.0%</div><div class="sub">Moderate; Tencent-overhang shorts</div></div>
+    <div class="kpi"><div class="label">Beta (5Y vs SPX)</div><div class="value">0.70</div><div class="sub">Macro-driven</div></div>
+</div>
+<div class="co bl"><strong>📊 Options Read:</strong> With earnings ~50 days out (Aug 20) there is no near-term event for options to price, so elevated IV is China-ADR macro + Tencent-overhang premium rather than event premium. Short interest has ticked up to ~7% of float — consistent with the reported Tencent-stake sell-off concern that Morgan Stanley expects the buyback to offset. Flow is light and mildly call-tilted around the June 24 buyback/MS-tactical-idea headlines; open interest is thin. No options signal worth overriding the tape.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co bl"><strong>Insider Holdings & Capital Return:</strong> Reported insider stake is negligible per yfinance (founder economics sit in the HK-listed dual-class structure), and no open-market insider buys or sells were disclosed through the drawdown. The relevant capital-allocation signal is the <strong>buyback</strong>: on <strong>June 24, 2026 the board authorized a new US$300M, 24-month repurchase program</strong> funded from existing cash; by June 30 the company had already bought back <strong>1.9M ADSs for ~US$31.3M</strong> under it, and <strong>4.8M securities for ~US$100.1M in the first half of 2026</strong> in total (GlobeNewswire / TipRanks / SEC 6-K, June 2026). Management is using the balance sheet to lean into the weakness and, per Morgan Stanley, to counter the Tencent-stake sell-off overhang. Net: neutral-to-constructive.</div>
+
+<h2 class="pb">📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">"Bilibili: Stock's Risk/Reward Is Completely Different From Last Year"</span> · Seeking Alpha · June 2026 · <span class="st net">Hold</span><p style="margin-top:8px; color:#475569">The cautious counterweight and the newest SA note: after the run-up in the story, the author argues risk/reward has shifted and maintains a Hold — the disagreement is about how much of the ad/AI story is already priced, not about franchise quality. (seekingalpha.com/article/4890737)</p></div>
+<div class="tw"><span class="au">"Bilibili Should See Revenue Inflection With Three New Games In The Pipeline"</span> · Seeking Alpha News · 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Frames the core bull catalyst: three new games (NCard, San Wang, Lumi Master) land end-2026 into 2027, and the anticipated game revenue is not yet baked into 2027 estimates — the exact gap Morgan Stanley quantifies. (seekingalpha.com/news/4574539)</p></div>
+<div class="tw"><span class="au">"Bilibili Stock: Multiple Growth Catalysts Stacked For 2026"</span> · Seeking Alpha · 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">AI-driven ad monetization plus a stacked 2H26 game pipeline form multiple independent catalysts; engagement KPIs at all-time highs underwrite the case. (seekingalpha.com/article/4856099)</p></div>
+<div class="tw"><span class="au">"How AI-Driven Ad Gains And Analyst Support Has Changed Bilibili's Investment Story"</span> · Simply Wall St News · June 5, 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Notes buybacks alongside improving margins; flags Guosen and CITIC Securities citing AI integration + games pipeline as the key prospects, weighed against execution risk.</p></div>
+<div class="tw"><span class="au">Morgan Stanley — Research Tactical Idea</span> · June 24, 2026 · <span class="st bul">Overweight, $31 PT</span><p style="margin-top:8px; color:#475569">MS designated BILI a "Research Tactical Idea," expecting the stock to rise over the next ~30 days on the new $300M buyback offsetting Tencent-stake sell-off concerns; reiterates Overweight and $31 fundamental target (SEC 8-K; Investrade Morning Preview, June 24).</p></div>
+<div class="co yw"><strong>SA / Sell-Side Consensus:</strong> Buy-tilted with one fresh Hold (3 Buy / 1 Hold across recent SA coverage plus MS Overweight). The bull case — engagement + AI ads + 2H26 pipeline + buyback — is intact and now reinforced by the June 24 buyback and MS tactical call; the lone Hold argues the story is closer to fairly priced after the run-up. Stock still near the 52W low, so the split remains fundamentals-constructive vs flow/overhang-hostage.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">@MaharajTrading (Maharaj)</span> · June 30, 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">"Bilibili's buying back securities worth $31.3 million this quarter. Stock at $16.86, below all 3 EMAs, light volume. RSI 41, cooling off. MACD bullish. Near 52w low of $15.79, key level to watch." A clean technical read that matches our own: below the averages, but MACD constructive at the low. (x.com/MaharajTrading/status/2071928209889702112)</p></div>
+<div class="tw"><span class="au">@EmmanuelInvest (Big Tech &amp; AI Investor)</span> · June 30, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">Buyback tracker: "Two-year US$300M program (started June 2026)… as of June 30, repurchased 1.9M securities for ~$31.3M; six-month total 4.8M securities for ~$100.1M." Reads the pace as management signaling confidence in long-term value. (x.com/EmmanuelInvest/status/2071921355478466880)</p></div>
+<div class="tw"><span class="au">@gulVasikova (GUL)</span> · June 30, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"$BILI is rallying again… shares climbed another 7%+ after the $300M buyback (~4.5% of market cap)… that's one reason Morgan Stanley expects the market to react positively over the next 30 days." Lays out the four-engine story (gaming, ads, VAS, AI) and the 2H26 game slate. (x.com/gulVasikova)</p></div>
+<div class="tw"><span class="au">Retail signal-spam (aggregate)</span> · June 30 – July 1, 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">A wave of low-quality "$BILI analyst target price for today 💸" promo posts (@Aurelia_Rau19, @Crypto_Dailyer9, @SubirMonda90537) and a WhatsApp-group pump (@SwanKinter) circle the oversold name. No substantive thesis; noise, not signal — excluded.</p></div>
+<div class="co bl"><strong>X Consensus:</strong> The signal quality on X has flipped more constructive vs mid-June — the substantive posts now cluster on the <strong>$300M buyback + Morgan Stanley tactical idea</strong> and a ~7% relief bounce, not the earlier property-driven risk-off. Technicals ($MaharajTrading) read "below the averages but MACD bullish near the low." Retail promo spam remains heavy around the 52W low and was filtered out. <em>Handles/quotes above are real posts surfaced via the bird CLI on June 30 – July 1.</em></div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>$300M buyback + Morgan Stanley tactical idea (June 24):</strong> a fresh 24-month, ~4.5%-of-cap repurchase (RMB14.6B net cash funds it) plus an MS "Research Tactical Idea" explicitly targeting a positive 30-day reaction and a $31 fundamental PT — the near-term support the earlier report lacked.</li>
+<li><strong>NCard official launch — July 2026:</strong> first hard pipeline checkpoint; the April soft launch met expectations (Investing.com, May 2026). A charting launch flips the gaming narrative ahead of Q2 earnings.</li>
+<li><strong>Q2 2026 earnings — August 20:</strong> a 14th straight double-digit ad quarter would confirm the AI-monetization engine; first read on whether NCard moves the gaming line.</li>
+<li><strong>San Wang (Q4 2026):</strong> the single largest pipeline asset; MS models ~RMB1.7B annualized grossing with manageable San Mou cannibalization — the basis for the Street's higher 2027 gaming estimates.</li>
+<li><strong>Lumi Master global launch (Q4 2026):</strong> first true global title; positive worldwide test feedback to date.</li>
+<li><strong>Margin path:</strong> management mid-term targets of 40–45% gross / 15–20% adjusted op margin vs ~37% / ~7% adj today — every quarter of progress compounds the forward-EPS estimate.</li>
+<li><strong>China macro stabilization:</strong> June PMIs at six-month highs and onshore indices firming; a durable turn in the Hang Seng Tech tape would re-rate the cohort fastest from oversold.</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>Tencent-stake overhang:</strong> Tencent holds ~10.5% (~43.75M shares since 2019); reported sell-off concern has fed short interest (~7% of float) and is the explicit single-name pressure the buyback is meant to counter. A confirmed block sale would pressure the ADS regardless of fundamentals.</li>
+<li><strong>Pipeline execution — the thesis IS the pipeline:</strong> gaming is already -12% YoY; any NCard stumble in July or San Wang banhao (approval) slip pushes the EPS ramp into 2027 and invites another derate.</li>
+<li><strong>Our own track record check:</strong> we scored BILI Bullish through the spring and it fell to a fresh 52W low ($15.79) into late June before bouncing ~8%. Lesson reaffirmed: back-end-loaded catalysts offer no protection in a risk-off China tape — sizing and timing matter as much as the (intact) story.</li>
+<li><strong>AI capex drag:</strong> the FY26 AI capex ramp keeps GAAP op margin suppressed (2.2% in Q1) all year; bears will keep pointing at the GAAP line even as adjusted margins improve.</li>
+<li><strong>HFCAA / delisting overhang:</strong> renewed US-China audit-enforcement noise structurally discounts the cohort; the HK listing (9626.HK) is a fallback but carries conversion friction. This is the core of the "moderate" policy-risk rating, alongside China content/gaming-approval regulation.</li>
+<li><strong>Consumption weakness:</strong> VAS +4% and IP -4% show the discretionary squeeze; if ad CPMs roll over, the only growth lever rolls with them.</li>
+<li><strong>Competition for time spent:</strong> Douyin/Kuaishou short-form pressure on total video minutes is permanent; BILI's defense is the long-form ACG community.</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value up">Strong Buy</div><div class="sub">30 analysts · mean 1.23</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value up">$29.43</div><div class="sub up">+73% upside</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$21.03</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$35.90</div></div>
+</div>
+<div class="co yw"><strong>Note:</strong> Targets have held through the drawdown — the sell-side still endorses the fundamental story (even the LOW PT of $21.03 is +23% above spot), and Morgan Stanley reiterated Overweight $31 on June 24. But the stock keeps hovering near new lows, so treat the +73% headline upside as flow/overhang-discounted: real if the Tencent overhang clears and the China-ADR tape holds its recent stabilization, illusory while the overhang lingers.</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data &amp; Methodology:</strong> Market data from Yahoo Finance (yfinance) as of 2026-06-30; price $17.03 is the last daily close (cross-checks: regularMarketPrice $17.03, previousClose $16.86; 1-month range $15.79–$17.20). Forward EPS $1.34 is the consensus NTM estimate (USD/ADS); trailing P/E 34.8x on TTM EPS $0.49. Peer multiples current as of today. Three independent methods triangulated.</div>
+
+<h3>Method 1: P/E Multiple Approach</h3>
+<table><thead><tr><th>Scenario</th><th>P/E</th><th>EPS</th><th>Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody><tr><td>Bear (TME parity)</td><td>7.9x</td><td>$1.20</td><td>$9.48</td><td class="dn">-44%</td><td>Pipeline slips, Tencent sale hits, market pays margin-leader multiple on trimmed EPS</td></tr>
+<tr><td>Peer average</td><td>10.8x</td><td>$1.34</td><td>$14.47</td><td class="dn">-15%</td><td>Avg of BABA 10.6x, TME 7.9x, IQ 12.6x, HUYA 12.0x</td></tr>
+<tr><td>Base (modest growth premium)</td><td>15.0x</td><td>$1.34</td><td>$20.10</td><td class="up">+18%</td><td>Small premium to peer avg as ads compound and one game lands</td></tr>
+<tr><td>Bull (pipeline lands)</td><td>20.0x</td><td>$1.55</td><td>$31.00</td><td class="up">+82%</td><td>San Wang + NCard hit, +15% EPS beat, growth multiple restored</td></tr>
+</tbody></table>
+
+<h3>Method 2: Mean Reversion &amp; Consensus</h3>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">Peer Avg PE × Fwd EPS</div><div class="value dn">$14.47</div><div class="sub dn">-15%</div></div>
+<div class="kpi"><div class="label">SA Author PT Midpoint</div><div class="value up">$25.00</div><div class="sub up">+47%</div></div>
+<div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value up">$29.43</div><div class="sub up">+73%</div></div>
+<div class="kpi"><div class="label">Morgan Stanley PT</div><div class="value up">$31.00</div><div class="sub up">+82%</div></div>
+</div>
+<div class="co bl"><strong>📐 Calculation Details:</strong><ul><li>Peer average forward P/E 10.8x (BABA 10.6x, TME 7.9x, IQ 12.6x, HUYA 12.0x) × $1.34 = $14.47 — below spot on a depressed cohort</li><li>Recent SA author PTs ~$24–$27, midpoint ~$25.00</li><li>Street consensus $29.43 (range $21.03–$35.90, n=30), held through the drawdown; MS reiterated $31 on June 24</li></ul></div>
+
+<h3>Method 3: Discounted Cash Flow (DCF)</h3>
+<p style="color:#64748b; margin-bottom:12px">10-year two-stage FCF model in USD/ADS terms. Revenue grows at the scenario rate while the operating margin recovers from today's depressed ~7% adjusted level toward a normalized terminal margin (the management 15–20% target is the bull anchor). Net cash of ~$2/ADS added back. WACC reflects China-ADR risk premium.</p>
+<table><thead><tr><th>Scenario</th><th>Rev Growth</th><th>Terminal Op Margin</th><th>WACC</th><th>Terminal Growth</th><th>Intrinsic Value</th><th>Upside</th></tr></thead>
+<tbody><tr><td>Bear</td><td>4%</td><td>5%</td><td>11.0%</td><td>2.5%</td><td>$12.50</td><td class="dn">-27%</td></tr>
+<tr><td>Base</td><td>7%</td><td>12%</td><td>10.5%</td><td>2.5%</td><td>$21.50</td><td class="up">+26%</td></tr>
+<tr><td>Bull</td><td>10%</td><td>18%</td><td>10.0%</td><td>3.0%</td><td>$33.00</td><td class="up">+94%</td></tr>
+</tbody></table>
+<div class="co bl"><strong>✅ Triangulation:</strong> Peer math says slightly rich vs a depressed cohort (~$14.50), DCF base says ~$21.50, the Street says $29.43 and MS $31. The spread is entirely a bet on the margin path (~7% → 15–20% adjusted op margin), on at least one of three games landing, and on the Tencent overhang clearing. Net cash of RMB14.6B (~20% of market cap) plus the fresh $300M buyback limit fundamental downside but have not yet halted the flow/overhang-driven slide near the 52W low.</div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$11.00</div><div class="mt">~9x × $1.20 EPS</div><div class="us dn">-35%</div><div class="ds">San Wang slips to 2027, NCard underwhelms, Tencent sells its stake, AI capex absorbs all leverage, China-ADR tape rolls back over. Multiple compresses toward TME parity.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr up">$21.50</div><div class="mt">~16x × $1.34 EPS</div><div class="us up">+26%</div><div class="ds">NCard ships in July, ads sustain 25%+ growth through Q2/Q3, San Wang stays on Q4 track, buyback absorbs the overhang. Gradual re-rate as the pipeline de-risks checkpoint by checkpoint.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$31.00</div><div class="mt">~20x × $1.55 EPS</div><div class="us up">+82%</div><div class="ds">San Wang launches on time and charts, ad growth holds 30%+, adjusted op margin tracks to 15%; Tencent overhang clears and China-ADR flows turn, re-rating toward MS/Street territory ($29–36).</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co gr"><p><strong>BILI</strong> is a profitable-transition story with the receipts — 13 straight double-digit advertising quarters, 15+ quarters of gross-margin expansion, record 119-minute engagement, RMB14.6B net cash, and a fresh US$300M buyback (4.8M shares / ~$100M already retired in H1'26) — trading near its $15.79 52-week low. The complexion has shifted modestly bullish since our June-21 look: China PMIs printed six-month highs and onshore indices firmed, Bilibili's board authorized the new buyback on June 24, and Morgan Stanley tagged the stock a "Research Tactical Idea" (Overweight, $31), explicitly betting the repurchase offsets the Tencent-stake sell-off overhang that has been the single-name pressure. At $17.03 (12.7x forward, ~20% of market cap in net cash), the market still pays almost nothing for the 2H26 game pipeline — and that pipeline is the whole bull case: NCard's official launch in July is the first hard checkpoint, then Q2 earnings August 20, then San Wang/Lumi Master in Q4. Our quant model scores it 80/Bullish and the Street holds a Strong Buy with a $29.43 mean PT (held through the drawdown), but the honest read is that this is still overhang-hostage: below its moving averages with no confirmed bottom, where targets keep being endorsed and the stock keeps hugging the low.</p><p><strong>Verdict: fundamentally intact, catalyst-supported, but still overhang-hostage — accumulate with July's NCard launch as the explicit validation gate and a clearing Tencent overhang / stable Hang Seng Tech tape; 12-month base case $21.50 (+26%), bear $11 (-35%), bull $31 (+82%). Size small until the chart confirms a bottom above the $19.34 SMA50.</strong></p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, SEC filings, Seeking Alpha, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, SEC filings, Seeking Alpha, X/Twitter, analyst consensus · 2026-06-30</p></div>
+</div>
+</body>
+</html>

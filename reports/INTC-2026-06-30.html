@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>INTC | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.cg { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 16px 0; }
+.cg img { width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, .cg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>INTC — Intel Corporation</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-06-30 · Sources: yfinance, Seeking Alpha, X/Twitter, analyst consensus, web research</p>
+
+<div class="badge">⚖️ Model Score: 16/100 — Bearish (valuation-anchored) · $139.63 · Fwd P/E 89.8x · Consensus PT $98.49 · 1M +27.7%</div>
+
+<div class="co rd"><strong>🌐 Macro Context (late June 2026):</strong> The regime is <em>hawkish-but-calm</em> at the close of a record quarter. The June 17 FOMC — Kevin Warsh's second as chair — held funds at <strong>3.50–3.75%</strong>, stripped out prior cut language, and flipped the dot plot to a <strong>hiking bias</strong> (median now +25bp for 2026, with 2026 core PCE lifted to 3.3%). Inflation confirmed the tilt: <strong>May PCE (released June 25/26) ran +4.1% YoY headline, +3.4% core</strong>, on top of the June 10 CPI print of +4.2%. Yet risk appetite stayed firm — <strong>VIX ~18.9, 10Y ~4.44% (June 30)</strong> — as a US–Iran MOU survived a scare: a June 28 US CENTCOM strike near Hormuz and Iranian retaliation gave way to a ceasefire and fresh Doha talks (June 30), pulling <strong>Brent back to ~$72–73</strong> (down ~40% from the April war peak). Equities ripped into quarter-end — the <strong>best Q2 since 2020</strong> (S&amp;P 500 7,449, Nasdaq 26,214, Dow first-ever close above 52,000 on June 30). Semis are the runaway tape: <strong>SOXX ~+104% / SMH ~+75% YTD</strong>. INTC sits at the white-hot center — a top-3 S&amp;P performer (+278% YTD) trading at a fresh 52-week high on foundry-win headlines, even as the "show-me-the-FCF" regime keeps punishing capital intensity (Intel still burns −$8.3B TTM FCF). (Sources: Fed, BEA, CNBC, ETF.com, TheStreet — June 2026.)</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$139.63</div><div class="sub neu">-1.9% from 52W High ($142.34) · at the high</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$701.8B</div><div class="sub">Shares: 5.03B</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value dn">N/M</div><div class="sub">TTM EPS: -$0.60 (GAAP loss)</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value dn">89.8x</div><div class="sub">FY+1 EPS $1.55; on FY26 $1.09 EPS → 128x</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">$53.8B</div><div class="sub up">+7.2% YoY</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value neu">37.2%</div><div class="sub">Q1'26: 39.4% — recovering</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value neu">6.9%</div><div class="sub dn">FCF TTM: -$8.3B (OCF +$10.0B)</div></div>
+    <div class="kpi"><div class="label">Net Margin</div><div class="value dn">-5.9%</div><div class="sub">Cash $32.8B · Debt $45.0B · ROE -2.9%</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">1-Month Return</div><div class="value up">+27.7%</div><div class="sub">Catalyst-driven melt-up</div></div>
+    <div class="kpi"><div class="label">3-Month Return</div><div class="value up">+190.7%</div><div class="sub">6-mo: +254.6% · 52W low $18.97</div></div>
+    <div class="kpi"><div class="label">P/S (TTM)</div><div class="value dn">13.1x</div><div class="sub">vs ~1.5–2.5x historical P/S</div></div>
+    <div class="kpi"><div class="label">Beta</div><div class="value dn">2.23</div><div class="sub">High-convexity into a hawkish Fed</div></div>
+</div>
+
+<div class="co bl"><strong>🚀 Why +28% in a month — foundry-win headlines stacked on a supercycle tape:</strong> (1) <strong>Google TPU foundry order (June 8–9)</strong>: The Information/Reuters reported Google to have Intel build <strong>3M+ TPUs from 2028</strong> (~half its 2027–28 output), with EMIB-T advanced packaging cited as the cheaper alternative to TSMC CoWoS — stock <strong>+9–10% June 9</strong>. (2) <strong>Trump endorsement (June 18)</strong>: a Truth Social post — <em>"Apple has agreed to work with Intel to design and build its Chips in America"</em> plus a boast the US stake is "over $60 billion" — drove <strong>+10.5% to a ~$134 record close</strong>. Momentum then extended to a fresh <strong>$142.34 52-week high (intraday June 22)</strong> before settling at $139.63 on June 30. <strong>Both wins remain reported, not company-confirmed</strong>: Apple/Intel declined comment (May WSJ scoped the Apple deal to low-end 18A-P only, TSMC keeping &gt;90% of supply); JPMorgan flagged the Google order as possibly TSMC-fabbed with Intel packaging only. The tape is running well ahead of confirmed wafer revenue.</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter</th><th>Revenue</th><th>Net Income</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th><th>Diluted EPS</th></tr></thead>
+<tbody>
+<tr><td>2026-03-31 (Q1'26)</td><td>$13.58B <span class="dn">↓</span></td><td class="dn">-$3.73B</td><td>39.4%</td><td>6.9%</td><td class="dn">-27.5%</td><td class="dn">-$0.73</td></tr>
+<tr><td>2025-12-31 (Q4'25)</td><td>$13.67B <span class="up">↑</span></td><td class="dn">-$591M</td><td>36.1%</td><td>4.0%</td><td class="dn">-4.3%</td><td class="dn">-$0.12</td></tr>
+<tr><td>2025-09-30 (Q3'25)</td><td>$13.65B <span class="up">↑↑</span></td><td class="up">+$4.06B</td><td>38.2%</td><td>6.3%</td><td class="up">+29.8%</td><td class="up">$0.90</td></tr>
+<tr><td>2025-06-30 (Q2'25)</td><td>$12.86B <span class="up">↑</span></td><td class="dn">-$2.92B</td><td>27.5%</td><td class="dn">-10.0%</td><td class="dn">-22.7%</td><td class="dn">-$0.67</td></tr>
+<tr><td>2025-03-31 (Q1'25)</td><td>$12.67B —</td><td class="dn">-$821M</td><td>36.9%</td><td>-1.1%</td><td class="dn">-6.5%</td><td class="dn">-$0.19</td></tr>
+</tbody></table>
+
+<div class="co gr"><strong>🔥 Q1 2026 print (Apr 23):</strong> Sixth straight quarterly revenue/EPS beat under Lip-Bu Tan: revenue $13.58B vs ~$12.8B consensus, adjusted EPS $0.29 vs ~$0.01 expected. The GAAP -$3.73B net loss is dominated by impairments/restructuring; the <em>adjusted</em> trajectory is positive and gross margin recovered from 27.5% (Q2'25) to 39.4% in three quarters. Q2'26 guide (yfinance) is revenue avg <strong>$14.4B</strong> (range $14.2–14.9B) vs the Street's $14.0–14.4B, with EPS guided to ~$0.21. A seventh straight beat — ideally a GAAP-profitable one — into the <strong>July 23 print</strong> is the swing event. (Sources: Intel IR, yfinance, CNBC.)</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Revenue Stream</th><th>Q1 2026</th><th>% of Total</th><th>YoY Trend</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td><strong>Client Computing (CCG)</strong></td><td>~$7.7B</td><td>~57%</td><td class="up">Up YoY</td><td>Panther Lake (Core Ultra 3, first US-made 18A client CPU) ramping; 200+ designs; caveat: IDC sees consumer devices soft in 2026</td></tr>
+<tr><td><strong>Data Center &amp; AI (DCAI)</strong></td><td>~$5.1B</td><td>~37%</td><td class="up">Up YoY</td><td>Xeon server-CPU demand for AI inferencing (BofA "agentic AI" TAM thesis); Gaudi/accelerators still subscale vs NVDA/AMD</td></tr>
+<tr><td><strong>Intel Foundry</strong></td><td>$5.4B*</td><td>*~97% internal</td><td class="neu">Op loss -$2.4B</td><td><strong>External foundry rev just ~$174M of $5.4B</strong>; 18A HVM at Fab 52 Arizona; 18A-P now in risk production; external roster: MSFT, AWS, DoD, Tesla/SpaceX/xAI 14A "Terafab," reported Apple + Google TPUs; breakeven guided ~end-2027</td></tr>
+</tbody></table>
+
+<div class="co bl"><strong>📊 The story is Foundry — but mind the gap between deals and wafers:</strong> Products (CCG + DCAI) fund the turnaround, but the $702B market cap is a bet on Intel Foundry becoming the western alternative to TSMC. The external pipeline now reads <strong>Microsoft</strong> (Maia/18A), <strong>AWS</strong>, <strong>US DoD</strong>, <strong>Tesla/SpaceX/xAI</strong> (14A "Terafab," now poaching Intel's 18A architect), reported <strong>Apple</strong> (18A-P low-end, per WSJ), and reported <strong>Google — 3M+ TPUs for 2028</strong> via EMIB-T packaging (June 8). NVIDIA holds a $5B equity stake (~4.9%, completed Dec 2025 at $23.28) and is <em>evaluating</em> 18A + multi-die packaging, decision ~Q3 2026 — but has <strong>not committed fab volume</strong>. The hard truth under the headlines: external foundry revenue is still only ~<strong>$174M</strong> of the $5.4B segment (~97% captive), Foundry loses ~$2.4B/quarter, and the Google order — if real — recognizes revenue in 2028. The order book is improving faster than skeptics expected; the P&amp;L is not.</div>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl neu">69.2</div><div class="nt neu">Near overbought at the high</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl up">$111.07</div><div class="nt up">Price +26% above</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl up">$59.34</div><div class="nt up">Price +135% above</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl up">+7.46</div><div class="nt up">Above signal (+6.88) — bullish</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$142.34</div><div class="nt neu">-1.9%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$18.97</div><div class="nt up">+636%</div></div>
+</div>
+
+<div class="co yw"><strong>⚠️ Technical Signal:</strong> Extended and news-driven, riding at the top of a parabolic range. After the back-to-back TPU/Trump catalysts, INTC ran $116.96 → $133.99 (June 18) → an intraday <strong>52-week high of $142.34 (June 22)</strong>, chopped $128–141 for a week, and closed <strong>$139.63 on June 30</strong>. RSI sits at <strong>69.2</strong> — right at the overbought threshold — with a bullish MACD (+7.46 vs +6.88 signal) and price a stretched <strong>+26% above the 50DMA ($111)</strong> and +135% above the 200DMA ($59). Momentum is intact but the setup is vulnerable to sharp mean-reversion if any Apple/Google headline is walked back. Support: $128–132 (last week's base), then the $113 breakout shelf and 50DMA ~$111. Resistance: the $142.34 high, then blue-sky.</div>
+
+<h2>📏 Historical Valuation</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Current Fwd P/E</div><div class="value dn">89.8x</div><div class="sub">128x on FY26 EPS $1.09</div></div>
+    <div class="kpi"><div class="label">5Y Avg Fwd P/E*</div><div class="value">~20x</div><div class="sub">*Loss quarters excluded</div></div>
+    <div class="kpi"><div class="label">P/S vs History</div><div class="value dn">13.1x vs ~1.5–2.5x</div></div>
+    <div class="kpi"><div class="label">Percentile</div><div class="value dn">~100th</div><div class="sub">Richest in company history</div></div>
+</div>
+
+<div class="co yw"><strong>📐 Mean Reversion Check:</strong> Every historical anchor screams overvaluation, now the loudest it has ever been after another +28% month: <strong>~90x forward earnings vs a ~20x norm, 13.1x sales vs a 1.5–2.5x history</strong> — the richest INTC has ever been on every multiple. But the honest caveat is unchanged: mean reversion is the <em>wrong tool</em> for a company mid-transition from a melting-ice-cube product company to a priced foundry-duopoly option. The right frame is forward: if Foundry breaks even end-2027 and 2028 EPS normalizes toward $3.50–4.00 (the math behind the $150–160 Street highs), today's $140 is ~35–40x 2028E — expensive, and now <em>more</em> expensive than the $134 we flagged on June 21. We restate, with humility, that this same paragraph kept us wrongly bearish from $60 through $107 to $134 to $140; the difference today is that at a fresh 52-week high on un-confirmed headlines, the margin of safety is the thinnest it has ever been.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Company</th><th>Price</th><th>MCap</th><th>Trail P/E</th><th>Fwd P/E</th><th>Rev Growth</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th></tr></thead>
+<tbody>
+<tr class="hl"><td><strong>INTC</strong></td><td>$139.63</td><td>$701.8B</td><td>N/M</td><td>89.8x</td><td>+7.2%</td><td>37.2%</td><td>6.9%</td><td>-5.9%</td></tr>
+<tr><td><strong>NVDA</strong></td><td>~$210</td><td>~$5.1T</td><td>~32x</td><td>~16x</td><td>+85%</td><td>74.1%</td><td>65.6%</td><td>63.0%</td></tr>
+<tr><td><strong>AMD</strong></td><td>~$460</td><td>~$745B</td><td>~150x</td><td>~34x</td><td>+38%</td><td>53.1%</td><td>14.4%</td><td>13.4%</td></tr>
+<tr><td><strong>AVGO</strong></td><td>~$380</td><td>~$1.80T</td><td>~62x</td><td>~19x</td><td>+48%</td><td>76.3%</td><td>49.0%</td><td>38.8%</td></tr>
+<tr><td><strong>TSM</strong></td><td>—</td><td>—</td><td>~28x</td><td>~22x</td><td>+35%</td><td>~59%</td><td>~49%</td><td>~42%</td></tr>
+</tbody></table>
+
+<div class="co yw"><strong>🔍 Peer Read:</strong> INTC carries by far the highest forward multiple in the cohort (89.8x) with the lowest growth (+7.2%), the lowest gross margin (37%), and the only negative net margin — on conventional metrics it remains the worst house on the block at the highest price, and that gap has <em>widened</em> further with the run. The market's counter is unchanged: none of these peers owns leading-edge US-soil fabs, and TSM (~22x forward, ~42% net margin) is the truer comp — on which basis INTC now trades at a ~4x forward-multiple premium to a vastly more profitable incumbent, for an unproven foundry challenger. The "narrative premium" embedded in INTC is the largest in large-cap semis and just got larger.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value up">~0.65</div><div class="sub">Call-dominant — momentum chase</div></div>
+    <div class="kpi"><div class="label">P/C Open Interest</div><div class="value">N/M</div><div class="sub">Heavy strike turnover near the high</div></div>
+    <div class="kpi"><div class="label">Nearest Expiry</div><div class="value">07-02</div><div class="sub">Weeklies into July 23 earnings</div></div>
+    <div class="kpi"><div class="label">IV Skew</div><div class="value neu">Elevated IV</div><div class="sub">Calls bid on the breakout</div></div>
+</div>
+
+<div class="co bl"><strong>📊 Options Read:</strong> Flow is call-heavy and frothy — fintwit chatter of "$INTC to 175," "$160 by Friday," and "swapped my NVDA bag for INTC" is exactly the kind of upside-call demand that follows a presidential-endorsement squeeze to a 52-week high. Implied vol is elevated heading into the July 23 print, with most near-dated open interest churned out by the ±20% round trip of the prior two weeks (so OI ratios are unreliable). Net: positioning is aggressively long and hopeful — which cuts both ways. A crowded call book into a hawkish-Fed, 2.23-beta name can unwind violently if any of the Apple/Google headlines are denied.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co yw"><strong>Insider activity (last ~60 days, Form 4 via yfinance):</strong>
+<ul>
+<li><strong>Nagasubramaniyan Chandrasekaran</strong> (CTO) — sold ~21,024 shares ≈ $2.49M (2026-05-29), near the highs</li>
+<li><strong>David Zinsner</strong> (CFO) — ~37,015 shares reported 2026-06-01 (vesting/award-related; not an open-market purchase)</li>
+<li>Broad slate of routine director stock awards (~12,552 shares each, 2026-05-07) — grants, not purchases</li>
+</ul>
+Light activity relative to the size of the move — and notably, <strong>no executive open-market buying anywhere in a +636%-off-the-low year</strong>. The largest "insider" remains Washington itself: the US government's ~9.9% equity stake (~$20.47/sh cost) plus a warrant for +5% (exercisable only if Intel's foundry ownership drops below 51%) makes the federal government both the anchor shareholder and a structural lock on any foundry separation. Neutral-to-slightly-negative signal.</div>
+
+<h2>📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">Cantor Fitzgerald (C.J. Muse) — PT raised to $150 (from $90), Neutral</span> · June 29, 2026 · <span class="st net">Hold</span><p style="margin-top:8px; color:#475569">A "supersized" 66.7% target hike <em>without</em> a rating change — cites 2026 compute strength and AI-infrastructure secular demand, but explicitly flags caution at current levels; the swing factor is converting 18A/14A momentum into <em>named</em> external foundry customers. The target now essentially matches spot. (Sources: Investing.com, 24/7 Wall St., June 29.)</p></div>
+<div class="tw"><span class="au">Goldman Sachs (James Schneider) — Neutral, PT $150</span> · June 25, 2026 · <span class="st net">Hold</span><p style="margin-top:8px; color:#475569">Constructive on server-CPU demand tailwinds but calls the valuation "fully priced" versus peers — another Neutral rating attached to a target that only just caught up to the stock. (Sources: MarketBeat, TIKR, June 25.)</p></div>
+<div class="tw"><span class="au">BofA Securities (Vivek Arya) — Buy, PT raised to $160</span> · June 11 → late June 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">A rare <em>double</em> upgrade (Underperform → Buy) June 11 at PT $135, since lifted to $160 on a 31x multiple of a 2030 EPS estimate of $6.24; thesis leans on "agentic AI" lifting the 2030 server-CPU TAM to ~$170B and Foundry revenue scaling from ~$1.1B (2026) to ~$47B (2030). The Street-high bull case, priced on 2030. (Sources: TheStreet, Motley Fool, Yahoo Finance.)</p></div>
+<div class="tw"><span class="au">Wells Fargo ($110) / Mizuho ($128) — lagging cautious targets</span> · June 1, 2026 · <span class="st net">Hold/Neutral</span><p style="margin-top:8px; color:#475569">The neutral desks that predate the mid-June Apple/Google catalysts, both now well below the ~$140 print — useful markers of how far the stock ran past cautious analysts before the catalysts landed. (Sources: MarketBeat, Benzinga.)</p></div>
+<div class="tw"><span class="au">Seeking Alpha contributors — "Good News Priced In" / "Optimism Is Getting Expensive"</span> · late June 2026 · <span class="st ber">Bearish/Caution</span><p style="margin-top:8px; color:#475569">The most recent SA contributor pieces argue the ~460%+ rally has priced in the good news: forward P/E cited at ~92–107x on FY26 and ~29x on FY29, with "limited margin for error" while Foundry still loses billions. The bull rebuttals lean entirely on foundry option value. (Source: Seeking Alpha, June 2026.)</p></div>
+
+<div class="co gr"><strong>SA / Sell-side Consensus:</strong> Genuinely split — the most polarized coverage of any name we track. The June moves are <em>analyst targets racing to catch the price</em> (Cantor to $150, Goldman $150, BofA $160), not analysts leading it — and even the PT-hikers keep a <strong>Neutral</strong> rating, explicitly calling valuation "fully priced." Bulls own the narrative (orders, beats, US-soil scarcity, presidential backing); bears own the spreadsheet (~90x forward, ~$174M external foundry rev, ~$2.4B/qtr loss, −$8.3B FCF). Both are right about their half — but with the marginal desks now at/above the price and the aggregate rating still Hold, the asymmetry has shifted toward the bears' side.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">@intelfabs (John Intel)</span> · Jun 30, 2026 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"Cheaper packaging via Intel EMIB-T instead of TSMC CoWoS — Google lowers TPU cost, and $INTC gains scale + relevance in advanced packaging. The world needs Intel to succeed." Representative of the constructive foundry-thesis crowd framing the Google TPU order as a packaging (EMIB-T) share-gain story rather than a full wafer win.</p></div>
+<div class="tw"><span class="au">@TradeChartMacro (Trading and Macro Chatter)</span> · Jun 30, 2026 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">Summarizing Jordy Visser: overweight the semiconductor <em>infrastructure buildout basket</em> — MU, TSM, NVDA, with MRVL/INTC/TXN as add-ons — while underweighting the hyperscalers who "fund the buildout but aren't the primary beneficiaries." An analytical, sector-level frame that includes INTC without single-name euphoria.</p></div>
+<div class="tw"><span class="au">@GittoPatrick + copycat accounts (H1 2026 leaderboard)</span> · Jun 30–Jul 1 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">A viral (and heavily bot-replicated) "top S&amp;P 500 performers" post ranks Intel <strong>#3 at +278% YTD</strong>, behind only SNDK (+857%) and MU (+303%) — capturing how INTC has become a memory/semi-supercycle poster child. Note: many identical reposts are spam accounts; the underlying ranking is real.</p></div>
+<div class="tw"><span class="au">Retail momentum crowd ("$INTC to 175," "$160 by Friday," NVDA-swap brags)</span> · late June 2026 · <span class="st bul">Bullish (frothy)</span><p style="margin-top:8px; color:#475569">"$INTC ~$142 rn = New 52 week HIGH… UP 600+% since I said buy at $19"; "Mega STRONG BUY LONG $INTC"; "dropped my $NVDA bag for this." Classic late-cycle FOMO at all-time highs — the crowd has flipped from most-hated to most-loved in 12 months, itself a contrarian caution.</p></div>
+
+<div class="co bl"><strong>X Consensus:</strong> Euphoric and crowded. INTC has flipped from the most-hated to one of the most-loved tickers on fintwit, and the Trump/52-week-high catalysts have pushed the crowd into open "to $175" FOMO — with NVDA-for-INTC swap brags as a sentiment red flag. The thoughtful voices (EMIB-T packaging economics, the infrastructure-basket macro frame) are constructive but measured. When a name is long, loud, and at all-time highs on un-confirmed headlines, the crowd itself is a contrarian caution. <em>Note: X handles/quotes above are real posts surfaced via the bird CLI on June 30–Jul 1; promotional "stock pick" spam accounts were excluded or flagged.</em></div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>Trump/Apple endorsement (June 18)</strong> — Truth Social: "Apple has agreed to work with Intel to design and build its Chips in America"; drove +10.5% to a record close. <em>Unconfirmed by Apple/Intel; WSJ scopes the Apple deal to low-end 18A-P only.</em></li>
+<li><strong>Google TPU foundry order (June 8)</strong> — reported 3M+ TPUs for 2028 (~half Google's output) via EMIB-T packaging. <em>Unconfirmed; JPMorgan flags it may be TSMC-fabbed with Intel packaging only.</em></li>
+<li><strong>NVIDIA 18A evaluation</strong> — testing 18A + multi-die packaging for a ~2028 GPU, decision ~Q3 2026; NVDA already holds a $5B/~4.9% equity stake. Formalization would be the ultimate validation — but it is not yet an order.</li>
+<li><strong>Q2'26 print (Jul 23)</strong> — guide ~$14.4B / EPS ~$0.21; a seventh straight beat, ideally GAAP-profitable, would force more sell-side re-marks (aggregate consensus PT $98.49 is still <em>below</em> spot).</li>
+<li><strong>18A / 18A-P ramp + Panther Lake</strong> — 18A in HVM at Fab 52; 18A-P now in risk production (VLSI Symposium, late June); Core Ultra Series 3 (Panther Lake) is the first US-made 18A client CPU, 200+ designs.</li>
+<li><strong>14A external commitments</strong> — Intel says 14A is "outpacing 18A at a similar point"; Tesla/SpaceX/xAI "Terafab" ($55B, first 14A anchor) just poached Intel's 18A architect as foundry manager; more design commitments expected H2 2026 → H1 2027.</li>
+<li><strong>Foundry breakeven (guided ~end-2027)</strong> — every quarter of op-loss narrowing from -$2.4B re-rates the 2028 EPS math.</li>
+<li><strong>Washington backstop</strong> — ~9.9% US government stake + CHIPS Act alignment makes Intel the national-champion policy beneficiary in any US-China escalation. (Also a constraint — see Risks.)</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>Valuation with no earnings floor — at a 52-week high:</strong> ~90x forward EPS, 13.1x sales, negative GAAP earnings, -$8.3B FCF. Aggregate consensus PT is $98.49 (-30%) with a $99.50 median; if the narrative cools, there is no valuation support until far lower. The margin of safety is the thinnest in the stock's history.</li>
+<li><strong>Headline-risk asymmetry:</strong> The two catalysts driving the +28% month are both <em>reported, not confirmed</em>. An Apple or Google denial/down-scoping — or a JPMorgan-style "packaging only" reframe — could unwind the record-high pop fast.</li>
+<li><strong>Deals ≠ wafers:</strong> External foundry revenue is just ~<strong>$174M of $5.4B (~3%)</strong>; Foundry loses ~$2.4B/quarter; the Google order (if real) recognizes revenue in 2028. Years separate the headlines from the cash.</li>
+<li><strong>Hawkish-Fed regime into a 2.23-beta name:</strong> Warsh's Fed held at 3.50–3.75% and flipped the dot plot to a hiking bias with core PCE at 3.4%; a high-beta, no-earnings momentum name is maximally exposed to a duration/risk-off repricing.</li>
+<li><strong>Execution stack-up:</strong> The bull case requires 18A yields at scale AND Panther Lake success AND 14A on schedule AND foundry breakeven by end-2027 — serial, not parallel, risks. Intel discloses no hard yield %; "ahead of plan" is unverifiable externally.</li>
+<li><strong>Government stake (policy risk: moderate):</strong> The ~9.9% US stake plus a +5% warrant that triggers if foundry ownership falls below 51% is a financing gift but a strategic straitjacket — it blocks a foundry spin-off, politicizes capacity, and entangles Intel in US-China policy. Heavy CHIPS Act / US-government dependence cuts both ways.</li>
+<li><strong>Crowded momentum positioning:</strong> +636% off the low, fintwit openly chasing "$175," RSI ~69 at all-time highs — late-arriving longs are weak hands into a hawkish tape.</li>
+<li><strong>Consumer end-market:</strong> CCG is ~57% of revenue; IDC sees soft 2026 consumer devices — the AI-PC refresh must outrun a weak consumer.</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value neu">Hold</div><div class="sub">42 analysts · mean 2.63</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value dn">$98.49</div><div class="sub dn">-30% from spot (median $99.50)</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$45.00</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value up">$160.00</div></div>
+</div>
+
+<div class="co bl"><strong>Consensus read:</strong> The Street is <em>well below</em> the market — aggregate mean PT $98.49 implies ~-30% downside, and the rating is a shrugging Hold (mean 2.63, n=42). This is the mirror image of most AI semis. The sell-side has chased INTC up all year — targets have climbed from ~$25 to ~$98 mean without ever catching the price, and even the freshest June PT hikes (BofA $160 Buy; Cantor/Goldman $150 <em>Neutral</em>) are <em>reactions</em> to the rally, not leadership of it — with the two $150 desks explicitly staying Neutral on "fully priced" valuation. Two readings: (a) the market is far ahead of fundamentals (bear), or (b) analysts anchored to old-Intel models keep underestimating foundry option value, as we did (bull). Our backtest says don't treat $98 as gravity — but with the stock at a fresh high and the gap to consensus ~30%, the burden of proof on the bulls is heavier than it has been all year. (Sources: yfinance, MarketBeat, TipRanks — June 2026.)</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data &amp; Methodology:</strong> All financial data from Yahoo Finance (yfinance), last close <strong>$139.63 (2026-06-30)</strong>, cross-checked against regularMarketPrice $139.63 (previousClose $131.72). Forward EPS of <strong>$1.55</strong> is FY+1 consensus (FY26 is $1.09 → 128x); the multiple debate hinges on 2028 normalized EPS (~$3.50–4.00 if foundry breaks even). Trailing P/E is not meaningful (TTM GAAP EPS -$0.60). Standard DCF is unreliable with -$8.3B TTM FCF, so we lean on multiple paths and a normalized-2028 framework. We write to a 12-month horizon; our prior short-term bearish calls on INTC were our single worst-calibrated output (the stock is +4% since our June 21 report at $133.99 and multiples higher over the year) — this framework is rebuilt rather than re-asserted, but the conclusion at a fresh high differs from the conclusion at $107.</div>
+
+<h3>Method 1: P/E Multiple Approach</h3>
+<table><thead><tr><th>Scenario</th><th>Basis</th><th>EPS</th><th>Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody>
+<tr><td>Bear (peer parity, 2026 EPS)</td><td>26x</td><td>$1.09 (FY26E)</td><td>$28</td><td class="dn">-80%</td><td>Narrative premium evaporates; priced like an ordinary semi on actual 2026 earnings</td></tr>
+<tr><td>Street median</td><td>~90x</td><td>$1.09</td><td>$99</td><td class="dn">-29%</td><td>Consensus PT zone; turnaround continues but the multiple digests the record run</td></tr>
+<tr><td>Base (2028 lens, on-track)</td><td>29x 2028E</td><td>$3.50 (2028E)</td><td>$102</td><td class="dn">-27%</td><td>Foundry breakeven end-2027 on schedule; market pays a TSM-plus multiple on normalized EPS</td></tr>
+<tr><td>Bull (2028 lens, accelerating)</td><td>34x 2028E</td><td>$4.00 (2028E)</td><td>$136</td><td class="dn">-3%</td><td>NVDA formalizes 18A, beats continue, foundry losses narrow faster than guided</td></tr>
+<tr><td>Optimistic (Street high)</td><td>~40x 2028E</td><td>$4.00</td><td>$160</td><td class="up">+15%</td><td>Foundry duopoly fully priced; GAAP profitability arrives early; policy tailwinds compound (BofA/Melius zone)</td></tr>
+</tbody></table>
+
+<h3>Method 2: Mean Reversion &amp; Consensus</h3>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">Hist. Avg PE × Fwd EPS</div><div class="value dn">$31</div><div class="sub dn">-78% (old-Intel frame — likely wrong tool)</div></div>
+<div class="kpi"><div class="label">Peer Avg PE × Fwd EPS</div><div class="value dn">$40</div><div class="sub dn">-71%</div></div>
+<div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value dn">$98.49</div><div class="sub dn">-30% (Street has chased all year)</div></div>
+</div>
+<div class="co bl"><strong>📐 Calculation Details:</strong>
+<ul>
+<li>Historical forward P/E ~20x × FY+1 EPS $1.55 = <strong>$31</strong> — mechanically correct, almost certainly the wrong frame for a business-model transition</li>
+<li>Peer average forward P/E (NVDA ~16x, AMD ~34x, AVGO ~19x, TSM ~22x → ~26x) × $1.55 = <strong>$40</strong></li>
+<li>Wall Street consensus PT $98.49 (range $45–$160, n=42, median $99.50)</li>
+<li>The spread between mechanical fair value ($31–40) and market price ($140) ≈ <strong>$100–109/share of foundry option value</strong> (~$500–550B) — the explicit size of the bet you underwrite at the fresh high, up from ~$470–520B on June 21</li>
+</ul></div>
+
+<h3>Method 3: DCF / Normalized Earnings Power</h3>
+<p style="color:#64748b; margin-bottom:12px">Conventional DCF is not meaningful with TTM FCF of -$8.3B (peak fab buildout). Instead: normalized 2028 framework, discounted back two years at 11% (elevated for the ~4.4% 10Y and execution risk).</p>
+<table><thead><tr><th>Scenario</th><th>2028 EPS</th><th>2028 Multiple</th><th>2028 Value</th><th>PV Today (11%)</th><th>Upside</th></tr></thead>
+<tbody>
+<tr><td>Bear — foundry stalls</td><td>$2.00</td><td>22x</td><td>$44</td><td>$36</td><td class="dn">-74%</td></tr>
+<tr><td>Base — breakeven on schedule</td><td>$3.50</td><td>30x</td><td>$105</td><td>$85</td><td class="dn">-39%</td></tr>
+<tr><td>Bull — duopoly emerges</td><td>$4.50</td><td>38x</td><td>$171</td><td>$139</td><td class="neu">-0.5%</td></tr>
+</tbody></table>
+
+<div class="co yw"><strong>⚠️ Methods Read:</strong> All three methods put fair value <em>well below</em> spot — base outcomes cluster at $85–102 vs $140, and even the duopoly-bull PV ($139) is now essentially <em>flat</em> to today's price (vs +4% on June 21). The identical conclusion at $60, $80, $95, $107 and $134 was wrong each time because the news flow (Apple, government stake, Google TPUs, NVDA trials, a presidential endorsement) kept upgrading the bull scenario's probability. The honest synthesis at $140: INTC now prices roughly a <strong>75–85% chance</strong> of the foundry bull case fully playing out. That is a demanding bar on <em>un-confirmed</em> headlines, at a 52-week high, into a hawkish Fed — the regime renews the burden of proof every quarter, and the reward for being right is now negligible while the downside to a denial is large.</div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$72</div><div class="mt">~halfway to Street median</div><div class="us dn">-48%</div><div class="ds">Apple/Google headlines walked back or down-scoped; 18A yield stumble; a fab-capex raise lands in a dilution-punishing tape; momentum money exits a crowded all-time-high trade; Fed hikes in H2.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr neu">$100</div><div class="mt">~Street zone, on 2028E $3.50</div><div class="us neu">-28%</div><div class="ds">Turnaround stays on script — beats continue, foundry losses narrow, Apple/Google milestones firm up — but the multiple digests the record run back toward the upgraded consensus ($98–110).</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$165</div><div class="mt">Above Street high</div><div class="us up">+18%</div><div class="ds">NVIDIA formalizes 18A volume, Apple/Google orders confirmed and expanded, a GAAP-profitable Q2/Q3, 14A lands marquee customers, breakeven pulled into 2027 — the duopoly re-rate completes and runs past the $160 Street high.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co gr"><p><strong>Bull:</strong> Intel is the only leading-edge foundry on US soil at the exact moment AI capacity, supply-chain security, and Washington policy all converge on that asset — and it now carries the most powerful endorsement possible, a sitting President naming Apple as a customer and touting a $60B+ government stake. The proof points are no longer just promises: six straight beats under Lip-Bu Tan, gross margin 27.5% → 39.4% in three quarters, 18A in volume at Fab 52 with 18A-P in risk production, Panther Lake shipping, and an external pipeline that now reads Microsoft, AWS, DoD, Tesla/SpaceX/xAI (14A), reported Apple, reported Google (3M+ TPUs via EMIB-T), with NVIDIA evaluating 18A on top of its $5B stake. If foundry breaks even by end-2027, 2028 EPS of $3.50–4.50 makes a $160+ print reachable.</p>
+<p><strong>Bear:</strong> 89.8x forward earnings, 13.1x sales, negative GAAP EPS and -$8.3B FCF — at a <em>52-week high</em>, in a regime that specifically punishes capital intensity, under a Fed that just flipped to a hiking bias with core PCE at 3.4%. The two catalysts behind the +28% month are reported, not confirmed (JPMorgan: Google may be packaging-only; WSJ: Apple is low-end 18A-P only, TSMC keeps &gt;90%). External foundry revenue is ~$174M of $5.4B; the Google order recognizes in 2028; aggregate consensus PT ($98) is 30% below spot; and the crowd is openly chasing "$175" after +636% off the low.</p>
+<p><strong>Verdict: Hold, tilting toward Trim — respect the turnaround, but a fresh 52-week high on un-confirmed headlines is where to take chips off, not add.</strong> Our methods cluster fair value at $85–102 (-28 to -39%), and even the duopoly-bull PV is now roughly flat. We hold this with the same humility that kept us wrong from $60 to $140 — the foundry news flow has repeatedly converted bear probability into bull probability. But the asymmetry has flipped further: a year ago the market underpriced the option; today, at the 52-week high with consensus 30% below and reward-to-risk inverted, the stock prices a near-certain bull outcome on deals that companies have not confirmed. For new money: wait for the $100–115 accumulation zone (upgraded-consensus/breakout confluence) rather than chase the high; existing holders ride with a trailing stop and consider trimming into strength. The July 23 print, an Apple/Google confirmation-or-denial, and any NVDA-18A formalization are the swing events. Policy risk: moderate (US government ~9.9% stake + warrant, heavy CHIPS Act dependence, China exposure cuts both ways).</p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, Seeking Alpha, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, Seeking Alpha, X/Twitter, analyst consensus · 2026-06-30</p></div>
+</div>
+</body>
+</html>

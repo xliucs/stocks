@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TSLA | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>TSLA — Tesla, Inc.</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-06-30 · Sources: yfinance, Seeking Alpha, X/Twitter, analyst consensus</p>
+
+<div class="badge">🎯 Score 44 / Bearish · $420.60 · Fwd P/E 168x · PT $421 · Q2 deliveries July 2</div>
+
+<div class="co yw"><strong>🌐 Macro Context (June 30, 2026):</strong> Risk-on into quarter-end despite a hawkish Fed. As of June 30 the market is closing out what will likely be its <strong>best quarter for the S&amp;P 500 and Nasdaq in six years</strong> — the S&amp;P sits near 7,420 and <strong>VIX has collapsed to ~17.7</strong> from 22+ in early June, even with the Iran conflict and a Fed pivot in the backdrop. But the June 17 FOMC (Kevin Warsh's first as Chair) reset the regime: the Fed <strong>held at 3.50–3.75%</strong> while the dot plot <em>flipped hawkish</em> — <strong>9 of 18 officials now pencil in at least one 2026 hike</strong> (six see multiple), the 2026 PCE forecast was lifted, and easing-bias language was dropped. Markets moved from pricing 1–2 cuts to pricing 1–2 hikes. The tell is <strong>rotation</strong>: the Russell 2000 has surged toward record territory as capital moves out of high-multiple mega-cap tech into cyclicals, financials, and small caps. <strong>For TSLA this cuts sharply — the high-beta (1.80) name has ripped in the risk-on tape (+8.5% June 29, +2.1% June 30 into the $420s ahead of Q2 deliveries), but a ~168x-forward, no-earnings-floor multiple is exactly the profile a hawkish Fed and a rotation-out-of-multiples regime punish. Michael Burry is reported to have opened a fresh TSLA short at $416.22 this week.</strong></div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$420.60</div><div class="sub dn">-15.7% from 52W High ($498.83)</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$1.58T</div><div class="sub">Beta: 1.80 (highest in Mag7)</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value dn">385.9x</div><div class="sub">EPS: $1.09 (depressed)</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value dn">168.1x</div><div class="sub">Fwd EPS: $2.50</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">$97.9B</div><div class="sub up">+15.8% YoY</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value neu">19.1%</div><div class="sub">Auto price pressure persists</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value dn">4.2%</div><div class="sub">Thinnest in Mag7</div></div>
+    <div class="kpi"><div class="label">Net Margin</div><div class="value dn">3.9%</div><div class="sub">ROE 4.9% · vs 27-39% peers</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">1M Return</div><div class="value dn">-3.5%</div><div class="sub">Volatile round-trip</div></div>
+    <div class="kpi"><div class="label">3M Return</div><div class="value up">+18.4%</div><div class="sub">High-beta risk-on bounce</div></div>
+    <div class="kpi"><div class="label">6M Return</div><div class="value dn">-11.5%</div><div class="sub">Still lagging S&amp;P YTD</div></div>
+    <div class="kpi"><div class="label">Balance Sheet</div><div class="value up">$44.7B</div><div class="sub">Cash vs $15.9B debt — fortress</div></div>
+</div>
+
+<div class="co bl"><strong>💸 AI Capital-Cycle Scorecard (the metric this market grades on):</strong> TTM operating cash flow <strong>$16.5B</strong>; TTM capex ~<strong>$11.3B</strong>; FCF after capex <strong>$5.25B</strong> (positive but thin — ~<strong>301x FCF</strong> on a $1.58T cap). 2026 capex still guided above <strong>$25B</strong> (AI compute doubling, Optimus lines at Fremont, Cybercab/Semi ramps, Houston Megafactory, lithium/LFP), which would push FCF-after-capex toward zero absent a margin recovery. Funding mix: <strong>100% internal</strong> — $44.7B cash, $15.9B debt, no raise needed or rumored, so TSLA dodges the dilution penalty that hit GOOG/META/ORCL in early June. But it still carries the weakest cash-generation coverage of its AI ambitions in the group.</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter</th><th>Revenue</th><th>Net Income</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th><th>YoY Revenue</th></tr></thead>
+<tbody><tr><td>2026-03-31 (Q1 FY26)</td><td>$22.4B <span class="up">↑</span></td><td>$0.48B</td><td>21.1%</td><td>4.2%</td><td>2.1%</td><td class="up">+16%</td></tr>
+<tr><td>2025-12-31 (Q4 FY25)</td><td>$24.9B</td><td>$0.84B</td><td>20.1%</td><td>6.3%</td><td>3.4%</td><td class="dn">-3%</td></tr>
+<tr><td>2025-09-30 (Q3 FY25)</td><td>$28.1B <span class="up">↑</span></td><td>$1.37B</td><td>18.0%</td><td>6.6%</td><td>4.9%</td><td class="up">+12%</td></tr>
+<tr><td>2025-06-30 (Q2 FY25)</td><td>$22.5B</td><td>$1.17B</td><td>17.2%</td><td>4.1%</td><td>5.2%</td><td class="dn">-12%</td></tr>
+<tr><td>2025-03-31 (Q1 FY25)</td><td>$19.3B</td><td>$0.41B</td><td>16.3%</td><td>2.5%</td><td>2.1%</td><td class="dn">-9%</td></tr>
+</tbody></table>
+
+<div class="co yw"><strong>⚖️ The earnings problem hasn't changed:</strong> Revenue growth has resumed (+16% YoY in Q1'26 after the 2025 air pocket), but profitability hasn't: a 4.2% operating margin and ~$0.48B net income on a $1.58T valuation. Q3'25's $1.37B remains the recent high-water mark. <strong>Q2 delivery figures come July 2</strong> — Street consensus ~406K vehicles (median ~408.6K; Barclays 418K high, Cantor 397K / Baird 393K low). The full earnings print (~July 22) will be the first with the proprietary paid ride-hailing service live. Every valuation method below hinges on whether margins are cyclically depressed (bull: price cuts + ramp costs) or structurally lower (bear: EV competition is permanent).</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Revenue Stream</th><th>Amount (Q1 FY26)</th><th>% of Total</th><th>YoY Trend</th><th>Notes</th></tr></thead>
+<tbody><tr><td><strong>Automotive</strong></td><td>$16.4B</td><td>73%</td><td class="up">+12% YoY</td><td>~358K consumer deliveries in Q1; refreshed Model Y carrying the lineup; affordable "Standard" trims + Model Y L ramping volume back</td></tr>
+<tr><td><strong>Energy Generation &amp; Storage</strong></td><td>$2.7B</td><td>12%</td><td class="neu">8.8 GWh deployed Q1'26</td><td>2025 was a record year (46.7 GWh); Q1'26 deployments of 8.8 GWh show the segment stabilizing but no longer the breakout growth engine of 2024–25; Houston Megafactory (Megapack 3) coming</td></tr>
+<tr><td><strong>Services &amp; Other</strong></td><td>$3.3B</td><td>15%</td><td class="up">Growing</td><td>Supercharging (NACS network effect), insurance, used cars; FSD subscriptions ~1.28M (+51% y/y) — the highest-margin line</td></tr>
+<tr><td><strong>Total Q1 FY26</strong></td><td>$22.4B</td><td>100%</td><td class="up">+16% YoY</td><td>Growth back, margins not: 19.1% GM / 4.2% OM TTM</td></tr>
+</tbody></table>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl neu">58.3</div><div class="nt neu">Neutral — momentum improving</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl up">$405.62</div><div class="nt up">Price +3.7% above</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl up">$418.54</div><div class="nt up">Price just reclaimed</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl up">Improving</div><div class="nt up">-3.31 vs signal -4.39 — turning up</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$498.83</div><div class="nt dn">-15.7%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$288.77</div><div class="nt up">+45.7%</div></div>
+</div>
+
+<div class="co yw"><strong>⚠️ Technical Signal:</strong> Constructive but overhead-heavy. After an +8.5% June 29 rip and +2.1% June 30 close at <strong>$420.60</strong>, TSLA has <strong>reclaimed both the 50-day ($405.62) and 200-day ($418.54)</strong> and MACD is curling up above a rising base (−3.31 vs −4.39 signal). The trailing-month range was $375.12–$423.74, so the stock is pressing the top of its recent band right into the July 2 delivery print. RSI at 58 leaves room before overbought. Support: $405 (SMA50), then $375 (month low) and $360. Resistance: the $445 zone and then the 52W-high area near $499. Bulls on X are calling for a base with a $460–480 first target; the posture is neutral-to-constructive, but the move is momentum into a binary event, not a fundamentals-driven re-rating.</div>
+
+<h2>📏 Historical Valuation</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Current Trailing P/E</div><div class="value dn">385.9x</div><div class="sub">Inflated by depressed EPS</div></div>
+    <div class="kpi"><div class="label">5Y Avg P/E*</div><div class="value">78.5x</div><div class="sub">*Outliers filtered</div></div>
+    <div class="kpi"><div class="label">5Y P/E Range</div><div class="value">38x – 155x</div></div>
+    <div class="kpi"><div class="label">Percentile</div><div class="value dn">&gt;99th</div><div class="sub">Above 5Y ceiling</div></div>
+</div>
+
+<div class="co rd"><strong>📐 Mean Reversion Downside:</strong> Applying the filtered 5-year average P/E of 78.5x — itself an extraordinary multiple — to forward EPS of $2.50 implies <strong>$196.25</strong> — <strong class="dn">−53% downside</strong>. Even the top of the 5Y range (155x × $2.50 = $387.50) sits just <em>below</em> today's price. At 168.1x forward, TSLA again trades above its own historically extreme valuation band; the multiple is carried entirely by robotaxi/Optimus optionality, not earnings. Unlike peers where mean reversion is the bull case, for TSLA it is the bear case.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Company</th><th>Price</th><th>MCap</th><th>Fwd P/E</th><th>Rev Growth (TTM)</th><th>Net Margin</th><th>Notes</th></tr></thead>
+<tbody><tr class="hl"><td><strong>TSLA</strong></td><td>$420.60</td><td>$1.58T</td><td>168.1x</td><td>+15.8%</td><td>3.9%</td><td>Priced as AI/robotics, earns like an automaker</td></tr>
+<tr><td><strong>BYD (BYDDY)</strong></td><td>—</td><td>—</td><td>16.2x</td><td>—</td><td>—</td><td>Largest EV maker by volume; ~10x cheaper on forward earnings</td></tr>
+<tr><td><strong>Toyota (TM)</strong></td><td>—</td><td>—</td><td>10.9x</td><td>—</td><td>—</td><td>Hybrid cycle winner</td></tr>
+<tr><td><strong>Ford (F)</strong></td><td>—</td><td>—</td><td>7.8x</td><td>—</td><td>—</td><td>Legacy auto</td></tr>
+<tr><td><strong>GM</strong></td><td>—</td><td>—</td><td>5.6x</td><td>—</td><td>—</td><td>Legacy auto</td></tr>
+<tr><td><strong>NVDA (AI comp)</strong></td><td>$200.42</td><td>$4.85T</td><td>31.9x</td><td>+85.2%</td><td>~52%</td><td>The actual AI-earnings compounder trades at &lt;1/5th TSLA's forward multiple</td></tr>
+</tbody></table>
+
+<div class="co rd"><strong>Peer Read:</strong> The auto peer set averages ~10.1x forward earnings; at that multiple TSLA is a ~$25 stock. The entire gap between $25 and $420 is the market's present value of FSD/robotaxi/Optimus/energy — businesses that today produce ~1.28M FSD subs, ~$2.7B/qtr energy revenue, and a still-supervised robotaxi pilot. Even granting full AI-company status, the contrast is stark: NVDA grows revenue 85% at ~52% net margin for 31.9x forward, while TSLA grows 16% at 3.9% margin for 168.1x. TSLA has the widest story-to-numbers gap in the market.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value neu">~0.65</div><div class="sub">Call-leaning into deliveries</div></div>
+    <div class="kpi"><div class="label">Avg Call IV</div><div class="value neu">~50%</div><div class="sub">Elevated pre-July 2 / earnings</div></div>
+    <div class="kpi"><div class="label">Avg Put IV</div><div class="value neu">~47%</div><div class="sub">Two-sided skew</div></div>
+    <div class="kpi"><div class="label">IV Context</div><div class="value up">VIX ~17.7</div><div class="sub">Vol regime normalized</div></div>
+</div>
+
+<div class="co bl"><strong>📊 Options Read:</strong> With macro fear gone (VIX ~17.7 vs 22+ in early June) and the stock ripping into quarter-end, TSLA's options are call-leaning (P/C ~0.65) — speculative upside bets on a Q2 delivery beat and robotaxi headlines dominate. IV remains structurally high (~47–50%) because the <strong>July 2 delivery release</strong> and the ~July 22 earnings print make the next few weeks event-rich, and the widely-circulated Burry short adds two-sided tension. TSLA options stay a sentiment-velocity instrument; the skew can flip fast on a delivery miss or a hawkish Fed comment.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co bl"><strong>Net 6-month direction: routine officer selling — the standout remains Musk's June 16 option exercise.</strong><ul><li><span class="up">MUSK ELON (CEO) — Exercised a large tranche of 2018-package options on 2026-06-16 at a $23.34 strike (vested after the legal win); Tesla net-settled shares to cover, so Musk paid nothing out of pocket and his economic stake rose sharply</span> — a structurally bullish ownership signal, though not an open-market cash purchase</li><li>TANEJA VAIBHAV (CFO) — Sale 2,605 sh ≈ $1.05M (2026-06-08)</li><li>TANEJA VAIBHAV (CFO) — Sale 6,538 sh (2026-06-05)</li><li>TANEJA VAIBHAV (CFO) — Sales ≈ $1.40M total (2026-05-13)</li><li>WILSON-THOMPSON KATHLEEN (Director) — Sales ≈ $10.6M (2026-04-30)</li><li>No open-market <em>cash</em> purchases by any officer/director in the trailing 6 months</li></ul>Read: The officer-level pattern is one-directional selling (likely 10b5-1), but it is dwarfed by Musk's option exercise, which meaningfully increases insider alignment with the equity and re-fuels Musk-complex / SpaceX-IPO cross-holding speculation.</div>
+
+<h2>📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">Seeking Alpha — "Tesla: 2026 Could Be A Reckoning Year For Robotaxi And Optimus"</span> · June 2026 · <span class="st net">Hold/cautious</span><p style="margin-top:8px; color:#475569">Frames 2026 as the year execution must replace narrative: robotaxi must move from supervised pilots to real driverless unit economics and Optimus must show a credible production path, or the ~380x trailing multiple is unsupportable. Notes execution is increasingly constrained by regulatory uncertainty and competition. A "show-me" year.</p></div>
+<div class="tw"><span class="au">Seeking Alpha — "Tesla: This Could Be The Biggest Disconnect In Market History"</span> · June 2026 · <span class="st ber">Bearish/valuation</span><p style="margin-top:8px; color:#475569">The valuation-gap bear case: only ~8% revenue growth expected in 2026 while capex exceeds $25B, and investors are pricing future Robotaxi/Optimus/AI contributions long before they deliver meaningful revenue. Argues the story-to-numbers gap is at a historic extreme.</p></div>
+<div class="tw"><span class="au">Wedbush (Dan Ives)</span> · Reiterated April 23 / June 2026 · <span class="st bul">Outperform, $600 PT (Street high)</span><p style="margin-top:8px; color:#475569">The perma-bull: Austin-metro robotaxi expansion (targeting 30+ US cities in 2026) proves the autonomy flywheel; AI/autonomy worth $1T+ alone; projects a $2T cap in 2026, up to $3T bull. Implies ~+43%.</p></div>
+<div class="tw"><span class="au">Goldman Sachs (Mark Delaney)</span> · June 2026 · <span class="st ber">Neutral, $375 PT (trimmed from $405)</span><p style="margin-top:8px; color:#475569">Below-spot neutral: FSD take-rates improving but pricing/mix headwinds persist; flags forward P/E &gt;150x as capping upside absent a margin inflection. Implies ~−11%.</p></div>
+<div class="tw"><span class="au">JPMorgan / GLJ Research — the bookends</span> · June 2026 · <span class="st net">Split</span><p style="margin-top:8px; color:#475569">JPMorgan raised its target to $475 (June 5) on the risk-on tape; GLJ Research reiterated Sell at a Street-low $24.86 (June 12), the "it's a car company" valuation. The ~19x spread between them is the whole TSLA debate in two numbers.</p></div>
+
+<div class="co yw"><strong>Research Consensus:</strong> The widest PT dispersion in the market — roughly $24.86 (GLJ Street-low) to $600 (Wedbush) on the same facts — tells you TSLA is a belief instrument, not a valuation consensus. The mid-cluster has settled near spot (Goldman $375, JPMorgan $475, aggregate Hold ~$395–421). The aggregate rating is a <strong>Hold</strong>.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">@goodmoat (GoodMoat.com) — relaying the week's tape</span> · July 1 · <span class="st net">Neutral/mixed</span><p style="margin-top:8px; color:#475569">"Michael Burry shorts Tesla at $416.22 ahead of Q2 deliveries — Gary Black expects a beat but still avoids the stock." The most-circulated TSLA storyline of the week: a marquee bear short set against a delivery-beat expectation, capturing the two-sided setup into July 2.</p></div>
+<div class="tw"><span class="au">@Teslam271st (테슬람271호) — daily TSLA digest</span> · July 1 · <span class="st net">Neutral</span><p style="margin-top:8px; color:#475569">Notes TSLA closed +2.07% at ~$420.60 on June 30 after +8.46% June 29 — "two straight strong bounce days with momentum carrying into the Q2 delivery release." Also flags the Burry-short chatter and ongoing X criticism that Tesla should "focus on tech, not the stock price."</p></div>
+<div class="tw"><span class="au">@Daniel_Gspot / @nymbusjp (robotaxi bulls)</span> · July 1 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"Never bet against Elon… first slow and then all at once" — echoing chatter that Tesla is comfortable enough with fine-tuned FSD for Cybercab that a first commercial (unsupervised) launch could land within a month. The autonomy-flywheel bull thread.</p></div>
+<div class="tw"><span class="au">@MattssonMin + delivery watchers</span> · July 1 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"Tesla Q2 deliveries 2026-07-02 will be 🔥" — the delivery-optimist camp positioning for a beat versus the ~406K Street bar, driving the pre-print momentum bid.</p></div>
+
+<div class="co bl"><strong>X Consensus:</strong> Neutral-to-bullish and event-driven. The dominant threads are (1) the Michael Burry short at $416.22 as the marquee bear signal, (2) two strong up-days into the July 2 delivery release with the crowd positioning for a beat, and (3) the robotaxi/Cybercab autonomy-flywheel bull story, with Musk-style "slow then all at once" framing. Bears are mostly valuation/macro-driven, not fundamentals-denying. <em>Note: X handles/quotes above are real posts surfaced via the bird CLI (June 30–July 1); promotional "stock pick" spam accounts were excluded.</em></div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>Q2 2026 delivery release July 2</strong> — Street consensus ~406K (median ~408.6K; Barclays 418K high, Cantor 397K / Baird 393K low). A clear beat reopens the growth-story multiple; a miss hands the bears the tape. The nearest binary event.</li>
+<li><strong>Q2 2026 earnings (~July 22)</strong> — first full quarter of the proprietary paid ride-hailing service; margin trajectory and any 2026 capex update are the swing factors.</li>
+<li><strong>Robotaxi → unsupervised ramp</strong> — Austin expansion plus Dallas/Houston launched in April; the move from supervised to true driverless unit economics (and a possible first unsupervised Cybercab commercial launch, per X chatter) is the core bull KPI. Musk has acknowledged meaningful robotaxi revenue is unlikely before 2027.</li>
+<li><strong>FSD subscription compounding</strong> — ~1.28M subscribers (+51% y/y), across 10 countries; the highest-margin line and cleanest growth signal, with China (supervised) and Europe expansion pending regulatory approval.</li>
+<li><strong>Affordable model + Model Y L ramp</strong> — "Standard" trims restored +16% Q1 revenue growth; a sustained &gt;20% delivery-growth print would reopen the growth multiple.</li>
+<li><strong>Optimus production lines</strong> — Fremont line prep underway (replacing Model S/X lines), with reports of German automation lines arriving and possible July production start; Musk guides a "very slow" early ramp — any credible external order is unpriced optionality.</li>
+<li><strong>Energy storage stabilization</strong> — 8.8 GWh deployed Q1'26; Houston Megafactory (Megapack 3) and a Megapack backlog re-acceleration would restore the "diversified energy company" leg.</li>
+<li><strong>Musk option exercise + SpaceX IPO halo</strong> — the June 16 exercise (one week into the SpaceX IPO) increases his stake and re-ignites SpaceX/xAI cross-holding and merger speculation — a bidirectional sentiment catalyst.</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>Valuation with no earnings floor</strong> — 168.1x forward, &gt;99th percentile of its own 5Y range; at the auto-peer multiple the stock is worth ~$25 (GLJ's $24.86 Sell). In a hawkish-Fed de-rating, nothing mechanical stops the multiple at 100x. Michael Burry's fresh short at $416.22 crystallizes the bear thesis.</li>
+<li><strong>Hawkish Fed / rate ceiling + rotation</strong> — the June 17 dot-plot flip to a hike and a lifted PCE forecast keep the discount rate high, and the ongoing rotation out of high-multiple mega-cap tech (Russell 2000 near records) targets exactly this profile. Beta 1.80 amplifies any de-risking flow.</li>
+<li><strong>Margin structure</strong> — 4.2% operating margin leaves no cushion; ~$25B+ of 2026 capex against $16.5B OCF pushes FCF-after-capex toward zero, putting TSLA on the wrong side of the market's FCF test despite zero dilution risk (~301x FCF today).</li>
+<li><strong>Q2 delivery / robotaxi execution risk</strong> — a delivery miss vs the ~406K bar would hit the momentum trade directly; supervised fleets are not yet driverless unit economics; Musk guides a "very slow" ramp, and one high-profile accident resets the regulatory clock.</li>
+<li><strong>Competition</strong> — BYD at 16.2x forward outsells TSLA globally; Waymo scales paid driverless rides in more cities with a multi-year safety lead.</li>
+<li><strong>Energy segment</strong> — no longer the breakout growth engine of 2024–25; if storage is cyclical, the "diversified energy company" thesis weakens.</li>
+<li><strong>Insider selling</strong> — recurring CFO and director sales; the only "buying" was Musk's net-settled option exercise, not open-market cash.</li>
+<li><strong>Key-man and attention risk</strong> — Musk bandwidth split across SpaceX (newly public), xAI, and politics; comp-package litigation history. (No federal policy action pending — policyRisk: none.)</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value neu">Hold</div><div class="sub">Mean 2.34 (n=41)</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value neu">$421.16</div><div class="sub neu">±0% vs spot</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value dn">$123.00</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value up">$600.00</div></div>
+</div>
+<div class="co yw"><strong>⚠️ Dispersion caveat:</strong> The ~4.9x spread between the yfinance low ($123) and high ($600, Wedbush) — with individual notes as low as GLJ's $24.86 — makes the $421.16 average nearly meaningless; it is the midpoint of incompatible worldviews, not a forecast. The mid-cluster (Goldman $375, JPMorgan $475) has converged toward spot, so the headline "±0% to PT" is effectively "fairly valued at consensus, priced for perfection."</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data &amp; Methodology:</strong> All financial data from Yahoo Finance (yfinance) as of 2026-06-30 (last close <strong>$420.60</strong>; prior close $411.84; trailing-month range $375.12–$423.74). Forward EPS <strong>$2.50</strong> is consensus; trailing P/E <strong>385.9x</strong> from TTM EPS $1.09 (depressed by the 2025 margin trough). Historical P/E: quarterly observations over 5 years, outliers filtered. Three independent methods triangulate fair value — for TSLA they diverge more than for any other name, which is itself the finding.</div>
+
+<h3>Method 1: P/E Multiple Approach</h3>
+<p style="color:#64748b; margin-bottom:12px">Each scenario applies a different P/E multiple to forward EPS of $2.50 (Yahoo Finance consensus).</p>
+<table><thead><tr><th>Scenario</th><th>P/E</th><th>EPS</th><th>Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody><tr><td>Auto-peer multiple</td><td>10.1x</td><td>$2.50</td><td>$25.25</td><td class="dn">-94%</td><td>Avg of BYD 16.2x, TM 10.9x, F 7.8x, GM 5.6x — values TSLA as a car company (≈ GLJ's $24.86)</td></tr>
+<tr><td>NVDA parity (real AI economics)</td><td>31.9x</td><td>$2.50</td><td>$79.75</td><td class="dn">-81%</td><td>The multiple of the actual AI-earnings compounder</td></tr>
+<tr><td>5Y average (already extreme)</td><td>78.5x</td><td>$2.50</td><td>$196.25</td><td class="dn">-53%</td><td>TSLA's own historically generous norm</td></tr>
+<tr><td>Top of 5Y range</td><td>155x</td><td>$2.50</td><td>$387.50</td><td class="dn">-8%</td><td>Today's price requires ~TSLA's all-time-peak multiple — permanently</td></tr>
+<tr><td>Optimistic (growth narrative reignites)</td><td>250x</td><td>$2.87</td><td>$717.50</td><td class="up">+71%</td><td>Bull EPS +15% with robotaxi-mania multiple — has happened before (2021, 2024)</td></tr>
+</tbody></table>
+
+<h3>Method 2: Mean Reversion &amp; Consensus</h3>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">5Y Avg PE × Fwd EPS</div><div class="value dn">$196.25</div><div class="sub dn">-53% downside</div></div><div class="kpi"><div class="label">Auto-Peer PE × Fwd EPS</div><div class="value dn">$25.25</div><div class="sub dn">-94% downside</div></div><div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value neu">$421.16</div><div class="sub neu">±0% — widest dispersion in market</div></div>
+</div>
+<div class="co bl"><strong>📐 Calculation Details:</strong><ul><li>5-year average P/E of 78.5x (filtered, range 38x–155x) × forward EPS $2.50 = $196.25</li><li>Auto-peer average forward P/E ~10.1x × $2.50 = $25.25 (the "it's a car company" floor)</li><li>Analyst consensus PT $421.16 (range $123–$600, n=41) — wide enough to be uninformative</li></ul></div>
+
+<h3>Method 3: Discounted Cash Flow (DCF)</h3>
+<p style="color:#64748b; margin-bottom:12px">10-year two-stage FCF model. TTM FCF ($5.25B, ~5.4% of revenue) is squeezed by the AI/robotaxi investment cycle, so we model revenue growth with FCF margin ramping linearly to a normalized terminal margin by year 5. WACC 10.5% (high beta), terminal growth 3.0%, ~3.76B diluted shares.</p>
+<table><thead><tr><th>Scenario</th><th>Rev Growth</th><th>Normalized FCF Margin</th><th>WACC</th><th>Terminal Growth</th><th>Intrinsic Value</th><th>Upside</th></tr></thead>
+<tbody><tr><td>Bear (auto company, competition bites)</td><td>8.0%</td><td>5%</td><td>10.5%</td><td>3.0%</td><td>$26.10</td><td class="dn">-94%</td></tr>
+<tr><td>Base (steady growth, modest FSD mix)</td><td>16.0%</td><td>8%</td><td>10.5%</td><td>3.0%</td><td>$73.70</td><td class="dn">-82%</td></tr>
+<tr><td>Bull (robotaxi + Optimus scale)</td><td>28.0%</td><td>13%</td><td>10.5%</td><td>3.0%</td><td>$286.80</td><td class="dn">-32%</td></tr>
+</tbody></table>
+<div class="co rd"><strong>⚖️ Honest read:</strong> The DCF cannot reach $420 even in the bull case — a decade of 28% compounding at 13% FCF margins is worth ~$287. The market price embeds outcomes beyond any cash-flow model: robotaxi as a winner-take-most network, Optimus as a new product category, or a Musk-complex (SpaceX/xAI) re-rating. That may happen — but it means TSLA at $420 is a venture bet held inside a megacap wrapper, and should be sized like one.</div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$212.00</div><div class="mt">100x × $2.12 EPS (85% of consensus)</div><div class="us dn">-50%</div><div class="ds">Hawkish Fed + rotation-out-of-multiples compresses the long-duration premium; high-beta de-rating resumes; a Q2 delivery miss or "very slow" robotaxi ramp validates the Burry short; multiple falls toward (still-rich) 100x.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr neu">$420.00</div><div class="mt">168x × $2.50 EPS</div><div class="us neu">±0%</div><div class="ds">Narrative and numbers fight to a draw: robotaxi paid miles compound and FSD subs grow, Q2 deliveries roughly meet the ~406K bar, but margins stay thin and a high-rate macro caps the multiple near current levels. Fairly valued at consensus — dead money with violent swings.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$717.00</div><div class="mt">250x × $2.87 EPS (+15% beat)</div><div class="us up">+71%</div><div class="ds">Q2 delivery beat, driverless robotaxi at scale in multiple metros, credible Optimus orders, energy re-accelerates, Fed pivots dovish; TSLA has re-rated to mania multiples twice before — optionality cuts both ways.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co yw"><p><strong>TSLA</strong> is the market's purest narrative-vs-numbers trade, and the late-June risk-on tape has handed the bulls a momentum reprieve — +8.5% on June 29 and +2.1% on June 30 to $420.60 — without resolving the core tension. The narrative is genuinely advancing: cumulative robotaxi paid miles are ramping, FSD hit ~1.28M subscribers (+51% y/y) across 10 countries, the proprietary paid ride-hailing service goes live this quarter, a first unsupervised Cybercab launch is in the air, and Musk's June 16 exercise of his 2018 package (one week into the SpaceX IPO) increased insider alignment. But the numbers remain the weakest in the group: a 4.2% operating margin, ~$5.25B FCF on a $1.58T cap (~301x), ~$25B+ of 2026 capex pushing FCF-after-capex toward zero, and a 168.1x forward multiple above the stock's own 5-year ceiling. The June 17 hawkish Fed (dot-plot flip, lifted PCE) plus a visible rotation out of high-multiple tech is precisely the macro that pressures a long-duration, no-earnings-floor profile, and no cash-flow scenario we can model reaches $420 (bull DCF ~$287). Michael Burry's fresh short at $416.22 crystallizes the bear case; the analyst cluster sits at a Hold near $421. The immediate swing factor is the <strong>July 2 Q2 delivery print</strong> against a ~406K bar.</p><p><strong>Verdict: Hold / trim into strength on a 12-month view — base case $420 (±0%, fairly valued at consensus, dead money with violent swings), bear $212 (−50%) if a hawkish-Fed high-beta de-rating or delivery miss lands, bull $717 only on delivery-beat plus driverless-at-scale proof. If you hold it, hold it as the venture sleeve, not the core — and respect the binary risk into July 2.</strong></p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, Seeking Alpha, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, Seeking Alpha, X/Twitter, analyst consensus · 2026-06-30</p></div>
+</div>
+</body>
+</html>

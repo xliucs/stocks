@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>GOOG | Valuation Report</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #ffffff; color: #1e293b; line-height: 1.7; font-size: 15px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+h1 { font-size: 2.2em; color: #1e293b; margin-bottom: 4px; font-weight: 800; }
+h2 { font-size: 1.4em; color: #1e293b; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+h3 { font-size: 1.15em; color: #475569; margin: 24px 0 12px; font-weight: 600; }
+.subtitle { color: #64748b; font-size: 0.95em; margin-bottom: 24px; }
+.badge { display: inline-block; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 1.05em; margin: 12px 0 28px; box-shadow: 0 2px 8px rgba(245,158,11,0.3); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 16px 0; }
+.kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 16px; text-align: center; }
+.kpi .label { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.kpi .value { font-size: 1.6em; font-weight: 800; color: #1e293b; margin-top: 4px; }
+.kpi .sub { font-size: 0.8em; color: #64748b; margin-top: 4px; }
+.up { color: #16a34a !important; }
+.dn { color: #dc2626 !important; }
+.neu { color: #ca8a04 !important; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9em; }
+th { background: #f1f5f9; color: #475569; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #e2e8f0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; }
+tr:hover { background: #f8fafc; }
+tr.hl { background: #eff6ff !important; border-left: 3px solid #2563eb; }
+.co { border-left: 4px solid #2563eb; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.co.gr { background: #f0fdf4; border-left-color: #16a34a; }
+.co.yw { background: #fefce8; border-left-color: #ca8a04; }
+.co.rd { background: #fef2f2; border-left-color: #dc2626; }
+.co.bl { background: #eff6ff; border-left-color: #2563eb; }
+.sg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+.sc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px 18px; text-align: center; }
+.sc.bear { border-top: 4px solid #dc2626; }
+.sc.base { border-top: 4px solid #2563eb; }
+.sc.bull { border-top: 4px solid #16a34a; }
+.sc .lb { font-size: 0.85em; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.sc .pr { font-size: 2.1em; font-weight: 800; margin: 8px 0; }
+.sc .mt { font-size: 0.85em; color: #94a3b8; }
+.sc .us { font-size: 1.1em; font-weight: 700; margin-top: 8px; }
+.sc .ds { font-size: 0.82em; color: #64748b; margin-top: 10px; line-height: 1.5; }
+.tg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.tc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; }
+.tc .mk { font-size: 0.75em; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.tc .vl { font-size: 1.5em; font-weight: 800; margin: 6px 0; }
+.tc .nt { font-size: 0.8em; }
+ul { margin: 10px 0 10px 24px; }
+li { margin: 6px 0; line-height: 1.6; }
+.tw { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+.tw .au { color: #2563eb; font-weight: 700; }
+.tw .st { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 700; }
+.tw .st.bul { background: #dcfce7; color: #16a34a; }
+.tw .st.ber { background: #fef2f2; color: #dc2626; }
+.tw .st.net { background: #eff6ff; color: #2563eb; }
+.ft { text-align: center; color: #94a3b8; font-size: 0.8em; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+@media print {
+  .kpi-grid, .sg, .tg, table, .co, .sc, .tw { page-break-inside: avoid; }
+  .pb { page-break-before: always; }
+  body { font-size: 13px; }
+  .container { padding: 0; }
+}
+@page { size: A4; margin: 18mm 15mm; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>GOOG — Alphabet Inc.</h1>
+<p class="subtitle">Comprehensive Valuation Report · 2026-06-30 · Sources: yfinance, Seeking Alpha, X/Twitter, analyst consensus</p>
+
+<div class="badge">📅 Next Earnings: 2026-07-23 · Score 66/100 · Rating: Neutral · $353.33 · Fwd P/E 24.3x · PT $426.62 · 1M −6.1%</div>
+
+<div class="co yw"><strong>🌐 Macro Context (June 30, 2026):</strong> Tuesday closes out what will likely be the <strong>best quarter for the S&amp;P 500 and Nasdaq in six years</strong> — a striking outcome given a live Iran war and a hawkish-Fed pivot. The S&amp;P sits at <strong>~7,440</strong> (June 29 close) but has slipped below its 50-day moving average as the tape digests a more hawkish Fed: under new Chair <strong>Kevin Warsh</strong>, the June 17 FOMC held at 3.50–3.75% but <em>removed</em> the projected 2026 cut, with several officials now penciling in a possible <em>hike</em>. A rising dollar and solid U.S. data reinforce the hike narrative; the week ahead is all about <strong>the June jobs report</strong> and its read-through for policy. The defining Mag7 story remains the <strong>AI capital cycle</strong> — the market grades hyperscalers on capital intensity, dilution, and FCF-after-capex — and the group has been the quarter's laggard, shedding roughly <strong>$2.3T in June</strong> even as the broad index melted up (X traders have rechristened it the "Lag7"). <strong>Alphabet is the cycle's marquee stress test:</strong> after an $84.75B June 2 equity raise (with a $10B Berkshire anchor), a confirmed 2027 capex step-up, and — the fresh June shock — a <strong>DeepMind talent exodus</strong>, GOOG fell to a $334.69 low (June 26) before a two-day bounce to $353.33. The de-rating is now about <em>funding, dilution, and talent</em>, not demand.</div>
+
+<h2>📊 Key Metrics</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Stock Price</div><div class="value">$353.33</div><div class="sub dn">-12.6% from 52W High ($404.47)</div></div>
+    <div class="kpi"><div class="label">Market Cap</div><div class="value">$4.31T</div><div class="sub">~12.2B shares (all classes)</div></div>
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="value">27.0x</div><div class="sub">EPS: $13.11</div></div>
+    <div class="kpi"><div class="label">Forward P/E</div><div class="value">24.3x</div><div class="sub">Fwd EPS: $14.55</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Revenue (TTM)</div><div class="value">$422.5B</div><div class="sub up">+21.8% YoY</div></div>
+    <div class="kpi"><div class="label">Gross Margin</div><div class="value up">60.4%</div><div class="sub">Cloud mix improving</div></div>
+    <div class="kpi"><div class="label">Operating Margin</div><div class="value up">36.1%</div><div class="sub">Record territory</div></div>
+    <div class="kpi"><div class="label">Net Margin</div><div class="value up">37.9%</div><div class="sub">ROE: 38.9%</div></div>
+</div>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">1M Return</div><div class="value dn">-6.1%</div><div class="sub">Talent shock + capex overhang</div></div>
+    <div class="kpi"><div class="label">3M Return</div><div class="value up">+29.4%</div><div class="sub">Still strongest Mag7 3M</div></div>
+    <div class="kpi"><div class="label">6M Return</div><div class="value up">+12.3%</div><div class="sub">+102% off 52W low</div></div>
+    <div class="kpi"><div class="label">Dividend Yield</div><div class="value">0.25%</div><div class="sub">Cash $126.8B / Debt $95.9B</div></div>
+</div>
+
+<div class="co bl"><strong>💸 AI Capital-Cycle Scorecard:</strong> TTM operating cash flow <strong>$174.4B</strong> (highest in the Mag7); TTM FCF <strong>$27.9B</strong> after capex — Q1 capex $35.7B (+107% YoY) drove FCF down ~47% YoY, and consensus (TIKR) models FY26 FCF near <strong>$20.5B</strong>, down ~72% from $73.3B in 2025. 2026 capex is guided <strong>$180–190B</strong>, and CFO Anat Ashkenazi told the Street 2027 will <strong>"significantly increase"</strong> again — implied AI infrastructure spend of up to ~$241B through 2027. Funding is the live story: rather than lever up at 4.5%+ rates, Alphabet sold <strong>$84.75B of equity June 2</strong> (incl. a $10B Berkshire placement) and formed a <strong>$25B TPU-focused venture with Blackstone</strong>. Bull read: capital raised at peak valuation after a huge run, with Buffett validating the price. Bear read: even Alphabet can no longer fund AI from $174B of OCF alone — and the fresh <strong>DeepMind talent exodus</strong> asks whether the $190B buildout still has the people to make it pay.</div>
+
+<h2>📈 Quarterly Financial Trends</h2>
+<table><thead><tr><th>Quarter</th><th>Revenue</th><th>Net Income</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th><th>Diluted EPS</th></tr></thead>
+<tbody><tr><td>2026-03-31 (Q1 CY26)</td><td>$109.9B <span class="up">↑ +22%</span></td><td>$62.6B*</td><td>62.4%</td><td>36.1%</td><td>57.0%*</td><td>$5.11*</td></tr>
+<tr><td>2025-12-31 (Q4 CY25)</td><td>$113.8B <span class="up">↑</span></td><td>$34.5B</td><td>59.8%</td><td>31.6%</td><td>30.3%</td><td>$2.82</td></tr>
+<tr><td>2025-09-30 (Q3 CY25)</td><td>$102.3B <span class="up">↑</span></td><td>$35.0B</td><td>59.6%</td><td>30.5%</td><td>34.2%</td><td>$2.87</td></tr>
+<tr><td>2025-06-30 (Q2 CY25)</td><td>$96.4B <span class="up">↑</span></td><td>$28.2B</td><td>59.5%</td><td>32.4%</td><td>29.3%</td><td>$2.31</td></tr>
+<tr><td>2025-03-31 (Q1 CY25)</td><td>$90.2B</td><td>$34.5B</td><td>59.7%</td><td>33.9%</td><td>38.2%</td><td>$2.81</td></tr>
+</tbody></table>
+<p style="color:#94a3b8; font-size:0.85em">* Q1 CY26 net income/EPS inflated by large non-operating unrealized gains on equity investments (private AI/space holdings marked up); the 36.1% operating margin is the cleaner profitability read.</p>
+
+<div class="co gr"><strong>🔥 Fundamental momentum still leads megacap:</strong> Q1 CY26 revenue +22% to $109.9B; Google Cloud accelerated to <strong>+63% YoY</strong> ($20.0B) — faster than Azure or AWS — with a <strong>$460B+ cloud backlog</strong> (nearly doubled QoQ; ~50% expected to convert within 24 months) at 32.9% cloud margin. Gemini crossed <strong>750M+ monthly active users</strong>; first-party models process billions of tokens/minute. Next print July 23; consensus Q2 EPS ~$2.88 on ~$116.7B revenue. No new financials since — the June drawdown is talent/capex/macro-driven, not a fundamental miss.</div>
+
+<h2>💰 Revenue Composition</h2>
+<table><thead><tr><th>Revenue Stream</th><th>Q1 CY26</th><th>% of Total</th><th>YoY Trend</th><th>Notes</th></tr></thead>
+<tbody><tr><td><strong>Google Search &amp; Other</strong></td><td>$60.4B</td><td>~55%</td><td class="up">+19% YoY</td><td>AI Overviews 2B+ MAU monetizing at parity; disruption fears still not in the numbers</td></tr>
+<tr><td><strong>YouTube Ads</strong></td><td>$9.9B</td><td>~9%</td><td class="up">+11% YoY</td><td>Premium/subscription shift continues</td></tr>
+<tr><td><strong>Subscriptions, Platforms &amp; Devices</strong></td><td>$12.4B</td><td>~11%</td><td class="up">+19% YoY</td><td>350M paid subs (+25M QoQ)</td></tr>
+<tr><td><strong>Google Cloud</strong></td><td>$20.0B</td><td>~18%</td><td class="up">+63% YoY</td><td>$460B+ backlog; capacity-constrained; margin 32.9%; TPU now sold into customer data centers</td></tr>
+<tr><td><strong>Google Network</strong></td><td>$7.0B</td><td>~6%</td><td class="dn">-3.9% YoY</td><td>Secular programmatic pressure</td></tr>
+<tr><td><strong>Other Bets</strong></td><td>$0.45B</td><td>&lt;1%</td><td class="neu">Variable</td><td>Waymo 500K+ rides/week (recall of 3,871 vehicles June); ~1M target late 2026; potential 2027 carve-out</td></tr>
+</tbody></table>
+
+<h2 class="pb">📉 Technical Analysis</h2>
+<div class="tg">
+    <div class="tc"><div class="mk">RSI (14-day)</div><div class="vl neu">45.2</div><div class="nt neu">Neutral — off the June lows</div></div>
+    <div class="tc"><div class="mk">SMA 50</div><div class="vl dn">$367.13</div><div class="nt dn">Price -3.8% below</div></div>
+    <div class="tc"><div class="mk">SMA 200</div><div class="vl up">$314.11</div><div class="nt up">Price +12.5% above</div></div>
+    <div class="tc"><div class="mk">MACD</div><div class="vl dn">-5.84</div><div class="nt dn">Below signal (-4.50) — bearish</div></div>
+    <div class="tc"><div class="mk">52W High</div><div class="vl">$404.47</div><div class="nt dn">-12.6%</div></div>
+    <div class="tc"><div class="mk">52W Low</div><div class="vl">$174.66</div><div class="nt up">+102%</div></div>
+</div>
+
+<div class="co yw"><strong>⚙️ Technical Signal:</strong> Momentum has rolled over. The talent-exodus shock (June 22 gap-down ~5–6%) pushed GOOG from $367 to a <strong>$334.69 low (June 26)</strong>, then a two-day bounce (GOOG led a June 29 Mag7 rebound off oversold) lifted it to $353. It now sits <strong>below the 50-day ($367)</strong> — lost during the slide — with RSI back to a neutral 45.2 and MACD still firmly negative below its signal line. The 200-day sits far below at $314, so the multi-quarter uptrend (+102% off the low) is intact; this is a sharp digestion of a parabolic run plus a talent/dilution overhang. Support: $334 (June low), then $314 (SMA200) and the $340 offering zone. Resistance: reclaim of the 50-day at $367, then the $398–404 prior high.</div>
+
+<h2>📏 Historical Valuation</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Current Fwd P/E</div><div class="value">24.3x</div></div>
+    <div class="kpi"><div class="label">5Y Avg P/E*</div><div class="value">24.4x</div><div class="sub">*Outliers filtered (PE&lt;100)</div></div>
+    <div class="kpi"><div class="label">5Y P/E Range</div><div class="value">18x – 31x</div></div>
+    <div class="kpi"><div class="label">Percentile</div><div class="value neu">~50th</div><div class="sub">Right at its own average</div></div>
+</div>
+<div class="co bl"><strong>📐 Mean Reversion Read:</strong> At $353 GOOG trades at 24.3x forward EPS — essentially <em>on top of</em> its filtered 5-year average of 24.4x. The 5Y-mean fair value is 24.4x × $14.55 = <strong>$355.02</strong>, i.e. <strong class="up">+0.5%</strong> from spot — the stock has round-tripped back to at-fair-value after the June 21 report showed a small premium. From here it is a clean bet on whether full-stack AI (Cloud +63%, Gemini 750M MAU, TPU) earns an above-history multiple, against a hawkish-Fed regime and a fresh talent-retention question arguing for compression.</div>
+
+<h2>🏆 Peer Comparison</h2>
+<table><thead><tr><th>Company</th><th>Price</th><th>MCap</th><th>Trail P/E</th><th>Fwd P/E</th><th>Rev Growth</th><th>Gross Margin</th><th>Op Margin</th><th>Net Margin</th></tr></thead>
+<tbody><tr class="hl"><td><strong>GOOG</strong></td><td>$353.33</td><td>$4.31T</td><td>27.0x</td><td>24.3x</td><td>21.8%</td><td>60.4%</td><td>36.1%</td><td>37.9%</td></tr>
+<tr><td><strong>MSFT</strong></td><td>$379.40</td><td>$2.82T</td><td>22.6x</td><td>19.6x</td><td>18.3%</td><td>68.3%</td><td>46.3%</td><td>39.3%</td></tr>
+<tr><td><strong>META</strong></td><td>$577.22</td><td>$1.47T</td><td>21.0x</td><td>15.9x</td><td>33.1%</td><td>81.9%</td><td>40.6%</td><td>32.8%</td></tr>
+<tr><td><strong>AAPL</strong></td><td>$298.01</td><td>$4.38T</td><td>36.1x</td><td>31.0x</td><td>16.6%</td><td>47.9%</td><td>32.3%</td><td>27.2%</td></tr>
+<tr><td><strong>AMZN</strong></td><td>$244.39</td><td>$2.63T</td><td>31.7x</td><td>24.7x</td><td>16.6%</td><td>50.6%</td><td>13.1%</td><td>12.2%</td></tr>
+<tr><td><strong>NVDA</strong></td><td>$200.42</td><td>$4.85T</td><td>31.9x</td><td>15.7x</td><td>85.2%</td><td>74.1%</td><td>65.6%</td><td>63.0%</td></tr>
+</tbody></table>
+
+<div class="co bl"><strong>Peer Read:</strong> GOOG carries a premium to MSFT (24.3x vs 19.6x fwd), justified by faster growth (21.8% vs 18.3%) and the only full AI stack in the group — TPU silicon → Gemini models → Cloud distribution → 2B-user Search/YouTube monetization. It remains among the largest Mag7 platforms ($4.31T, just behind AAPL's $4.38T; NVDA leads at $4.85T). The premium is the bull-bear fault line: it prices AI leadership that the hawkish-Fed regime is least willing to pay for in long-duration names — and the June talent departures directly attack the "AI leadership" leg of that premium.</div>
+
+<h2>🎯 Options Sentiment</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">P/C Volume Ratio</div><div class="value neu">~0.60</div><div class="sub">Hedged, less call-tilted</div></div>
+    <div class="kpi"><div class="label">Avg Call IV</div><div class="value">~19%</div><div class="sub">Firming into print</div></div>
+    <div class="kpi"><div class="label">Avg Put IV</div><div class="value neu">~26%</div><div class="sub">Put skew persists</div></div>
+    <div class="kpi"><div class="label">IV Context</div><div class="value neu">VIX high-teens</div><div class="sub">Pre-earnings (Jul 23) build</div></div>
+</div>
+<div class="co bl"><strong>📊 Options Read:</strong> A persistent put skew (put IV ~26% vs call IV ~19%) shows institutions still paying up to protect a big year of gains through the raise settlement, the talent headlines, and the hawkish-Fed tape. The put-tilt firmed relative to the June 21 read as the talent shock and the slide to $334 pulled in hedging demand; volume is no longer as call-heavy. As the July 23 print approaches, expect IV to build further. Net: hedged-cautious, more defensive than two weeks ago.</div>
+
+<h2>👔 Insider Activity</h2>
+<div class="co bl"><strong>Pattern: routine scheduled sales at highs; nothing anomalous.</strong><ul><li>PICHAI SUNDAR (CEO) — Sale 3,666 shares (2026-05-22, 10b5-1)</li><li>PORAT RUTH (President) — Sale 1,624 shares (2026-05-22)</li><li>ASHKENAZI ANAT (CFO) — Sale 1,763 shares (2026-05-22)</li><li>WALKER KENT / SCHINDLER PHILIPP (Officers) — Sales 1,624 / 1,995 shares (2026-05-22)</li><li>HENNESSY JOHN L (Director) — Sale 1,050 shares ≈ $413K (2026-05-15)</li><li>ARNOLD FRANCES H (Director) — Sale 102 shares ≈ $39K (2026-05-29)</li></ul>Read: the synchronized 05-22 batch is plan-driven (post-earnings window), executed near the ~$390s top; small relative to holdings — neutral. The more significant "insider" remains Berkshire Hathaway's $10B participation in the June 2 offering — a third-party buy at the offering price (~$340 zone), i.e. below today's spot.</div>
+
+<h2>📝 Seeking Alpha Research</h2>
+<div class="tw"><span class="au">"Alphabet Stock: The Drawdown Is An Opportunity To Pounce" (NASDAQ:GOOG)</span> · Seeking Alpha · late June 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Frames the June slide (talent headlines + capex/dilution fears) as a sentiment-driven drawdown against unchanged fundamentals — Cloud +63%, $460B backlog, Search +19% — and argues the pullback toward the offering zone is an accumulation opportunity rather than a thesis break.</p></div>
+<div class="tw"><span class="au">TD Cowen (John Blackledge) — PT $475, high on the Street</span> · June 9, 2026 · <span class="st bul">Buy</span><p style="margin-top:8px; color:#475569">Models Google gigawatt capacity rising &gt;10x from 2022→2031 with cloud margins climbing steadily; expects Street cloud/AI estimates to rise. The Street-high $475 target leans on TPU externalization becoming a disclosed revenue line.</p></div>
+<div class="tw"><span class="au">Piper Sandler (Thomas Champion) — PT raised to $445 from $425</span> · June 1, 2026 · <span class="st bul">Overweight</span><p style="margin-top:8px; color:#475569">Bumped the target maintaining Overweight on the AI roadmap and Gemini-driven product traction across Search, Cloud, and consumer — a constructive 12-month view pre-dating the talent-exodus headlines.</p></div>
+<div class="tw"><span class="au">"Google DeepMind Talent Exodus" coverage (Fortune / TechCrunch / Bloomberg)</span> · June 22–24, 2026 · <span class="st ber">Cautious / News</span><p style="margin-top:8px; color:#475569">Shazeer (→OpenAI), Jumper (→Anthropic), plus Adler &amp; Pritzel (→Anthropic) — four senior DeepMind researchers to direct rivals in one week. Reporting flags DeepMind staff concern about the lack of a clear enterprise AI-coding product and pre-IPO equity pull; the stock fell ~5–6% June 22 and the story "might be bigger than the model story."</p></div>
+<div class="tw"><span class="au">"Gemini 3.5 Looks Like a Legit Flex, Yet Alphabet Stock Keeps Slipping" </span> · 24/7 Wall St. · late May–June 2026 · <span class="st net">Hold-ish</span><p style="margin-top:8px; color:#475569">The cautious read: even strong product (Gemini 3.5, Nano Banana 2, Gemini Spark for macOS) hasn't stopped the slide because the multiple already caught up to fundamentals — forward returns hinge on capex digestion and backlog conversion, not further re-rating.</p></div>
+
+<div class="co gr"><strong>Research Consensus:</strong> Still Buy-leaning, with the freshest sell-side marks (TD Cowen $475 June 9, Piper $445 June 1) being <em>raised</em> — a contrast to the staleness problem in peers. But those targets pre-date the June 18–24 talent shock; the fault line is now fundamentals bulls (Cloud +63%, full-stack AI, Berkshire validation) vs a growing "multiple caught up + can it retain the people" camp. Consensus PT $426.62 (+21% vs spot); a broader S&amp;P Global poll shows ~$433.59.</div>
+
+<h2>🐦 X/Twitter Sentiment</h2>
+<div class="tw"><span class="au">@EvanKirstel / @Dansfera / @TechMomentum_ (talent-exodus alarm)</span> · June 30 · <span class="st ber">Bearish</span><p style="margin-top:8px; color:#475569">Dominant thread of the week: "Six DeepMind researchers gone to Meta, OpenAI, Anthropic in 5 months… the talent story might be bigger than the model story" (@EvanKirstel). @TechMomentum_: DeepMind CEO had to publicly reassure staff "after a $225B market cap wipeout — the market thinks the frontier just shifted labs." @Dansfera: "when the people who wrote AlphaFold and Attention are walking out the door, that tells you where the conviction is."</p></div>
+<div class="tw"><span class="au">@belinhadev / @AndrielCardim (the "Lag7" bounce)</span> · June 30–Jul 1 · <span class="st net">Neutral-Bullish</span><p style="margin-top:8px; color:#475569">Widely reposted framing: since mid-May the QQQ is flat but the Mag7 ("Lag7") got hammered — and "yesterday $GOOG and $TSLA finally led a bounce." Traders polling which names to own into late-July earnings, with GOOG a top mention on the rebound.</p></div>
+<div class="tw"><span class="au">@KostCapital (vertical-integration bull)</span> · Jul 1 · <span class="st bul">Bullish</span><p style="margin-top:8px; color:#475569">"Excited for the possibility of $GOOG falling below $300. There is no company more positioned to win the AI wars via vertical integration." The buy-the-dip, own-the-full-stack thesis — treating weakness as a gift.</p></div>
+<div class="tw"><span class="au">@dhruvakharia (product-slip skeptic)</span> · June 30 · <span class="st ber">Bearish</span><p style="margin-top:8px; color:#475569">"Google promised Gemini 3.5 Pro would ship in June… Today is June 30. It didn't ship. In the same window a Nobel winner, the co-author of 'Attention Is All You Need,' and two core Gemini engineers all left." Ties the shipping delay to the talent drain — the sharpest bear framing on execution risk.</p></div>
+
+<div class="co bl"><strong>X Consensus:</strong> Sentiment has turned notably more cautious versus two weeks ago — the DeepMind talent exodus is <em>the</em> story, layered over the capex/dilution overhang, and it directly attacks the AI-leadership premium. Counterweight: dip-buyers see the "Lag7" washout and full-stack vertical integration as an entry (GOOG led the June 29 bounce), and the raise is still broadly read as offensive given the Berkshire anchor. Note: raw $GOOG search is heavily polluted by options-alert and "stock list" spam accounts; the signal above is filtered to substantive posts surfaced via the bird CLI (June 30–Jul 1).</div>
+
+<h2 class="pb">🚀 Catalysts</h2>
+<ul>
+<li><strong>Q2 CY26 earnings July 23</strong> — Cloud expected to hold ~55–63% growth on a $460B+ backlog; first full post-raise capital commentary, any 2027 capex step-up color, and management's framing of the talent departures will be the most market-moving disclosures</li>
+<li><strong>Gemini 3.5 Pro ship + product cadence</strong> — the delayed 3.5 Pro landing (with Nano Banana 2, Gemini Omni Flash, and Gemini Spark for macOS already shipping) would directly rebut the "frontier shifted labs" narrative that drove the June drawdown</li>
+<li><strong>Dow inclusion (June 29)</strong> — Alphabet officially joined the Dow Jones Industrial Average, adding index-fund demand and prestige; a modest structural tailwind for flows</li>
+<li><strong>TPU externalization</strong> — delivering TPUs into customers' own data centers, plus the $25B Blackstone venture; converting capex from cost center to a disclosed revenue line is the single biggest re-rating event (TD Cowen's $475 leans on GW capacity &gt;10x by 2031)</li>
+<li><strong>Raise digestion + Berkshire halo</strong> — as the $84.75B supply clears (Buffett $10B anchor at the ~$340 zone), the structural overhang lifts with the compute war chest intact</li>
+<li><strong>AI Overviews at 2B+ MAU monetizing at parity</strong> — every quarter Search grows +19% YoY chips away at the disruption short</li>
+<li><strong>Waymo scaling</strong> — 500K+ rides/week toward ~1M by late 2026 (near-term overhang: a June recall of 3,871 vehicles over a construction-zone software issue); a 2027 carve-out would surface sum-of-parts value</li>
+</ul>
+
+<h2>⚠️ Risks</h2>
+<ul>
+<li><strong>AI talent exodus (new, acute)</strong> — four senior DeepMind researchers to direct rivals in one week (Shazeer→OpenAI; Jumper, Adler, Pritzel→Anthropic), with reporting of six departures in five months. The market read it as a possible frontier-leadership shift (~5–6% June 22 drop); it directly undermines the AI-leadership premium and raises retention-cost pressure as Anthropic/OpenAI dangle pre-IPO equity.</li>
+<li><strong>Antitrust — DOJ search-remedies appeal (policyRisk: moderate)</strong> — Google appealed Judge Mehta's data-sharing order (Jan 16); the DOJ cross-appealed (Feb 3) seeking tougher remedies incl. forced divestitures. DC Circuit oral arguments expected late 2026/early 2027. Separately, the <strong>AdTech case</strong> remedies ruling could force an AdX divestiture. A live, multi-front legal tail.</li>
+<li><strong>Funding-regime / dilution overhang</strong> — ~2% dilution from the June raise plus the concession that AI can't be funded from $174B OCF alone; with 2027 capex set to "significantly increase," the next raise is a question of timing. The hawkish-Fed tape punishes capital-intensive, equity-funded AI most.</li>
+<li><strong>Capex intensity vs collapsing FCF</strong> — $180–190B 2026 guide (rising in 2027) against TTM FCF of $27.9B and a consensus FY26 FCF near $20.5B (down ~72% YoY); the bull case requires cloud-backlog conversion to outrun surging depreciation.</li>
+<li><strong>Macro multiple compression</strong> — at 24.3x forward (vs MSFT 19.6x), GOOG has the most multiple to lose if the Fed's removed-cut / possible-hike path holds; it also has the most gains to give back (+102% off lows).</li>
+<li><strong>Search disruption tail</strong> — not in the numbers yet, but court-ordered index + user-interaction data sharing is a structural gift to rivals over time; and product slips (Gemini 3.5 Pro delay) feed the narrative.</li>
+<li><strong>EPS quality</strong> — Q1 $5.11 included large unrealized investment gains; trailing P/E (27x) slightly understates the core multiple, and headline EPS will be lumpy with mark-to-market swings.</li>
+</ul>
+
+<h2>🎯 Analyst Consensus</h2>
+<div class="kpi-grid">
+    <div class="kpi"><div class="label">Rating</div><div class="value up">Strong Buy</div><div class="sub">Mean 1.43 (n=13, GOOG class)</div></div>
+    <div class="kpi"><div class="label">Avg Price Target</div><div class="value up">$426.62</div><div class="sub up">+21% vs spot</div></div>
+    <div class="kpi"><div class="label">Low PT</div><div class="value">$340.00</div></div>
+    <div class="kpi"><div class="label">High PT</div><div class="value">$475.00</div></div>
+</div>
+<div class="co yw"><strong>⚠️ Staleness caveat:</strong> Targets are still being <em>raised</em> (TD Cowen $475 June 9, Piper $445 June 1) — more credible than the peer group where PTs are getting cut — but the freshest sell-side marks pre-date the June 18–24 talent exodus and the slide to $334. The +21% headline to the $426.62 mean has not yet been re-marked for the talent shock; treat it with some caution until post-July-23 updates land. The low PT ($340) sits right at the June offering zone, framing the Street's downside floor.</div>
+
+<h2 class="pb">💎 Valuation Framework</h2>
+<div class="co bl"><strong>📋 Data &amp; Methodology:</strong> All financial data from Yahoo Finance (yfinance) as of 2026-06-30 (last close $353.33, cross-checked vs regularMarketPrice $353.33 / prevClose $351.28). Forward EPS <strong>$14.55</strong> consensus; trailing P/E <strong>27.0x</strong> on TTM EPS $13.11 (flattered by investment gains — the operating multiple is higher). Historical P/E: 20 quarterly observations over 5 years, outliers (&gt;100x) filtered. Three independent methods triangulate fair value.</div>
+
+<h3>Method 1: P/E Multiple Approach</h3>
+<p style="color:#64748b; margin-bottom:12px">Each scenario applies a different P/E multiple to forward EPS of $14.55.</p>
+<table><thead><tr><th>Scenario</th><th>P/E</th><th>EPS</th><th>Price</th><th>Upside</th><th>Rationale</th></tr></thead>
+<tbody><tr><td>Bear (antitrust + regime de-rate)</td><td>19.0x</td><td>$12.37</td><td>$235.03</td><td class="dn">-33%</td><td>Adverse DC Circuit/AdX divestiture + recession EPS (85% of consensus); 2023-style multiple</td></tr>
+<tr><td>MSFT Parity</td><td>19.6x</td><td>$14.55</td><td>$285.18</td><td class="dn">-19%</td><td>Loses its growth premium to the self-funded peer</td></tr>
+<tr><td>Peer Average</td><td>22.2x</td><td>$14.55</td><td>$323.01</td><td class="dn">-8.6%</td><td>Avg of MSFT 19.6x, META 15.9x, AAPL 31.0x</td></tr>
+<tr><td>5Y-Avg Multiple</td><td>24.4x</td><td>$14.55</td><td>$355.02</td><td class="up">+0.5%</td><td>Reverts to its own filtered 5-year-average multiple</td></tr>
+<tr><td>Trailing-multiple hold</td><td>27.0x</td><td>$14.55</td><td>$392.85</td><td class="up">+11%</td><td>Forward earnings arrive at today's unchanged trailing multiple</td></tr>
+<tr><td>Optimistic (AI-leadership premium + beat)</td><td>30.0x</td><td>$16.73</td><td>$501.90</td><td class="up">+42%</td><td>+15% EPS beat; premium near top of 5Y range on TPU/Gemini leadership</td></tr>
+</tbody></table>
+
+<h3>Method 2: Mean Reversion &amp; Consensus</h3>
+<div class="kpi-grid">
+<div class="kpi"><div class="label">5Y Avg PE × Fwd EPS</div><div class="value up">$355.02</div><div class="sub up">+0.5% vs spot</div></div><div class="kpi"><div class="label">Peer Avg PE × Fwd EPS</div><div class="value dn">$323.01</div><div class="sub dn">-8.6%</div></div><div class="kpi"><div class="label">Analyst Consensus PT</div><div class="value up">$426.62</div><div class="sub up">+21% — pre-dates talent shock</div></div>
+</div>
+<div class="co bl"><strong>📐 Calculation Details:</strong><ul><li>5Y average P/E 24.4x (filtered, range 18x–31x) × forward EPS $14.55 = $355.02</li><li>Mag7 platform-peer average forward P/E 22.2x × $14.55 = $323.01</li><li>Analyst consensus PT $426.62 (range $340–$475, n=13 GOOG-class analysts); freshest marks raised but pre-date the June exodus</li></ul></div>
+
+<h3>Method 3: Discounted Cash Flow (DCF)</h3>
+<p style="color:#64748b; margin-bottom:12px">10-year two-stage FCF model. TTM FCF ($27.9B) is heavily capex-depressed (capex $180–190B guided, rising in 2027; consensus FY26 FCF ~$20.5B); we model revenue growth with the FCF margin ramping linearly from today's ~6.6% of revenue to a normalized terminal margin by year 5. WACC 9.5%, terminal growth 3.0%, ~12.2B shares.</p>
+<table><thead><tr><th>Scenario</th><th>Rev Growth</th><th>Normalized FCF Margin</th><th>WACC</th><th>Terminal Growth</th><th>Intrinsic Value</th><th>Upside</th></tr></thead>
+<tbody><tr><td>Bear (capex structural, search erodes)</td><td>9.0%</td><td>15%</td><td>9.5%</td><td>3.0%</td><td>$123.58</td><td class="dn">-65%</td></tr>
+<tr><td>Base (digestion by 2029, cloud converts)</td><td>17.0%</td><td>22%</td><td>9.5%</td><td>3.0%</td><td>$333.78</td><td class="dn">-5.5%</td></tr>
+<tr><td>Bull (full-stack AI wins, TPU external sales)</td><td>21.0%</td><td>26%</td><td>9.5%</td><td>3.0%</td><td>$533.50</td><td class="up">+51%</td></tr>
+</tbody></table>
+<div class="co yw"><strong>⚖️ Honest read:</strong> Base DCF ($334), 5Y mean reversion ($355), and peer parity ($323) now cluster within ±6% of spot — after the slide to $353, GOOG sits right around fair value on backward-looking methods rather than at the small premium of June 21. The wide bear tail ($124) needs the combo of structural capex + real search erosion + an adverse antitrust outcome; the bull case ($534) needs TPU externalization to become a disclosed revenue line or sustained 60%+ cloud growth — that, plus resolving the talent-retention question, is where the asymmetry lives.</div>
+
+<h3>Price Target Scenarios (12-Month)</h3>
+<div class="sg">
+    <div class="sc bear"><div class="lb">🐻 Bear Case</div><div class="pr dn">$235.03</div><div class="mt">19x × $12.37 EPS (85% of consensus)</div><div class="us dn">-33%</div><div class="ds">DC Circuit revives Chrome divestiture / AdX forced sale; talent drain dents Gemini's frontier position; Fed hikes into slowing ads; 2027 capex forces another raise. Multiple back to pre-Gemini-era 19x.</div></div>
+    <div class="sc base"><div class="lb">📊 Base Case</div><div class="pr up">$378.00</div><div class="mt">26x × $14.55 EPS</div><div class="us up">+7%</div><div class="ds">Raise digests, Cloud holds 55%+ growth, Gemini 3.5 Pro ships and stems the talent narrative, antitrust stays in appeal limbo; a modest AI-leadership premium over the 5Y-average multiple is sustained.</div></div>
+    <div class="sc bull"><div class="lb">🐂 Bull Case</div><div class="pr up">$501.90</div><div class="mt">30x × $16.73 EPS (+15% beat)</div><div class="us up">+42%</div><div class="ds">TPU external sales become a disclosed revenue line, Gemini extends enterprise share, DC Circuit affirms mild remedies, macro fear fades. Re-rate toward AAPL-parity 30x.</div></div>
+</div>
+
+<h2>🎯 Investment Thesis</h2>
+<div class="co gr"><p><strong>GOOG</strong> remains the AI capital cycle's marquee test case: the only company with the full stack (TPU silicon → Gemini models → Cloud distribution → 2B-user Search monetization), the best fundamental momentum in megacap (Cloud +63%, $460B+ backlog, revenue +22%, Gemini 750M MAU), an $84.75B equity war chest anchored by $10B from Berkshire, and — as of June 29 — a seat in the Dow. But the two weeks since the last report have added a genuinely new risk: a <strong>DeepMind talent exodus</strong> (Shazeer→OpenAI; Jumper, Adler, Pritzel→Anthropic — four senior researchers in a week) that markets read as a possible frontier-leadership shift and that drove a ~5–6% June 22 drop and a slide to a $334 low before a bounce to $353. On backward-looking methods (5Y mean $355, base DCF $334, peer parity $323) the stock has round-tripped to roughly fair value, but it still carries the most multiple to lose (24.3x fwd vs MSFT 19.6x) if the hawkish Fed compresses long-duration multiples — and FY26 FCF is set to fall ~72% under the weight of $180–190B capex.</p><p><strong>Verdict: Hold core / add on weakness toward the $334 June low (then $314 / SMA200 and the $340 offering zone) — 12-month base case $378 (+7%), bull $502 (+42%) if TPU externalization, Gemini 3.5 Pro shipping, and 60%+ cloud growth show up, bear $235 (−33%) on an adverse antitrust + capex-without-payoff + talent-drain scenario. Score 66/100 (Neutral): a high-quality compounder now priced roughly at fair value, with balanced 12-month risk/reward. The real asymmetry — and the case for patience — sits in the funding regime, the multi-front antitrust outcomes (search remedies appeal + AdTech/AdX), and the freshly-opened question of whether Google can retain the people who make the $190B buildout pay. That constellation, above all the DOJ search-remedies fight, is the moderate policy risk that defines this name.</strong></p></div>
+
+<div class="co yw"><strong>⚠️ Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from public sources including Yahoo Finance, Seeking Alpha, and X/Twitter. Past performance does not guarantee future results. Always conduct your own due diligence.</div>
+
+<div class="ft"><p>Generated by Stock Valuation Skill · yfinance, Seeking Alpha, X/Twitter, analyst consensus · 2026-06-30</p></div>
+</div>
+</body>
+</html>
